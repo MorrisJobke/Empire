@@ -1,0 +1,9 @@
+# pdflatex
+*.aux
+*.log
+*.out
+*.toc
+
+# generated pdf's
+docs/Pflichtenheft/LaTeX/Pflichtenheft.pdf
+
