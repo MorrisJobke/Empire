@@ -1,0 +1,32 @@
+\documentclass[a4paper, 11pt, ngerman, fleqn]{article}
+\usepackage[ansinew]{inputenc}
+\usepackage{babel}
+\usepackage{ngerman}
+\usepackage{coordsys,logsys,color}
+\usepackage{german,fancyhdr}
+\usepackage{hyperref}
+\usepackage{texdraw}
+\input{txdtools}
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{hyperref}
+\definecolor{darkblue}{rgb}{0,0,.6}
+\hypersetup{pdftex=false, colorlinks=true, breaklinks=true, linkcolor=darkblue, menucolor=darkblue, pagecolor=darkblue, urlcolor=darkblue, citecolor=darkblue}
+
+\pagestyle{fancy}
+
+\input{_Pflichtenheft.tex}
+
+\begin{document}
+  \input{PH00-Titelblatt} \newpage
+  \tableofcontents \newpage
+  \input{PH01-Zielbestimmungen} \newpage
+  \input{PH02-Produkteinsatz} \newpage
+  \input{PH03-Produktuebersicht} \newpage
+  \input{PH04-Produktleistungen} \newpage
+  \input{PH05-Qualitaetsanforderungen} \newpage
+  \input{PH06-Testszenarien} \newpage
+  \input{PH07-Entwicklungsumgebung} \newpage
+  \input{PH08-Ergaenzungen} \newpage
+  \input{PH09-Glossar}
+\end{document}
