@@ -1,0 +1,55 @@
+%!TEX root = Pflichtenheft.tex
+\renewcommand{\familydefault}{cmss}
+
+\definecolor{fgcgray}{rgb}{0.4, 0.4, 0.4}
+\definecolor{bgctitle}{rgb}{0.5, 0.5, 0.5}
+\newcommand{\titlefont}[1]{\textcolor{bgctitle}{\fontfamily{cmss}\fontseries{bx}\fontshape{n}\fontsize{20.48}{0pt} \selectfont #1}}
+
+\addtolength{\oddsidemargin}{-1.0cm}
+\addtolength{\evensidemargin}{-1.0cm}
+\addtolength{\headwidth}{2.0cm}
+\addtolength{\textwidth}{2.0cm}
+
+\setlength{\parindent}{0cm}
+
+\newcommand{\spaceline}[1][8pt]{\vskip #1}
+\newcommand{\comment}[1]{\spaceline[5pt] \textcolor{fgcgray}{\scriptsize #1} \spaceline[15pt]}
+\newcommand{\attrname}[1]{\textcolor{fgcgray}{\scriptsize #1}}
+
+
+\makeatletter
+
+\newcommand*{\project}[1]{\gdef\@project{#1}}
+\newcommand*{\tutor}[1]{\gdef\@tutor{#1}}
+
+\def\@maketitle{
+	\begin{titlepage}
+	\begin{center}
+	\includegraphics[width=0.5\textwidth]{TUC-Logo.jpg}\\
+	Praktikum Softwareentwurf Wintersemester 2011/12\\
+	\vspace{12em}
+	\Large{Pflichtenheft} \\
+	\vspace{1em}
+	\Huge{\textbf{\@project}}
+	\end{center}
+	\vspace{20em}
+	\begin{tabular}[t]{rl}
+		\attrname{Autoren:} & \@author \\
+		\attrname{Betreuer:} & \@tutor \\
+		\attrname{letzte Änderung:} & \@date
+	\end{tabular}
+
+	\end{titlepage}
+}
+
+\setcounter{secnumdepth}{4}
+\setcounter{tocdepth}{4}
+
+\makeatother
+
+\everytexdraw{
+	\drawdim cm \linewd 0.01
+	\arrowheadtype t:T
+	\arrowheadsize l:0.2 w:0.2
+	\setgray 0.5
+}

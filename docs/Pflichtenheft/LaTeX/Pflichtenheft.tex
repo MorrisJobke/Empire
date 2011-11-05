@@ -6,6 +6,9 @@
 \usepackage{german,fancyhdr}
 \usepackage{hyperref}
 \usepackage{texdraw}
+
+\usepackage{graphicx}
+
 \input{txdtools}
 
 \NeedsTeXFormat{LaTeX2e}
@@ -16,18 +19,19 @@
 \pagestyle{fancy}
 
 \input{_Pflichtenheft.tex}
+%\input{Header}
 
 \begin{document}
-  \input{PH00-Titelblatt} \newpage
-  \tableofcontents \newpage
-  \input{PH01-Zielbestimmungen} \newpage
-  \input{PH02-Produkteinsatz} \newpage
-  \input{PH03-Produktuebersicht} \newpage
-  \input{PH04-Produktleistungen} \newpage
-  \input{PH05-Benutzeroberflaeche} \newpage
-  \input{PH06-Qualitaetsanforderungen} \newpage
-  \input{PH07-Testszenarien} \newpage
-  \input{PH08-Entwicklungsumgebung} \newpage
-%  \input{PH09-Ergaenzungen} \newpage
-  \input{PH10-Glossar}
+	\input{PH00-Titelblatt} \newpage
+	\tableofcontents \newpage
+	\input{PH01-Zielbestimmungen} \newpage
+	\input{PH02-Produkteinsatz} \newpage
+	\input{PH03-Produktuebersicht} \newpage
+	\input{PH04-Produktleistungen} \newpage
+	\input{PH05-Benutzeroberflaeche} \newpage
+	\input{PH06-Qualitaetsanforderungen} \newpage
+	\input{PH07-Testszenarien} \newpage
+	\input{PH08-Entwicklungsumgebung} \newpage
+%   \input{PH09-Ergaenzungen} \newpage
+	\input{PH10-Glossar}
 \end{document}
