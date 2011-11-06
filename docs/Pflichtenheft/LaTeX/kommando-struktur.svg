@@ -191,7 +191,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -358,9 +358,9 @@
          id="tspan4086">erstellt werden. Attribute können expliziet angegeben</tspan><tspan
          sodipodi:role="line"
          x="509"
-         y="-147.51785"
+         y="-147.51787"
          style="font-size:21.73809433px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Sans;-inkscape-font-specification:Sans"
-         id="tspan4088">werden oder mit hilfe eines Assistenten erfragt werden.</tspan></text>
+         id="tspan4088">werden oder mit Hilfe eines Assistenten erfragt werden.</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:31.61904716px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Inconsolata;-inkscape-font-specification:Inconsolata"
