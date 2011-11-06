@@ -5,7 +5,8 @@
 *.toc
 *.fdb_latexmk
 *.synctex.gz
+*.tex~
 
 # generated pdf's
-docs/Pflichtenheft/LaTeX/Pflichtenheft.pdf
+docs/Pflichtenheft/Pflichtenheft.pdf
 
