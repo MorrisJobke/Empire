@@ -11,7 +11,7 @@
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    width="1100"
-   height="500"
+   height="700"
    id="svg2"
    version="1.1"
    inkscape:version="0.48.2 r9819"
@@ -38,7 +38,7 @@
        x2="155"
        y2="57.362183"
        gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(1.9761905,0,0,1.9761905,-44.333333,-305.34074)" />
+       gradientTransform="matrix(1.9761905,0,0,1.9761905,-44.333333,-487.34074)" />
     <linearGradient
        inkscape:collect="always"
        xlink:href="#linearGradient3935-9"
@@ -60,7 +60,7 @@
          style="stop-color:#000000;stop-opacity:0;" />
     </linearGradient>
     <linearGradient
-       gradientTransform="matrix(1.9761905,0,0,1.9761905,-44.333333,-206.53121)"
+       gradientTransform="matrix(1.9761905,0,0,1.9761905,-44.333333,-388.53121)"
        y2="57.362183"
        x2="155"
        y1="57.362183"
@@ -95,7 +95,7 @@
        x2="155"
        y1="57.362183"
        x1="125"
-       gradientTransform="matrix(1.9761905,0,0,1.9761905,-44.333333,-107.72169)"
+       gradientTransform="matrix(1.9761905,0,0,1.9761905,-44.333333,-289.72169)"
        gradientUnits="userSpaceOnUse"
        id="linearGradient3990"
        xlink:href="#linearGradient3935-9-0"
@@ -126,7 +126,7 @@
        x2="155"
        y1="57.362183"
        x1="125"
-       gradientTransform="matrix(1.9761905,0,0,1.9761905,-44.333333,-8.9121652)"
+       gradientTransform="matrix(1.9761905,0,0,1.9761905,-44.333333,-190.91217)"
        gradientUnits="userSpaceOnUse"
        id="linearGradient4024"
        xlink:href="#linearGradient3935-9-0-6"
@@ -136,7 +136,7 @@
        x2="155"
        y1="57.362183"
        x1="125"
-       gradientTransform="matrix(1.9761905,0,0,1.9761905,-44.333333,89.897353)"
+       gradientTransform="matrix(1.9761905,0,0,1.9761905,-44.333333,-92.10265)"
        gradientUnits="userSpaceOnUse"
        id="linearGradient4024-9"
        xlink:href="#linearGradient3935-9-0-6-5"
@@ -152,6 +152,48 @@
          offset="1"
          style="stop-color:#000000;stop-opacity:0;" />
     </linearGradient>
+    <linearGradient
+       gradientTransform="matrix(1.9761905,0,0,1.9761905,-44.33334,7.89738)"
+       y2="57.362183"
+       x2="155"
+       y1="57.362183"
+       x1="125"
+       gradientUnits="userSpaceOnUse"
+       id="linearGradient3956-7"
+       xlink:href="#linearGradient3935-9-8"
+       inkscape:collect="always" />
+    <linearGradient
+       id="linearGradient3935-9-8">
+      <stop
+         id="stop3937-6-4"
+         offset="0"
+         style="stop-color:#05003e;stop-opacity:1;" />
+      <stop
+         id="stop3939-0-5"
+         offset="1"
+         style="stop-color:#000000;stop-opacity:0;" />
+    </linearGradient>
+    <linearGradient
+       gradientTransform="matrix(1.9761905,0,0,1.9761905,-44.333336,107.89738)"
+       y2="57.362183"
+       x2="155"
+       y1="57.362183"
+       x1="125"
+       gradientUnits="userSpaceOnUse"
+       id="linearGradient3956-8"
+       xlink:href="#linearGradient3935-9-3"
+       inkscape:collect="always" />
+    <linearGradient
+       id="linearGradient3935-9-3">
+      <stop
+         id="stop3937-6-0"
+         offset="0"
+         style="stop-color:#05003e;stop-opacity:1;" />
+      <stop
+         id="stop3939-0-1"
+         offset="1"
+         style="stop-color:#000000;stop-opacity:0;" />
+    </linearGradient>
   </defs>
   <sodipodi:namedview
      id="base"
@@ -161,15 +203,15 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.7"
-     inkscape:cx="693.85714"
-     inkscape:cy="401.7271"
+     inkscape:cx="569.96104"
+     inkscape:cy="523.04762"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
-     inkscape:window-width="1278"
-     inkscape:window-height="972"
+     inkscape:window-width="1022"
+     inkscape:window-height="708"
      inkscape:window-x="0"
-     inkscape:window-y="18"
+     inkscape:window-y="26"
      inkscape:window-maximized="0"
      fit-margin-top="0"
      fit-margin-left="0"
@@ -191,7 +233,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -199,25 +241,25 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(-89,226.625)">
+     transform="translate(-89,426.625)">
     <rect
        style="fill:none;stroke:#000000;stroke-width:2.00000024;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
        id="rect2989"
        width="98.809532"
        height="57.849098"
        x="94"
-       y="-220.1884" />
+       y="-402.18842" />
     <text
        xml:space="preserve"
        style="font-size:31.61904716px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Inconsolata;-inkscape-font-specification:Inconsolata"
        x="112.83314"
-       y="-179.8344"
+       y="-361.83441"
        id="text3799"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan3801"
          x="112.83314"
-         y="-179.8344"
+         y="-361.83441"
          style="font-size:39.52381134px">inv</tspan></text>
     <rect
        style="fill:none;stroke:#000000;stroke-width:2.00000024;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
@@ -225,18 +267,18 @@
        width="217.38095"
        height="59.285721"
        x="271.85715"
-       y="-122.81548" />
+       y="-304.81549" />
     <text
        xml:space="preserve"
        style="font-size:31.61904716px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Inconsolata;-inkscape-font-specification:Inconsolata"
        x="323.19412"
-       y="-80.992401"
+       y="-262.9924"
        id="text3799-9-2"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan3801-2-3"
          x="323.19412"
-         y="-80.992401"
+         y="-262.9924"
          style="font-size:39.52381134px">show</tspan></text>
     <rect
        style="fill:none;stroke:#000000;stroke-width:2.00000024;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
@@ -244,18 +286,18 @@
        width="217.38095"
        height="59.285721"
        x="271.85715"
-       y="-221.62502" />
+       y="-403.625" />
     <text
        xml:space="preserve"
        style="font-size:31.61904716px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Inconsolata;-inkscape-font-specification:Inconsolata"
        x="323.19412"
-       y="-179.80193"
+       y="-361.80194"
        id="text3799-9-2-5"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan3801-2-3-9"
          x="323.19412"
-         y="-179.80193"
+         y="-361.80194"
          style="font-size:39.52381134px">create</tspan></text>
     <rect
        style="fill:none;stroke:#000000;stroke-width:2.00000024;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
@@ -263,18 +305,18 @@
        width="217.38095"
        height="59.285721"
        x="271.85715"
-       y="74.803566" />
+       y="-107.19643" />
     <text
        xml:space="preserve"
        style="font-size:31.61904716px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Inconsolata;-inkscape-font-specification:Inconsolata"
        x="323.19412"
-       y="116.62665"
+       y="-65.373352"
        id="text3799-9-2-2"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan3801-2-3-8"
          x="323.19412"
-         y="116.62665"
+         y="-65.373352"
          style="font-size:39.52381134px">render</tspan></text>
     <rect
        style="fill:none;stroke:#000000;stroke-width:2.00000024;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
@@ -282,37 +324,37 @@
        width="217.38095"
        height="59.285721"
        x="271.85715"
-       y="-24.00596" />
+       y="-206.00595" />
     <text
        xml:space="preserve"
        style="font-size:31.61904716px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Inconsolata;-inkscape-font-specification:Inconsolata"
        x="323.19412"
-       y="17.81712"
+       y="-164.18286"
        id="text3799-9-2-5-7"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan3801-2-3-9-3"
          x="323.19412"
-         y="17.81712"
+         y="-164.18286"
          style="font-size:39.52381134px">modify</tspan></text>
     <path
        style="fill:url(#linearGradient3933);fill-opacity:1;stroke:none"
-       d="m 202.69048,-201.8631 0,19.76191 39.52381,0 19.7619,-9.88095 -19.7619,-9.88096 z"
+       d="m 202.69048,-383.8631 0,19.76191 39.52381,0 19.7619,-9.88095 -19.7619,-9.88096 z"
        id="path3925"
        inkscape:connector-curvature="0" />
     <path
        style="fill:url(#linearGradient3956);fill-opacity:1;stroke:none"
-       d="m 202.69048,-103.05357 0,19.761903 39.52381,0 19.7619,-9.880952 -19.7619,-9.880951 z"
+       d="m 202.69048,-285.05357 0,19.7619 39.52381,0 19.7619,-9.88095 -19.7619,-9.88095 z"
        id="path3925-6"
        inkscape:connector-curvature="0" />
     <path
        style="fill:url(#linearGradient3990);fill-opacity:1;stroke:none"
-       d="m 202.69048,-4.2440476 0,19.7619046 39.52381,0 19.7619,-9.8809522 -19.7619,-9.8809524 z"
+       d="m 202.69048,-186.24405 0,19.76191 39.52381,0 19.7619,-9.88096 -19.7619,-9.88095 z"
        id="path3925-6-5"
        inkscape:connector-curvature="0" />
     <path
        style="fill:url(#linearGradient4024);fill-opacity:1;stroke:none"
-       d="m 202.69048,94.56547 0,19.76191 39.52381,0 19.7619,-9.88096 -19.7619,-9.88095 z"
+       d="m 202.69048,-87.43453 0,19.76191 39.52381,0 19.7619,-9.88096 -19.7619,-9.88095 z"
        id="path3925-6-5-9"
        inkscape:connector-curvature="0" />
     <rect
@@ -321,78 +363,78 @@
        width="217.38095"
        height="59.285721"
        x="271.85715"
-       y="173.61308" />
+       y="-8.3869171" />
     <text
        xml:space="preserve"
        style="font-size:31.61904716px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Inconsolata;-inkscape-font-specification:Inconsolata"
        x="323.19412"
-       y="215.43617"
+       y="33.436172"
        id="text3799-9-2-2-0"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan3801-2-3-8-9"
          x="323.19412"
-         y="215.43617"
+         y="33.436172"
          style="font-size:39.52381134px">log</tspan></text>
     <path
        style="fill:url(#linearGradient4024-9);fill-opacity:1;stroke:none"
-       d="m 202.69048,193.37499 0,19.76191 39.52381,0 19.7619,-9.88095 -19.7619,-9.88096 z"
+       d="m 202.69048,11.37499 0,19.76191 39.52381,0 19.7619,-9.88095 -19.7619,-9.88096 z"
        id="path3925-6-5-9-9"
        inkscape:connector-curvature="0" />
     <text
        xml:space="preserve"
        style="font-size:31.61904716px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Inconsolata;-inkscape-font-specification:Inconsolata"
        x="509"
-       y="-201.8631"
+       y="-383.8631"
        id="text4082"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan4084"
          x="509"
-         y="-201.8631"
+         y="-383.8631"
          style="font-size:21.73809433px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Sans;-inkscape-font-specification:Sans">Mit diesem Kommando können Rechnungseinträge </tspan><tspan
          sodipodi:role="line"
          x="509"
-         y="-174.69048"
+         y="-356.69049"
          style="font-size:21.73809433px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Sans;-inkscape-font-specification:Sans"
          id="tspan4086">erstellt werden. Attribute können explizit angegeben</tspan><tspan
          sodipodi:role="line"
          x="509"
-         y="-147.51787"
+         y="-329.51785"
          style="font-size:21.73809433px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Sans;-inkscape-font-specification:Sans"
          id="tspan4088">werden oder mit Hilfe eines Assistenten erfragt werden.</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:31.61904716px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Inconsolata;-inkscape-font-specification:Inconsolata"
        x="509"
-       y="-103.05357"
+       y="-285.05359"
        id="text4082-2"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          x="509"
-         y="-103.05357"
+         y="-285.05359"
          style="font-size:21.73809433px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Sans;-inkscape-font-specification:Sans"
          id="tspan4088-3">Dieses Kommando zeigt Rechnungen zu vorgegebenen</tspan><tspan
          sodipodi:role="line"
          x="509"
-         y="-75.880951"
+         y="-257.88098"
          style="font-size:21.73809433px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Sans;-inkscape-font-specification:Sans"
          id="tspan4122">Attributen oder Attribute zu vorgegebenen Rechnungen</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:31.61904716px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Inconsolata;-inkscape-font-specification:Inconsolata"
        x="509"
-       y="-4.2440476"
+       y="-186.24405"
        id="text4082-2-9"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          x="509"
-         y="-4.2440476"
+         y="-186.24405"
          style="font-size:21.73809433px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Sans;-inkscape-font-specification:Sans"
          id="tspan4122-4">Hier ist die nachträgliche Änderung von Rechnungsattributen</tspan><tspan
          sodipodi:role="line"
          x="509"
-         y="22.928572"
+         y="-159.07143"
          style="font-size:21.73809433px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Sans;-inkscape-font-specification:Sans"
          id="tspan4162">möglich.</tspan></text>
     <flowRoot
@@ -409,58 +451,149 @@
        xml:space="preserve"
        style="font-size:31.61904716px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Inconsolata;-inkscape-font-specification:Inconsolata"
        x="509"
-       y="94.565475"
+       y="-87.434509"
        id="text4082-2-9-7"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          x="509"
-         y="94.565475"
+         y="-87.434509"
          style="font-size:21.73809433px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Sans;-inkscape-font-specification:Sans"
          id="tspan4162-2">Um eine erstellte Rechnung in HTML oder PDF zu rendern</tspan><tspan
          sodipodi:role="line"
          x="509"
-         y="121.7381"
+         y="-60.26189"
          style="font-size:21.73809433px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Sans;-inkscape-font-specification:Sans"
          id="tspan3289">wird dieses Kommando benutzt.</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:31.61904716px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Inconsolata;-inkscape-font-specification:Inconsolata"
        x="509"
-       y="193.375"
+       y="11.375"
        id="text4082-2-9-7-0"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          x="509"
-         y="193.375"
+         y="11.375"
          style="font-size:21.73809433px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Sans;-inkscape-font-specification:Sans"
-         id="tspan3289-3">Dieser Befehl zeigt den Änderungs- und Erstellungsverlauf..</tspan></text>
+         id="tspan3289-3">Dieser Befehl zeigt den Änderungs- und Erstellungsverlauf.</tspan></text>
     <rect
        style="fill:#000000;fill-opacity:1;stroke:none"
        id="rect3317"
        width="19.761906"
        height="19.761906"
        x="133.5238"
-       y="-103.05357" />
+       y="-285.05359" />
     <rect
        style="fill:#000000;fill-opacity:1;stroke:none"
        id="rect3317-7"
        width="19.761906"
        height="19.761906"
        x="133.5238"
-       y="-4.2440476" />
+       y="-186.24405" />
     <rect
        style="fill:#000000;fill-opacity:1;stroke:none"
        id="rect3317-5"
        width="19.761906"
        height="19.761906"
        x="133.5238"
-       y="94.565475" />
+       y="-87.434509" />
     <rect
        style="fill:#000000;fill-opacity:1;stroke:none"
        id="rect3317-9"
        width="19.761906"
        height="19.761906"
        x="133.5238"
-       y="193.375" />
+       y="11.375" />
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:2.00000024;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="rect2989-7-0-0"
+       width="217.38095"
+       height="59.285721"
+       x="271.85715"
+       y="91.613098" />
+    <text
+       xml:space="preserve"
+       style="font-size:31.61904716px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Inconsolata;-inkscape-font-specification:Inconsolata"
+       x="323.19412"
+       y="133.43619"
+       id="text3799-9-2-3"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3801-2-3-6"
+         x="323.19412"
+         y="133.43619"
+         style="font-size:39.52381134px">delete</tspan></text>
+    <path
+       style="fill:url(#linearGradient3956-7);fill-opacity:1;stroke:none"
+       d="m 202.69048,111.37502 0,19.76191 39.52381,0 19.7619,-9.88096 -19.7619,-9.88095 z"
+       id="path3925-6-1"
+       inkscape:connector-curvature="0" />
+    <text
+       xml:space="preserve"
+       style="font-size:31.61904716px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Inconsolata;-inkscape-font-specification:Inconsolata"
+       x="509"
+       y="111.375"
+       id="text4082-2-0"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         x="509"
+         y="111.375"
+         style="font-size:21.73809433px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Sans;-inkscape-font-specification:Sans"
+         id="tspan4122-3">Dieses Kommando entfernt eine Rechnung aus dem</tspan><tspan
+         sodipodi:role="line"
+         x="509"
+         y="138.54762"
+         style="font-size:21.73809433px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Sans;-inkscape-font-specification:Sans"
+         id="tspan3134">Repository.</tspan></text>
+    <rect
+       style="fill:#000000;fill-opacity:1;stroke:none"
+       id="rect3317-2"
+       width="19.761906"
+       height="19.761906"
+       x="133.5238"
+       y="111.375" />
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:2.00000024;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="rect2989-7-0-78"
+       width="217.38095"
+       height="59.285721"
+       x="271.85715"
+       y="191.6131" />
+    <text
+       xml:space="preserve"
+       style="font-size:31.61904716px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Inconsolata;-inkscape-font-specification:Inconsolata"
+       x="323.19412"
+       y="233.43619"
+       id="text3799-9-2-9"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3801-2-3-1"
+         x="323.19412"
+         y="233.43619"
+         style="font-size:39.52381134px">init</tspan></text>
+    <path
+       style="fill:url(#linearGradient3956-8);fill-opacity:1;stroke:none"
+       d="m 202.69048,211.37502 0,19.76191 39.52381,0 19.7619,-9.88096 -19.7619,-9.88095 z"
+       id="path3925-6-54"
+       inkscape:connector-curvature="0" />
+    <text
+       xml:space="preserve"
+       style="font-size:31.61904716px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Inconsolata;-inkscape-font-specification:Inconsolata"
+       x="509"
+       y="211.375"
+       id="text4082-2-92"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         x="509"
+         y="211.375"
+         style="font-size:21.73809433px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Sans;-inkscape-font-specification:Sans"
+         id="tspan4122-7">Mit diesem Befehl wird ein neues Repository erzeugt.</tspan></text>
+    <rect
+       style="fill:#000000;fill-opacity:1;stroke:none"
+       id="rect3317-4"
+       width="19.761906"
+       height="19.761906"
+       x="133.5238"
+       y="211.375" />
   </g>
 </svg>
