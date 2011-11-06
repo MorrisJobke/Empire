@@ -21,6 +21,7 @@
 
 \newcommand*{\project}[1]{\gdef\@project{#1}}
 \newcommand*{\tutor}[1]{\gdef\@tutor{#1}}
+\newcommand*{\groupnumber}[1]{\gdef\@groupnumber{#1}}
 
 \def\@maketitle{
 	\begin{titlepage}
@@ -34,6 +35,7 @@
 	\end{center}
 	\vspace{20em}
 	\begin{tabular}[t]{rl}
+		\attrname{Gruppe:} & \@groupnumber \\
 		\attrname{Autoren:} & \@author \\
 		\attrname{Betreuer:} & \@tutor \\
 		\attrname{letzte Änderung:} & \@date
