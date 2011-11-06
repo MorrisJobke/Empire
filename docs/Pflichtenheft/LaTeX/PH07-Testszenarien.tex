@@ -11,7 +11,7 @@
 		\item[Ausgangszustand]
 		Verzeichnis außerhalb eines bestehenden Repositories.
 		\item[Aktion]
-		Anlegen eines neuen Rechnungs-Repositorys.
+		Anlegen eines neuen Rechnungs-Repositorys mit \textit{inv init}.
 		\item[Erwarteter Zielzustand]
 		Valides Rechnungs Repository im Zielverzeichnis.
 	\end{description}
@@ -22,7 +22,7 @@
 		\item[Ausgangszustand]
 		Vorhandenes Rechnungs-Repository.
 		\item[Aktion]
-		Erstellen einer neuen Rechnung.
+		Erstellen einer neuen Rechnung mit \textit{inv create}.
 		\item[Erwarteter Zielzustand]
 		Erstellte Rechnung im Rechnungs-Repository.
 	\end{description}
@@ -33,7 +33,7 @@
 		\item[Ausgangszustand]
 		Vorhandenes Rechnungs-Repository mit vorhandener Rechnung.
 		\item[Aktion]
-		Auslesen einer Rechnung.
+		Auslesen einer Rechnung mit \textit{inv show}.
 		\item[Erwarteter Zielzustand]
 		Ausgabe der auszulesenden Rechnung.
 	\end{description}
@@ -44,7 +44,7 @@
 		\item[Ausgangszustand]
 		Vorhandenes Rechnungs-Repository mit vorhandener Rechnung.
 		\item[Aktion]
-		Verändern der Daten der Rechnung.
+		Verändern der Daten der Rechnung \textit{inv modify}.
 		\item[Erwarteter Zielzustand]
 		Aktualisierung der Daten im Repository.
 	\end{description}
@@ -55,7 +55,7 @@
 		\item[Ausgangszustand]
 		Vorhandenes Rechnungs-Repository mit vorhandener Rechnung.
 		\item[Aktion]
-		Löschen der Rechnung im Repository.
+		Löschen der Rechnung im Repository \textit{inv remove}.
 		\item[Erwarteter Zielzustand]
 		Rechnung nicht mehr im Repository vorhanden.
 	\end{description}
@@ -77,7 +77,7 @@
 		\item[Ausgangszustand]
 		Vorhandenes Repostory mit Beispielrechnung und vorhandenes Latex-Template.
 		\item[Aktion]
-		Rechnung auf Basis des Latex-Templates generieren.
+		Rechnung auf Basis des Latex-Templates generieren (mit \textit{inv render}).
 		\item[Erwarteter Zielzustand]
 		Latex Datei in der die Platzhalter durch die Parameter der Rechnung ersetzt oder bei nicht vorhanden Werten entfernt wurden.
 	\end{description}
@@ -88,7 +88,7 @@
 		\item[Ausgangszustand]
 		Vorhandenes Repostory mit Beispielrechnung und vorhandenes HTML-Template.
 		\item[Aktion]
-		Rechnung auf Basis des HTML-Templates generieren.
+		Rechnung auf Basis des HTML-Templates generieren (mit \textit{inv render}).
 		\item[Erwarteter Zielzustand]
 		HTML Datei in der die Platzhalter durch die Parameter der Rechnung ersetzt oder bei nicht vorhanden Werten entfernt wurden.
 	\end{description}
