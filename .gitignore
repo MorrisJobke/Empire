@@ -9,4 +9,5 @@
 
 # generated pdf's
 docs/Pflichtenheft/Pflichtenheft.pdf
-
+# matriculation numbers
+docs/Pflichtenheft/LaTeX/Matrikelnummern.tex
