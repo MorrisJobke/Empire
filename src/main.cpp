@@ -15,9 +15,10 @@ int main()
     inv.Print();
 
     Contact c("Hans Peter", "Prollweg", 13, "09666", "Wusterhausen");
-    c.Print();
 
     string const& name = c.GetName();
+
+    cout << c;
     
 
 }

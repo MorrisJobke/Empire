@@ -70,19 +70,37 @@ Contact::~Contact()
 
 /*============================= OPERATORS ==================================*/
 
+/** Define the << operator
+ *
+ * @relates Contact
+ * @param rOut reference to the output stream
+ * @param rRule reference to a rule */
+ostream& operator<<(ostream& rOut, const Contact& rContact)
+{
+    rContact.Print(rOut);
+    return rOut;
+}
+
+
 /*============================= OPERATIONS =================================*/
+
 void Invoice::Print()
 {
     cout << mName << endl;
 }
     
 
-void Contact::Print()
+/** Move The Rule data to given stream.
+ *
+ * functon for use in the operator <<
+ * @param rOut reference to the output stream */
+void Contact::Print(ostream& rOut) const
 {
-    cout << mName << endl;
-    cout << mStreet << " " << mStreetNr << endl;
-    cout << mZipCode << " " << mCity << endl;
+    rOut << mName << endl;
+    rOut << mStreet << " " << mStreetNr << endl;
+    rOut << mZipCode << " " << mCity << endl;
 }
+
 /*============================= ACESS      =================================*/
 /*============================= INQUIRY    =================================*/
 /////////////////////////////// PROTECTED  ///////////////////////////////////

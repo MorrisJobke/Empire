@@ -36,7 +36,7 @@ public:
             string zipCode,
             string city);
 
-    void Print();
+    void    Print(ostream& rOut) const;
 
     /* getter */
     string  const& GetName()        {return mName;};
@@ -46,6 +46,9 @@ public:
     string  const& GetCity()        {return mCity;};
 
 };
+
+ostream&    operator<<(ostream& rOut, const Contact& rContact);
+
 
 
 /** This class represents the main data type for an invoice
