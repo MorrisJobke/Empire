@@ -43,6 +43,23 @@ Contact::Contact()
 }
 
 
+/** Constructor
+ *
+ */
+Contact::Contact(string name,
+        string street,
+        int    streetNr,
+        string zipCode,
+        string city)
+:   mName(name),
+    mStreet(street),
+    mStreetNr(streetNr),
+    mZipCode(zipCode),
+    mCity(city)
+{
+}
+
+
 /** Destructor
  *
  */

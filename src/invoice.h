@@ -30,6 +30,12 @@ public:
     Contact();
     ~Contact(); 
 
+    Contact(string name,
+            string street,
+            int    streetNr,
+            string zipCode,
+            string city);
+
     void Print();
 
     /* getter */

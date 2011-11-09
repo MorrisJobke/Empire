@@ -14,13 +14,11 @@ int main()
     Invoice inv;
     inv.Print();
 
-    Contact c;
+    Contact c("Hans Peter", "Prollweg", 13, "09666", "Wusterhausen");
     c.Print();
 
     string const& name = c.GetName();
     
-    cout << name << endl;
 
-    c.Print();
 }
 
