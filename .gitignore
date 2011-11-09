@@ -11,3 +11,7 @@
 docs/Pflichtenheft/Pflichtenheft.pdf
 # matriculation numbers
 docs/Pflichtenheft/LaTeX/Matrikelnummern.tex
+
+*.swp
+*.o
+src/main

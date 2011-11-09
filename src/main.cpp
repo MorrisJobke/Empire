@@ -13,5 +13,14 @@ int main()
 
     Invoice inv;
     inv.Print();
+
+    Contact c;
+    c.Print();
+
+    string const& name = c.GetName();
+    
+    cout << name << endl;
+
+    c.Print();
 }
 

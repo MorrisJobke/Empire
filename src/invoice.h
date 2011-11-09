@@ -14,21 +14,6 @@
 using namespace std;
 
 
-/** This class represents the main data type for an invoice
- *
- */ 
-class Invoice
-{
-private:
-    string mName;
-    
-public:
-    Invoice();
-    ~Invoice();
-
-    void Print();
-};
-
 /** class to describe a contact
  *
  */
@@ -48,8 +33,31 @@ public:
     void Print();
 
     /* getter */
-    string const& GetName() {return mName;};
+    string  const& GetName()        {return mName;};
+    string  const& GetStreet()      {return mStreet;};
+    int     const& GetStreetNr()    {return mStreetNr;};
+    string  const& GetZipCode()     {return mZipCode;};
+    string  const& GetCity()        {return mCity;};
 
 };
+
+
+/** This class represents the main data type for an invoice
+ *
+ */ 
+class Invoice
+{
+private:
+    string mName;
+    Contact mRecipient;
+    Contact mSender;
+    
+public:
+    Invoice();
+    ~Invoice();
+
+    void Print();
+};
+
 
 #endif

@@ -59,6 +59,13 @@ void Invoice::Print()
     cout << mName << endl;
 }
     
+
+void Contact::Print()
+{
+    cout << mName << endl;
+    cout << mStreet << " " << mStreetNr << endl;
+    cout << mZipCode << " " << mCity << endl;
+}
 /*============================= ACESS      =================================*/
 /*============================= INQUIRY    =================================*/
 /////////////////////////////// PROTECTED  ///////////////////////////////////
