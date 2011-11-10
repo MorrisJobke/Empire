@@ -15,3 +15,5 @@ docs/Pflichtenheft/LaTeX/Matrikelnummern.tex
 *.swp
 *.o
 src/main
+
+node_modules/

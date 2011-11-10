@@ -1,0 +1,3 @@
+#! /bin/bash
+
+coffee inv.coffee modules $*
