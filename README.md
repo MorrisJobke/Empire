@@ -11,21 +11,29 @@ Erstellen:
 ## Prototyp
 ### Usage
 
-invadmin property add *name* *label* *[type]*
-invadmin property remove *name*
-invadmin property list
+	invadmin property add NAME LABEL [TYPE]
 
-invadmin collection add *name* *property* *...*
-invadmin collection remove *name*
-invadmin list
+	invadmin property remove NAME
 
-inv property add *name* *value*
-inv property remove *name*
-inv property list
+	invadmin property list
 
-inv add *collection* *value* *...*
-inv list *collection*
-inv remove *collection* *index*
-inv render *template*
+	invadmin collection add NAME PROPERTY ...
 
+	invadmin collection remove NAME
+
+	invadmin list
+
+	inv property add NAME VALUE
+
+	inv property remove NAME
+
+	inv property list
+
+	inv add COLLECTION VALUE ...
+
+	inv list COLLECTION
+
+	inv remove COLLECTION INDEX
+
+	inv render TEMPLATE
 
