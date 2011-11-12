@@ -1,3 +1,4 @@
+package dataTypes;
 import java.util.Vector;
 
 
@@ -9,5 +10,9 @@ public class Collection {
 	/**
 	 * @uml.property  name="key"
 	 */
-	private String Key;	
+	private String Key;
+	/**
+	 * @uml.property  name="property"
+	 */
+
 }

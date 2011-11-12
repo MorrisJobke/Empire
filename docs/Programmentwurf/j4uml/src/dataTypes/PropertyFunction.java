@@ -1,3 +1,4 @@
+package dataTypes;
 
 public class PropertyFunction extends Property{
 
@@ -24,5 +25,10 @@ public class PropertyFunction extends Property{
 
 	public void RegisterReduceFunction(FunctionPointer pFunc){
 		
+	}
+
+	boolean create(String id) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

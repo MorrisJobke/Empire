@@ -1,3 +1,4 @@
+package dataTypes;
 
 public class PropertyInteger extends Property{
 	/**
@@ -9,6 +10,11 @@ public class PropertyInteger extends Property{
 	Property find() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	boolean create(String id, int Value) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 	
 }

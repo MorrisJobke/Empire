@@ -1,10 +1,11 @@
+package dataTypes;
 
-public class PropertyFloat extends Property{
+public class PropertyString extends Property {
 
 	/**
 	 * @uml.property  name="value"
 	 */
-	private Float Value;
+	private String Value;
 	
 	@Override
 	Property find() {

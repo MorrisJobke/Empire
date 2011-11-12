@@ -1,10 +1,13 @@
+package dataTypes;
 
-abstract public class Property {
+abstract public class Property<Type> {
 
 	/**
 	 * @uml.property  name="key"
 	 */
 	protected String Key;
+	
+	protected Type Value;
 	/**
 	 * @uml.property  name="description"
 	 */
@@ -15,5 +18,4 @@ abstract public class Property {
 	}
 	
 	abstract Property find();
-	
 }
