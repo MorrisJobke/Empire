@@ -11,7 +11,7 @@ public class CommandCollection {
 		commands.add(command);
 	}
 	
-	public void callCommand(String syntax, Vector<String> args)
+	public void callCommand(Vector<String> args)
 	{
 		
 	}
