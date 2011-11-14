@@ -2,9 +2,9 @@ package alt_commands;
 
 import java.util.Vector;
 
-public class RemoveCommand extends BasicCommand{
-
-	protected RemoveCommand(Vector<String> args) {
+public class ShowCommand extends BasicCommand {
+	
+	protected ShowCommand(Vector<String> args) {
 		super(args);
 		// TODO Auto-generated constructor stub
 	}
@@ -14,5 +14,5 @@ public class RemoveCommand extends BasicCommand{
 		// TODO Auto-generated method stub
 		
 	}
-	
+
 }

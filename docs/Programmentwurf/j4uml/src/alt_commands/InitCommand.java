@@ -4,8 +4,9 @@ import java.util.Vector;
 
 public class InitCommand extends BasicCommand{
 
-	public InitCommand(Vector<String> args) {
-		this.args = args;
+	protected InitCommand(Vector<String> args) {
+		super(args);
+		// TODO Auto-generated constructor stub
 	}
 
 	@Override

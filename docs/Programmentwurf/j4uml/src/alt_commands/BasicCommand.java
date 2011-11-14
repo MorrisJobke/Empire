@@ -8,6 +8,12 @@ public abstract class BasicCommand {
 	protected int argCount;
 	protected Vector<String> args;
 	
+	protected BasicCommand(Vector<String> args)
+	{
+		this.args = args;
+		exec();
+	}
+	
 	abstract void exec();
 	
 }

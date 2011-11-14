@@ -1,64 +1,117 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<editmodel:ClassDiagramEditModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:editmodel="editmodel.xmi" xmlns:options="options.xmi" size="912,517" id="alt_commands" metadata="uml2-1.0" initialized="true" scrolledY="91" tag="1000" key="32303037303533312D3130303020456D706972652F726273">
-  <children xsi:type="editmodel:ClassEditModel" name="CommandCollection" location="50,356" size="310,103" id="alt_commands/CommandCollection" runTimeClassModel="commands,getCommand(Ljava.lang.String;),registerCommand(Lalt_commands.BasicCommand;)">
+<editmodel:ClassDiagramEditModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:editmodel="editmodel.xmi" xmlns:options="options.xmi" size="2089,555" id="alt_commands" metadata="uml2-1.0" initialized="true" tag="1000" key="32303037303533312D3130303020456D706972652F726273">
+  <children xsi:type="editmodel:ClassEditModel" name="CommandCollection" location="876,-75" size="339,103" id="alt_commands/CommandCollection">
     <children xsi:type="editmodel:CompartmentEditModel" size="232,18">
       <children xsi:type="editmodel:AttributeEditModel" name="commands" id="alt_commands/CommandCollection#commands"/>
     </children>
-    <children xsi:type="editmodel:CompartmentEditModel" size="287,36">
-      <children xsi:type="editmodel:MethodEditModel" name="getCommand" id="alt_commands/CommandCollection#getCommand(Ljava.lang.String;)"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="316,36">
+      <children xsi:type="editmodel:MethodEditModel" name="callCommand" id="alt_commands/CommandCollection#callCommand(Ljava.lang.String;Ljava.util.Vector;)"/>
       <children xsi:type="editmodel:MethodEditModel" name="registerCommand" id="alt_commands/CommandCollection#registerCommand(Lalt_commands.BasicCommand;)"/>
     </children>
-    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel"/>
     <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" showMethodsParameterTypes="true" showMethodsReturnType="true" showMethodsParameterNames="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPrivateAttributes="true" showProtectedAttributes="true" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showProtectedMethods="true" showPublicMethods="true" showPackageMethods="true" showPrivateMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
   </children>
-  <children xsi:type="editmodel:ClassEditModel" name="InitCommand" location="642,221" size="250,85" id="alt_commands/InitCommand" runTimeClassModel="exec(),InitCommand(Ljava.util.Vector;)">
-    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
-    <children xsi:type="editmodel:CompartmentEditModel" size="227,36">
-      <children xsi:type="editmodel:MethodEditModel" name="InitCommand" id="alt_commands/InitCommand#InitCommand(Ljava.util.Vector;)"/>
-      <children xsi:type="editmodel:MethodEditModel" name="exec" id="alt_commands/InitCommand#exec()"/>
+  <children xsi:type="editmodel:ClassEditModel" name="ModifyCommand" location="911,239" size="269,85" id="alt_commands/ModifyCommand">
+    <children xsi:type="editmodel:CompartmentEditModel"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="246,36">
+      <children xsi:type="editmodel:MethodEditModel" name="ModifyCommand" id="alt_commands/ModifyCommand#ModifyCommand(Ljava.util.Vector;)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="exec" id="alt_commands/ModifyCommand#exec()"/>
     </children>
-    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
-    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" autoLocated="true" id="alt_commands/BasicCommand&lt;-alt_commands/InitCommand" source="//@children.1" target="//@children.4/@sourceConnections.0" targetEnd="//@children.1/@sourceConnections.0/@children.1" sourceEnd="//@children.1/@sourceConnections.0/@children.0" connectionRouterKind="GeneralizationManhattan">
-      <children xsi:type="editmodel:AssociationEndEditModel" location="125,0" anchorKind="FixedAtEdge" attachSource="true"/>
+    <children xsi:type="editmodel:CompartmentEditModel"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" autoLocated="true" id="alt_commands/BasicCommand&lt;-alt_commands/ModifyCommand" source="//@children.1" target="//@children.7/@sourceConnections.0" targetEnd="//@children.1/@sourceConnections.0/@children.1" sourceEnd="//@children.1/@sourceConnections.0/@children.0" connectionRouterKind="GeneralizationManhattan">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="134,0" anchorKind="FixedAtEdge" attachSource="true"/>
       <children xsi:type="editmodel:AssociationEndEditModel"/>
     </sourceConnections>
     <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" showMethodsParameterTypes="true" showMethodsReturnType="true" showMethodsParameterNames="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPrivateAttributes="true" showProtectedAttributes="true" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showProtectedMethods="true" showPublicMethods="true" showPackageMethods="true" showPrivateMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
   </children>
-  <children xsi:type="editmodel:ClassEditModel" name="RemoveCommand" location="334,221" size="278,85" id="alt_commands/RemoveCommand" runTimeClassModel="exec(),RemoveCommand(Ljava.util.Vector;)">
-    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
-    <children xsi:type="editmodel:CompartmentEditModel" size="255,36">
-      <children xsi:type="editmodel:MethodEditModel" name="RemoveCommand" id="alt_commands/RemoveCommand#RemoveCommand(Ljava.util.Vector;)"/>
-      <children xsi:type="editmodel:MethodEditModel" name="exec" id="alt_commands/RemoveCommand#exec()"/>
+  <children xsi:type="editmodel:ClassEditModel" name="ShowCommand" location="617,239" size="264,85" id="alt_commands/ShowCommand">
+    <children xsi:type="editmodel:CompartmentEditModel"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="241,36">
+      <children xsi:type="editmodel:MethodEditModel" name="ShowCommand" id="alt_commands/ShowCommand#ShowCommand(Ljava.util.Vector;)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="exec" id="alt_commands/ShowCommand#exec()"/>
     </children>
-    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
-    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" autoLocated="true" id="alt_commands/BasicCommand&lt;-alt_commands/RemoveCommand" source="//@children.2" target="//@children.4/@sourceConnections.0" targetEnd="//@children.2/@sourceConnections.0/@children.1" sourceEnd="//@children.2/@sourceConnections.0/@children.0" connectionRouterKind="GeneralizationManhattan">
-      <children xsi:type="editmodel:AssociationEndEditModel" location="139,0" anchorKind="FixedAtEdge" attachSource="true"/>
+    <children xsi:type="editmodel:CompartmentEditModel"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" autoLocated="true" id="alt_commands/BasicCommand&lt;-alt_commands/ShowCommand" source="//@children.2" target="//@children.7/@sourceConnections.0" targetEnd="//@children.2/@sourceConnections.0/@children.1" sourceEnd="//@children.2/@sourceConnections.0/@children.0" connectionRouterKind="GeneralizationManhattan">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="132,0" anchorKind="FixedAtEdge" attachSource="true"/>
       <children xsi:type="editmodel:AssociationEndEditModel"/>
     </sourceConnections>
     <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" showMethodsParameterTypes="true" showMethodsReturnType="true" showMethodsParameterNames="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPrivateAttributes="true" showProtectedAttributes="true" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showProtectedMethods="true" showPublicMethods="true" showPackageMethods="true" showPrivateMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
   </children>
-  <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.4/@sourceConnections.0" name="BasicCommand" location="390,50" size="163,121" id="alt_commands/BasicCommand" runTimeClassModel="exec(),argCount,syntax,args">
+  <children xsi:type="editmodel:ClassEditModel" name="LogCommand" location="334,239" size="253,85" id="alt_commands/LogCommand">
+    <children xsi:type="editmodel:CompartmentEditModel"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="230,36">
+      <children xsi:type="editmodel:MethodEditModel" name="LogCommand" id="alt_commands/LogCommand#LogCommand(Ljava.util.Vector;)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="exec" id="alt_commands/LogCommand#exec()"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" autoLocated="true" id="alt_commands/BasicCommand&lt;-alt_commands/LogCommand" source="//@children.3" target="//@children.7/@sourceConnections.0" targetEnd="//@children.3/@sourceConnections.0/@children.1" sourceEnd="//@children.3/@sourceConnections.0/@children.0" connectionRouterKind="GeneralizationManhattan">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="126,0" anchorKind="FixedAtEdge" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" showMethodsParameterTypes="true" showMethodsReturnType="true" showMethodsParameterNames="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPrivateAttributes="true" showProtectedAttributes="true" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showProtectedMethods="true" showPublicMethods="true" showPackageMethods="true" showPrivateMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.7/@sourceConnections.0" name="BasicCommand" location="915,50" size="264,139" id="alt_commands/BasicCommand">
     <children xsi:type="editmodel:CompartmentEditModel" size="140,54">
       <children xsi:type="editmodel:AttributeEditModel" name="argCount" id="alt_commands/BasicCommand#argCount"/>
       <children xsi:type="editmodel:AttributeEditModel" name="args" id="alt_commands/BasicCommand#args"/>
       <children xsi:type="editmodel:AttributeEditModel" name="syntax" id="alt_commands/BasicCommand#syntax"/>
     </children>
-    <children xsi:type="editmodel:CompartmentEditModel" size="57,18">
+    <children xsi:type="editmodel:CompartmentEditModel" size="241,36">
+      <children xsi:type="editmodel:MethodEditModel" name="BasicCommand" id="alt_commands/BasicCommand#BasicCommand(Ljava.util.Vector;)"/>
       <children xsi:type="editmodel:MethodEditModel" name="exec" id="alt_commands/BasicCommand#exec()"/>
     </children>
-    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel"/>
     <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" showMethodsParameterTypes="true" showMethodsReturnType="true" showMethodsParameterNames="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPrivateAttributes="true" showProtectedAttributes="true" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showProtectedMethods="true" showPublicMethods="true" showPackageMethods="true" showPrivateMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
   </children>
-  <children xsi:type="editmodel:ClassEditModel" name="AddCommand" location="50,221" size="254,85" id="alt_commands/AddCommand" runTimeClassModel="exec(),AddCommand(Ljava.util.Vector;)">
-    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+  <children xsi:type="editmodel:ClassEditModel" name="CreateCommand" location="1798,239" size="271,85" id="alt_commands/CreateCommand">
+    <children xsi:type="editmodel:CompartmentEditModel"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="248,36">
+      <children xsi:type="editmodel:MethodEditModel" name="CreateCommand" id="alt_commands/CreateCommand#CreateCommand(Ljava.util.Vector;)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="exec" id="alt_commands/CreateCommand#exec()"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" autoLocated="true" id="alt_commands/BasicCommand&lt;-alt_commands/CreateCommand" source="//@children.5" target="//@children.7/@sourceConnections.0" targetEnd="//@children.5/@sourceConnections.0/@children.1" sourceEnd="//@children.5/@sourceConnections.0/@children.0" connectionRouterKind="GeneralizationManhattan">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="135,0" anchorKind="FixedAtEdge" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" showMethodsParameterTypes="true" showMethodsReturnType="true" showMethodsParameterNames="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPrivateAttributes="true" showProtectedAttributes="true" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showProtectedMethods="true" showPublicMethods="true" showPackageMethods="true" showPrivateMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" name="RemoveCommand" location="1490,239" size="278,85" id="alt_commands/RemoveCommand">
+    <children xsi:type="editmodel:CompartmentEditModel"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="255,36">
+      <children xsi:type="editmodel:MethodEditModel" name="RemoveCommand" id="alt_commands/RemoveCommand#RemoveCommand(Ljava.util.Vector;)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="exec" id="alt_commands/RemoveCommand#exec()"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" autoLocated="true" id="alt_commands/BasicCommand&lt;-alt_commands/RemoveCommand" source="//@children.6" target="//@children.7/@sourceConnections.0" targetEnd="//@children.6/@sourceConnections.0/@children.1" sourceEnd="//@children.6/@sourceConnections.0/@children.0" connectionRouterKind="GeneralizationManhattan">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="139,0" anchorKind="FixedAtEdge" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" showMethodsParameterTypes="true" showMethodsReturnType="true" showMethodsParameterNames="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPrivateAttributes="true" showProtectedAttributes="true" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showProtectedMethods="true" showPublicMethods="true" showPackageMethods="true" showPrivateMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" name="AddCommand" location="50,239" size="254,85" id="alt_commands/AddCommand">
+    <children xsi:type="editmodel:CompartmentEditModel"/>
     <children xsi:type="editmodel:CompartmentEditModel" size="231,36">
       <children xsi:type="editmodel:MethodEditModel" name="AddCommand" id="alt_commands/AddCommand#AddCommand(Ljava.util.Vector;)"/>
       <children xsi:type="editmodel:MethodEditModel" name="exec" id="alt_commands/AddCommand#exec()"/>
     </children>
-    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
-    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" targetConnections="//@children.2/@sourceConnections.0 //@children.1/@sourceConnections.0" autoLocated="true" id="alt_commands/BasicCommand&lt;-alt_commands/AddCommand" source="//@children.4" target="//@children.3" targetEnd="//@children.4/@sourceConnections.0/@children.1" sourceEnd="//@children.4/@sourceConnections.0/@children.0" connectionRouterKind="GeneralizationManhattan">
+    <children xsi:type="editmodel:CompartmentEditModel"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" targetConnections="//@children.3/@sourceConnections.0 //@children.2/@sourceConnections.0 //@children.1/@sourceConnections.0 //@children.8/@sourceConnections.0 //@children.6/@sourceConnections.0 //@children.5/@sourceConnections.0" autoLocated="true" id="alt_commands/BasicCommand&lt;-alt_commands/AddCommand" source="//@children.7" target="//@children.4" targetEnd="//@children.7/@sourceConnections.0/@children.1" sourceEnd="//@children.7/@sourceConnections.0/@children.0" connectionRouterKind="GeneralizationManhattan">
       <children xsi:type="editmodel:AssociationEndEditModel" location="127,0" anchorKind="FixedAtEdge" attachSource="true"/>
-      <children xsi:type="editmodel:AssociationEndEditModel" location="81,121" anchorKind="FixedAtEdge"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="132,139" anchorKind="FixedAtEdge"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" showMethodsParameterTypes="true" showMethodsReturnType="true" showMethodsParameterNames="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPrivateAttributes="true" showProtectedAttributes="true" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showProtectedMethods="true" showPublicMethods="true" showPackageMethods="true" showPrivateMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" name="InitCommand" location="1210,239" size="250,85" id="alt_commands/InitCommand">
+    <children xsi:type="editmodel:CompartmentEditModel"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="227,36">
+      <children xsi:type="editmodel:MethodEditModel" name="InitCommand" id="alt_commands/InitCommand#InitCommand(Ljava.util.Vector;)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="exec" id="alt_commands/InitCommand#exec()"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" autoLocated="true" id="alt_commands/BasicCommand&lt;-alt_commands/InitCommand" source="//@children.8" target="//@children.7/@sourceConnections.0" targetEnd="//@children.8/@sourceConnections.0/@children.1" sourceEnd="//@children.8/@sourceConnections.0/@children.0" connectionRouterKind="GeneralizationManhattan">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="125,0" anchorKind="FixedAtEdge" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel"/>
     </sourceConnections>
     <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" showMethodsParameterTypes="true" showMethodsReturnType="true" showMethodsParameterNames="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPrivateAttributes="true" showProtectedAttributes="true" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showProtectedMethods="true" showPublicMethods="true" showPackageMethods="true" showPrivateMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
   </children>
