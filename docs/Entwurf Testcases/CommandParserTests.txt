@@ -1,0 +1,20 @@
+Überprüfen verschiedenster Befehle:
+->Test erfolgt komplett in BasicCommand-Klasse
+
+BasicCommand(Vector<String> args)	->	SpecialCommand(Vector<String> args)
+{"add", "test", "String"}		->	AddCommand({"test", "String"});
+{"rem", "test"}				->	RemCommand({"test"});
+{"render"}				->	RenderCommand({});
+{"search", "test=234"}			->	SearchCommand({"test=234"});
+{"log"}					->	LogCommand({});
+{"show", "test"}			->	ShowCommand({"test"});
+{"mod", "test", "new_val"}		->	ModifyCommand({"test", "new_val"});
+{"init"}				->	InitCommand({});
+{"create", "test_inv"}			->	CreateCommand({});
+{"error", "error2", "error3"}		->	Fehler ausgeben
+{"add"}					-> 	Fehler ausgeben
+{"rem"}					->	Fehler ausgeben
+{"search"}				->	Fehler ausgeben
+{"show"}				->	Fehler ausgeben
+{"mod"}					->	Fehler ausgeben
+{"create"}				->	Fehler ausgeben
