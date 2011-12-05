@@ -1,0 +1,17 @@
+# Basis darf nicht instanziierbar sein
+Property 			()
+
+# korrekte Instanz
+PropertyInteger		(d, k, int)
+PropertyDate		(d, k, string)
+PropertyFloat		(d, k, float)
+PropertyFunction	(d, k, int)
+PropertyString		(d, k, string)
+
+# Instanziier-Fehler (leeres Array oder keine 3 Argumente - description, key, value)
+PropertyInteger		({})
+PropertyDate		({})
+PropertyFloat		({})
+PropertyFunction	({})
+PropertyString		({})
+
