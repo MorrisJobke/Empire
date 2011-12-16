@@ -30,7 +30,7 @@ CFLAGS=-c -g -xc++ \
 
 LIBS= 
 
-TARGETS= invoice.o main.o 
+TARGETS= PropertyInteger.o Property.o main2.o
 
 all: main
 
@@ -44,5 +44,5 @@ main: $(TARGETS)
 	$(CC) $(CFLAGS) $<
 
 clean:
-	rm -rf *.o main
+	rm -rf *.o main properties/*.o
 
