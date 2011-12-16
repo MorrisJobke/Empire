@@ -1,4 +1,4 @@
-#include "PropertyInteger.h"
+#include "properties/PropertyInteger.h"
 #include <string>
 #include <iostream>
 

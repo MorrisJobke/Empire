@@ -1,8 +1,22 @@
-PROJECT(EMPIRE)
+# project name
+project(EMPIRE)
 
-ADD_LIBRARY(Property Property)
-ADD_LIBRARY(PropertyInteger PropertyInteger)
+# may could be lower
+cmake_minimum_required(VERSION 2.8)
 
-ADD_EXECUTABLE(Empire main2)
+# adding sub directories
+# parameter:
+#   directory name
+add_subdirectory(properties)
 
-TARGET_LINK_LIBRARIES(Empire PropertyInteger)
+# specify executable
+# parameter:
+#   output name
+#   source name
+add_executable(Empire main2)
+
+# link all together
+# parameter
+#   executable
+#   used libraries
+target_link_libraries(Empire PropertyInteger)
