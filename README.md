@@ -9,3 +9,10 @@ Pflichtenheft
 Erstellen:
 
 	make pflichtenheft
+
+CMake
+-----
+
+	cd src/build/
+	cmake ..
+	make
