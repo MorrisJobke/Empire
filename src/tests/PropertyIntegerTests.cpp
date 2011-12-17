@@ -8,7 +8,7 @@ BOOST_AUTO_TEST_CASE(typeIsInteger)
 {
     BOOST_CHECK(42 == 42);
     BOOST_CHECK(41 == 42);
-//     PropertyInteger property = PropertyInteger(42);
+    PropertyInteger property = new PropertyInteger(42);
 
 //     BOOST_CHECK(isdigit(property.GetValue()));
 //     BOOST_CHECK(property.GetValue() == 42);
@@ -20,12 +20,12 @@ BOOST_AUTO_TEST_CASE(testOverloadedConstructors)
     // BOOST_CHECK(property.GetValue() == 42);
     // BOOST_CHECK(property.GetKey() == NULL);
     // BOOST_CHECK(property.GetDescription() == NULL);
-    
+
     // property = PropertyInteger("key", 42);
     // BOOST_CHECK(property.GetValue() == 42);
     // BOOST_CHECK(property.GetKey() == "key");
     // BOOST_CHECK(property.GetDescription() == NULL);
-    
+
     // property = PropertyInteger("key", "i am a property", 42);
     // BOOST_CHECK(property.GetValue() == 42);
     // BOOST_CHECK(property.GetKey() == "key");
