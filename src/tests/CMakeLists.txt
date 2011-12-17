@@ -4,10 +4,12 @@ if(ENABLE_TESTING)
 	add_executable(EmpireTest
 		MainTests
 		PropertyIntegerTests
-		PropertyFloatTests)
+		PropertyFloatTests
+    PropertyFunctionTests)
 
 	target_link_libraries(EmpireTest
 		${Boost_UNIT_TEST_FRAMEWORK_LIBRARY}
 		PropertyInteger
-		PropertyFloat)
+		PropertyFloat
+    PropertyFunction)
 endif()
