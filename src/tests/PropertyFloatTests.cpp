@@ -7,13 +7,6 @@
 
 BOOST_AUTO_TEST_SUITE(PropertyFloatTests_Suite)
 
-BOOST_AUTO_TEST_CASE(typeIsFloat)
-{
-    PropertyFloat* property = new PropertyFloat(3.14159265);
-
-    BOOST_CHECK_CLOSE(property->GetValue(), 3.14159265, 0.00000001);
-}
-
 BOOST_AUTO_TEST_CASE(testOverloadedConstructors)
 {
     PropertyFloat* property = new PropertyFloat(3.14159265);

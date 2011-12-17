@@ -7,13 +7,6 @@
 
 BOOST_AUTO_TEST_SUITE(PropertyIntegerTests_Suite)
 
-BOOST_AUTO_TEST_CASE(typeIsInteger)
-{
-    PropertyInteger* property = new PropertyInteger(42);
-
-    BOOST_CHECK(property->GetValue() == 42);
-}
-
 BOOST_AUTO_TEST_CASE(testOverloadedConstructors)
 {
     PropertyInteger* property = new PropertyInteger(42);
