@@ -4,7 +4,7 @@
 #endif
 #include <boost/test/unit_test.hpp>
 #include "../properties/PropertyInteger.h"
-#include "../properties/PropertyFunction.h"
+#include "../properties/PropertyFunction.cc"
 
 BOOST_AUTO_TEST_SUITE(PropertyFunctionLuaTests_Suite)
 
@@ -13,9 +13,11 @@ BOOST_AUTO_TEST_CASE(lua)
     PropertyInteger* property1 = new PropertyInteger("int1", 42);
     PropertyInteger* property2 = new PropertyInteger("int2", 1295);
 
-    PropertyFunction* mapReduceFunction = new PropertyFunction("test", "int1*int2", "a+b");
+    PropertyFunction* func = new PropertyFunction("test", "int1 * int2", "lhs + rhs");
+    func->AddProperty(*property1);
+    func->AddProperty(*property2);
 
-    BOOST_CHECK(function->GetValue() == 1337);
+    BOOST_CHECK(func->GetValue() == 1337);
 }
 
 BOOST_AUTO_TEST_SUITE_END()

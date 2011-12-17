@@ -33,7 +33,7 @@ public:
     ~PropertyFunction();
     PropertyFunction(string const& key, string const& map, string const& reduce);
 
-    void AddProperty(Property property);
+    template<class T> void AddProperty(Property<T> property);
 };
 
 #endif

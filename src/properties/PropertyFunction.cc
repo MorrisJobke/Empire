@@ -21,8 +21,8 @@ PropertyFunction::PropertyFunction(string const& key, string const& map, string 
 /*============================= OPERATORS ==================================*/
 /*============================= OPERATIONS =================================*/
 
-void
-PropertyFunction::AddProperty(Property property)
+template<class T> void
+PropertyFunction::AddProperty(Property<T> property)
 {
     // register global lua variable
 }
