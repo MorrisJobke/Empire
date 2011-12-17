@@ -6,7 +6,7 @@
  * @Editor:      Vim
  */
 
-#include "Property.h"
+#include "Collection.h"
 
 
 
@@ -24,7 +24,7 @@ Collection::Collection()
 /** Destructor
  *
  */
-Collection::~Collection
+Collection::~Collection()
 {
 }
 
@@ -37,10 +37,10 @@ void Collection::Init(string const& key)
     mPropertylist = NULL;
 }
 
-void Collection::Init(string const& key, struct Propertylist **properties)
+void Collection::Init(string const& key, struct Propertylist *properties)
 {
     mKey = key;
-    mPropertylist = *properties;
+    mPropertylist = properties;
 }
 
 
@@ -61,12 +61,12 @@ void Collection::SetKey(string value)
 
 struct Propertylist *Collection::GetPropertylist() const
 {
-    return *mPropertylist;
+    return mPropertylist;
 }
 
-void Collection::SetPropertylist(struct Propertylist **properties)
+void Collection::SetPropertylist(struct Propertylist *properties)
 {
-    mPropertylist = *properties;
+    mPropertylist = properties;
 }
 
 /*============================= INQUIRY    =================================*/

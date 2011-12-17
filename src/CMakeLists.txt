@@ -20,6 +20,7 @@ set(CMAKE_CXX_FLAGS_DEBUG "-Wall -Wextra -Wformat=2 -Winit-self -Winline -Wpacke
 # adding sub directories
 # parameter:
 #   directory name
+add_subdirectory(collections)
 add_subdirectory(properties)
 add_subdirectory(tests)
 

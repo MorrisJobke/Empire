@@ -19,7 +19,7 @@ private:
     string mKey;
     struct Propertylist *mPropertylist;
     void Init(string const& key);
-    void Init(string const& key, struct Propertylist **properties);   
+    void Init(string const& key, struct Propertylist *properties);
 
 public:
     Collection();
@@ -27,8 +27,8 @@ public:
 
     string GetKey() const;
     void SetKey(string value);
-    
+
     struct Propertylist *GetPropertylist() const;
-    void SetPropertylist(struct Propertylist **properties);
+    void SetPropertylist(struct Propertylist *properties);
 };
 #endif

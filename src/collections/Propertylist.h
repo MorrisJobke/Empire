@@ -9,9 +9,11 @@
 #ifndef STRINGLIST_H
 #define STRINGLIST_H
 
+// #include "../properties/Property.h"
+
 struct Propertylist
 {
-    Property prop;
+    // Property prop;
     struct Propertylist *next;
 };
 
