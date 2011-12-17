@@ -30,6 +30,11 @@ public:
 
     T GetValue() const;
     void SetValue(T value);
+
+    string GetKey() const;
+    void SetKey(string value);
+    string GetDescription() const;
+    void SetDescription(string value);
 };
 
 #endif
