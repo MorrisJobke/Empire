@@ -37,23 +37,26 @@ Property<T>::~Property()
 template<class T> void
 Property<T>::Init(T value)
 {
-    mValue = value; 
+    mDescription = "";
+    mKey = "";
+    mValue = value;
 }
 
-// template<class T> void
-// Property<T>::Init(string const& key, T value)
-// {
-//     mKey = key;
-//     mValue = value;
-// }
+template<class T> void
+Property<T>::Init(string const& key, T value)
+{
+    mDescription = "";
+    mKey = key;
+    mValue = value;
+}
 
-// template<class T> void
-// Property<T>::Init(string const& key, string const& description, T value)
-// {
-//     mKey = key;
-//     mDescription = description;
-//     mValue = value;
-// }
+template<class T> void
+Property<T>::Init(string const& key, string const& description, T value)
+{
+    mDescription = description;
+    mKey = key;
+    mValue = value;
+}
 
 /*============================= OPERATORS ==================================*/
 

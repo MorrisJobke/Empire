@@ -17,10 +17,11 @@ using namespace std;
 class PropertyInteger : public Property<int>
 {
 public:
-    PropertyInteger(int value);
-    // PropertyInteger(string const& key, int value);
-    // PropertyInteger(string const& key, string const& description, int value);
     ~PropertyInteger();
+
+    PropertyInteger(int value);
+    PropertyInteger(string const& key, int value);
+    PropertyInteger(string const& key, string const& description, int value);
 };
 
 #endif

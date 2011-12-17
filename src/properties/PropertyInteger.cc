@@ -18,19 +18,18 @@ PropertyInteger::PropertyInteger(int value)
     Init(value);
 }
 
-// PropertyInteger::PropertyInteger(string const& key, int value)
-// {
-//     Init(key, value);
-// }
+PropertyInteger::PropertyInteger(string const& key, int value)
+{
+    Init(key, value);
+}
 
-// PropertyInteger::PropertyInteger(string const& key, string const& description, int value)
-// {
-//     Init(key, description, value);
-// }
+PropertyInteger::PropertyInteger(string const& key, string const& description, int value)
+{
+    Init(key, description, value);
+}
 
 PropertyInteger::~PropertyInteger()
 {
-    
 }
 
 /*============================= OPERATORS ==================================*/
