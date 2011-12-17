@@ -13,7 +13,7 @@
 using namespace std;
 
 
-template<class T> class Property 
+template<class T> class Property
 {
 protected:
     string mKey;
