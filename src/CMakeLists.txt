@@ -5,7 +5,7 @@ project(EMPIRE)
 cmake_minimum_required(VERSION 2.8)
 
 # build tests?
-set(ENABLE_TESTING OFF)
+set(ENABLE_TESTING ON)
 
 # where to put executables
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin)
