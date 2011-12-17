@@ -9,7 +9,9 @@
 #ifndef PROPERTYFLOAT_H
 #define PROPERTYFLOAT_H
 
+#ifndef PROPERTY_H
 #include "Property.cc"
+#endif
 
 #include <string>
 using namespace std;

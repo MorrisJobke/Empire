@@ -9,7 +9,9 @@
 #ifndef PROPERTYINTEGER_H
 #define PROPERTYINTEGER_H
 
+#ifndef PROPERTY_H
 #include "Property.cc"
+#endif
 
 #include <string>
 using namespace std;

@@ -1,24 +1,28 @@
 /* PropertyFunction.h
  * @Author:       ()
  * @License:     GPL
- * @Created:     2011-12-16.
+ * @Created:     2011-12-17.
  * @Editor:      Vim
  */
 
-#ifndef PROPERTYINTEGER_H
-#define PROPERTYINTEGER_H
+#ifndef PROPERTYFUNCTION_H
+#define PROPERTYFUNCTION_H
 
+#ifndef PROPERTY_H
 #include "Property.cc"
+#endif
 
 #include <string>
 using namespace std;
 
 extern "C"
 {
-    #include "lua/lua.h"
+    #include "lua.h"
+    #include "lualib.h"
+    #include "lauxlib.h"
 }
 
-class PropertyInteger : public Property<int>
+class PropertyFunction : public Property<int>
 {
 private:
     string mMapFunction;
@@ -29,7 +33,7 @@ public:
     ~PropertyFunction();
     PropertyFunction(string const& key, string const& map, string const& reduce);
 
-    void AddProperty(Property<T> property);
+    void AddProperty(Property property);
 };
 
 #endif

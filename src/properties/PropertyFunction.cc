@@ -1,7 +1,7 @@
 /* PropertyFunction.cc
  * @Author:       ()
  * @License:     GPL
- * @Created:     2011-12-16.
+ * @Created:     2011-12-17.
  * @Editor:      Vim
  */
 
@@ -21,23 +21,24 @@ PropertyFunction::PropertyFunction(string const& key, string const& map, string 
 /*============================= OPERATORS ==================================*/
 /*============================= OPERATIONS =================================*/
 
-PropertyFunction::PropertyFunction(Property<T> property)
+void
+PropertyFunction::AddProperty(Property property)
 {
     // register global lua variable
 }
 
 /*============================= ACESS      =================================*/
-template<class T> T
-Property<T>::GetValue() new
-{
-    // luaL_dostring(L, "return 'somestring'");
-    // const char * str = lua_tostring(L, -1);
-}
+// template<class T> T
+// Property<T>::GetValue() new
+// {
+//     // luaL_dostring(L, "return 'somestring'");
+//     // const char * str = lua_tostring(L, -1);
+// }
 
-template<class T> void new
-Property<T>::SetValue(T value)
-{
-}
+// template<class T> void new
+// Property<T>::SetValue(T value)
+// {
+// }
 
 /*============================= INQUIRY    =================================*/
 /////////////////////////////// PROTECTED  ///////////////////////////////////
