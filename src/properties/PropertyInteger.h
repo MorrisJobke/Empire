@@ -1,8 +1,8 @@
 
-/* <+FILE NAME+>
- * @Author:      <+AUTHOR+> (<+EMAIL+>)
- * @License:     <+LICENSE+>
- * @Created:     <+DATE+>.
+/* PropertyInteger.h
+ * @Author:       ()
+ * @License:     GPL
+ * @Created:     2011-12-16.
  * @Editor:      Vim
  */
 

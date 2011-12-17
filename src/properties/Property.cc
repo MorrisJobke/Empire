@@ -1,8 +1,8 @@
 
-/* property.cc<++>
- * @Author:      <+AUTHOR+> (<+EMAIL+>)
- * @License:     <+LICENSE+>
- * @Created:     <+DATE+>.
+/* Property.cc
+ * @Author:       ()
+ * @License:     GPL
+ * @Created:     2011-12-16.
  * @Editor:      Vim
  */
 
