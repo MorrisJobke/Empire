@@ -25,8 +25,8 @@ protected:
     void Init(string const& key, string const& description, T value);
 
 public:
-    // Property();
-    // ~Property();
+    Property();
+    ~Property();
 
     T GetValue() const;
     void SetValue(T value);

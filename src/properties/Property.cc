@@ -16,19 +16,19 @@
 /** Constructor
  *
  */
-// template<class T>
-// Property<T>::Property()
-// {
-// }
+template<class T>
+Property<T>::Property()
+{
+}
 
 
 /** Destructor
  *
  */
-// template<class T>
-// Property<T>::~Property()
-// {
-// }
+template<class T>
+Property<T>::~Property()
+{
+}
 
 
 /** Init
