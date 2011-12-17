@@ -13,11 +13,6 @@
 
 /*============================= LIFECYCLE ==================================*/
 
-PropertyFloat::PropertyFloat(double value)
-{
-    Init(value);
-}
-
 PropertyFloat::PropertyFloat(string const& key, double value)
 {
     Init(key, value);

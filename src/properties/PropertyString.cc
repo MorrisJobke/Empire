@@ -13,11 +13,6 @@
 
 /*============================= LIFECYCLE ==================================*/
 
-PropertyString::PropertyString(string value)
-{
-    Init(value);
-}
-
 PropertyString::PropertyString(string const& key, string value)
 {
     Init(key, value);

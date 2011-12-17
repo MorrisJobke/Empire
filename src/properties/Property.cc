@@ -32,14 +32,6 @@ Property<T>::~Property()
  *
  */
 template<class T> void
-Property<T>::Init(T value)
-{
-    mDescription = "";
-    mKey = "";
-    mValue = value;
-}
-
-template<class T> void
 Property<T>::Init(string const& key)
 {
     mDescription = "";

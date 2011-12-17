@@ -20,7 +20,6 @@ protected:
     string mDescription;
     T mValue;
 
-    void Init(T value);
     void Init(string const& key);
     void Init(string const& key, T value);
     void Init(string const& key, string const& description, T value);

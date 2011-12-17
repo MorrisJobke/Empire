@@ -21,7 +21,6 @@ class PropertyFloat : public Property<double>
 public:
     ~PropertyFloat();
 
-    PropertyFloat(double value);
     PropertyFloat(string const& key, double value);
     PropertyFloat(string const& key, string const& description, double value);
 };

@@ -13,10 +13,6 @@
 
 /*============================= LIFECYCLE ==================================*/
 
-PropertyInteger::PropertyInteger(int value)
-{
-    Init(value);
-}
 
 PropertyInteger::PropertyInteger(string const& key, int value)
 {

@@ -21,7 +21,6 @@ class PropertyString : public Property<string>
 public:
     ~PropertyString();
 
-    PropertyString(string value);
     PropertyString(string const& key, string value);
     PropertyString(string const& key, string const& description, string value);
 };

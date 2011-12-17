@@ -21,7 +21,6 @@ class PropertyInteger : public Property<int>
 public:
     ~PropertyInteger();
 
-    PropertyInteger(int value);
     PropertyInteger(string const& key, int value);
     PropertyInteger(string const& key, string const& description, int value);
 };

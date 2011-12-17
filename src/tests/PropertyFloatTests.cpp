@@ -9,12 +9,7 @@ BOOST_AUTO_TEST_SUITE(PropertyFloatTests_Suite)
 
 BOOST_AUTO_TEST_CASE(testOverloadedConstructors)
 {
-    PropertyFloat* property = new PropertyFloat(3.14159265);
-    BOOST_CHECK_CLOSE(property->GetValue(), 3.14159265, 0.00000001);
-    BOOST_CHECK(property->GetKey() == "");
-    BOOST_CHECK(property->GetDescription() == "");
-
-    property = new PropertyFloat("key", 3.14159265);
+    PropertyFloat* property = new PropertyFloat("key", 3.14159265);
     BOOST_CHECK_CLOSE(property->GetValue(), 3.14159265, 0.00000001);
     BOOST_CHECK(property->GetKey() == "key");
     BOOST_CHECK(property->GetDescription() == "");

@@ -3,7 +3,7 @@
 #include <iostream>
 
 int main() {
-    PropertyInteger intProp = PropertyInteger(42);
+    PropertyInteger intProp = PropertyInteger("test", 42);
 
     std::cout << "PropertyInteger: " << intProp.GetValue() << std::endl;
 
