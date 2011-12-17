@@ -13,17 +13,17 @@
 
 /*============================= LIFECYCLE ==================================*/
 
-PropertyFloat::PropertyFloat(float value)
+PropertyFloat::PropertyFloat(double value)
 {
     Init(value);
 }
 
-PropertyFloat::PropertyFloat(string const& key, float value)
+PropertyFloat::PropertyFloat(string const& key, double value)
 {
     Init(key, value);
 }
 
-PropertyFloat::PropertyFloat(string const& key, string const& description, float value)
+PropertyFloat::PropertyFloat(string const& key, string const& description, double value)
 {
     Init(key, description, value);
 }

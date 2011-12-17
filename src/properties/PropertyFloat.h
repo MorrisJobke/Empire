@@ -14,14 +14,14 @@
 #include <string>
 using namespace std;
 
-class PropertyFloat : public Property<float>
+class PropertyFloat : public Property<double>
 {
 public:
     ~PropertyFloat();
 
-    PropertyFloat(float value);
-    PropertyFloat(string const& key, float value);
-    PropertyFloat(string const& key, string const& description, float value);
+    PropertyFloat(double value);
+    PropertyFloat(string const& key, double value);
+    PropertyFloat(string const& key, string const& description, double value);
 };
 
 #endif
