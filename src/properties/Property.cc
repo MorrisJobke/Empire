@@ -40,6 +40,14 @@ Property<T>::Init(T value)
 }
 
 template<class T> void
+Property<T>::Init(string const& key)
+{
+    mDescription = "";
+    mKey = "key";
+    mValue = NULL;
+}
+
+template<class T> void
 Property<T>::Init(string const& key, T value)
 {
     mDescription = "";

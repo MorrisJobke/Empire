@@ -6,12 +6,15 @@ if(ENABLE_TESTING)
         MainTests
         PropertyIntegerTests
         PropertyFloatTests
-        PropertyStringTests)
+        PropertyStringTests
+        PropertyFunctionTests)
 
     # used libraries
     target_link_libraries(EmpireTest
         ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY}
+        ${LUA_LIBRARIES}                        # loaded in properties/
         PropertyInteger
         PropertyFloat
-        PropertyString)
+        PropertyString
+        PropertyFunction)
 endif()
