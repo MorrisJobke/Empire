@@ -1,12 +1,14 @@
 #define BOOST_TEST_DYN_LINK
-#define BOOST_TEST_MODULE PropertyInteger
+#ifdef STAND_ALONE
+#   define BOOST_TEST_MODULE PropertyInteger
+#endif
 #include <boost/test/unit_test.hpp>
-#include <ctype.h>
 #include "../properties/PropertyInteger.h"
+
+BOOST_AUTO_TEST_SUITE(PropertyIntegerTests_Suite)
 
 BOOST_AUTO_TEST_CASE(typeIsInteger)
 {
-    BOOST_CHECK(42 == 42);
     PropertyInteger* property = new PropertyInteger(42);
 
     BOOST_CHECK(property->GetValue() == 42);
@@ -29,3 +31,5 @@ BOOST_AUTO_TEST_CASE(testOverloadedConstructors)
     BOOST_CHECK(property->GetKey() == "key");
     BOOST_CHECK(property->GetDescription() == "i am a property");
 }
+
+BOOST_AUTO_TEST_SUITE_END()

@@ -1,7 +1,13 @@
 if(ENABLE_TESTING)
-	add_executable(EmpireTest PropertyIntegerTests)
-	#set(Boost_DEBUG On)
 	find_package(Boost COMPONENTS unit_test_framework REQUIRED)
-	target_link_libraries(EmpireTest ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY})
-	target_link_libraries(EmpireTest PropertyInteger)
+
+	add_executable(EmpireTest
+		MainTests
+		PropertyIntegerTests
+		PropertyFloatTests)
+
+	target_link_libraries(EmpireTest
+		${Boost_UNIT_TEST_FRAMEWORK_LIBRARY}
+		PropertyInteger
+		PropertyFloat)
 endif()
