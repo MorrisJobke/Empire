@@ -12,8 +12,10 @@
 #include <string>
 using namespace std;
 
+class BaseProperty {};
 
 template<class T> class Property
+: public BaseProperty
 {
 protected:
     string mKey;
