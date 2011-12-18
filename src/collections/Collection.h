@@ -34,5 +34,8 @@ public:
     void SetPropertylist(struct Propertylist *properties);
 
     void AddProperty(BaseProperty property);
+
+    void RemoveProperty(BaseProperty property);
+        
 };
 #endif

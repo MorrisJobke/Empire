@@ -39,8 +39,11 @@ Collection::~Collection()
 
 /*============================= OPERATORS ==================================*/
 
-void
-Collection::AddProperty(BaseProperty property)
+void Collection::AddProperty(BaseProperty property)
+{
+}
+
+void Collection::RemoveProperty(BaseProperty property)
 {
 }
 
