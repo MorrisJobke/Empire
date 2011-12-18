@@ -19,7 +19,7 @@
  */
 Collection::Collection(string const& key)
 {
-    //Collectionlist und auf Collections mit gleichen Key überprüfen    
+    //Collectionlist und auf Collections mit gleichen Key überprüfen
     mKey = key;
     mPropertylist = NULL;
 }
@@ -38,7 +38,7 @@ void Collection::AddProperty(BaseProperty property)
 {
 }
 
-void Collection::RemoveProperty(BaseProperty property)
+void Collection::RemoveProperty(string const& key)
 {
 }
 

@@ -29,7 +29,7 @@ public:
     void SetKey(string value);
 
     void AddProperty(BaseProperty property);
-    void RemoveProperty(BaseProperty property);
-        
+    void RemoveProperty(string const& key);
+
 };
 #endif

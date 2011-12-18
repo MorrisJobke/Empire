@@ -18,6 +18,7 @@ private:
     PropertyList *mNext;
 
 public:
-
+    void AddProperty(BaseProperty property);
+    void RemoveProperty(string const& key);
 };
 #endif
