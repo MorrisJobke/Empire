@@ -21,6 +21,10 @@ ArchLinux:
 
     sudo pacman -S boost lua
 
+Mac:
+
+    brew install cmake boost lua
+
 CMake
 -----
 
