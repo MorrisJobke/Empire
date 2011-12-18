@@ -11,6 +11,9 @@
 
 #include <string>
 #include "Propertylist.h"
+#ifndef PROPERTY_H
+#   include "Property.cc"
+#endif
 using namespace std;
 
 class Collection
@@ -29,5 +32,7 @@ public:
 
     struct Propertylist *GetPropertylist() const;
     void SetPropertylist(struct Propertylist *properties);
+
+    void AddProperty(BaseProperty property);
 };
 #endif
