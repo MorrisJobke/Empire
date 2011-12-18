@@ -35,7 +35,7 @@ template<class T> void
 Property<T>::Init(string const& key)
 {
     mDescription = "";
-    mKey = "key";
+    mKey = key;
     mValue = NULL;
 }
 
