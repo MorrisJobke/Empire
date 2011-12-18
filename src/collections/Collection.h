@@ -15,7 +15,7 @@
 
 using namespace std;
 
-class Collection
+class Collection : BaseProperty
 {
 private:
     string mKey;
