@@ -10,6 +10,17 @@ Erstellen:
 
 	make pflichtenheft
 
+Benötigte Pakete
+----------------
+
+Ubuntu:
+
+    sudo apt-get install libluabind-dev cmake
+
+ArchLinux:
+
+    sudo pacman -S boost lua
+
 CMake
 -----
 
