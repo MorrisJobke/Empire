@@ -21,6 +21,8 @@ class Collection
 private:
     string mKey;
     struct Propertylist *mPropertylist;
+    //only for testcases: 1=already, 2=no such property
+    int error;
 
 public:
     ~Collection();
@@ -29,6 +31,8 @@ public:
 
     string GetKey() const;
     void SetKey(string value);
+
+    int GetError() const;
 
     struct Propertylist *GetPropertylist() const;
     void SetPropertylist(struct Propertylist *properties);

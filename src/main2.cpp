@@ -11,6 +11,13 @@ struct Collectionlist *Collectionlist()
     return mCollectionlist;
 }
 
+struct Collectionlist *Collectionlist(string const& key)
+{
+    Collectionlist* mCollectionlist = new Collectionlist;
+    //fill Collectionlist with the Collection with the key
+    return mCollectionlist;
+}
+
 
 int main() {
     PropertyInteger intProp = PropertyInteger("test", 42);

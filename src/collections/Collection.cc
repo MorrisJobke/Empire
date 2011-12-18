@@ -19,14 +19,19 @@
  */
 Collection::Collection(string const& key)
 {
+    //Collectionlist und auf Collections mit gleichen Key überprüfen    
     mKey = key;
     mPropertylist = NULL;
+    error = 0;
 }
 
+//Entfernen?
 Collection::Collection(string const& key, struct Propertylist *properties)
 {
+    //Collectionlist und auf Collections mit gleichen Key überprüfen  
     mKey = key;
     mPropertylist = properties;
+    error = 0;
 }
 
 /** Destructor
@@ -68,6 +73,11 @@ struct Propertylist *Collection::GetPropertylist() const
 void Collection::SetPropertylist(struct Propertylist *properties)
 {
     mPropertylist = properties;
+}
+
+int Collection::GetError() const
+{
+    return error;
 }
 
 /*============================= INQUIRY    =================================*/
