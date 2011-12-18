@@ -17,8 +17,16 @@
 /** Constructor
  *
  */
-Collection::Collection()
+Collection::Collection(string const& key)
 {
+    mKey = key;
+    mPropertylist = NULL;
+}
+
+Collection::Collection(string const& key, struct Propertylist *properties)
+{
+    mKey = key;
+    mPropertylist = properties;
 }
 
 /** Destructor
@@ -26,21 +34,6 @@ Collection::Collection()
  */
 Collection::~Collection()
 {
-}
-
-/** Init
- *
- */
-void Collection::Init(string const& key)
-{
-    mKey = key;
-    mPropertylist = NULL;
-}
-
-void Collection::Init(string const& key, struct Propertylist *properties)
-{
-    mKey = key;
-    mPropertylist = properties;
 }
 
 

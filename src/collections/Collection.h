@@ -18,12 +18,11 @@ class Collection
 private:
     string mKey;
     struct Propertylist *mPropertylist;
-    void Init(string const& key);
-    void Init(string const& key, struct Propertylist *properties);
 
 public:
-    Collection();
     ~Collection();
+    Collection(string const& key);
+    Collection(string const& key, struct Propertylist *properties);
 
     string GetKey() const;
     void SetKey(string value);
