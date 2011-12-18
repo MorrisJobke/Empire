@@ -4,7 +4,9 @@
 #endif
 #include <boost/test/unit_test.hpp>
 #include "../properties/PropertyInteger.h"
-#include "../properties/PropertyFunction.cc"
+#ifndef PROPERTYFUNCTION_H
+#   include "../properties/PropertyFunction.cc"
+#endif
 
 BOOST_AUTO_TEST_SUITE(PropertyFunctionLuaTests_Suite)
 

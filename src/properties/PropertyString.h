@@ -10,7 +10,7 @@
 #define PROPERTYSTRING_H
 
 #ifndef PROPERTY_H
-#include "Property.cc"
+#   include "Property.cc"
 #endif
 
 #include <string>
