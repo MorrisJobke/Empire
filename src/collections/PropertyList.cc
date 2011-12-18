@@ -1,61 +1,22 @@
 
-/* Collection.cc
- * @Author:       ()
+/* PropertyList.cc
+ * @Author:      Morris Jobke (uu.kabum@gmail.com)
  * @License:     GPL
- * @Created:     2011-12-17.
+ * @Created:     2011-12-18.
  * @Editor:      Vim
  */
 
-#include "Collection.h"
-
+#include "PropertyList.h"
 
 
 /////////////////////////////// PUBLIC ///////////////////////////////////////
 
 /*============================= LIFECYCLE ==================================*/
-
-/** Constructor
- *
- */
-Collection::Collection(string const& key)
-{
-    //Collectionlist und auf Collections mit gleichen Key überprüfen    
-    mKey = key;
-    mPropertylist = NULL;
-}
-
-/** Destructor
- *
- */
-Collection::~Collection()
-{
-}
-
-
 /*============================= OPERATORS ==================================*/
-
-void Collection::AddProperty(BaseProperty property)
-{
-}
-
-void Collection::RemoveProperty(BaseProperty property)
-{
-}
-
 /*============================= OPERATIONS =================================*/
 /*============================= ACESS      =================================*/
-
-string Collection::GetKey() const
-{
-    return mKey;
-}
-
-void Collection::SetKey(string value)
-{
-    mKey = value;
-}
-
 /*============================= INQUIRY    =================================*/
+
 /////////////////////////////// PROTECTED  ///////////////////////////////////
 
 /////////////////////////////// PRIVATE    ///////////////////////////////////

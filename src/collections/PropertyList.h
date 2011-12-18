@@ -1,5 +1,5 @@
 
-/* Propertylist.h
+/* PropertyList.h
  * @Author:       ()
  * @License:     GPL
  * @Created:     2011-12-17.
@@ -11,10 +11,13 @@
 
 #include "../properties/Property.h"
 
-struct Propertylist
+class PropertyList
 {
-    BaseProperty prop;
-    struct Propertylist *next;
-};
+private:
+    BaseProperty mProperty;
+    PropertyList *mNext;
 
+public:
+
+};
 #endif

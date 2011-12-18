@@ -37,6 +37,4 @@ add_executable(Empire main2)
 # parameter
 #   executable
 #   used libraries
-target_link_libraries(Empire
-    PropertyInteger
-    Collectionlist)
+target_link_libraries(Empire PropertyInteger)
