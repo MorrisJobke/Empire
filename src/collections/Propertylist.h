@@ -6,8 +6,8 @@
  * @Editor:      Vim
  */
 
-#ifndef STRINGLIST_H
-#define STRINGLIST_H
+#ifndef PROPERTYLIST_H
+#define PROPERTYLIST_H
 
 // #include "../properties/Property.h"
 
