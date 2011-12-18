@@ -9,11 +9,11 @@
 #ifndef PROPERTYLIST_H
 #define PROPERTYLIST_H
 
-// #include "../properties/Property.h"
+#include "../properties/Property.h"
 
 struct Propertylist
 {
-    // Property prop;
+    BaseProperty prop;
     struct Propertylist *next;
 };
 
