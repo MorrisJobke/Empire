@@ -23,6 +23,8 @@ public:
 
     PropertyFloat(string const& key, double value);
     PropertyFloat(string const& key, string const& description, double value);
+
+    bool operator==(PropertyFloat const& rhs);
 };
 
 #endif

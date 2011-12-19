@@ -23,6 +23,8 @@ public:
 
     PropertyInteger(string const& key, int value);
     PropertyInteger(string const& key, string const& description, int value);
+
+    bool operator==(PropertyInteger const& rhs);
 };
 
 #endif
