@@ -19,7 +19,7 @@ class Collection : BaseProperty
 {
 private:
     string mKey;
-    PropertyList *mPropertylist;
+    PropertyList *mPropertyList;
 
 public:
     ~Collection();
@@ -31,6 +31,5 @@ public:
     void AddProperty(BaseProperty property);
     void RemoveProperty(string const& key);
     BaseProperty GetProperty(string const& key);
-
 };
 #endif

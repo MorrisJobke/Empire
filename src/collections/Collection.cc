@@ -21,7 +21,7 @@ Collection::Collection(string const& key)
 {
     //Collectionlist und auf Collections mit gleichen Key überprüfen
     mKey = key;
-    mPropertylist = NULL;
+    mPropertyList = NULL;
 }
 
 /** Destructor
@@ -37,25 +37,13 @@ Collection::~Collection()
 
 void Collection::AddProperty(BaseProperty property)
 {
-    if(mPropertylist == NULL)
+    if(mPropertyList == NULL)
     {
-        mPropertylist = new struct PropertyList(property);
+        mPropertyList = new PropertyList(property);
     }
     else
     {
-        bool found = false;
-        PropertyList *pointer = mPropertylist;
-        //if(pointer->GetProperty() == property) found = true;        
-        while((pointer->GetNextProperty() != NULL) && (found != true))
-        {
-            pointer = pointer->GetNextProperty();
-            //if(pointer->GetProperty() == property) found = true;
-        }
-        if(found == false)
-        {
-            pointer = mPropertylist;
-            mPropertylist = new struct PropertyList(property, pointer);
-        } 
+        mPropertyList->AddProperty(property);
     }
 }
 
