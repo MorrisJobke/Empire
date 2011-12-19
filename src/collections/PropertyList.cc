@@ -12,44 +12,27 @@
 /////////////////////////////// PUBLIC ///////////////////////////////////////
 
 /*============================= LIFECYCLE ==================================*/
-
-PropertyList::PropertyList(BaseProperty property)
-{
-    mProperty = property;
-    mNext = NULL;
-}
-
-PropertyList::PropertyList(BaseProperty property, PropertyList* list)
-{
-    mProperty = property;
-    mNext = list;
-}
-
-PropertyList::~PropertyList()
-{
-}
+PropertyList::PropertyList(BaseProperty property){}
+PropertyList::PropertyList(BaseProperty property, PropertyListStruct* list){}
+PropertyList::~PropertyList(){}
 /*============================= OPERATORS ==================================*/
 /*============================= OPERATIONS =================================*/
-//unnötig?
-void PropertyList::AddProperty(BaseProperty property)
+
+bool PropertyList::AddProperty(BaseProperty property)
 {
+    // add new item at head of list
+    PropertyListStruct *oldHead = mPropertyList;
+    PropertyListStruct *newHead = new PropertyListStruct;
+    newHead->mProperty = property;
+    newHead->mNext = oldHead;
+    mPropertyList = newHead;
+
+    return true;
 }
-//unnötig?
-void PropertyList::RemoveProperty(string const& key)
-{
-}
+bool PropertyList::RemoveProperty(string const& key){}
 
 /*============================= ACCESS     =================================*/
-
-BaseProperty PropertyList::GetProperty()
-{
-return mProperty;
-}
-
-PropertyList* PropertyList::GetNextProperty()
-{
-return mNext;
-}
+BaseProperty PropertyList::GetProperty(string const& key){}
 /*============================= INQUIRY    =================================*/
 
 /////////////////////////////// PROTECTED  ///////////////////////////////////

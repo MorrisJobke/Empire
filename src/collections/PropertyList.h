@@ -11,22 +11,24 @@
 
 #include "../properties/Property.h"
 
+struct PropertyListStruct
+{
+    BaseProperty mProperty;
+    struct PropertyListStruct *mNext;
+};
+
 class PropertyList
 {
 private:
-    BaseProperty mProperty;
-    PropertyList *mNext;
+    struct PropertyListStruct *mPropertyList;
 
 public:
     ~PropertyList();
     PropertyList(BaseProperty property);
-    PropertyList(BaseProperty property, PropertyList* list);
+    PropertyList(BaseProperty property, PropertyListStruct* list);
 
-    BaseProperty GetProperty();
-    PropertyList* GetNextProperty();
-    
-    //unnötig?
-    void AddProperty(BaseProperty property);
-    void RemoveProperty(string const& key);
+    bool AddProperty(BaseProperty property);
+    bool RemoveProperty(string const& key);
+    BaseProperty GetProperty(string const& key);
 };
 #endif
