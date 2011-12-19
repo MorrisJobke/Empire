@@ -30,6 +30,7 @@ public:
 
     void AddProperty(BaseProperty property);
     void RemoveProperty(string const& key);
+    BaseProperty GetProperty(string const& key);
 
 };
 #endif

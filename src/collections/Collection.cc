@@ -33,6 +33,7 @@ Collection::~Collection()
 
 
 /*============================= OPERATORS ==================================*/
+/*============================= OPERATIONS =================================*/
 
 void Collection::AddProperty(BaseProperty property)
 {
@@ -42,8 +43,7 @@ void Collection::RemoveProperty(string const& key)
 {
 }
 
-/*============================= OPERATIONS =================================*/
-/*============================= ACESS      =================================*/
+/*============================= ACCESS     =================================*/
 
 string Collection::GetKey() const
 {
@@ -53,6 +53,10 @@ string Collection::GetKey() const
 void Collection::SetKey(string value)
 {
     mKey = value;
+}
+
+BaseProperty Collection::GetProperty(string const& key)
+{
 }
 
 /*============================= INQUIRY    =================================*/
