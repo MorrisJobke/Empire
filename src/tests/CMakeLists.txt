@@ -19,5 +19,6 @@ if(ENABLE_TESTING)
         PropertyFloat
         PropertyString
         PropertyFunction
-        Collection)
+        Collection
+        PropertyList)
 endif()
