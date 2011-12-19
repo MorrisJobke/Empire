@@ -18,6 +18,14 @@ private:
     PropertyList *mNext;
 
 public:
+    ~PropertyList();
+    PropertyList(BaseProperty property);
+    PropertyList(BaseProperty property, PropertyList* list);
+
+    BaseProperty GetProperty();
+    PropertyList* GetNextProperty();
+    
+    //unnötig?
     void AddProperty(BaseProperty property);
     void RemoveProperty(string const& key);
 };

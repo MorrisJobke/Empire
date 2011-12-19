@@ -12,18 +12,44 @@
 /////////////////////////////// PUBLIC ///////////////////////////////////////
 
 /*============================= LIFECYCLE ==================================*/
+
+PropertyList::PropertyList(BaseProperty property)
+{
+    mProperty = property;
+    mNext = NULL;
+}
+
+PropertyList::PropertyList(BaseProperty property, PropertyList* list)
+{
+    mProperty = property;
+    mNext = list;
+}
+
+PropertyList::~PropertyList()
+{
+}
 /*============================= OPERATORS ==================================*/
 /*============================= OPERATIONS =================================*/
-
+//unnötig?
 void PropertyList::AddProperty(BaseProperty property)
 {
 }
-
+//unnötig?
 void PropertyList::RemoveProperty(string const& key)
 {
 }
 
 /*============================= ACCESS     =================================*/
+
+BaseProperty PropertyList::GetProperty()
+{
+return mProperty;
+}
+
+PropertyList* PropertyList::GetNextProperty()
+{
+return mNext;
+}
 /*============================= INQUIRY    =================================*/
 
 /////////////////////////////// PROTECTED  ///////////////////////////////////
