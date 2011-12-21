@@ -7,6 +7,7 @@
 *.synctex.gz
 *.tex~
 *.swp
+*~
 
 # generated pdf's
 docs/Pflichtenheft/Pflichtenheft.pdf
