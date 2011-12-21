@@ -8,7 +8,8 @@ if(ENABLE_TESTING)
         PropertyFloatTests
         PropertyStringTests
         PropertyFunctionTests
-        CollectionTests)
+        CollectionTests
+        RepositoryTests)
 
     # used libraries
     target_link_libraries(EmpireTest
@@ -20,5 +21,6 @@ if(ENABLE_TESTING)
         PropertyString
         PropertyFunction
         Collection
-        PropertyList)
+        PropertyList
+        Repository)
 endif()
