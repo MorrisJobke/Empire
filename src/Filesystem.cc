@@ -8,17 +8,42 @@
 
 #include "Filesystem.h"
 
+using namespace std;
+
 
 //////////////////////////////////////////////////////////////////////////////
 namespace Filesystem
 {
+    /** function which prints the current working dir
+     */
     void PrintCwd()
     {
-        int buf_size = 500;
-        char* buffer = new char[buf_size];
+        int buf_grain = 10;
+        int buf_size = 10;
 
-        getcwd(buffer,  buf_size);
+        char* buffer;
+
+        while (true)
+        {
+           buffer = new char[buf_size];
+           buffer = getcwd(buffer,  buf_size);
+           
+           if (buffer == NULL and errno == ERANGE)
+           {
+               delete[] buffer;
+               buf_size += buf_grain;
+           }
+           else
+               break;
+        }
+        
+        cout << buffer << endl;
+        delete[] buffer;
     }
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+
+
 }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/

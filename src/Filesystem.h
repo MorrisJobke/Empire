@@ -10,10 +10,15 @@
 #define FILESYSTEM_H
 
 #include <unistd.h>
+#include <errno.h>
+
+#include <iostream>
+#include <string>
 
 namespace Filesystem
 {
     void PrintCwd();
+    void CreateDirectory();
 }
 
 
