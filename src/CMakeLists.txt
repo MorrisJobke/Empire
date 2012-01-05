@@ -21,6 +21,7 @@ set(CMAKE_CXX_FLAGS_DEBUG "-Wall -Wextra -Wformat=2 -Winit-self -Winline -Wpacke
 
 # libraries
 add_library(Repository Repository)
+add_library(Filesystem Filesystem)
 
 # adding sub directories
 # parameter:
