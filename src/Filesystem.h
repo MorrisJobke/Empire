@@ -10,15 +10,39 @@
 #define FILESYSTEM_H
 
 #include <unistd.h>
+#include <sys/stat.h>
 #include <errno.h>
+#include <cstring>
 
 #include <iostream>
 #include <string>
+#include <exception>
 
 namespace Filesystem
 {
+    using namespace std;
+
+    /** exceptions
+     */
+    class CannotCreateDirError
+    { 
+        private:
+            string mWhat;
+
+        public:
+            CannotCreateDirError() 
+            : mWhat("Cannot Create Directory")
+            { }
+
+            string what()
+            {
+                return mWhat;
+            }
+    };
+
     void PrintCwd();
-    void CreateDirectory();
+    void CreateDirectory(string& rDirPath);
+    bool DirectoryExists(string& rDirPath);
 }
 
 

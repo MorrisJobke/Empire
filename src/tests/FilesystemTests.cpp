@@ -12,7 +12,10 @@
 #   define BOOST_TEST_MODULE PropertyInteger
 #endif
 #include <iostream>
+#include <string>
+
 #include <boost/test/unit_test.hpp>
+
 #include "../Filesystem.h"
 
 using namespace std;
@@ -26,6 +29,26 @@ BOOST_AUTO_TEST_CASE(testFilesystem)
     cout << "testing Filesystem" << endl;
     
     Fs::PrintCwd();
+
+}
+
+BOOST_AUTO_TEST_CASE(testDirCreation)
+{
+    cout << "testing direction creation" << endl;
+
+    string dir_name = "Hallo";
+    
+    if (Fs::DirectoryExists(dir_name))
+        cout << "Dir exists" << endl;
+    
+    try
+    {
+        Fs::CreateDirectory(dir_name);
+    }
+    catch(Fs::CannotCreateDirError &exc)
+    {
+        cout << "Cannot create directory"  << endl;
+    }
 
 }
 

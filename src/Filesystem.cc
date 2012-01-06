@@ -43,6 +43,48 @@ namespace Filesystem
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
 
+    /** function to create a new directory
+     */ 
+    void CreateDirectory (string& rDirPath)
+    {
+        /* create char array */
+        char* cstr = new char[rDirPath.size() + 1];
+        strcpy(cstr, rDirPath.c_str());
+
+        mode_t mode = S_IRWXU | S_IRGRP | S_IXGRP | S_IROTH | S_IXOTH;
+
+        int ret = mkdir(cstr, mode);
+        
+        delete[] cstr;
+
+        if (ret != 0)
+           throw CannotCreateDirError();
+
+    }
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+
+    /** function to create a new directory
+     */ 
+    bool DirectoryExists(string& rDirPath)
+    {
+        /* create char array */
+        char* cstr = new char[rDirPath.size() + 1];
+        strcpy(cstr, rDirPath.c_str());
+
+        struct stat sb;
+        stat(cstr, &sb);
+
+        delete[] cstr;
+
+        if (S_ISDIR(sb.st_mode) != 0)
+            return true;
+        else
+            return false;
+    }
+
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
 
 }
 
