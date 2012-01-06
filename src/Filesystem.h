@@ -18,27 +18,15 @@
 #include <string>
 #include <exception>
 
+#include "DefineException.h"
+
 namespace Filesystem
 {
     using namespace std;
 
     /** exceptions
      */
-    class CannotCreateDirError
-    { 
-        private:
-            string mWhat;
-
-        public:
-            CannotCreateDirError() 
-            : mWhat("Cannot Create Directory")
-            { }
-
-            string what()
-            {
-                return mWhat;
-            }
-    };
+    DEFINE_FAST_EXCEPTION(CannotCreateDirError, "Cannot create directory.")
 
     void PrintCwd();
     void CreateDirectory(string& rDirPath);
