@@ -11,8 +11,11 @@
 #ifdef STAND_ALONE
 #   define BOOST_TEST_MODULE PropertyInteger
 #endif
+
 #include <iostream>
 #include <string>
+
+#include <stdio.h>
 
 #include <boost/test/unit_test.hpp>
 
@@ -24,32 +27,44 @@ namespace Fs = Filesystem;
 
 BOOST_AUTO_TEST_SUITE(FilesystemTests_Suite)
 
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+
 BOOST_AUTO_TEST_CASE(testFilesystem)
 {
-    cout << "testing Filesystem" << endl;
+    //cout << "testing Filesystem" << endl;
     
-    Fs::PrintCwd();
+    //Fs::PrintCwd();
 
 }
 
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+
+/** test the creation of a DirectoryExists
+ *  
+ * if it is created remove it */
 BOOST_AUTO_TEST_CASE(testDirCreation)
 {
-    cout << "testing direction creation" << endl;
+    string dir_name = "test_dir";
+    
+    BOOST_CHECK(Fs::DirectoryExists(dir_name) == false);
+    
+    if (Fs::DirectoryExists(dir_name) == false)
+    {
+        try
+        {
+            Fs::CreateDirectory(dir_name);
+        }
+        catch(Fs::CannotCreateDirError &exc)
+        {
+            cout << "Cannot create directory"  << endl;
+            BOOST_CHECK(false);
+        }
 
-    string dir_name = "Hallo";
-    
-    if (Fs::DirectoryExists(dir_name))
-        cout << "Dir exists" << endl;
-    
-    try
-    {
-        Fs::CreateDirectory(dir_name);
-    }
-    catch(Fs::CannotCreateDirError &exc)
-    {
-        cout << "Cannot create directory"  << endl;
+        remove(dir_name.c_str());
     }
 
 }
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
 
 BOOST_AUTO_TEST_SUITE_END()
