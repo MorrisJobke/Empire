@@ -34,7 +34,7 @@ add_subdirectory(tests)
 # parameter:
 #   output name
 #   source name
-add_executable(Empire main2)
+add_executable(Empire Empire)
 
 # link all together
 # parameter
