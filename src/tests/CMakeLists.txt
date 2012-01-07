@@ -13,6 +13,7 @@ if(ENABLE_TESTING)
         CollectionTests
         FilesystemTests
         RepositoryTests
+        GenPropertyTest
         PropertyTests)
 
     # used libraries
@@ -27,6 +28,7 @@ if(ENABLE_TESTING)
         Collection
         PropertyList
         Filesystem
+        GenProperty
         Repository)
 
     if(LUA_FOUND)
@@ -40,6 +42,7 @@ if(ENABLE_TESTING)
             CollectionTests
             FilesystemTests
             RepositoryTests
+            GenPropertyTest
             PropertyTests)
 
         # used libraries
@@ -54,6 +57,7 @@ if(ENABLE_TESTING)
             Collection
             PropertyList
             Filesystem
+            GenProperty
             Repository)
         endif()
 endif()
