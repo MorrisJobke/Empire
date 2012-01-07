@@ -40,4 +40,4 @@ add_executable(Empire Empire)
 # parameter
 #   executable
 #   used libraries
-target_link_libraries(Empire PropertyInteger)
+target_link_libraries(Empire PropertyInteger Repository Filesystem)
