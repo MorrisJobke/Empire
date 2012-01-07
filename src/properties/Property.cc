@@ -66,7 +66,7 @@ Property<T>::SaveMeta()
     //path = GetMainPath();
     path = path + "meta.txt";
     string value = mKey + " " + GetType() + "\n";
-    Filesystem::FileWriteString(path, value);
+    Filesystem::FileAppendString(path, value);
 }
 
 /*============================= ACESS      =================================*/
