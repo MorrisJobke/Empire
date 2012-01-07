@@ -63,7 +63,7 @@ GenProperty::GenProperty(std::string value, std::string& rKey)
 void GenProperty::WriteMetadata(std::string const& rPath)
 {
     std::string value = mKey + " " + GetType() + "\n";
-    Filesystem::FileAppendString(rPath + "/" + mKey, value);
+    Filesystem::FileWriteString(rPath + "/" + mKey, value);
 }
 
 void GenProperty::WriteData(std::string const& rPath)
