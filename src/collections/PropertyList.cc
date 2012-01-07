@@ -12,27 +12,41 @@
 /////////////////////////////// PUBLIC ///////////////////////////////////////
 
 /*============================= LIFECYCLE ==================================*/
-PropertyList::PropertyList(BaseProperty property){}
-PropertyList::PropertyList(BaseProperty property, PropertyListStruct* list){}
+PropertyList::PropertyList() {}
 PropertyList::~PropertyList(){}
 /*============================= OPERATORS ==================================*/
 /*============================= OPERATIONS =================================*/
 
-bool PropertyList::AddProperty(BaseProperty property)
+bool
+PropertyList::PropertyExists(string const& key)
 {
-    // add new item at head of list
-    PropertyListStruct *oldHead = mPropertyList;
-    PropertyListStruct *newHead = new PropertyListStruct;
-    newHead->mProperty = property;
-    newHead->mNext = oldHead;
-    mPropertyList = newHead;
-
-    return true;
+    std::map<string, string>::const_iterator it = mPropertyList.find(key);
+    return it != mPropertyList.end();
 }
-bool PropertyList::RemoveProperty(string const& key){}
+
+template<class T> void 
+PropertyList::AddProperty(Property<T> property)
+{
+    mPropertyList[property.GetKey()] = property.ToString();
+}
+
+void
+PropertyList::RemoveProperty(string const& key)
+{
+    mPropertyList.erase(key);
+}
 
 /*============================= ACCESS     =================================*/
-BaseProperty PropertyList::GetProperty(string const& key){}
+
+string
+PropertyList::GetPropertyValue(string const& key)
+{
+    if (!PropertyExists(key))
+        throw PropertyNotExistsInList();
+    
+    return mPropertyList[key];
+}
+
 /*============================= INQUIRY    =================================*/
 
 /////////////////////////////// PROTECTED  ///////////////////////////////////

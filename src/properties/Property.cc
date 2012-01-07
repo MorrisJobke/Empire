@@ -95,6 +95,14 @@ Property<T>::SetDescription(string value)
     mDescription = value;
 }
 
+template<class T> string
+Property<T>::ToString() const
+{
+    ostringstream oss;
+    oss << mValue;
+    return oss.str();
+}
+
 /*============================= INQUIRY    =================================*/
 
 /////////////////////////////// PROTECTED  ///////////////////////////////////

@@ -9,13 +9,11 @@
 #ifndef PROPERTY_H
 #define PROPERTY_H
 
+#include <sstream>
 #include <string>
 using namespace std;
 
-class BaseProperty {};
-
 template<class T> class Property
-: public BaseProperty
 {
 protected:
     string mKey;
@@ -37,6 +35,8 @@ public:
     void SetKey(string value);
     string GetDescription() const;
     void SetDescription(string value);
+
+    string ToString() const;
 };
 
 #endif

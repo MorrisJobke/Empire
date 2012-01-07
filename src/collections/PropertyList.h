@@ -9,26 +9,29 @@
 #ifndef PROPERTYLIST_H
 #define PROPERTYLIST_H
 
-#include "../properties/Property.h"
+#include <string>
+#include <map>
+#include <exception>
 
-struct PropertyListStruct
-{
-    BaseProperty mProperty;
-    struct PropertyListStruct *mNext;
-};
+#include "../properties/Property.h"
+#include "../DefineException.h"
 
 class PropertyList
 {
+    /** exceptions
+     */
+    DEFINE_FAST_EXCEPTION(PropertyNotExistsInList, "Property does not exists in this list.")
+
 private:
-    struct PropertyListStruct *mPropertyList;
+    struct std::map<string, string> mPropertyList;
 
 public:
     ~PropertyList();
-    PropertyList(BaseProperty property);
-    PropertyList(BaseProperty property, PropertyListStruct* list);
+    PropertyList();
 
-    bool AddProperty(BaseProperty property);
-    bool RemoveProperty(string const& key);
-    BaseProperty GetProperty(string const& key);
+    bool PropertyExists(string const& key);
+    template<class T> void AddProperty(Property<T> property);
+    void RemoveProperty(string const& key);
+    string GetPropertyValue(string const& key);
 };
 #endif

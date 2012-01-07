@@ -35,37 +35,9 @@ Collection::~Collection()
 /*============================= OPERATORS ==================================*/
 /*============================= OPERATIONS =================================*/
 
-void Collection::AddProperty(BaseProperty property)
-{
-    if(mPropertyList == NULL)
-    {
-        mPropertyList = new PropertyList(property);
-    }
-    else
-    {
-        mPropertyList->AddProperty(property);
-    }
-}
-
-void Collection::RemoveProperty(string const& key)
-{
-}
 
 /*============================= ACCESS     =================================*/
 
-string Collection::GetKey() const
-{
-    return mKey;
-}
-
-void Collection::SetKey(string value)
-{
-    mKey = value;
-}
-
-BaseProperty Collection::GetProperty(string const& key)
-{
-}
 
 /*============================= INQUIRY    =================================*/
 /////////////////////////////// PROTECTED  ///////////////////////////////////
