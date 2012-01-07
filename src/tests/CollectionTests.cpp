@@ -22,24 +22,6 @@ BOOST_AUTO_TEST_CASE(EmptyCollection_2)
     BOOST_CHECK(coll->GetKey() == "key");
 }
 
-BOOST_AUTO_TEST_CASE(AddingProperties_3)
-{
-    PropertyInteger property ("intkey", 42);
-    PropertyFloat property2 ("floatkey", "i am a property", 3.14159265);
-    Collection* coll = new Collection("key");
-    coll->AddProperty(property);
-    coll->AddProperty(property2);
-    BOOST_CHECK(coll->GetKey() == "key");
-    // PropertyInteger property3 = coll->GetProperty("intkey");
-    // BOOST_CHECK(property3.GetValue() == property->GetValue());
-    // BOOST_CHECK(property3.GetKey() == property->GetKey());
-    // PropertyFloat property3 = coll->GetProperty("floatkey");
-    // BOOST_CHECK(property3.GetValue() == property2->GetValue());
-    // BOOST_CHECK(property3.GetKey() == property2->GetKey());
-
-    // BOOST_CHECK(coll->GetProperty("definitelynotavailable") == NULL);
-}
-
 // BOOST_AUTO_TEST_CASE(test4)
 // {
 //     coll = new Collection("key");

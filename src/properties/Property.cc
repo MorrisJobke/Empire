@@ -118,6 +118,14 @@ Property<T>::SetType(string value)
 {
     mType = value;
 }
+
+Property<T>::ToString() const
+{
+    ostringstream oss;
+    oss << mValue;
+    return oss.str();
+}
+
 /*============================= INQUIRY    =================================*/
 
 /////////////////////////////// PROTECTED  ///////////////////////////////////

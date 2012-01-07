@@ -11,11 +11,11 @@
 
 #include <string>
 #include "PropertyList.h"
-#include "../properties/Property.h"
+#include "../properties/Property.cc"
 
 using namespace std;
 
-class Collection : BaseProperty
+class Collection : public Property<PropertyList>
 {
 private:
     string mKey;
@@ -25,11 +25,8 @@ public:
     ~Collection();
     Collection(string const& key);
 
-    string GetKey() const;
-    void SetKey(string value);
-
-    void AddProperty(BaseProperty property);
-    void RemoveProperty(string const& key);
-    BaseProperty GetProperty(string const& key);
+    // void AddProperty(BaseProperty property);
+    // void RemoveProperty(string const& key);
+    // BaseProperty GetProperty(string const& key);
 };
 #endif
