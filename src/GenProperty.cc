@@ -63,7 +63,7 @@ GenProperty::GenProperty(std::string value, std::string& rKey)
 void GenProperty::WriteMetadata(std::string const& rPath)
 {
     std::string value = mKey + " " + GetType() + "\n";
-    Filesystem::FileAppendString(rPath, value);
+    Filesystem::FileAppendString(rPath + "/" + mKey, value);
 }
 
 void GenProperty::WriteData(std::string const& rPath)
@@ -77,21 +77,21 @@ void GenProperty::WriteData(std::string const& rPath)
             GetValue(value_int);          
             out << value_int;
             temp = out.str();
-            Filesystem::FileWriteString(rPath, temp);
+            Filesystem::FileWriteString(rPath + "/" + mKey, temp);
             break;
         case FLOAT_T:
             double value_double;
             GetValue(value_double);
             out << value_double;
             temp = out.str();
-            Filesystem::FileWriteString(rPath, temp);
+            Filesystem::FileWriteString(rPath + "/" + mKey, temp);
             break;
         case STRING_T:
             std::string value_string;
             GetValue(value_string);
             out << value_string;
             temp = out.str();
-            Filesystem::FileWriteString(rPath, temp);
+            Filesystem::FileWriteString(rPath + "/" + mKey, temp);
         //case FUNCTION_T:
             //break;
     }
