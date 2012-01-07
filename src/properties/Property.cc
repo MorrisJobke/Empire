@@ -119,6 +119,7 @@ Property<T>::SetType(string value)
     mType = value;
 }
 
+template<class T> string
 Property<T>::ToString() const
 {
     ostringstream oss;
