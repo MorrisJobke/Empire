@@ -1,6 +1,8 @@
 if(ENABLE_TESTING)
     find_package(Boost COMPONENTS unit_test_framework REQUIRED)
 
+    include_directories(${LUA_INCLUDE_DIRS})
+
     # files to be included in executetable
     add_executable(EmpireTest
         MainTests
