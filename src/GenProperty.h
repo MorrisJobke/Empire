@@ -36,6 +36,12 @@ class GenProperty
     void GetValue(int& value);
     void GetValue(float& value);
     void GetValue(std::string& value);
+
+    void WriteMetadata(std::string const& rPath);
+    void WriteData(std::string const& rPath);
+
+    void ReadMetadata(std::string const& rPath);
+    void ReadData(std::string const& rPath);
 };
 
 
