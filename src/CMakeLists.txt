@@ -28,8 +28,6 @@ add_library(GenProperty GenProperty)
 # adding sub directories
 # parameter:
 #   directory name
-add_subdirectory(collections)
-add_subdirectory(properties)
 add_subdirectory(tests)
 
 # specify executable
@@ -42,4 +40,4 @@ add_executable(Empire Empire)
 # parameter
 #   executable
 #   used libraries
-target_link_libraries(Empire PropertyInteger Repository Filesystem)
+target_link_libraries(Empire Repository Filesystem)

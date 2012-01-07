@@ -5,7 +5,6 @@
 #include <cstring>
 
 #include "Repository.h"
-#include "properties/PropertyInteger.h"
 
 #ifndef NULL
 #define NULL 0
@@ -16,9 +15,9 @@
  */
 static void usage()
 {
-    cout << "Synopsis: emp <actions> [<action-arguments>] [<action-options>]\n\n"
+    std::cout << "Synopsis: emp <actions> [<action-arguments>] [<action-options>]\n\n"
          << "  init         initialize a repository in the working directory\n"
-         << endl
+         << std::endl
          << "  --help, -h   print this help\n";
 }
 
@@ -46,7 +45,7 @@ int main(int argc, char* argv[])
     if (argc == 0)
     {
         if (Repository::IsExistent())
-            cout << "You have a repository here" << endl;
+            std::cout << "You have a repository here" << std::endl;
 
         usage();
 
@@ -79,13 +78,13 @@ int main(int argc, char* argv[])
             }
             catch(RepoExistentError &exc)
             {
-                cout << "You have already a repo here." << endl;
+                std::cout << "You have already a repo here." << std::endl;
                 return 0;
             }
             catch(CannotCreateRepoError &exc)
             {
-                cout << "The repository can not be created, maybe you do not have" << endl
-                     << "permissions." << endl;
+                std::cout << "The repository can not be created, maybe you do not have" << std::endl
+                     << "permissions." << std::endl;
                 return 1;
             }
 
