@@ -7,6 +7,8 @@
  */
 
 #include "GenProperty.h"
+#include "Filesystem.h"
+#include <sstream>
 
 
 /////////////////////////////// PUBLIC ///////////////////////////////////////
@@ -33,13 +35,13 @@ GenProperty::GenProperty(int value, std::string& rKey)
     
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
 
-GenProperty::GenProperty(float value, std::string& rKey)
+GenProperty::GenProperty(double value, std::string& rKey)
 :   mKey(rKey),
     mType(FLOAT_T)
 {
     this->InitPointers();
     
-    mpFloatValue = new float(value);
+    mpFloatValue = new double(value);
 }
     
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
@@ -57,6 +59,44 @@ GenProperty::GenProperty(std::string value, std::string& rKey)
 /*============================= OPERATORS ==================================*/
 
 /*============================= OPERATIONS =================================*/
+
+void GenProperty::WriteMetadata(std::string const& rPath)
+{
+    std::string value = mKey + " " + GetType() + "\n";
+    Filesystem::FileAppendString(rPath, value);
+}
+
+void GenProperty::WriteData(std::string const& rPath)
+{
+    std::string temp;
+    std::stringstream out;
+    switch(mType)
+    {
+        case INT_T:
+            int value_int;
+            GetValue(value_int);          
+            out << value_int;
+            temp = out.str();
+            Filesystem::FileWriteString(rPath, temp);
+            break;
+        case FLOAT_T:
+            double value_double;
+            GetValue(value_double);
+            out << value_double;
+            temp = out.str();
+            Filesystem::FileWriteString(rPath, temp);
+            break;
+        case STRING_T:
+            std::string value_string;
+            GetValue(value_string);
+            out << value_string;
+            temp = out.str();
+            Filesystem::FileWriteString(rPath, temp);
+        //case FUNCTION_T:
+            //break;
+    }
+}
+
 /*============================= ACESS      =================================*/
 
 void GenProperty::GetValue(int& value)
@@ -66,7 +106,7 @@ void GenProperty::GetValue(int& value)
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
 
-void GenProperty::GetValue(float& value)
+void GenProperty::GetValue(double& value)
 {
     value = *mpFloatValue;
 }
@@ -80,9 +120,15 @@ void GenProperty::GetValue(std::string& value)
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
 
-PropertyTypes GenProperty::GetType()
+std::string GenProperty::GetType()
 {
-    return mType;
+    switch(mType)
+    {
+        case INT_T: return "Integer"; break;
+        case FLOAT_T: return "Float"; break;
+        case STRING_T: return "String"; break;
+        //case FUNCTION_T: return "Function"; break;
+    }
 }
 
 /*============================= INQUIRY    =================================*/

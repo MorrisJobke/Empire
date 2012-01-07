@@ -23,21 +23,21 @@ class GenProperty
     PropertyTypes mType;
 
     int*            mpIntValue;
-    float*          mpFloatValue;
+    double*          mpFloatValue;
     std::string*    mpStringValue;
 
     public:
     void InitPointers();
 
     GenProperty(int value,        std::string& rKey);
-    GenProperty(float value,      std::string& rKey);
+    GenProperty(double value,      std::string& rKey);
     GenProperty(std::string value, std::string& rKey);
 
     void GetValue(int& value);
-    void GetValue(float& value);
+    void GetValue(double& value);
     void GetValue(std::string& value);
 
-    PropertyTypes GetType();
+    std::string GetType();
 
     void WriteMetadata(std::string const& rPath);
     void WriteData(std::string const& rPath);
