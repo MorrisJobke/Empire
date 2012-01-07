@@ -73,6 +73,21 @@ namespace Filesystem
     }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+
+    /** function to change the cwd
+     */
+    bool ChangeCwd(string& rPath)
+    {
+        int ret = chdir(rPath.c_str());
+        
+        if (ret == -1)
+            return false;
+        else
+            return true;
+    }
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+
     /** function to create a new directory
      */ 
     void CreateDirectory (string& rDirPath)

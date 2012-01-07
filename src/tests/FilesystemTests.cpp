@@ -31,12 +31,6 @@ BOOST_AUTO_TEST_SUITE(FilesystemTests_Suite)
 
 BOOST_AUTO_TEST_CASE(testFilesystem)
 {
-    //cout << "testing Filesystem" << endl;
-    //string cwd;
-    //
-    //cwd = Fs::GetCwd();
-    //
-    //cout << "cwd: " << cwd << endl;
 
 }
 
@@ -106,4 +100,19 @@ BOOST_AUTO_TEST_CASE(testFileAppend)
     BOOST_CHECK(Fs::FileExists(path) == true);
 
 }
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+
+BOOST_AUTO_TEST_CASE(testWorkingDirOps)
+{
+    string str = "..";
+    string old_cwd = Fs::GetCwd();
+
+    Fs::ChangeCwd(str);
+
+    Fs::ChangeCwd(old_cwd);
+
+    BOOST_CHECK(old_cwd == Fs::GetCwd());
+}
+
 BOOST_AUTO_TEST_SUITE_END()
