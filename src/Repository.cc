@@ -8,6 +8,7 @@
 
 #include "Repository.h"
 
+namespace Fs = Filesystem;
 
 /////////////////////////////// PUBLIC ///////////////////////////////////////
 
@@ -17,6 +18,21 @@
  */
 Repository::Repository()
 {
+    std::string repo_path = ".emp";
+
+    if (Fs::DirectoryExists(repo_path))
+        throw RepoExistentError();
+
+
+    /* create the repo directory */
+    try
+    {
+        Fs::CreateDirectory(repo_path);
+    }
+    catch(Fs::CannotCreateDirError &exc)
+    {
+        throw CannotCreateRepoError();
+    }
 }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
