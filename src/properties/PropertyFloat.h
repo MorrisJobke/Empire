@@ -9,7 +9,7 @@
 #ifndef PROPERTYFLOAT_H
 #define PROPERTYFLOAT_H
 
-#ifndef PROPERTY_H
+#ifndef PROPERTY_CC
 #   include "Property.cc"
 #endif
 

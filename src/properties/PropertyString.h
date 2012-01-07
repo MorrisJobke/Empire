@@ -9,7 +9,7 @@
 #ifndef PROPERTYSTRING_H
 #define PROPERTYSTRING_H
 
-#ifndef PROPERTY_H
+#ifndef PROPERTY_CC
 #   include "Property.cc"
 #endif
 

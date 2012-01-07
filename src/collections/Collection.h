@@ -11,7 +11,7 @@
 
 #include <string>
 #include "PropertyList.h"
-#ifndef PROPERTY_H
+#ifndef PROPERTY_CC
 #   include "../properties/Property.cc"
 #endif
 

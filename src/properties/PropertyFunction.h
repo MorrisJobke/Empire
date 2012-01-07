@@ -8,7 +8,7 @@
 #ifndef PROPERTYFUNCTION_H
 #define PROPERTYFUNCTION_H
 
-#ifndef PROPERTY_H
+#ifndef PROPERTY_CC
 #   include "Property.cc"
 #endif
 

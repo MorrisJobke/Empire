@@ -9,7 +9,7 @@
 #ifndef PROPERTYINTEGER_H
 #define PROPERTYINTEGER_H
 
-#ifndef PROPERTY_H
+#ifndef PROPERTY_CC
 #   include "Property.cc"
 #endif
 

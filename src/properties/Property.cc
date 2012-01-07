@@ -5,6 +5,8 @@
  * @Created:     2011-12-16.
  * @Editor:      Vim
  */
+#ifndef PROPERTY_CC
+#define PROPERTY_CC
 
 #include "Property.h"
 #include "../Filesystem.h"
@@ -132,3 +134,5 @@ Property<T>::ToString() const
 /////////////////////////////// PROTECTED  ///////////////////////////////////
 
 /////////////////////////////// PRIVATE    ///////////////////////////////////
+
+#endif
