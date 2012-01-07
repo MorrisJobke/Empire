@@ -22,9 +22,8 @@ void GenProperty::InitPointers()
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
 
-GenProperty::GenProperty(int value, std::string& rKey, std::string& rDesc)
+GenProperty::GenProperty(int value, std::string& rKey)
 :   mKey(rKey),
-    mDesc(rDesc),
     mType(INT_T)
 {
     this->InitPointers();
@@ -34,9 +33,8 @@ GenProperty::GenProperty(int value, std::string& rKey, std::string& rDesc)
     
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
 
-GenProperty::GenProperty(float value, std::string& rKey, std::string& rDesc)
+GenProperty::GenProperty(float value, std::string& rKey)
 :   mKey(rKey),
-    mDesc(rDesc),
     mType(FLOAT_T)
 {
     this->InitPointers();
@@ -46,9 +44,8 @@ GenProperty::GenProperty(float value, std::string& rKey, std::string& rDesc)
     
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
 
-GenProperty::GenProperty(std::string value, std::string& rKey, std::string& rDesc)
+GenProperty::GenProperty(std::string value, std::string& rKey)
 :   mKey(rKey),
-    mDesc(rDesc),
     mType(STRING_T)
 {
     this->InitPointers();
