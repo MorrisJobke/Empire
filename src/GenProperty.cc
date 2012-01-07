@@ -81,6 +81,13 @@ void GenProperty::GetValue(std::string& value)
     value = *mpStringValue;
 }
 
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+
+PropertyTypes GetType()
+{
+    return mType;
+}
+
 /*============================= INQUIRY    =================================*/
 /////////////////////////////// PROTECTED  ///////////////////////////////////
 

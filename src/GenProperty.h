@@ -37,6 +37,8 @@ class GenProperty
     void GetValue(int& value);
     void GetValue(float& value);
     void GetValue(std::string& value);
+
+    PropertyTypes GetType();
 };
 
 
