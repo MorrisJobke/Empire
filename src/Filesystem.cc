@@ -90,7 +90,7 @@ namespace Filesystem
 
     /** function to create a new directory
      */ 
-    void CreateDirectory (string& rDirPath)
+    void CreateDirectory (string const& rDirPath)
     {
         /* create char array */
         char* cstr = new char[rDirPath.size() + 1];
@@ -111,7 +111,7 @@ namespace Filesystem
 
     /** function to create a new directory
      */ 
-    bool DirectoryExists(string& rDirPath)
+    bool DirectoryExists(string const& rDirPath)
     {
         /* create char array */
         char* cstr = new char[rDirPath.size() + 1];
@@ -132,7 +132,7 @@ namespace Filesystem
     
     /** function to write a string to File
      */
-    void FileWriteString(string& rFilePath, string& rContent)
+    void FileWriteString(string const& rFilePath, string& rContent)
     {
         ofstream file;
 
@@ -151,7 +151,7 @@ namespace Filesystem
 
     /** function to write a string to File
      */
-    void FileAppendString(string& rFilePath, string& rContent)
+    void FileAppendString(string const& rFilePath, string& rContent)
     {
         ofstream file;
 
@@ -169,7 +169,7 @@ namespace Filesystem
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
     /** function to check whether a file is existent
      */ 
-    bool FileExists(string& rPath)
+    bool FileExists(string const& rPath)
     {
         /* create char array */
         char* cstr = new char[rPath.size() + 1];

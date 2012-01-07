@@ -35,13 +35,12 @@ namespace Filesystem
     string GetCwd();
     bool ChangeCwd(string& rPath);
 
-    void CreateDirectory(string& rDirPath);
-    bool DirectoryExists(string& rDirPath);
+    void CreateDirectory(string const& rDirPath);
+    bool DirectoryExists(string const& rDirPath);
 
-    void FileWriteString(string& rFilePath, string& rContent);
-    void FileAppendString(string& rFilePath, string& rContent);
-    void FileReadString(string& rFilePath, string& rContent);
-    bool FileExists(std::string& rPath);
+    void FileWriteString(string const& rFilePath, string& rContent);
+    void FileAppendString(string const& rFilePath, string& rContent);
+    bool FileExists(std::string const& rPath);
 }
 
 
