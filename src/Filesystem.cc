@@ -45,30 +45,32 @@ namespace Filesystem
 
     /** function which returns the current working dir
      */
-    //string GetCwd()
-    //{
-    //    int buf_grain = 10;
-    //    int buf_size = 10;
+    string GetCwd()
+    {
+        int buf_grain = 10;
+        int buf_size = 10;
 
-    //    char* buffer;
+        char* buffer;
 
-    //    while (true)
-    //    {
-    //       buffer = new char[buf_size];
-    //       buffer = getcwd(buffer,  buf_size);
-    //       
-    //       if (buffer == NULL and errno == ERANGE)
-    //       {
-    //           delete[] buffer;
-    //           buf_size += buf_grain;
-    //       }
-    //       else
-    //           break;
-    //    }
-    //    
-    //    cout << buffer << endl;
-    //    delete[] buffer;
-    //}
+        while (true)
+        {
+           buffer = new char[buf_size];
+           buffer = getcwd(buffer,  buf_size);
+           
+           if (buffer == NULL and errno == ERANGE)
+           {
+               delete[] buffer;
+               buf_size += buf_grain;
+           }
+           else
+               break;
+        }
+        
+        string ret = buffer;
+        delete[] buffer;
+
+        return ret;
+    }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
     /** function to create a new directory

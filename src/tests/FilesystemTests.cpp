@@ -32,8 +32,11 @@ BOOST_AUTO_TEST_SUITE(FilesystemTests_Suite)
 BOOST_AUTO_TEST_CASE(testFilesystem)
 {
     //cout << "testing Filesystem" << endl;
-    
-    //Fs::PrintCwd();
+    //string cwd;
+    //
+    //cwd = Fs::GetCwd();
+    //
+    //cout << "cwd: " << cwd << endl;
 
 }
 
