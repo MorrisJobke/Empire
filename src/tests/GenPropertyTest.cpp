@@ -39,12 +39,12 @@ BOOST_AUTO_TEST_CASE(GenPropertyIntTest)
 
 BOOST_AUTO_TEST_CASE(GenPropertyFloatTest)
 {
-    float data_float = 3.14159265;
+    double data_float = 3.14159265;
     string key = "testproperty";
 
     GenProperty myprop_float(data_float, key);
 
-    float ret_float;
+    double ret_float;
     myprop_float.GetValue(ret_float);
 
     BOOST_CHECK(ret_float == data_float);
