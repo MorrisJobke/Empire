@@ -19,7 +19,6 @@ enum PropertyTypes {INT_T, FLOAT_T, STRING_T};
 class GenProperty
 {
     std::string mKey;
-    std::string mDesc;
 
     PropertyTypes mType;
 
@@ -30,15 +29,21 @@ class GenProperty
     public:
     void InitPointers();
 
-    GenProperty(int value,        std::string& rKey, std::string& rDesc);
-    GenProperty(float value,      std::string& rKey, std::string& rDesc);
-    GenProperty(std::string value, std::string& rKey, std::string& rDesc);
+    GenProperty(int value,        std::string& rKey);
+    GenProperty(float value,      std::string& rKey);
+    GenProperty(std::string value, std::string& rKey);
 
     void GetValue(int& value);
     void GetValue(float& value);
     void GetValue(std::string& value);
 
     PropertyTypes GetType();
+
+    void WriteMetadata(std::string const& rPath);
+    void WriteData(std::string const& rPath);
+
+    void ReadMetadata(std::string const& rPath);
+    void ReadData(std::string const& rPath);
 };
 
 
