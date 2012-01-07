@@ -43,6 +43,34 @@ namespace Filesystem
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
 
+    /** function which returns the current working dir
+     */
+    //string GetCwd()
+    //{
+    //    int buf_grain = 10;
+    //    int buf_size = 10;
+
+    //    char* buffer;
+
+    //    while (true)
+    //    {
+    //       buffer = new char[buf_size];
+    //       buffer = getcwd(buffer,  buf_size);
+    //       
+    //       if (buffer == NULL and errno == ERANGE)
+    //       {
+    //           delete[] buffer;
+    //           buf_size += buf_grain;
+    //       }
+    //       else
+    //           break;
+    //    }
+    //    
+    //    cout << buffer << endl;
+    //    delete[] buffer;
+    //}
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
     /** function to create a new directory
      */ 
     void CreateDirectory (string& rDirPath)
@@ -104,6 +132,24 @@ namespace Filesystem
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
 
+    /** function to write a string to File
+     */
+    void FileAppendString(string& rFilePath, string& rContent)
+    {
+        ofstream file;
+
+        file.open(rFilePath.c_str(), ios::app);
+        
+        if (file.is_open())
+        {
+            file << rContent;
+            file.close();
+        }
+        else
+            throw CannotOpenFileError();
+    }
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
     /** function to check whether a file is existent
      */ 
     bool FileExists(string& rPath)

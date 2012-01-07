@@ -16,6 +16,7 @@
 
 #include <iostream>
 #include <fstream>
+#include <streambuf>
 #include <string>
 #include <exception>
 
@@ -31,10 +32,15 @@ namespace Filesystem
     DEFINE_FAST_EXCEPTION(CannotOpenFileError, "Cannot create file.")
 
     void PrintCwd();
+    string GetCwd();
+    bool ChangeCwd(string& rPath);
+
     void CreateDirectory(string& rDirPath);
     bool DirectoryExists(string& rDirPath);
 
     void FileWriteString(string& rFilePath, string& rContent);
+    void FileAppendString(string& rFilePath, string& rContent);
+    void FileReadString(string& rFilePath, string& rContent);
     bool FileExists(std::string& rPath);
 }
 

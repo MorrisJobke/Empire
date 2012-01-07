@@ -80,5 +80,27 @@ BOOST_AUTO_TEST_CASE(testFileCreation)
 
     BOOST_CHECK(Fs::FileExists(path) == true);
 
+    remove(path.c_str());
+
+}
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+
+/** test the reading of a file
+ *  
+ * if it is created remove it */
+BOOST_AUTO_TEST_CASE(testFileAppend)
+{
+    string content = "This is my\n Content";
+    string path = "test_file";
+
+    Fs::FileWriteString(path, content);
+
+    string sec_content = "MORE CONTENT";
+
+    Fs::FileAppendString(path, sec_content);
+
+    BOOST_CHECK(Fs::FileExists(path) == true);
+
 }
 BOOST_AUTO_TEST_SUITE_END()
