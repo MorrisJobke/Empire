@@ -9,7 +9,7 @@ if(ENABLE_TESTING)
         PropertyIntegerTests
         PropertyFloatTests
         PropertyStringTests
-        PropertyFunctionTests
+        #PropertyFunctionTests
         CollectionTests
         FilesystemTests
         RepositoryTests)
@@ -17,14 +17,41 @@ if(ENABLE_TESTING)
     # used libraries
     target_link_libraries(EmpireTest
         ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY}
-        ${LUA_LIBRARIES}                        # loaded in properties/
+        #${LUA_LIBRARIES}                        # loaded in properties/
         Property
         PropertyInteger
         PropertyFloat
         PropertyString
-        PropertyFunction
+        #PropertyFunction
         Collection
         PropertyList
         Filesystem
         Repository)
+
+    if(LUA_FOUND)
+        # files to be included in executetable
+        add_executable(EmpireTest
+            MainTests
+            PropertyIntegerTests
+            PropertyFloatTests
+            PropertyStringTests
+            PropertyFunctionTests
+            CollectionTests
+            FilesystemTests
+            RepositoryTests)
+
+        # used libraries
+        target_link_libraries(EmpireTest
+            ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY}
+            ${LUA_LIBRARIES}                        # loaded in properties/
+            Property
+            PropertyInteger
+            PropertyFloat
+            PropertyString
+            PropertyFunction
+            Collection
+            PropertyList
+            Filesystem
+            Repository)
+        endif()
 endif()
