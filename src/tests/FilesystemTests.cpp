@@ -99,6 +99,7 @@ BOOST_AUTO_TEST_CASE(testFileAppend)
 
     BOOST_CHECK(Fs::FileExists(path) == true);
 
+    remove(path.c_str());
 }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/

@@ -128,6 +128,8 @@ std::string GenProperty::GetType()
         case FLOAT_T: return "Float"; break;
         case STRING_T: return "String"; break;
         //case FUNCTION_T: return "Function"; break;
+        // fix warning
+        default: return "";
     }
 }
 
