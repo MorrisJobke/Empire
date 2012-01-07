@@ -27,10 +27,9 @@ BOOST_AUTO_TEST_SUITE(GenPropertyTestSuite)
 BOOST_AUTO_TEST_CASE(GenPropertyIntTest)
 {
     int data_int = 5;
-    string desc = "Interger Type";
     string key = "testproperty";
 
-    GenProperty myprop_int(data_int, key, desc);
+    GenProperty myprop_int(data_int, key);
 
     int ret_int;
     myprop_int.GetValue(ret_int);
@@ -41,10 +40,9 @@ BOOST_AUTO_TEST_CASE(GenPropertyIntTest)
 BOOST_AUTO_TEST_CASE(GenPropertyFloatTest)
 {
     float data_float = 5.34;
-    string desc = "Float Type";
     string key = "testproperty";
 
-    GenProperty myprop_float(data_float, key, desc);
+    GenProperty myprop_float(data_float, key);
 
     float ret_float;
     myprop_float.GetValue(ret_float);
@@ -55,10 +53,9 @@ BOOST_AUTO_TEST_CASE(GenPropertyFloatTest)
 BOOST_AUTO_TEST_CASE(GenPropertyStringTest)
 {
     string data_string = "hallo";
-    string desc = "String Type";
     string key = "testproperty";
 
-    GenProperty myprop_string(data_string, key, desc);
+    GenProperty myprop_string(data_string, key);
 
     string ret_string;
     myprop_string.GetValue(ret_string);
