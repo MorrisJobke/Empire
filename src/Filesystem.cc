@@ -83,10 +83,48 @@ namespace Filesystem
             return false;
     }
 
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+    
+    /** function to write a string to File
+     */
+    void FileWriteString(string& rFilePath, string& rContent)
+    {
+        ofstream file;
+
+        file.open(rFilePath.c_str());
+        
+        if (file.is_open())
+        {
+            file << rContent;
+            file.close();
+        }
+        else
+            throw CannotOpenFileError();
+    }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+
+    /** function to check whether a file is existent
+     */ 
+    bool FileExists(string& rPath)
+    {
+        /* create char array */
+        char* cstr = new char[rPath.size() + 1];
+        strcpy(cstr, rPath.c_str());
+
+        struct stat sb;
+        stat(cstr, &sb);
+
+        delete[] cstr;
+
+        if (S_ISREG(sb.st_mode) != 0)
+            return true;
+        else
+            return false;
+    }
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+
+
 
 }
-
-/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
-

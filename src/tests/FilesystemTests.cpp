@@ -67,4 +67,18 @@ BOOST_AUTO_TEST_CASE(testDirCreation)
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
 
+/** test the creation of a file
+ *  
+ * if it is created remove it */
+BOOST_AUTO_TEST_CASE(testFileCreation)
+{
+    string content = "This is my\n Content";
+    string path = "test_file";
+
+    Fs::FileWriteString(path, content);
+
+
+    BOOST_CHECK(Fs::FileExists(path) == true);
+
+}
 BOOST_AUTO_TEST_SUITE_END()

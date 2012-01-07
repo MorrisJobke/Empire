@@ -15,6 +15,7 @@
 #include <cstring>
 
 #include <iostream>
+#include <fstream>
 #include <string>
 #include <exception>
 
@@ -27,10 +28,14 @@ namespace Filesystem
     /** exceptions
      */
     DEFINE_FAST_EXCEPTION(CannotCreateDirError, "Cannot create directory.")
+    DEFINE_FAST_EXCEPTION(CannotOpenFileError, "Cannot create file.")
 
     void PrintCwd();
     void CreateDirectory(string& rDirPath);
     bool DirectoryExists(string& rDirPath);
+
+    void FileWriteString(string& rFilePath, string& rContent);
+    bool FileExists(std::string& rPath);
 }
 
 
