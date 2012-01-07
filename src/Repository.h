@@ -30,6 +30,9 @@ class Repository
     ~Repository();
     
     bool IsOnTheRun();
+
+    
+    static bool Existent();
 };
 
 
