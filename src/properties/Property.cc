@@ -10,6 +10,7 @@
 
 #include "Property.h"
 #include "../Filesystem.h"
+#include <iostream>
 
 /////////////////////////////// PUBLIC ///////////////////////////////////////
 
@@ -64,7 +65,10 @@ Property<T>::Init(string const& key, string const& description, T value)
 template<class T> void 
 Property<T>::SaveValue(string& rPath)
 {
-    Filesystem::FileWriteString(rPath, rPath);// + mValue);
+    std::ostringstream ss;
+    ss << mValue;
+    std::string value (ss.str());
+    Filesystem::FileWriteString(rPath, value);
 }
 
 template<class T> void
