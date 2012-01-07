@@ -9,6 +9,9 @@
 *.swp
 *~
 
+# tag files
+tags
+
 # generated pdf's
 docs/Pflichtenheft/Pflichtenheft.pdf
 # matriculation numbers

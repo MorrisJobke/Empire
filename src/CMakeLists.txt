@@ -21,6 +21,7 @@ set(CMAKE_CXX_FLAGS_DEBUG "-Wall -Wextra -Wformat=2 -Winit-self -Winline -Wpacke
 
 # libraries
 add_library(Repository Repository)
+add_library(Filesystem Filesystem)
 
 # adding sub directories
 # parameter:
@@ -33,10 +34,10 @@ add_subdirectory(tests)
 # parameter:
 #   output name
 #   source name
-add_executable(Empire main2)
+add_executable(Empire Empire)
 
 # link all together
 # parameter
 #   executable
 #   used libraries
-target_link_libraries(Empire PropertyInteger)
+target_link_libraries(Empire PropertyInteger Repository Filesystem)

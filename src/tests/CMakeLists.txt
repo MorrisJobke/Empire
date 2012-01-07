@@ -11,6 +11,7 @@ if(ENABLE_TESTING)
         PropertyStringTests
         PropertyFunctionTests
         CollectionTests
+        FilesystemTests
         RepositoryTests)
 
     # used libraries
@@ -24,5 +25,6 @@ if(ENABLE_TESTING)
         PropertyFunction
         Collection
         PropertyList
+        Filesystem
         Repository)
 endif()
