@@ -32,7 +32,7 @@ class Repository
     bool IsOnTheRun();
 
     
-    static bool Existent();
+    static bool IsExistent();
 };
 
 

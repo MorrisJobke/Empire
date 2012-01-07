@@ -12,9 +12,31 @@ namespace Fs = Filesystem;
 
 
 /*============================= STATICS   ==================================*/
-bool Repository::Existent()
+
+/** this function checks if a repo is Existent
+ */
+bool Repository::IsExistent()
 {
-    
+    bool repo_found = false;
+    std::string parent = "..";
+    std::string repo_name = ".emp";
+
+    while(true)
+    {
+        std::string cwd;
+
+        Fs::PrintCwd();
+        repo_found = Fs::DirectoryExists(repo_name);
+        
+        if (repo_found == true)
+            return true;
+        
+        cwd = Fs::GetCwd();
+        if (cwd == "/")
+            return false;
+
+        Fs::ChangeCwd(parent);
+    }
 }
 
 

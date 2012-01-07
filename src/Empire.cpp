@@ -45,7 +45,11 @@ int main(int argc, char* argv[])
 
     if (argc == 0)
     {
+        if (Repository::IsExistent())
+            cout << "You have a repository here" << endl;
+
         usage();
+
         return 0;
     }
 
