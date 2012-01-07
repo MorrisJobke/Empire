@@ -15,11 +15,13 @@
 
 PropertyString::PropertyString(string const& key, string value)
 {
+    SetType("String");
     Init(key, value);
 }
 
 PropertyString::PropertyString(string const& key, string const& description, string value)
 {
+    SetType("String");
     Init(key, description, value);
 }
 

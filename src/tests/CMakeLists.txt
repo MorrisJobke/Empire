@@ -12,7 +12,8 @@ if(ENABLE_TESTING)
         #PropertyFunctionTests
         CollectionTests
         FilesystemTests
-        RepositoryTests)
+        RepositoryTests
+        PropertyTests)
 
     # used libraries
     target_link_libraries(EmpireTest
@@ -38,7 +39,8 @@ if(ENABLE_TESTING)
             PropertyFunctionTests
             CollectionTests
             FilesystemTests
-            RepositoryTests)
+            RepositoryTests
+            PropertyTests)
 
         # used libraries
         target_link_libraries(EmpireTest

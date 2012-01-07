@@ -21,6 +21,7 @@ protected:
     string mKey;
     string mDescription;
     T mValue;
+    string mType;
 
     void Init(string const& key);
     void Init(string const& key, T value);
@@ -37,6 +38,10 @@ public:
     void SetKey(string value);
     string GetDescription() const;
     void SetDescription(string value);
+
+    string GetType() const;
+    void SetType(string value);
+    void SaveMeta();
 };
 
 #endif

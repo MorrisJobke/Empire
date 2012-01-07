@@ -14,7 +14,8 @@
 
 PropertyFunction::PropertyFunction(string const& key, string const& map, string const& reduce)
 : mMapFunction(map), mReduceFunction(reduce), myLuaState(lua_open())
-{
+{   
+    SetType("Function");     
     Init(key);
 }
 

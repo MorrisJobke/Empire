@@ -16,11 +16,13 @@
 
 PropertyInteger::PropertyInteger(string const& key, int value)
 {
+    SetType("Integer");
     Init(key, value);
 }
 
 PropertyInteger::PropertyInteger(string const& key, string const& description, int value)
 {
+    SetType("Integer");
     Init(key, description, value);
 }
 

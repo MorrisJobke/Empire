@@ -15,11 +15,13 @@
 
 PropertyFloat::PropertyFloat(string const& key, double value)
 {
+    SetType("Float");
     Init(key, value);
 }
 
 PropertyFloat::PropertyFloat(string const& key, string const& description, double value)
 {
+    SetType("Float");    
     Init(key, description, value);
 }
 
