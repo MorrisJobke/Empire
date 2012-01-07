@@ -40,6 +40,7 @@ public:
     string GetType() const;
     void SetType(string value);
     void SaveMeta();
+    void SaveValue(string& rPath);
     string ToString() const;
 };
 

@@ -61,6 +61,12 @@ Property<T>::Init(string const& key, string const& description, T value)
 /*============================= OPERATORS ==================================*/
 /*============================= OPERATIONS =================================*/
 
+template<class T> void 
+Property<T>::SaveValue(string& rPath)
+{
+    Filesystem::FileWriteString(rPath, rPath);// + mValue);
+}
+
 template<class T> void
 Property<T>::SaveMeta()
 {
