@@ -18,12 +18,12 @@
 class className \
 { \
     private: \
-        string mWhat; \
+        std::string mWhat; \
     public: \
         className() \
             : mWhat(Message) \
         { } \
-        string what() \
+        std::string what() \
         { \
             return mWhat; \
         } \
