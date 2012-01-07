@@ -83,7 +83,7 @@ void GenProperty::GetValue(std::string& value)
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
 
-PropertyTypes GetType()
+PropertyTypes GenProperty::GetType()
 {
     return mType;
 }
