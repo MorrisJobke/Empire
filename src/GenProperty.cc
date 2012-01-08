@@ -78,6 +78,26 @@ GenProperty::GenProperty(FunctionProperty value, std::string& rKey)
 
 /*============================= OPERATORS ==================================*/
 
+bool GenProperty::operator==(GenProperty& rRight)
+{
+    if (this->mType != rRight.mType)
+        return false;
+
+    if (this->mpIntValue)
+        if (*(this->mpIntValue) != *(rRight.mpIntValue))
+            return false;
+
+    if (this->mpFloatValue)
+        if (*(this->mpFloatValue) != *(rRight.mpFloatValue))
+            return false;
+
+    if (this->mpStringValue)
+        if (*(this->mpStringValue) != *(rRight.mpStringValue))
+            return false;
+
+    return true;
+}
+
 /*============================= OPERATIONS =================================*/
 
 void GenProperty::WriteMetadata(std::string const& rPath)

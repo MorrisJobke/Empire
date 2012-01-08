@@ -64,6 +64,9 @@ class GenProperty
 
     void ReadMetadata(std::string const& rPath);
     void ReadData(std::string const& rPath);
+
+
+    bool operator==(GenProperty& rRight);
 };
 
 
