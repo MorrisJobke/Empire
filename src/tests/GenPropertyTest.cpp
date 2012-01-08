@@ -64,4 +64,36 @@ BOOST_AUTO_TEST_CASE(GenPropertyStringTest)
     BOOST_CHECK(ret_string == data_string);
 }
 
+BOOST_AUTO_TEST_CASE(GenPropertyFunctionTest)
+{
+    FunctionProperty data_function = {
+        "amount * price",
+        "lhs + rhs"
+    };
+    string key = "testproperty";
+
+    GenProperty myprop_function(data_function, key);
+
+    list<GenProperty> properties_1;
+    list<GenProperty> properties_2;
+    list< list<GenProperty> > properties;
+
+    std::string price = "price";
+    std::string amount = "amount";
+
+    properties_1.push_back(*(new GenProperty(1.5, amount)));
+    properties_1.push_back(*(new GenProperty(8, price)));
+
+    properties_2.push_back(*(new GenProperty(2, amount)));
+    properties_2.push_back(*(new GenProperty(15.0, price)));
+
+    properties.push_back(properties_1);
+    properties.push_back(properties_2);
+
+    double ret_double;
+    myprop_function.GetValue(ret_double, properties);
+
+    BOOST_CHECK(ret_double == 42.0);
+}
+
 BOOST_AUTO_TEST_SUITE_END()

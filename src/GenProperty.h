@@ -10,9 +10,23 @@
 #define GENPROPERTY_H
 
 #include <string>
+#include <list>
 #include <iostream>
+#include <sstream>
 
-enum PropertyTypes {INT_T, FLOAT_T, STRING_T};
+extern "C"
+{
+    #include "lua.h"
+    #include "lualib.h"
+    #include "lauxlib.h"
+}
+
+enum PropertyTypes {INT_T, FLOAT_T, STRING_T, FUNCTION_T};
+
+struct FunctionProperty {
+    std::string map;
+    std::string reduce;  
+};
 
 /** Class which implemets a generic property
  */
@@ -22,20 +36,25 @@ class GenProperty
 
     PropertyTypes mType;
 
-    int*            mpIntValue;
-    double*          mpFloatValue;
-    std::string*    mpStringValue;
+    int*                mpIntValue;
+    double*             mpFloatValue;
+    std::string*        mpStringValue;
+    FunctionProperty*   mpFunctionValue;
 
     public:
     void InitPointers();
 
-    GenProperty(int value,        std::string& rKey);
-    GenProperty(double value,      std::string& rKey);
-    GenProperty(std::string value, std::string& rKey);
+    GenProperty(int value,              std::string& rKey);
+    GenProperty(double value,           std::string& rKey);
+    GenProperty(std::string value,      std::string& rKey);
+    GenProperty(FunctionProperty value, std::string& rKey);
+
+    std::string GetKey() const;
 
     void GetValue(int& value);
     void GetValue(double& value);
     void GetValue(std::string& value);
+    void GetValue(double& value, std::list< std::list<GenProperty> > properties);
 
     std::string GetType();
 

@@ -1,6 +1,6 @@
 if(ENABLE_TESTING)
     find_package(Boost COMPONENTS unit_test_framework REQUIRED)
-    # find_package(Lua51 REQUIRED)
+    find_package(Lua51 REQUIRED)
     # target_link_libraries(EmpireTest ${LUA_LIBRARIES})
     # if(LUA_FOUND)
     # ...
@@ -16,6 +16,7 @@ if(ENABLE_TESTING)
     # used libraries
     target_link_libraries(EmpireTest
         ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY}
+        ${LUA_LIBRARIES}
         Filesystem
         GenProperty
         Repository)

@@ -8,7 +8,6 @@
 
 #include "GenProperty.h"
 #include "Filesystem.h"
-#include <sstream>
 
 
 /////////////////////////////// PUBLIC ///////////////////////////////////////
@@ -55,6 +54,17 @@ GenProperty::GenProperty(std::string value, std::string& rKey)
     mpStringValue = new std::string(value);
 }
     
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+
+GenProperty::GenProperty(FunctionProperty value, std::string& rKey)
+:   mKey(rKey),
+    mType(FUNCTION_T)
+{
+    this->InitPointers();
+    
+    mpFunctionValue = new FunctionProperty(value);
+}
+    
 
 /*============================= OPERATORS ==================================*/
 
@@ -99,6 +109,13 @@ void GenProperty::WriteData(std::string const& rPath)
 
 /*============================= ACESS      =================================*/
 
+std::string GenProperty::GetKey() const
+{
+    return mKey;
+}
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+
 void GenProperty::GetValue(int& value)
 {
     value = *mpIntValue;
@@ -116,6 +133,70 @@ void GenProperty::GetValue(double& value)
 void GenProperty::GetValue(std::string& value)
 {
     value = *mpStringValue;
+}
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+
+void GenProperty::GetValue(double& value, std::list< std::list<GenProperty> > properties)
+{
+    lua_State *L = lua_open();
+    std::list<double> results;
+
+    std::list< std::list<GenProperty> >::iterator it;
+    for(it = properties.begin(); it != properties.end(); ++it) {
+        std::list<GenProperty> layer = *it;
+        std::string variables = "";
+        
+        std::list<GenProperty>::iterator it2;
+        for (it2 = layer.begin(); it2 != layer.end(); ++it2) {
+            GenProperty property = *it2;
+            std::ostringstream oss;
+
+            if (property.GetType() == "Integer") {
+                int int_value;
+                property.GetValue(int_value);
+                oss << property.GetKey() << "=" << int_value << ";";
+
+                variables += oss.str();
+            } else if (property.GetType() == "Float") {
+                double double_value;
+                property.GetValue(double_value);
+
+                std::ostringstream oss;
+                oss << property.GetKey() << "=" << double_value << ";";
+
+                variables += oss.str();
+            }
+        }
+
+        std::string lua = variables + "return " + (*mpFunctionValue).map + ";";
+        luaL_dostring(L, lua.c_str());
+        
+        std::string result = lua_tostring(L, -1);
+
+        std::istringstream i(result);
+        double x;
+        if ((i >> x))
+            results.push_back(x);
+    }
+
+    std::list<double>::iterator it3;
+    double lhs = 0;
+    for(it3 = results.begin(); it3 != results.end(); ++it3) {
+        std::ostringstream oss;
+        oss << "lhs = " << lhs << "; rhs = " << *it3 << "; return " << (*mpFunctionValue).reduce << ";";
+        std::string result = oss.str();
+        luaL_dostring(L, result.c_str());
+
+        std::istringstream i(lua_tostring(L, -1));
+        double x;
+        if ((i >> x))
+            lhs = x;
+    }
+
+    lua_close(L);
+
+    value = lhs;
 }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
