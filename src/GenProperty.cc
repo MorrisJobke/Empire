@@ -19,6 +19,16 @@ void GenProperty::InitPointers()
     mpIntValue = NULL;
     mpFloatValue = NULL;
     mpStringValue = NULL;
+    mpFunctionValue = NULL;
+}
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+
+GenProperty::GenProperty()
+:   mKey(),
+    mType(UNDEFINED_T)
+{
+    this->InitPointers();
 }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
