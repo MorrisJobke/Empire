@@ -37,6 +37,8 @@ BOOST_AUTO_TEST_CASE(GenPropertyIntTest)
     BOOST_CHECK(ret_int == data_int);
 }
 
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+
 BOOST_AUTO_TEST_CASE(GenPropertyFloatTest)
 {
     double data_float = 3.14159265;
@@ -51,6 +53,8 @@ BOOST_AUTO_TEST_CASE(GenPropertyFloatTest)
     BOOST_CHECK_CLOSE(ret_float, 3.14159265, 0.00000001);
 }
 
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+
 BOOST_AUTO_TEST_CASE(GenPropertyStringTest)
 {
     string data_string = "I'm a really cool string";
@@ -63,6 +67,22 @@ BOOST_AUTO_TEST_CASE(GenPropertyStringTest)
 
     BOOST_CHECK(ret_string == data_string);
 }
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+
+BOOST_AUTO_TEST_CASE(GenPropertyWriteMetaDataTest)
+{
+    
+    int data_int = 42;
+    string key = "testproperty";
+    string path = ".";
+
+    GenProperty myprop_int(data_int, key);
+
+    myprop_int.WriteMetadata(path);
+}
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
 
 BOOST_AUTO_TEST_CASE(GenPropertyFunctionTest)
 {
