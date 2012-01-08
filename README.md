@@ -23,7 +23,7 @@ ArchLinux:
 
 Mac:
 
-    brew install cmake boost lua
+    brew install cmake boost lua doxygen
 
 CMake
 -----
