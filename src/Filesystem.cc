@@ -14,8 +14,9 @@ using namespace std;
 //////////////////////////////////////////////////////////////////////////////
 namespace Filesystem
 {
-    /** function which prints the current working dir
-     */
+     /** 
+     * @brief function wich prints the current working directory
+     */ 
     void PrintCwd()
     {
         int buf_grain = 10;
@@ -42,9 +43,10 @@ namespace Filesystem
     }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
-
-    /** function which returns the current working dir
-     */
+     /** 
+     * @brief function wich returns the current working dir
+     * @return returns the current working directory as string
+     */ 
     string GetCwd()
     {
         int buf_grain = 10;
@@ -73,9 +75,11 @@ namespace Filesystem
     }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
-
-    /** function to change the cwd
-     */
+     /** 
+     * @brief function to change the current working directory
+     * @param rPath path of new working directory
+     * @return returns true when cwd change succeeds, otherwise false
+     */ 
     bool ChangeCwd(string& rPath)
     {
         int ret = chdir(rPath.c_str());
@@ -88,7 +92,9 @@ namespace Filesystem
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
 
-    /** function to create a new directory
+     /** 
+     * @brief function to create a new directory
+     * @param rDirPath path of the new directory
      */ 
     void CreateDirectory (string const& rDirPath)
     {
@@ -109,8 +115,11 @@ namespace Filesystem
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
 
-    /** function to create a new directory
-     */ 
+     /** 
+     * @brief function to check if a given directory exists
+     * @param rDirPath path of directory
+     * @return returns true when given directory exists, otherwise false
+     */    
     bool DirectoryExists(string const& rDirPath)
     {
         /* create char array */
@@ -130,7 +139,10 @@ namespace Filesystem
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
     
-    /** function to write a string to File
+    /** 
+     * @brief function to write a string to file
+     * @param rFilePath path where string should be written
+     * @param rContent  string that should be written
      */
     void FileWriteString(string const& rFilePath, string& rContent)
     {
@@ -149,8 +161,11 @@ namespace Filesystem
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
 
-    /** function to write a string to File
-     */
+     /** 
+     * @brief function to append a given string to a given file
+     * @param rFilePath path of the file that should be appended
+     * @param rContent string that will be appended to the given File
+     */ 
     void FileAppendString(string const& rFilePath, string& rContent)
     {
         ofstream file;
@@ -167,7 +182,10 @@ namespace Filesystem
     }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
-    /** function to check whether a file is existent
+    /** 
+     * @brief function to check wether a given file exists
+     * @param rPath path of file
+     * @return returns true when given file exists, otherwise false
      */ 
     bool FileExists(string const& rPath)
     {
