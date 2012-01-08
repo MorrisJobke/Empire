@@ -11,6 +11,7 @@ if(ENABLE_TESTING)
         MainTests
         FilesystemTests
         RepositoryTests
+        CommandTests
         GenPropertyTest)
 
     # used libraries
