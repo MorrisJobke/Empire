@@ -12,7 +12,7 @@
 #include <string>
 #include <iostream>
 
-enum PropertyTypes {INT_T, FLOAT_T, STRING_T};
+enum PropertyTypes {INT_T, FLOAT_T, STRING_T, UNDEFINED_T};
 
 /** Class which implemets a generic property
  */
@@ -29,10 +29,12 @@ class GenProperty
     public:
     void InitPointers();
 
+    GenProperty();
     GenProperty(int value,        std::string& rKey);
     GenProperty(float value,      std::string& rKey);
     GenProperty(std::string value, std::string& rKey);
 
+    std::string GetKey();
     void GetValue(int& value);
     void GetValue(float& value);
     void GetValue(std::string& value);
