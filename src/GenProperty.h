@@ -21,7 +21,7 @@ extern "C"
     #include "lauxlib.h"
 }
 
-enum PropertyTypes {INT_T, FLOAT_T, STRING_T, FUNCTION_T};
+enum PropertyTypes {INT_T, FLOAT_T, STRING_T, FUNCTION_T, UNDEFINED_T};
 
 struct FunctionProperty {
     std::string map;
@@ -44,13 +44,13 @@ class GenProperty
     public:
     void InitPointers();
 
+    GenProperty();
     GenProperty(int value,              std::string& rKey);
     GenProperty(double value,           std::string& rKey);
     GenProperty(std::string value,      std::string& rKey);
     GenProperty(FunctionProperty value, std::string& rKey);
 
-    std::string GetKey() const;
-
+    std::string GetKey();
     void GetValue(int& value);
     void GetValue(double& value);
     void GetValue(std::string& value);

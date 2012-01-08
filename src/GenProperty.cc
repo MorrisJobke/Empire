@@ -22,6 +22,12 @@ void GenProperty::InitPointers()
 }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+GenProperty::GenProperty()
+:   mKey(""),
+    mType(UNDEFINED_T)
+{
+    this->InitPointers();
+}
 
 GenProperty::GenProperty(int value, std::string& rKey)
 :   mKey(rKey),
@@ -70,6 +76,7 @@ GenProperty::GenProperty(FunctionProperty value, std::string& rKey)
 
 /*============================= OPERATIONS =================================*/
 
+
 void GenProperty::WriteMetadata(std::string const& rPath)
 {
     std::string value = mKey + " " + GetType() + "\n";
@@ -102,14 +109,45 @@ void GenProperty::WriteData(std::string const& rPath)
             out << value_string;
             temp = out.str();
             Filesystem::FileWriteString(rPath + "/" + mKey, temp);
-        //case FUNCTION_T:
+            break;
+            //case FUNCTION_T:
             //break;
+        default: break;
     }
 }
 
 /*============================= ACESS      =================================*/
 
-std::string GenProperty::GetKey() const
+void GenProperty::ReadMetadata(std::string const& rPath)
+{
+    std::string line;
+    std::ifstream myfile ((rPath + "/" + mKey).c_str());
+
+    if (myfile.is_open())
+    {
+        if ( myfile.good() )
+        {
+            getline (myfile,line);
+        }
+        myfile.close();
+    }
+    //TODO: else
+    
+    if (!line.compare("Integer")){
+        mpIntValue = new int(0);
+    }
+    else if (!line.compare("Float")) {
+        mpFloatValue = new double(0.0);
+    }    
+    else if (!line.compare("String")) {
+        mpStringValue = new std::string("");
+    }
+
+}
+
+/*============================= ACESS      =================================*/
+
+std::string GenProperty::GetKey()
 {
     return mKey;
 }
