@@ -76,6 +76,8 @@ void GenProperty::WriteMetadata(std::string const& rPath)
     Filesystem::FileWriteString(rPath + "/" + mKey, value);
 }
 
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+
 void GenProperty::WriteData(std::string const& rPath)
 {
     std::string temp;

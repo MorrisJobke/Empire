@@ -74,12 +74,26 @@ BOOST_AUTO_TEST_CASE(GenPropertyWriteMetaDataTest)
 {
     
     int data_int = 42;
-    string key = "testproperty";
+    string key = "metadata_testfile";
     string path = ".";
 
     GenProperty myprop_int(data_int, key);
 
     myprop_int.WriteMetadata(path);
+}
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+
+BOOST_AUTO_TEST_CASE(GenPropertyWriteDataTest)
+{
+    
+    int data_int = 42;
+    string key = "data_testfile";
+    string path = ".";
+
+    GenProperty myprop_int(data_int, key);
+
+    myprop_int.WriteData(path);
 }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
