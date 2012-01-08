@@ -19,10 +19,13 @@
 #include <boost/test/unit_test.hpp>
 
 #include "../GenProperty.h"
+#include "../Filesystem.h"
 
 using namespace std;
 
 BOOST_AUTO_TEST_SUITE(GenPropertyTestSuite)
+
+/*============================= BASIC TESTS ================================*/
 
 BOOST_AUTO_TEST_CASE(GenPropertyIntTest)
 {
@@ -68,35 +71,95 @@ BOOST_AUTO_TEST_CASE(GenPropertyStringTest)
     BOOST_CHECK(ret_string == data_string);
 }
 
-/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+/*============================= IO TESTS    ================================*/
 
-BOOST_AUTO_TEST_CASE(GenPropertyWriteMetaDataTest)
+BOOST_AUTO_TEST_CASE(GenPropertyIntIOTest)
 {
-    
-    int data_int = 42;
-    string key = "metadata_testfile";
+    string dir = "test_propterty_data";
+    if (Filesystem::DirectoryExists(dir) == false)
+        Filesystem::CreateDirectory(dir);
+
+
+    int data_in = 42;
+    string key = "int_test_property";
     string path = ".";
 
-    GenProperty myprop_int(data_int, key);
+    GenProperty myprop(data_in, key);
 
-    myprop_int.WriteMetadata(path);
+    myprop.WriteMetadata(path);
+    myprop.WriteData(dir + "/" + path);
+
+    
+    GenProperty read_prop;
+
+    read_prop.ReadMetadata(key);
+    read_prop.ReadData(dir + "/" + key);
+
+    BOOST_CHECK(read_prop == myprop);
+
 }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
 
-BOOST_AUTO_TEST_CASE(GenPropertyWriteDataTest)
+BOOST_AUTO_TEST_CASE(GenPropertyFloatIOTest)
 {
-    
-    int data_int = 42;
-    string key = "data_testfile";
+    string dir = "test_propterty_data";
+    if (Filesystem::DirectoryExists(dir) == false)
+        Filesystem::CreateDirectory(dir);
+
+
+    float data_in = 42.34;
+    string key = "float_test_property";
     string path = ".";
 
-    GenProperty myprop_int(data_int, key);
+    GenProperty myprop(data_in, key);
 
-    myprop_int.WriteData(path);
+    myprop.WriteMetadata(path);
+    myprop.WriteData(dir + "/" + path);
+
+    
+    GenProperty read_prop;
+
+    read_prop.ReadMetadata(key);
+    read_prop.ReadData(dir + "/" + key);
+
+    double data;
+
+    read_prop.GetValue(data);
+    
+    cout << "Read float: " << data << endl;
+
+    BOOST_CHECK(read_prop == myprop);
+
 }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+
+BOOST_AUTO_TEST_CASE(GenPropertyStringIOTest)
+{
+    string dir = "test_propterty_data";
+    if (Filesystem::DirectoryExists(dir) == false)
+        Filesystem::CreateDirectory(dir);
+
+
+    string data_in = "supa dupa string";
+    string key = "string_test_property";
+    string path = ".";
+
+    GenProperty myprop(data_in, key);
+
+    myprop.WriteMetadata(path);
+    myprop.WriteData(dir + "/" + path);
+
+    
+    GenProperty read_prop;
+
+    read_prop.ReadMetadata(key);
+    read_prop.ReadData(dir + "/" + key);
+
+    BOOST_CHECK(read_prop == myprop);
+
+}
 
 BOOST_AUTO_TEST_CASE(GenPropertyFunctionTest)
 {

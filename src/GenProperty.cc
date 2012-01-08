@@ -139,6 +139,77 @@ void GenProperty::WriteData(std::string const& rPath)
     }
 }
 
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+
+/** method which reads the property meta data from given file
+ *
+ * @param the file path
+ */
+void GenProperty::ReadMetadata(std::string const& rPath)
+{
+    std::string line;
+    std::ifstream myfile(rPath.c_str());
+
+    if (myfile.is_open())
+    {
+        if (myfile.good())
+        {
+            getline (myfile,line);
+        }
+        myfile.close();
+    }
+    //TODO: else
+    
+    if (line == "Integer")
+    {
+        mType = INT_T;
+    }
+    if (line == "Float")
+    {
+        mType = FLOAT_T;
+    }
+    if (line == "String")
+    {
+        mType = STRING_T;
+    }
+}
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+
+void GenProperty::ReadData(std::string const& rPath)
+{
+    /*TODO: throw exceptions if type not set*/
+
+    std::ifstream f(rPath.c_str());
+
+    if (f.is_open())
+    {
+        if (f.good())
+        {
+            switch(mType)
+            {
+                case INT_T:
+                    int value_int;
+                    f >> value_int;
+                    mpIntValue = new int(value_int);
+                    break;
+                case FLOAT_T:
+                    double value_double;
+                    f >> value_double;
+                    mpFloatValue = new double(value_double);
+                    break;
+                case STRING_T:
+                    std::string value_string;
+                    std::getline(f, value_string);
+                    mpStringValue = new std::string(value_string);
+                    //case FUNCTION_T:
+                    //break;
+            }
+        }
+        f.close();
+    }
+}
+
 /*============================= ACESS      =================================*/
 
 std::string GenProperty::GetKey() const
