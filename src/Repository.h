@@ -14,6 +14,7 @@
 #include "DefineException.h"
 #include "Filesystem.h"
 
+#define REPO_NAME ".emp"
 
 DEFINE_FAST_EXCEPTION(CannotCreateRepoError,"Cannot create repository")
 DEFINE_FAST_EXCEPTION(RepoExistentError,"A repository exists here")
@@ -24,6 +25,7 @@ DEFINE_FAST_EXCEPTION(RepoExistentError,"A repository exists here")
 class Repository
 {
     private:
+    std::string mRepoName;
     
     public:
     Repository();

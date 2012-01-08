@@ -19,7 +19,8 @@ bool Repository::IsExistent()
 {
     bool repo_found = false;
     std::string parent = "..";
-    std::string repo_name = ".emp";
+    std::string repo_name = REPO_NAME;
+
 
     while(true)
     {
@@ -48,7 +49,7 @@ bool Repository::IsExistent()
  */
 Repository::Repository()
 {
-    std::string repo_path = ".emp";
+    std::string repo_path = REPO_NAME;
 
     if (Fs::DirectoryExists(repo_path))
         throw RepoExistentError();
