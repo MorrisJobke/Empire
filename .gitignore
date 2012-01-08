@@ -12,6 +12,9 @@
 # tag files
 tags
 
+# clang options
+.clang_complete
+
 # generated pdf's
 docs/Pflichtenheft/Pflichtenheft.pdf
 # matriculation numbers
