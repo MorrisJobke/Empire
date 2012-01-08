@@ -37,3 +37,9 @@ Tests
 
 	cd src/build/bin
 	./EmpireTest --log_level=test_suite
+
+Doxygen
+-------
+
+	cd src/
+	doxygen doxygen.config
