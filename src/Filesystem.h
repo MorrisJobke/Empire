@@ -33,7 +33,7 @@ namespace Filesystem
 
     void PrintCwd();
     string GetCwd();
-    bool ChangeCwd(string& rPath);
+    bool ChangeCwd(string const& rPath);
 
     void CreateDirectory(string const& rDirPath);
     bool DirectoryExists(string const& rDirPath);

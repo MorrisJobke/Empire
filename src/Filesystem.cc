@@ -80,7 +80,7 @@ namespace Filesystem
      * @param rPath path of new working directory
      * @return returns true when cwd change succeeds, otherwise false
      */ 
-    bool ChangeCwd(string& rPath)
+    bool ChangeCwd(string const& rPath)
     {
         int ret = chdir(rPath.c_str());
         
