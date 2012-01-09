@@ -12,7 +12,7 @@
 #include <string>
 
 
-/** this macro defines a standart exception
+/** this macro defines a standard exception
  */
 #define DEFINE_FAST_EXCEPTION(className, Message) \
 class className \
