@@ -29,13 +29,28 @@ BOOST_AUTO_TEST_SUITE(RepositoryTests_Suite)
 
 BOOST_AUTO_TEST_CASE(testRepositoryCreation)
 {
-    Repository rep;
+    /* if not existent create a folder for testing a repo */
 
-    string dir_name = ".emp";
+    string repo_dir = "test_repo";
 
-    BOOST_CHECK(Fs::DirectoryExists(dir_name));
+    if (Fs::DirectoryExists(repo_dir) == false)
+        Fs::CreateDirectory(repo_dir);
+
+
+    /* change dir, create repo and check */
+
+    Fs::ChangeCwd(repo_dir);
     
-    remove(dir_name.c_str());
+    Repository repo;
+    string meta_data_folder = ".emp";
+
+    BOOST_CHECK(Fs::DirectoryExists(meta_data_folder));
+
+    remove(meta_data_folder.c_str());
+
+    /* change dir back */
+    string parent = "..";
+    Fs::ChangeCwd(parent);
 }
 
 BOOST_AUTO_TEST_SUITE_END()
