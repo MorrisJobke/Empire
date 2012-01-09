@@ -50,6 +50,7 @@ class GenProperty
     GenProperty(std::string value,      std::string& rKey);
     GenProperty(FunctionProperty value, std::string& rKey);
 
+
     std::string GetKey() const;
 
     void GetValue(int& value);
@@ -67,6 +68,18 @@ class GenProperty
 
 
     bool operator==(GenProperty& rRight);
+
+    //virtual ~GenProperty()
+    //{
+    //    if (mpIntValue)
+    //        delete mpIntValue;
+    //    if (mpFloatValue)
+    //        delete mpFloatValue;
+    //    if (mpStringValue)
+    //        delete mpStringValue;
+    //    if (mpFunctionValue)
+    //        delete mpFunctionValue;
+    //}
 };
 
 

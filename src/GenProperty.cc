@@ -75,7 +75,6 @@ GenProperty::GenProperty(FunctionProperty value, std::string& rKey)
     mpFunctionValue = new FunctionProperty(value);
 }
     
-
 /*============================= OPERATORS ==================================*/
 
 bool GenProperty::operator==(GenProperty& rRight)
