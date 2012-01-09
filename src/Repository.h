@@ -38,14 +38,14 @@ class Repository
     bool IsOnTheRun();
     
     static bool IsExistent();
-    static PropertyTypes GetPropTypeFromStr(const std::string& str);
+    static PropertyTypes GetPropTypeFromStr(std::string const& str);
 
-    void CreatePropertyClass(const std::string& key, const std::string& type);
-    void AddProperty(const std::string& key, const std::string& value);
+    void CreatePropertyClass(std::string const& key, std::string const& type);
+    void AddProperty(std:string const& key, std:string const& value);
     
-    void RemoveProperty(const std::string& key);
-    void RemovePropertyClass(const std::string& key);
-    void RemovePropertyClassAndInstances(const std::string& key);
+    void RemoveProperty(std:string const& key);
+    void RemovePropertyClass(std:string const& key);
+    void RemovePropertyClassAndInstances(std:string const& key);
 };
 
 
