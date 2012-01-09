@@ -28,7 +28,7 @@ class Repository
 {
     private:
     std::string mRepoName;
-    std::list<GenProperty> PropertyList;
+    std::list<GenProperty*> PropertyList;
 
     
     public:
@@ -41,11 +41,11 @@ class Repository
     static PropertyTypes GetPropTypeFromStr(std::string const& str);
 
     void CreatePropertyClass(std::string const& key, std::string const& type);
-    void AddProperty(std:string const& key, std:string const& value);
+    void AddProperty(std::string const& key, std::string const& value);
     
-    void RemoveProperty(std:string const& key);
-    void RemovePropertyClass(std:string const& key);
-    void RemovePropertyClassAndInstances(std:string const& key);
+    void RemoveProperty(std::string const& key);
+    void RemovePropertyClass(std::string const& key);
+    void RemovePropertyClassAndInstances(std::string const& key);
 };
 
 

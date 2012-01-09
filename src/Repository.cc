@@ -79,6 +79,18 @@ Repository::~Repository()
 /*============================= OPERATORS ==================================*/
 
 /*============================= OPERATIONS =================================*/
+
+/** method to add a new property class
+ *
+ * thsi creates a new metafile in the .emp folder with key as name and type as
+ * content
+ * @param the key
+ * @param the type
+ */
+void Repository::CreatePropertyClass(const std::string &key, const std::string &type)
+{
+}
+
 /*============================= ACESS      =================================*/
 
 bool Repository::IsOnTheRun()
