@@ -15,7 +15,7 @@ Benötigte Pakete
 
 Ubuntu:
 
-    sudo apt-get install libluabind-dev cmake
+    sudo apt-get install libluabind-dev cmake libboost-test-dev
 
 ArchLinux:
 
