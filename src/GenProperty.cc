@@ -37,6 +37,20 @@ GenProperty::GenProperty()
 }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+
+/** constructor for meta properties
+ *
+ * @param the type
+ * @param the key
+ */
+GenProperty::GenProperty(PropertyTypes type, std::string const& rKey)
+:   mKey(rKey),
+    mType(type)
+{
+    this->InitPointers();
+}
+    
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
      /** 
      * @brief constructor for integer-values of the GenProperty-class
      * @param value integer-value for the new instance of the GenProperty-class
@@ -161,9 +175,7 @@ void GenProperty::WriteData(std::string const& rPath)
         case STRING_T:
             std::string value_string;
             GetValue(value_string);
-            out << value_string;
-            temp = out.str();
-            Filesystem::FileWriteString(rPath + "/" + mKey, temp);
+            Filesystem::FileWriteString(rPath + "/" + mKey, value_string);
         //case FUNCTION_T:
             //break;
     }
@@ -373,3 +385,22 @@ std::string GenProperty::GetType()
 /////////////////////////////// PROTECTED  ///////////////////////////////////
 
 /////////////////////////////// PRIVATE    ///////////////////////////////////
+
+
+/////////////////////////////// STATICS    ///////////////////////////////////
+
+/** "convert" a string to the enum type
+ */
+PropertyTypes GenProperty::StringToEnumType(std::string const& type)
+{
+    if (type == "Integer")
+        return INT_T;
+    if (type == "Float")
+        return FLOAT_T;
+    if (type == "String")
+        return STRING_T;
+    if (type == "Function")
+        return FUNCTION_T;
+
+    return UNDEFINED_T;
+}

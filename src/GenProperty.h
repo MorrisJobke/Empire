@@ -49,6 +49,7 @@ class GenProperty
     GenProperty(double value,           std::string& rKey);
     GenProperty(std::string value,      std::string& rKey);
     GenProperty(FunctionProperty value, std::string& rKey);
+    GenProperty(PropertyTypes type, std::string const& rKey);
 
 
     std::string GetKey() const;
@@ -80,6 +81,9 @@ class GenProperty
     //    if (mpFunctionValue)
     //        delete mpFunctionValue;
     //}
+    //
+    
+    static PropertyTypes StringToEnumType(std::string const& type);
 };
 
 
