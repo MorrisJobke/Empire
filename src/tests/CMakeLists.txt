@@ -12,7 +12,6 @@ if(ENABLE_TESTING)
     # used libraries
     target_link_libraries(EmpireTest
         ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY}
-        ${LUA_LIBRARIES}
         Filesystem
         GenProperty
         Repository)

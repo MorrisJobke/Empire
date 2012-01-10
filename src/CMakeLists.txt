@@ -27,6 +27,8 @@ include_directories(${LUA_INCLUDE_DIR})
 add_library(Repository Repository)
 add_library(Filesystem Filesystem)
 add_library(GenProperty GenProperty)
+target_link_libraries(GenProperty
+    ${LUA_LIBRARIES})
 
 # adding sub directories
 # parameter:
@@ -43,4 +45,6 @@ add_executable(Empire Empire)
 # parameter
 #   executable
 #   used libraries
-target_link_libraries(Empire Repository Filesystem)
+target_link_libraries(Empire
+    Repository
+    Filesystem)
