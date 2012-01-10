@@ -30,6 +30,22 @@ class className \
 };
 
 
+/** this macro defines a standard exception
+ */
+#define DEFINE_VAR_EXCEPTION(className) \
+class className \
+{ \
+    private: \
+        std::string mWhat; \
+    public: \
+        className(std::string const& message) \
+            : mWhat(message) \
+        { } \
+        std::string what() \
+        { \
+            return mWhat; \
+        } \
+};
 
 
 #endif
