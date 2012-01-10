@@ -34,7 +34,7 @@ static void usage()
 int main(int argc, char* argv[])
 {
 
-    Repository* p_working_repo = NULL;
+    Repository working_repo;
     
 
     /* Skip over command name */
@@ -70,11 +70,12 @@ int main(int argc, char* argv[])
 
 
         /* create repository */
+
         if (strcmp(argv[0], "init") == 0)
         {
             try
             {
-                p_working_repo = new Repository;
+                working_repo.Init();
             }
             catch(RepoExistentError &exc)
             {
@@ -90,15 +91,10 @@ int main(int argc, char* argv[])
 
             argc--;
             argv++;
-
         }
     }
 
 
-    /* delete garbage */
-
-    if (p_working_repo != NULL)
-        delete p_working_repo;
 
 
     return 0;
