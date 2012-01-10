@@ -24,11 +24,26 @@ include_directories(${LUA_INCLUDE_DIR})
 # -Wno-conversion-null
 
 # libraries
-add_library(Repository Repository)
+
+######################
+# Filesystem library #
+######################
 add_library(Filesystem Filesystem)
+
+#######################
+# GenProperty library #
+#######################
 add_library(GenProperty GenProperty)
 target_link_libraries(GenProperty
     ${LUA_LIBRARIES})
+
+######################
+# Repository library #
+######################
+add_library(Repository Repository)
+target_link_libraries(Repository
+    Filesystem
+    GenProperty)
 
 # adding sub directories
 # parameter:
