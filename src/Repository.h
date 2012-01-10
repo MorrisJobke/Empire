@@ -20,6 +20,10 @@
 
 DEFINE_FAST_EXCEPTION(CannotCreateRepoError,"Cannot create repository")
 DEFINE_FAST_EXCEPTION(RepoExistentError,"A repository exists here")
+DEFINE_FAST_EXCEPTION(PropExistentError,"Property exists already")
+DEFINE_FAST_EXCEPTION(PropInvalidTypeError,"Created property has invalid type")
+
+DEFINE_VAR_EXCEPTION(ExcRepository)
 
 
 /** class which manages the Repository
@@ -28,6 +32,7 @@ class Repository
 {
     private:
     std::string mRepoName;
+    std::string mAbsoluteRepoPath;
     std::list<GenProperty*> PropertyList;
 
     
@@ -39,6 +44,9 @@ class Repository
     
     static bool IsExistent();
     static PropertyTypes GetPropTypeFromStr(std::string const& str);
+
+    void Init();
+    void Load();
 
     void CreatePropertyClass(std::string const& key, std::string const& type);
     void AddProperty(std::string const& key, std::string const& value);

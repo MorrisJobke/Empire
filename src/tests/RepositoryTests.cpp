@@ -40,8 +40,18 @@ BOOST_AUTO_TEST_CASE(testRepositoryCreation)
     /* change dir, create repo and check */
 
     Fs::ChangeCwd(repo_dir);
-    
+
     Repository repo;
+    
+    try
+    {
+        repo.Init();
+    }
+    catch(ExcRepository &exc)
+    {
+        cout << exc.what() << endl;
+    }
+
     string meta_data_folder = ".emp";
 
     BOOST_CHECK(Fs::DirectoryExists(meta_data_folder));
@@ -51,6 +61,46 @@ BOOST_AUTO_TEST_CASE(testRepositoryCreation)
     /* change dir back */
     string parent = "..";
     Fs::ChangeCwd(parent);
+}
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+
+BOOST_AUTO_TEST_CASE(testCreateProperty)
+{
+    Fs::ChangeCwd("test_repo");
+
+    Repository repo;
+
+    try
+    {
+    repo.Init();
+    }
+    catch(ExcRepository &exc)
+    {
+        cout << exc.what() << endl;
+    }
+
+    try
+    {
+        repo.CreatePropertyClass("RechnungsSteller", "String");
+        repo.CreatePropertyClass("RechnungsNehmer", "String");
+        repo.CreatePropertyClass("MeineZahl", "Integer");
+    }
+    catch(ExcRepository &exc)
+    {
+        cout << exc.what() << endl;
+    }
+
+    BOOST_CHECK(Fs::FileExists(".emp/RechnungsSteller") == true);
+    BOOST_CHECK(Fs::FileExists(".emp/RechnungsNehmer") == true);
+    BOOST_CHECK(Fs::FileExists(".emp/MeineZahl") == true);
+
+    remove(".emp/RechnungsSteller");
+    remove(".emp/RechnungsNehmer");
+    remove(".emp/MeineZahl");
+
+    Fs::ChangeCwd("..");
+
 }
 
 BOOST_AUTO_TEST_SUITE_END()
