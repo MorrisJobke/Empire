@@ -97,6 +97,9 @@ BOOST_AUTO_TEST_CASE(GenPropertyIntIOTest)
 
     BOOST_CHECK(read_prop == myprop);
 
+    remove("int_test_property");
+    remove("test_propterty_data/int_test_property");
+    remove("test_propterty_data");
 }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
@@ -127,9 +130,11 @@ BOOST_AUTO_TEST_CASE(GenPropertyFloatIOTest)
 
     read_prop.GetValue(data);
     
-    cout << "Read float: " << data << endl;
+    BOOST_CHECK_CLOSE(data, 42.34, 0.001);
 
-    BOOST_CHECK(read_prop == myprop);
+    remove("float_test_property");
+    remove("test_propterty_data/float_test_property");
+    remove("test_propterty_data");
 
 }
 
@@ -158,6 +163,10 @@ BOOST_AUTO_TEST_CASE(GenPropertyStringIOTest)
     read_prop.ReadData(dir + "/" + key);
 
     BOOST_CHECK(read_prop == myprop);
+
+    remove("string_test_property");
+    remove("test_propterty_data/string_test_property");
+    remove("test_propterty_data");
 
 }
 
