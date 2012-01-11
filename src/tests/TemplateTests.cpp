@@ -26,11 +26,36 @@ BOOST_AUTO_TEST_SUITE(TemplateTestSuite)
 
 /*============================= BASIC TESTS ================================*/
 
-BOOST_AUTO_TEST_CASE(TEST_ME_BABY_ONE_MORE_TIME)
+BOOST_AUTO_TEST_CASE(NothingToReplaceShouldReturnOriginalInput)
 {
-    BOOST_CHECK(true);
+    SimpleTemplate* tmpl = new SimpleTemplate();
+
+    string input = "Realität ist da,\nwo der Pizzamann herkommt.";
+    string output;
+    tmpl->ParseString(input, output);
+
+    BOOST_CHECK(input == output);
 }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+
+BOOST_AUTO_TEST_CASE(ReplaceVariablePlaceholder)
+{
+    SimpleTemplate* tmpl = new SimpleTemplate();
+
+    string individual = "Pizzamann";
+    string key = "individual";
+    GenProperty property(individual, key);
+    tmpl->AddProperty(&property);
+
+    string input = "Realität ist da,\nwo der @individual herkommt.@shouldDisappear";
+    string output;
+    tmpl->ParseString(input, output);
+
+    //std::cout << "output: " << output << endl;
+
+    BOOST_CHECK(output == "Realität ist da,\nwo der Pizzamann herkommt.");
+}
+
 
 BOOST_AUTO_TEST_SUITE_END()

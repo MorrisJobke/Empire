@@ -11,8 +11,11 @@
 
 #include <string>
 #include <list>
+#include <map>
+#include <sstream>
 
 #include "GenProperty.h"
+
 
 class ITemplate
 {
@@ -20,19 +23,26 @@ public:
     virtual ~ITemplate() {}
 
     virtual void AddProperty(GenProperty* property) = 0;
-    virtual void AddProperties(std::list<GenProperty>* properties) = 0;
+    virtual void AddProperties(std::list<GenProperty*> properties) = 0;
 
-    virtual void ParseString(std::string const& input, std::string const& output) = 0;
-    virtual void ParseFile(std::string const& path, std::string const& output) = 0;
+    virtual void ParseString(std::string const& input, std::string& output) = 0;
+    virtual void ParseFile(std::string const& path, std::string& output) = 0;
 };
 
 class SimpleTemplate : public ITemplate
 {
-    virtual void AddProperty(GenProperty* property);
-    virtual void AddProperties(std::list<GenProperty>* properties);
+private:
+  enum Behavior { EAT, GATHER };
+  enum Expectation { ALPHANUM };
 
-    virtual void ParseString(std::string const& input, std::string const& output);
-    virtual void ParseFile(std::string const& path, std::string const& output);
+  std::map<std::string, GenProperty*> mProperties;
+
+public:
+    virtual void AddProperty(GenProperty* property);
+    virtual void AddProperties(std::list<GenProperty*> properties);
+
+    virtual void ParseString(std::string const& input, std::string& output);
+    virtual void ParseFile(std::string const& path, std::string& output);
 };
 
 #endif

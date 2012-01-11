@@ -242,25 +242,34 @@ void GenProperty::WriteData(std::string const& rPath)
     switch(mType)
     {
         case INT_T:
-            int value_int;
-            GetValue(value_int);          
-            out << value_int;
-            temp = out.str();
-            Filesystem::FileWriteString(rPath + "/" + mKey, temp);
+            {
+                int value_int;
+                GetValue(value_int);          
+                out << value_int;
+                temp = out.str();
+                Filesystem::FileWriteString(rPath + "/" + mKey, temp);
+            }
             break;
         case FLOAT_T:
-            double value_double;
-            GetValue(value_double);
-            out << value_double;
-            temp = out.str();
-            Filesystem::FileWriteString(rPath + "/" + mKey, temp);
+            {
+                double value_double;
+                GetValue(value_double);
+                out << value_double;
+                temp = out.str();
+                Filesystem::FileWriteString(rPath + "/" + mKey, temp);
+            }
             break;
         case STRING_T:
-            std::string value_string;
-            GetValue(value_string);
-            Filesystem::FileWriteString(rPath + "/" + mKey, value_string);
-        //case FUNCTION_T:
-            //break;
+            {
+                std::string value_string;
+                GetValue(value_string);
+                Filesystem::FileWriteString(rPath + "/" + mKey, value_string);
+            }
+            break;
+        case FUNCTION_T:
+            break;
+        case UNDEFINED_T:
+            break;
     }
 }
 
@@ -334,21 +343,30 @@ void GenProperty::ReadData(std::string const& rPath)
             switch(mType)
             {
                 case INT_T:
-                    int value_int;
-                    f >> value_int;
-                    mpIntValue = new int(value_int);
+                    {
+                        int value_int;
+                        f >> value_int;
+                        mpIntValue = new int(value_int);
+                    }
                     break;
                 case FLOAT_T:
-                    double value_double;
-                    f >> value_double;
-                    mpFloatValue = new double(value_double);
+                    {
+                        double value_double;
+                        f >> value_double;
+                        mpFloatValue = new double(value_double);
+                    }
                     break;
                 case STRING_T:
-                    std::string value_string;
-                    std::getline(f, value_string);
-                    mpStringValue = new std::string(value_string);
-                    //case FUNCTION_T:
-                    //break;
+                    {
+                        std::string value_string;
+                        std::getline(f, value_string);
+                        mpStringValue = new std::string(value_string);
+                    }
+                    break;
+                case FUNCTION_T:
+                    break;
+                case UNDEFINED_T:
+                    break;
             }
         }
         f.close();
@@ -377,27 +395,36 @@ bool GenProperty::ReadDataIfEmpty(const std::string &rPath)
             switch(mType)
             {
                 case INT_T:
-                    if (this->mpIntValue)
-                        return false;
-                    int value_int;
-                    f >> value_int;
-                    mpIntValue = new int(value_int);
+                    {
+                        if (this->mpIntValue)
+                            return false;
+                        int value_int;
+                        f >> value_int;
+                        mpIntValue = new int(value_int);
+                    }
                     break;
                 case FLOAT_T:
-                    if (this->mpFloatValue)
-                        return false;
-                    double value_double;
-                    f >> value_double;
-                    mpFloatValue = new double(value_double);
+                    {
+                        if (this->mpFloatValue)
+                            return false;
+                        double value_double;
+                        f >> value_double;
+                        mpFloatValue = new double(value_double);
+                    }
                     break;
                 case STRING_T:
-                    if (this->mpStringValue)
-                        return false;
-                    std::string value_string;
-                    std::getline(f, value_string);
-                    mpStringValue = new std::string(value_string);
-                    //case FUNCTION_T:
-                    //break;
+                    {
+                        if (this->mpStringValue)
+                            return false;
+                        std::string value_string;
+                        std::getline(f, value_string);
+                        mpStringValue = new std::string(value_string);
+                    }
+                    break;
+                case FUNCTION_T:
+                    break;
+                case UNDEFINED_T:
+                    break;
             }
         }
         f.close();
@@ -446,7 +473,21 @@ void GenProperty::GetValue(double& value)
  */
 void GenProperty::GetValue(std::string& value)
 {
-    value = *mpStringValue;
+    std::ostringstream oss;
+    switch (mType) {
+        case INT_T:
+            oss << *mpIntValue;
+            break;
+        case FLOAT_T:
+            oss << *mpFloatValue;
+        case STRING_T:
+            oss << *mpStringValue;
+        case FUNCTION_T:
+            break;
+        case UNDEFINED_T:
+            break;
+    }
+    value = oss.str();
 }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
@@ -510,8 +551,8 @@ std::string GenProperty::GetType() const
         case INT_T: return "Integer"; break;
         case FLOAT_T: return "Float"; break;
         case STRING_T: return "String"; break;
-        //case FUNCTION_T: return "Function"; break;
-        // fix warning
+        case FUNCTION_T: break;
+        case UNDEFINED_T: break;
         default: return "";
     }
 }
