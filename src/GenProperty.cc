@@ -14,9 +14,8 @@
 
 /*============================= LIFECYCLE ==================================*/
 
-     /** 
-     * @brief method, which initializes the pointers to null
-     */
+/** method, which initializes the pointers to null
+ */
 void GenProperty::InitPointers()
 {
     mpIntValue = NULL;
@@ -26,9 +25,9 @@ void GenProperty::InitPointers()
 }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
-     /** 
-     * @brief untyped constructor of the GenProperty-class
-     */
+
+/** untyped constructor of the GenProperty-class
+ */
 GenProperty::GenProperty()
 :   mKey(),
     mType(UNDEFINED_T)
@@ -51,11 +50,12 @@ GenProperty::GenProperty(PropertyTypes type, std::string const& rKey)
 }
     
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
-     /** 
-     * @brief constructor for integer-values of the GenProperty-class
-     * @param value integer-value for the new instance of the GenProperty-class
-     * @param rKey key for the new instance of the GenProperty-class
-     */
+
+/** constructor for integer-values of the GenProperty-class
+ *
+ * @param value integer-value for the new instance of the GenProperty-class
+ * @param rKey key for the new instance of the GenProperty-class
+ */
 GenProperty::GenProperty(int value, std::string const& rKey)
 :   mKey(rKey),
     mType(INT_T)
@@ -66,11 +66,12 @@ GenProperty::GenProperty(int value, std::string const& rKey)
 }
     
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
-     /** 
-     * @brief constructor for float-values of the GenProperty-class
-     * @param value float-value for the new instance of the GenProperty-class
-     * @param rKey key for the new instance of the GenProperty-class
-     */
+
+/** constructor for float-values of the GenProperty-class
+ *
+ * @param value float-value for the new instance of the GenProperty-class
+ * @param rKey key for the new instance of the GenProperty-class
+ */
 GenProperty::GenProperty(double value, std::string const& rKey)
 :   mKey(rKey),
     mType(FLOAT_T)
@@ -81,11 +82,12 @@ GenProperty::GenProperty(double value, std::string const& rKey)
 }
     
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
-     /** 
-     * @brief constructor for string-values of the GenProperty-class
-     * @param value string-value for the new instance of the GenProperty-class
-     * @param rKey key for the new instance of the GenProperty-class
-     */
+
+/** constructor for string-values of the GenProperty-class
+ *
+ * @param value string-value for the new instance of the GenProperty-class
+ * @param rKey key for the new instance of the GenProperty-class
+ */
 GenProperty::GenProperty(std::string value, std::string const& rKey)
 :   mKey(rKey),
     mType(STRING_T)
@@ -96,11 +98,12 @@ GenProperty::GenProperty(std::string value, std::string const& rKey)
 }
     
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
-     /** 
-     * @brief constructor for functions of the GenProperty-class
-     * @param value function for the new instance of the GenProperty-class
-     * @param rKey key for the new instance of the GenProperty-class
-     */
+
+/** constructor for functions of the GenProperty-class
+ *
+ * @param value function for the new instance of the GenProperty-class
+ * @param rKey key for the new instance of the GenProperty-class
+ */
 GenProperty::GenProperty(FunctionProperty value, std::string const& rKey)
 :   mKey(rKey),
     mType(FUNCTION_T)
@@ -121,11 +124,12 @@ GenProperty::GenProperty(FunctionProperty value, std::string const& rKey)
 //}
 
 /*============================= OPERATORS ==================================*/
-     /** 
-     * @brief method, which defines the ==-comparison operator for the GenProperty-class
-     * @param rRight second operator, which should compare the committed GenProperty to the own GenProperty
-     * @return returns true, when the committed GenProperty is the same as the own, otherwise false
-     */
+
+/** method, which defines the ==-comparison operator for the GenProperty-class
+ *
+ * @param rRight second operator, which should compare the committed GenProperty to the own GenProperty
+ * @return returns true, when the committed GenProperty is the same as the own, otherwise false
+ */
 bool GenProperty::operator==(GenProperty& rRight)
 {
     if (this->mType != rRight.mType)
@@ -214,10 +218,10 @@ void GenProperty::PrintToStream(std::ostream& rOut) const
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
 
-     /** 
-     * @brief method, which writes the metadata of the GenProperty into a file
-     * @param rPath path, where the metafile should stored
-     */
+/** method, which writes the metadata of the GenProperty into a file
+ *
+ * @param rPath path, where the metafile should stored
+ */
 void GenProperty::WriteMetadata(std::string const& rPath)
 {
     std::string value = GetType() + "\n";
@@ -225,10 +229,11 @@ void GenProperty::WriteMetadata(std::string const& rPath)
 }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
-     /** 
-     * @brief method, which writes the data of the GenProperty into a file
-     * @param rPath path, where the file should stored
-     */
+
+/** method, which writes the data of the GenProperty into a file
+ *
+ * @param rPath path, where the file should stored
+ */
 void GenProperty::WriteData(std::string const& rPath)
 {
     std::string temp;
@@ -260,10 +265,10 @@ void GenProperty::WriteData(std::string const& rPath)
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
 
-     /** 
-     * @brief method, which reads the property metadata from the given file
-     * @param rPath path of the file
-     */
+/** method, which reads the property metadata from the given file
+ *
+ * @param rPath path of the file
+ */
 void GenProperty::ReadMetadata(std::string const& rPath)
 {
     std::string line;
@@ -310,10 +315,11 @@ void GenProperty::ReadMetadata(std::string const& rPath)
 }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
-     /** 
-     * @brief method, which reads the property data from the given file
-     * @param rPath path of the file
-     */
+
+/** method, which reads the property data from the given file
+ *
+ * @param rPath path of the file
+ */
 void GenProperty::ReadData(std::string const& rPath)
 {
     /*TODO: throw exceptions if type not set*/
@@ -399,51 +405,56 @@ bool GenProperty::ReadDataIfEmpty(const std::string &rPath)
 }
 
 /*============================= ACESS      =================================*/
-     /** 
-     * @brief getter for the key of the instance of the GenProperty
-     * @return returns the key
-     */
+
+/** getter for the key of the instance of the GenProperty
+ *
+ * @return returns the key
+ */
 std::string GenProperty::GetKey() const
 {
     return mKey;
 }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
-     /** 
-     * @brief getter for the value of the instance of the GenProperty, if it's an integer-property
-     * @param value for storing the return-value
-     */
+
+/** getter for the value of the instance of the GenProperty, if it's an integer-property
+ *
+ * @param value for storing the return-value
+ */
 void GenProperty::GetValue(int& value)
 {
     value = *mpIntValue;
 }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
-     /** 
-     * @brief getter for the value of the instance of the GenProperty, if it's a float-property
-     * @param value for storing the return-value
-     */
+
+/** getter for the value of the instance of the GenProperty, if it's a float-property
+ *
+ * @param value for storing the return-value
+ */
 void GenProperty::GetValue(double& value)
 {
     value = *mpFloatValue;
 }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
-     /** 
-     * @brief getter for the value of the instance of the GenProperty, if it's a string-property
-     * @param value for storing the return-value
-     */
+
+/** getter for the value of the instance of the GenProperty, if it's a string-property
+ *
+ * @param value for storing the return-value
+ */
 void GenProperty::GetValue(std::string& value)
 {
     value = *mpStringValue;
 }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
-     /** 
-     * @brief getter for the value of the instance of the GenProperty, if it's a function-property
-     * @param value for storing the return-value of the exexuted function
-     * @param properties list of a list of the properties on which the function is executed
-     */
+
+/** getter for the value of the instance of the GenProperty, if it's a function-property
+ *
+ * @param value for storing the return-value of the exexuted function
+ * @param properties list of a list of the properties on which the function is executed
+ */
 void GenProperty::GetValue(double& value, std::list< std::list<GenProperty> > properties)
 {
     lua_State *L = lua_open();
@@ -507,10 +518,11 @@ void GenProperty::GetValue(double& value, std::list< std::list<GenProperty> > pr
 }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
-     /** 
-     * @brief getter for the type of the instance of the GenProperty
-     * @return returns a string with the content: "Integer" if it's an integer; "Float" if it's a float; "String" if it's a string; "Frunction" if it's a function
-     */
+
+/** getter for the type of the instance of the GenProperty
+ *
+ * @return returns a string with the type of the instance
+ */
 std::string GenProperty::GetType() const
 {
     switch(mType)
@@ -545,7 +557,6 @@ bool GenProperty::HasValue()
 /////////////////////////////// PROTECTED  ///////////////////////////////////
 
 /////////////////////////////// PRIVATE    ///////////////////////////////////
-
 
 /////////////////////////////// STATICS    ///////////////////////////////////
 
