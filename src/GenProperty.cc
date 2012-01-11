@@ -180,7 +180,40 @@ GenProperty& GenProperty::operator=(GenProperty const& rRight)
     return *this;
 }
 
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+
+/** define the << OPERATORS
+ *
+ * @relates GenProperty
+ * @param output stream
+ * @param rProp reference to property
+ */
+std::ostream& operator<<(std::ostream& rOut, GenProperty const& rProp)
+{
+   rProp.PrintToStream(rOut); 
+   return rOut;
+}
+
 /*============================= OPERATIONS =================================*/
+
+/** helper function for debugging 
+ */
+void GenProperty::PrintToStream(std::ostream& rOut) const
+{
+    rOut << "[PROP<" << this->GetType() << ">" << this->GetKey() << ":";
+
+    if (mpIntValue)
+        rOut << *mpIntValue;
+    if (mpFloatValue)
+        rOut << *mpFloatValue;
+    if (mpStringValue)
+        rOut << *mpStringValue;
+
+    rOut << "]";
+}
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+
      /** 
      * @brief method, which writes the metadata of the GenProperty into a file
      * @param rPath path, where the metafile should stored

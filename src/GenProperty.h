@@ -70,9 +70,11 @@ class GenProperty
     void ReadMetadata(std::string const& rPath);
     void ReadData(std::string const& rPath);
 
+    void PrintToStream(std::ostream& rOut) const;
 
-    bool operator==(GenProperty& rRight);
-    GenProperty& operator=(GenProperty const& rRight);
+    bool            operator==(GenProperty& rRight);
+    GenProperty&    operator=(GenProperty const& rRight);
+
 
     //virtual ~GenProperty()
     //{
@@ -90,6 +92,7 @@ class GenProperty
     static PropertyTypes StringToEnumType(std::string const& type);
 };
 
+std::ostream&        operator<<(std::ostream& rOut, const GenProperty& rProp);
 
 
 #endif
