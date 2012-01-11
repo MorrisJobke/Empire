@@ -176,6 +176,19 @@ void Repository::CreatePropertyClass(std::string const& key, std::string const& 
     new_prop.WriteMetadata(this->mAbsoluteRepoPath + "/" + REPO_NAME);
 }
 
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+
+/** add a property with the given value, in the current wd
+ *
+ * This is only done if the property class exists
+ * TODO: create property class on demand
+ */
+void AddProperty(std::string const& key, std::string const& value)
+{
+}
+
+
+
 /*============================= ACESS      =================================*/
 
 bool Repository::IsOnTheRun()
