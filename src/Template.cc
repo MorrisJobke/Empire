@@ -71,29 +71,38 @@ void SimpleTemplate::ParseString(string const& input, string& output)
 
                 break;
             case GATHER:
-                switch (expectation) {
-                    case ALPHANUM:
-                        if (isalnum(*it)) {
-                            gathered += *it;
-                            it++;
-                        } else { // variable found
-                            GenProperty* property = mProperties[gathered];
-                            if (property && (property->GetType() == "Integer" || property->GetType() == "Float" || property->GetType() == "String")) {
-                                string propertyValue;
-                                property->GetValue(propertyValue);
-                                result << propertyValue;
-                            } else { 
-                                // property not provided -> do nothing
+                if(*it == '@') {
+                    result << *it;
+                    it++;
+                    
+                    // reset behavior
+                    behavior = EAT;
+                    gathered = "";
+                } else {
+                    switch (expectation) {
+                        case ALPHANUM:
+                            if (isalnum(*it)) {
+                                gathered += *it;
+                                it++;
+                            } else { // variable found
+                                GenProperty* property = mProperties[gathered];
+                                if (property && (property->GetType() == "Integer" || property->GetType() == "Float" || property->GetType() == "String")) {
+                                    string propertyValue;
+                                    property->GetValue(propertyValue);
+                                    result << propertyValue;
+                                } else { 
+                                    // property not provided -> do nothing
+                                }
+
+                                // reset behavior
+                                behavior = EAT;
+                                gathered = "";
+
+                                // btw do not increament it !
+                                // because we have to eat this non alpha character
                             }
 
-                            // reset behavior
-                            behavior = EAT;
-                            gathered = "";
-
-                            // btw do not increament it !
-                            // because we have to eat this non alpha character
-                        }
-
+                    }
                 }
                 break;
         }

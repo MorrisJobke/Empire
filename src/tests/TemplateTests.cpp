@@ -52,9 +52,14 @@ BOOST_AUTO_TEST_CASE(ReplaceVariablePlaceholder)
     string output;
     tmpl->ParseString(input, output);
 
+    BOOST_CHECK(output == "Realität ist da,\nwo der Pizzamann herkommt.");
+
+    input = "email@@example.tld";
+    tmpl->ParseString(input, output);
+
     //std::cout << "output: " << output << endl;
 
-    BOOST_CHECK(output == "Realität ist da,\nwo der Pizzamann herkommt.");
+    BOOST_CHECK(output == "email@example.tld");
 }
 
 
