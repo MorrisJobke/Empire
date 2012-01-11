@@ -53,14 +53,16 @@ class GenProperty
     //GenProperty(GenProperty const& original);
 
 
-    std::string GetKey() const;
 
     void GetValue(int& value);
     void GetValue(double& value);
     void GetValue(std::string& value);
     void GetValue(double& value, std::list< std::list<GenProperty> > properties);
 
-    std::string GetType();
+    std::string GetType() const;
+    std::string GetKey() const;
+
+    bool HasValue();
 
     void WriteMetadata(std::string const& rPath);
     void WriteData(std::string const& rPath);

@@ -428,7 +428,7 @@ void GenProperty::GetValue(double& value, std::list< std::list<GenProperty> > pr
      * @brief getter for the type of the instance of the GenProperty
      * @return returns a string with the content: "Integer" if it's an integer; "Float" if it's a float; "String" if it's a string; "Frunction" if it's a function
      */
-std::string GenProperty::GetType()
+std::string GenProperty::GetType() const
 {
     switch(mType)
     {
@@ -442,6 +442,23 @@ std::string GenProperty::GetType()
 }
 
 /*============================= INQUIRY    =================================*/
+
+/** check if our instance has a values
+ */
+bool GenProperty::HasValue()
+{
+    if (mpIntValue)
+        return true;
+    if (mpFloatValue)
+        return true;
+    if (mpStringValue)
+        return true;
+    if (mpFunctionValue)
+        return true;
+
+    return false;
+}
+
 /////////////////////////////// PROTECTED  ///////////////////////////////////
 
 /////////////////////////////// PRIVATE    ///////////////////////////////////
