@@ -136,7 +136,46 @@ void Repository::Init()
  */
 void Repository::Load()
 {
+    /* repo check */
 
+    if (this->mAbsoluteRepoPath == "")
+        throw ExcRepository("Err: Repo Exsists");
+
+    std::string start_dir = Fs::GetCwd();
+
+
+    /* at first we collect meta properties ( property classes ) */
+
+    Fs::ChangeCwd(this->mAbsoluteRepoPath);
+    std::cout << "Loading Repo at: " << this->mAbsoluteRepoPath << std::endl;
+
+    DIR *dp;
+    struct dirent *ep;
+
+    dp = opendir (REPO_NAME);
+    if (dp != NULL)
+    {
+        while ((ep = readdir (dp)))
+        {
+            std::string entry = ep->d_name;
+
+            /* skip standard links */
+            if (entry == "." || entry == "..")
+                continue;
+
+            /* create new property read it and append it to list */
+            GenProperty* p_new_prop = new GenProperty();
+            p_new_prop->ReadMetadata(this->mAbsoluteRepoPath + "/" + REPO_NAME + "/" + entry);
+
+
+            this->PropertyList.push_back(p_new_prop);
+        }
+        (void) closedir (dp);
+    }
+    else
+        perror ("Couldn't open the directory");
+
+    Fs::ChangeCwd(start_dir);
 }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/

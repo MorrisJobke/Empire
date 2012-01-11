@@ -14,6 +14,7 @@
 
 #include <iostream>
 #include <string>
+#include <list>
 
 #include <stdio.h>
 
@@ -65,7 +66,7 @@ BOOST_AUTO_TEST_CASE(testRepositoryCreation)
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
 
-BOOST_AUTO_TEST_CASE(testCreateProperty)
+BOOST_AUTO_TEST_CASE(testRepoCreateProperty)
 {
     Fs::ChangeCwd("test_repo");
 
@@ -98,6 +99,48 @@ BOOST_AUTO_TEST_CASE(testCreateProperty)
     remove(".emp/RechnungsSteller");
     remove(".emp/RechnungsNehmer");
     remove(".emp/MeineZahl");
+    remove(".emp");
+
+    Fs::ChangeCwd("..");
+
+}
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+
+BOOST_AUTO_TEST_CASE(testRepoLoad)
+{
+    Fs::ChangeCwd("test_repo");
+    Fs::CreateDirectory(".emp");
+
+    GenProperty prop1(42, "prop1");
+    GenProperty prop2(4.32, "prop2");
+    GenProperty prop3("hallo", "prop3");
+
+    prop1.WriteMetadata(".emp");
+    prop2.WriteMetadata(".emp");
+    prop3.WriteMetadata(".emp");
+
+    Repository repo;
+
+
+    //Fs::PrintDirEntries(".emp");
+    
+    repo.Load();
+
+    list<GenProperty*> prop_list = repo.GetPropertyList();
+
+    BOOST_CHECK(*(prop_list.front()) == prop1);
+    prop_list.pop_front();
+    BOOST_CHECK(*(prop_list.front()) == prop2);
+    prop_list.pop_front();
+    BOOST_CHECK(*(prop_list.front()) == prop3);
+
+
+    remove(".emp/prop1");
+    remove(".emp/prop2");
+    remove(".emp/prop3");
+
+    remove(".emp");
 
     Fs::ChangeCwd("..");
 
