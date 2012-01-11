@@ -54,6 +54,8 @@ class Repository
     void RemoveProperty(std::string const& key);
     void RemovePropertyClass(std::string const& key);
     void RemovePropertyClassAndInstances(std::string const& key);
+
+    std::list<GenProperty*> GetPropertyList(){ return this->PropertyList; };
 };
 
 
