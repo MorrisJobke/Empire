@@ -236,11 +236,25 @@ void GenProperty::ReadMetadata(std::string const& rPath)
     std::string line;
     std::ifstream myfile(rPath.c_str());
 
+    /* extract key */
+    std::string key = rPath;
+    std::string search_for = "/";
+
+    std::size_t found;
+    found = key.rfind(search_for);
+
+    if ( found != std::string::npos)
+        key.replace(0, found + 1,"");
+    
+    //std::cout << found << " Stripped key: --" << key << "--" << std::endl;
+
+
     if (myfile.is_open())
     {
         if (myfile.good())
         {
             getline (myfile,line);
+            //std::cout << "read metatdata type: " << line << std::endl;
         }
         myfile.close();
     }
