@@ -109,16 +109,32 @@ BOOST_AUTO_TEST_CASE(testRepoCreateProperty)
 
 BOOST_AUTO_TEST_CASE(testRepoLoad)
 {
+
+    /* create env */
+
     Fs::ChangeCwd("test_repo");
     Fs::CreateDirectory(".emp");
 
-    GenProperty prop1(42, "prop1");
-    GenProperty prop2(4.32, "prop2");
-    GenProperty prop3("hallo", "prop3");
+    GenProperty rechst("ich_selbst", "rechsteller");
+    GenProperty firmn(STRING_T, "firmen_name");
 
-    prop1.WriteMetadata(".emp");
-    prop2.WriteMetadata(".emp");
-    prop3.WriteMetadata(".emp");
+    rechst.WriteMetadata(".emp");
+    rechst.WriteData(".");
+
+    firmn.WriteMetadata(".emp");
+
+    Fs::CreateDirectory("FirmaA");
+
+    Fs::ChangeCwd("FirmaA");
+
+    GenProperty firmn_a("die Firma", "firmen_name");
+    firmn_a.WriteData(".");
+
+
+    BOOST_CHECK(Fs::FileExists("firmen_name") == true);
+
+
+    /* load repos */
 
     Repository repo;
 
@@ -129,16 +145,19 @@ BOOST_AUTO_TEST_CASE(testRepoLoad)
 
     list<GenProperty*> prop_list = repo.GetPropertyList();
 
-    BOOST_CHECK(*(prop_list.front()) == prop1);
+    cout << "comparing " << *(prop_list.front()) << " with " << firmn_a << endl;
+    BOOST_CHECK(*(prop_list.front()) == firmn_a);
     prop_list.pop_front();
-    BOOST_CHECK(*(prop_list.front()) == prop2);
-    prop_list.pop_front();
-    BOOST_CHECK(*(prop_list.front()) == prop3);
+    cout << "comparing " << *(prop_list.front()) << " with " << rechst << endl;
+    BOOST_CHECK(*(prop_list.front()) == rechst);
 
+    remove("firmen_name");
+    Fs::ChangeCwd("..");
+    remove("FirmaA");
+    remove("rechsteller");
 
-    remove(".emp/prop1");
-    remove(".emp/prop2");
-    remove(".emp/prop3");
+    remove(".emp/rechsteller");
+    remove(".emp/firmen_name");
 
     remove(".emp");
 

@@ -144,7 +144,9 @@ void Repository::Load()
     std::string start_dir = Fs::GetCwd();
 
 
-    /* at first we collect meta properties ( property classes ) */
+    /*
+     * at first we collect meta properties ( property classes )
+     */
 
     Fs::ChangeCwd(this->mAbsoluteRepoPath);
     std::cout << "Loading Repo at: " << this->mAbsoluteRepoPath << std::endl;
@@ -175,7 +177,57 @@ void Repository::Load()
     else
         perror ("Couldn't open the directory");
 
+    
+    /*
+     * now collect propery instances
+     */
+
     Fs::ChangeCwd(start_dir);
+
+    while(true)
+    {
+        /* get dir entries */
+        dp = NULL;
+        ep = NULL;
+
+        dp = opendir (".");
+        if (dp != NULL)
+        {
+            while ((ep = readdir (dp)))
+            {
+                std::string entry = ep->d_name;
+
+                /* skip standard links */
+                if (entry == "." || entry == "..")
+                    continue;
+
+                /* search entry in the member property list */
+                std::list<GenProperty*>::const_iterator it;
+
+                for (it = this->PropertyList.begin(); it != this->PropertyList.end(); it++)
+                {
+                    if ((*it)->GetKey() == entry)
+                    {
+                        std::cout << "Before -> " << *(*it) << std::endl;
+                        (*it)->ReadDataIfEmpty(entry);
+                        std::cout << "Read Property -> " << *(*it) << std::endl;
+                    }
+                }
+
+            }
+            (void) closedir (dp);
+        }
+        else
+            perror ("Couldn't open the directory");
+
+        if (this->mAbsoluteRepoPath == Fs::GetCwd())
+            break;
+        else
+            Fs::ChangeCwd("..");
+    }
+
+    Fs::ChangeCwd(start_dir);
+
 }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
