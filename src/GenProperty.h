@@ -45,10 +45,10 @@ class GenProperty
     void InitPointers();
 
     GenProperty();
-    GenProperty(int value,              std::string& rKey);
-    GenProperty(double value,           std::string& rKey);
-    GenProperty(std::string value,      std::string& rKey);
-    GenProperty(FunctionProperty value, std::string& rKey);
+    GenProperty(int value,              std::string const& rKey);
+    GenProperty(double value,           std::string const& rKey);
+    GenProperty(std::string value,      std::string const& rKey);
+    GenProperty(FunctionProperty value, std::string const& rKey);
     GenProperty(PropertyTypes type, std::string const& rKey);
     //GenProperty(GenProperty const& original);
 

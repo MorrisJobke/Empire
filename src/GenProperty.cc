@@ -56,7 +56,7 @@ GenProperty::GenProperty(PropertyTypes type, std::string const& rKey)
      * @param value integer-value for the new instance of the GenProperty-class
      * @param rKey key for the new instance of the GenProperty-class
      */
-GenProperty::GenProperty(int value, std::string& rKey)
+GenProperty::GenProperty(int value, std::string const& rKey)
 :   mKey(rKey),
     mType(INT_T)
 {
@@ -71,7 +71,7 @@ GenProperty::GenProperty(int value, std::string& rKey)
      * @param value float-value for the new instance of the GenProperty-class
      * @param rKey key for the new instance of the GenProperty-class
      */
-GenProperty::GenProperty(double value, std::string& rKey)
+GenProperty::GenProperty(double value, std::string const& rKey)
 :   mKey(rKey),
     mType(FLOAT_T)
 {
@@ -86,7 +86,7 @@ GenProperty::GenProperty(double value, std::string& rKey)
      * @param value string-value for the new instance of the GenProperty-class
      * @param rKey key for the new instance of the GenProperty-class
      */
-GenProperty::GenProperty(std::string value, std::string& rKey)
+GenProperty::GenProperty(std::string value, std::string const& rKey)
 :   mKey(rKey),
     mType(STRING_T)
 {
@@ -101,7 +101,7 @@ GenProperty::GenProperty(std::string value, std::string& rKey)
      * @param value function for the new instance of the GenProperty-class
      * @param rKey key for the new instance of the GenProperty-class
      */
-GenProperty::GenProperty(FunctionProperty value, std::string& rKey)
+GenProperty::GenProperty(FunctionProperty value, std::string const& rKey)
 :   mKey(rKey),
     mType(FUNCTION_T)
 {
