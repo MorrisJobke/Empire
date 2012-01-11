@@ -116,4 +116,11 @@ BOOST_AUTO_TEST_CASE(testWorkingDirOps)
     BOOST_CHECK(old_cwd == Fs::GetCwd());
 }
 
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+
+BOOST_AUTO_TEST_CASE(testDirLs)
+{
+    //Fs::PrintDirEntries("bin");
+}
+
 BOOST_AUTO_TEST_SUITE_END()

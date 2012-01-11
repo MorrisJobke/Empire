@@ -138,6 +138,26 @@ namespace Filesystem
     }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+
+/** print out all dir entries
+ */ 
+void PrintDirEntries(string const& rDirPath)
+{
+    DIR *dp;
+    struct dirent *ep;
+
+    dp = opendir (rDirPath.c_str());
+    if (dp != NULL)
+    {
+        while ((ep = readdir (dp)))
+            cout << ep->d_name << endl;
+        (void) closedir (dp);
+    }
+    else
+        perror ("Couldn't open the directory");
+}
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
     
     /** 
      * @brief function to write a string to file

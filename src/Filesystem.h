@@ -11,6 +11,7 @@
 
 #include <unistd.h>
 #include <sys/stat.h>
+#include <dirent.h>
 #include <errno.h>
 #include <cstring>
 
@@ -37,6 +38,7 @@ namespace Filesystem
 
     void CreateDirectory(string const& rDirPath);
     bool DirectoryExists(string const& rDirPath);
+    void PrintDirEntries(string const& rDirPath);
 
     void FileWriteString(string const& rFilePath, string& rContent);
     void FileAppendString(string const& rFilePath, string& rContent);
