@@ -50,6 +50,7 @@ class GenProperty
     GenProperty(std::string value,      std::string& rKey);
     GenProperty(FunctionProperty value, std::string& rKey);
     GenProperty(PropertyTypes type, std::string const& rKey);
+    //GenProperty(GenProperty const& original);
 
 
     std::string GetKey() const;
@@ -69,6 +70,7 @@ class GenProperty
 
 
     bool operator==(GenProperty& rRight);
+    GenProperty& operator=(GenProperty const& rRight);
 
     //virtual ~GenProperty()
     //{

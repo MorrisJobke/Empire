@@ -110,6 +110,16 @@ GenProperty::GenProperty(FunctionProperty value, std::string& rKey)
     mpFunctionValue = new FunctionProperty(value);
 }
     
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+
+/** copy constructor
+ */
+//GenProperty::GenProperty(GenProperty const& original)
+//{
+//    *this = original;
+//}
+
 /*============================= OPERATORS ==================================*/
      /** 
      * @brief method, which defines the ==-comparison operator for the GenProperty-class
@@ -134,6 +144,37 @@ bool GenProperty::operator==(GenProperty& rRight)
             return false;
 
     return true;
+}
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+
+/** assignment opearator
+ */
+GenProperty& GenProperty::operator=(GenProperty const& rRight)
+{
+    if (this != &rRight)
+    {
+        if (this->mpIntValue)
+            delete mpIntValue;
+        if (this->mpFloatValue)
+            delete mpFloatValue;
+        if (this->mpStringValue)
+            delete mpStringValue;
+
+        this->InitPointers();
+
+        if (rRight.mpIntValue)
+            this->mpIntValue = new int(*(rRight.mpIntValue));
+        if (rRight.mpFloatValue)
+            this->mpFloatValue = new double(*(rRight.mpFloatValue));
+        if (rRight.mpStringValue)
+            this->mpStringValue = new std::string(*(rRight.mpStringValue));
+
+        this->mKey = rRight.mKey;
+        this->mType = rRight.mType;
+    }
+
+    return *this;
 }
 
 /*============================= OPERATIONS =================================*/
