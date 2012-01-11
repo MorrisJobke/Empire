@@ -46,11 +46,19 @@ target_link_libraries(Repository
     GenProperty)
 
 ######################
-# Lua Helper         #
+# Lua Helper library #
 ######################
 add_library(LuaHelper LuaHelper)
 target_link_libraries(LuaHelper
     ${LUA_LIBRARIES})
+
+
+######################
+# Template library   #
+######################
+add_library(Template Template)
+target_link_libraries(Template
+    GenProperty)
 
 # adding sub directories
 # parameter:

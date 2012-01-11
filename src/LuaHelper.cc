@@ -2,7 +2,7 @@
 /* LuaHelper.cc
  * @Author:      Brainafk
  * @License:     GPL
- * @Created:     2012-01-11
+ * @Created:     2012-01-11.
  * @Editor:      Sublime Text 2
  */
 
