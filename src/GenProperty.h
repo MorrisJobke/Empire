@@ -69,6 +69,7 @@ class GenProperty
 
     void ReadMetadata(std::string const& rPath);
     void ReadData(std::string const& rPath);
+    bool ReadDataIfEmpty(std::string const& rPath);
 
     void PrintToStream(std::ostream& rOut) const;
 

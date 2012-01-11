@@ -348,6 +348,56 @@ void GenProperty::ReadData(std::string const& rPath)
     }
 }
 
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+
+/** same method as above, but only reads data if the propertiy have not
+ *
+ * @param file path
+ * 
+ * @return false if no data was written to the property instance
+ */
+bool GenProperty::ReadDataIfEmpty(const std::string &rPath)
+{
+    /*TODO: throw exceptions if type not set*/
+
+    std::ifstream f(rPath.c_str());
+
+    if (f.is_open())
+    {
+        if (f.good())
+        {
+            switch(mType)
+            {
+                case INT_T:
+                    if (this->mpIntValue)
+                        return false;
+                    int value_int;
+                    f >> value_int;
+                    mpIntValue = new int(value_int);
+                    break;
+                case FLOAT_T:
+                    if (this->mpFloatValue)
+                        return false;
+                    double value_double;
+                    f >> value_double;
+                    mpFloatValue = new double(value_double);
+                    break;
+                case STRING_T:
+                    if (this->mpStringValue)
+                        return false;
+                    std::string value_string;
+                    std::getline(f, value_string);
+                    mpStringValue = new std::string(value_string);
+                    //case FUNCTION_T:
+                    //break;
+            }
+        }
+        f.close();
+    }
+    return true;
+}
+
 /*============================= ACESS      =================================*/
      /** 
      * @brief getter for the key of the instance of the GenProperty
