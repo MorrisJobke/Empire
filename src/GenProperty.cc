@@ -8,6 +8,7 @@
 
 #include "GenProperty.h"
 #include "Filesystem.h"
+#include "LuaHelper.h"
 
 
 /////////////////////////////// PUBLIC ///////////////////////////////////////
@@ -457,64 +458,43 @@ void GenProperty::GetValue(std::string& value)
  */
 void GenProperty::GetValue(double& value, std::list< std::list<GenProperty> > properties)
 {
-    lua_State *L = lua_open();
+    LuaHelper* helper = new LuaHelper();
     std::list<double> results;
 
-    std::list< std::list<GenProperty> >::iterator it;
-    for(it = properties.begin(); it != properties.end(); ++it) {
-        std::list<GenProperty> layer = *it;
-        std::string variables = "";
-        
-        std::list<GenProperty>::iterator it2;
-        for (it2 = layer.begin(); it2 != layer.end(); ++it2) {
-            GenProperty property = *it2;
+    std::list< std::list<GenProperty> >::iterator list;
+    for(list = properties.begin(); list != properties.end(); ++list) {
+        LuaContext* context = helper->CreateContext();
+        std::list<GenProperty>::iterator property;
+
+        for (property = (*list).begin(); property != (*list).end(); ++property) {
             std::ostringstream oss;
 
-            if (property.GetType() == "Integer") {
+            if (property->GetType() == "Integer") {
                 int int_value;
-                property.GetValue(int_value);
-                oss << property.GetKey() << "=" << int_value << ";";
-
-                variables += oss.str();
-            } else if (property.GetType() == "Float") {
+                property->GetValue(int_value);
+                context->AddVariable(property->GetKey(), int_value);
+            } else if (property->GetType() == "Float") {
                 double double_value;
-                property.GetValue(double_value);
-
-                std::ostringstream oss;
-                oss << property.GetKey() << "=" << double_value << ";";
-
-                variables += oss.str();
+                property->GetValue(double_value);
+                context->AddVariable(property->GetKey(), double_value);
             }
         }
-
-        std::string lua = variables + "return " + (*mpFunctionValue).map + ";";
-        luaL_dostring(L, lua.c_str());
         
-        std::string result = lua_tostring(L, -1);
-
-        std::istringstream i(result);
-        double x;
-        if ((i >> x))
-            results.push_back(x);
+        double result;
+        context->Execute(mpFunctionValue->map, result);
+        results.push_back(result);
     }
 
-    std::list<double>::iterator it3;
-    double lhs = 0;
-    for(it3 = results.begin(); it3 != results.end(); ++it3) {
-        std::ostringstream oss;
-        oss << "lhs = " << lhs << "; rhs = " << *it3 << "; return " << (*mpFunctionValue).reduce << ";";
-        std::string result = oss.str();
-        luaL_dostring(L, result.c_str());
-
-        std::istringstream i(lua_tostring(L, -1));
-        double x;
-        if ((i >> x))
-            lhs = x;
+    std::list<double>::iterator result;
+    std::string lhs = "lhs";
+    std::string rhs = "rhs";
+    value = 0;
+    for(result = results.begin(); result != results.end(); ++result) {
+        LuaContext* context = helper->CreateContext();
+        context->AddVariable(lhs, value);
+        context->AddVariable(rhs, *result);
+        context->Execute(mpFunctionValue->reduce, value);
     }
-
-    lua_close(L);
-
-    value = lhs;
 }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/

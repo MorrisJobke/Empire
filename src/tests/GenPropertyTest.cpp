@@ -173,8 +173,8 @@ BOOST_AUTO_TEST_CASE(GenPropertyStringIOTest)
 BOOST_AUTO_TEST_CASE(GenPropertyFunctionTest)
 {
     FunctionProperty data_function = {
-        "amount * price",
-        "lhs + rhs"
+        "return amount * price;",
+        "return lhs + rhs;"
     };
     string key = "testproperty";
 

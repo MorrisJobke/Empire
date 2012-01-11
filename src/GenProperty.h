@@ -11,15 +11,6 @@
 
 #include <string>
 #include <list>
-#include <iostream>
-#include <sstream>
-
-extern "C"
-{
-    #include "lua.h"
-    #include "lualib.h"
-    #include "lauxlib.h"
-}
 
 enum PropertyTypes {INT_T, FLOAT_T, STRING_T, FUNCTION_T, UNDEFINED_T};
 

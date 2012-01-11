@@ -35,7 +35,7 @@ add_library(Filesystem Filesystem)
 #######################
 add_library(GenProperty GenProperty)
 target_link_libraries(GenProperty
-    ${LUA_LIBRARIES})
+    LuaHelper)
 
 ######################
 # Repository library #
@@ -44,6 +44,13 @@ add_library(Repository Repository)
 target_link_libraries(Repository
     Filesystem
     GenProperty)
+
+######################
+# Lua Helper         #
+######################
+add_library(LuaHelper LuaHelper)
+target_link_libraries(LuaHelper
+    ${LUA_LIBRARIES})
 
 # adding sub directories
 # parameter:
