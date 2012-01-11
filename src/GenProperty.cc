@@ -131,6 +131,9 @@ bool GenProperty::operator==(GenProperty& rRight)
     if (this->mType != rRight.mType)
         return false;
 
+    if (this->mKey != rRight.mKey)
+        return false;
+
     if (this->mpIntValue)
         if (*(this->mpIntValue) != *(rRight.mpIntValue))
             return false;
@@ -245,16 +248,18 @@ void GenProperty::ReadMetadata(std::string const& rPath)
     
     if (line == "Integer")
     {
-        mType = INT_T;
+        this->mType = INT_T;
     }
     if (line == "Float")
     {
-        mType = FLOAT_T;
+        this->mType = FLOAT_T;
     }
     if (line == "String")
     {
-        mType = STRING_T;
+        this->mType = STRING_T;
     }
+
+    this->mKey = key;
 }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
