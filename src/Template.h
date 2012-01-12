@@ -32,10 +32,10 @@ public:
 class SimpleTemplate : public ITemplate
 {
 private:
-  enum Behavior { EAT, GATHER };
-  enum Expectation { ALPHANUM };
+    enum Behavior { EAT, GATHER };
+    enum Expectation { ALPHANUM };
 
-  std::map<std::string, GenProperty*> mProperties;
+    std::map<std::string, GenProperty*> mProperties;
 
 public:
     virtual void AddProperty(GenProperty* property);
