@@ -332,8 +332,6 @@ void GenProperty::ReadMetadata(std::string const& rPath)
  */
 void GenProperty::ReadData(std::string const& rPath)
 {
-    /*TODO: throw exceptions if type not set*/
-
     std::ifstream f(rPath.c_str());
 
     if (f.is_open())
@@ -366,6 +364,7 @@ void GenProperty::ReadData(std::string const& rPath)
                 case FUNCTION_T:
                     break;
                 case UNDEFINED_T:
+                    throw UnsetTypeError();
                     break;
             }
         }
@@ -384,8 +383,6 @@ void GenProperty::ReadData(std::string const& rPath)
  */
 bool GenProperty::ReadDataIfEmpty(const std::string &rPath)
 {
-    /*TODO: throw exceptions if type not set*/
-
     std::ifstream f(rPath.c_str());
 
     if (f.is_open())
@@ -424,6 +421,7 @@ bool GenProperty::ReadDataIfEmpty(const std::string &rPath)
                 case FUNCTION_T:
                     break;
                 case UNDEFINED_T:
+                    throw UnsetTypeError();
                     break;
             }
         }
