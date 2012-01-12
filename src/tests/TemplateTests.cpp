@@ -83,9 +83,8 @@ BOOST_AUTO_TEST_CASE(TemplateReadFileTest)
     tmpl->ParseFile(path, output);
 
     BOOST_CHECK(output == "\"640 Kilobyte ought to be enough for anybody.\"\nBill Gates, 1981");
-
+    
+    remove(path.c_str());
 }
-
-
 
 BOOST_AUTO_TEST_SUITE_END()
