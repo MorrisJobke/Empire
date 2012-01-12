@@ -202,4 +202,44 @@ BOOST_AUTO_TEST_CASE(GenPropertyFunctionTest)
     BOOST_CHECK(ret_double == 42.0);
 }
 
+/*======================== OPERATOR TESTS    ==============================*/
+
+BOOST_AUTO_TEST_CASE(AssignmentOperatorTest)
+{
+    GenProperty myprop_float(3.88884448, "test1");
+    GenProperty myprop_float2(7.99999999, "test2");
+    GenProperty myprop_int(1023,"test3");
+    GenProperty myprop_string("test!", "test4");
+    
+    std::string error = "";
+
+    //TEST 1:
+    myprop_float = myprop_float2;
+    if (!(myprop_float == myprop_float2))
+        error = "[AssignmentOperator] FAIL @ TEST 1";
+    //TEST 2:
+    myprop_float = myprop_int;
+    if (!(myprop_float == myprop_int))    
+        error = "[AssignmentOperator] FAIL @ TEST 2";
+    //TEST 3:
+    myprop_int = myprop_string;
+    if (!(myprop_int == myprop_string))    
+        error = "[AssignmentOperator] FAIL @ TEST 3";
+    //TEST 4:
+    myprop_string = myprop_float;
+    if (!(myprop_string == myprop_float))    
+        error = "[AssignmentOperator] FAIL @ TEST 4";
+    
+    if (error.compare(""))
+    {
+        std::cout << error << std::endl;
+        BOOST_CHECK(false);    
+    }
+    else
+        BOOST_CHECK(true);
+}
+
+
+
+
 BOOST_AUTO_TEST_SUITE_END()
