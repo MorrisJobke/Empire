@@ -306,7 +306,10 @@ void GenProperty::ReadMetadata(std::string const& rPath)
         }
         myfile.close();
     }
-    //TODO: else
+    else
+    {
+        throw CannotOpenFileError();
+    }
     
     if (line == "Integer")
     {
@@ -370,6 +373,10 @@ void GenProperty::ReadData(std::string const& rPath)
         }
         f.close();
     }
+    else
+    {
+        throw CannotOpenFileError();
+    }
 }
 
 
@@ -426,6 +433,10 @@ bool GenProperty::ReadDataIfEmpty(const std::string &rPath)
             }
         }
         f.close();
+    }
+    else
+    {
+        throw CannotOpenFileError();
     }
     return true;
 }

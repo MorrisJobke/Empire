@@ -15,6 +15,7 @@
 #include "DefineException.h"
 
 DEFINE_FAST_EXCEPTION(UnsetTypeError,"Property has unset type")
+DEFINE_FAST_EXCEPTION(CannotOpenFileError,"Cannot open file")
 
 enum PropertyTypes {INT_T, FLOAT_T, STRING_T, FUNCTION_T, UNDEFINED_T};
 
