@@ -7,6 +7,7 @@
  */
 
 #include "Template.h"
+#include "Filesystem.h"
 
 using namespace std;
 
@@ -120,7 +121,9 @@ void SimpleTemplate::ParseString(string const& input, string& output)
  */
 void SimpleTemplate::ParseFile(string const& path, string& output)
 {
-
+    string result;
+    ParseString(Filesystem::FileReadString(path), result);
+    output = result;
 }
 
 /*============================= ACCESS     =================================*/

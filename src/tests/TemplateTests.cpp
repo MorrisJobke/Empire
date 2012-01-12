@@ -19,6 +19,7 @@
 #include <boost/test/unit_test.hpp>
 
 #include "../Template.h"
+#include "../Filesystem.h"
 
 using namespace std;
 
@@ -61,6 +62,30 @@ BOOST_AUTO_TEST_CASE(ReplaceVariablePlaceholder)
 
     BOOST_CHECK(output == "email@example.tld");
 }
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+
+BOOST_AUTO_TEST_CASE(TemplateReadFileTest)
+{
+    SimpleTemplate* tmpl = new SimpleTemplate();
+
+    string individual = "Bill Gates";
+    string key = "unimportantPerson";    
+    GenProperty property(individual, key);
+    tmpl->AddProperty(&property);
+    string path = "testtemplate";
+
+    string input = "\"640 Kilobyte ought to be enough for anybody.\"\n@unimportantPerson, 1981@nothingToSeeHere";
+    
+    Filesystem::FileWriteString(path, input);
+
+    string output;
+    tmpl->ParseFile(path, output);
+
+    BOOST_CHECK(output == "\"640 Kilobyte ought to be enough for anybody.\"\nBill Gates, 1981");
+
+}
+
 
 
 BOOST_AUTO_TEST_SUITE_END()
