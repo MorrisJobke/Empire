@@ -43,6 +43,8 @@ namespace Filesystem
     void FileWriteString(string const& rFilePath, string& rContent);
     void FileAppendString(string const& rFilePath, string& rContent);
     bool FileExists(std::string const& rPath);
+    
+    std::string FileReadString(string const& rFilePath);
 }
 
 

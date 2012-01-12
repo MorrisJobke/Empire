@@ -225,7 +225,34 @@ void PrintDirEntries(string const& rDirPath)
     }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+    
+    /** 
+     * @brief function to read a file into string
+     * @param rFilePath path where string should be written
+     * @return string from file
+     */
+    std::string FileReadString(string const& rFilePath)
+    {
+        std::string result = "";
+        std::string line;
+        std::ifstream myfile(rFilePath.c_str());
 
+        if (myfile.is_open())
+        {
+            while (myfile.good())
+            {
+                getline (myfile,line);
+                if (result.compare(""))
+                    result += "\n";                
+                result += line;
+            }
+            myfile.close();
+        }
+        else
+            throw CannotOpenFileError();
 
+        return result;
+    }
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
 
 }

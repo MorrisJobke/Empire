@@ -123,4 +123,19 @@ BOOST_AUTO_TEST_CASE(testDirLs)
     //Fs::PrintDirEntries("bin");
 }
 
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+
+BOOST_AUTO_TEST_CASE(FileReadStringTest)
+{
+    string content = "This is my\n Content\n";
+    string path = "test_file";
+
+    Fs::FileWriteString(path, content);
+
+    //std::cout << Fs::FileReadString(path) << std::endl;
+    BOOST_CHECK(Fs::FileReadString(path).compare(content) == 0);
+    
+    remove(path.c_str());
+}
+
 BOOST_AUTO_TEST_SUITE_END()
