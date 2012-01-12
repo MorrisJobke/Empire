@@ -9,7 +9,7 @@
 
 #define BOOST_TEST_DYN_LINK
 #ifdef STAND_ALONE
-#   define BOOST_TEST_MODULE PropertyInteger
+#   define BOOST_TEST_MODULE Filesystem
 #endif
 
 #include <iostream>
