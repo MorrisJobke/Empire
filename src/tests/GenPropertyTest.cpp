@@ -77,47 +77,26 @@ BOOST_AUTO_TEST_CASE(GenPropertyCopyConstructorTest)
 {
     string data_string = "This is a really useless string...";
     string key = "useless";
-    
-    bool error = false;
-    
-    //Test 1:
+
     GenProperty test_string(data_string, key);
     GenProperty copied_prop(test_string);
-    if (!(test_string == copied_prop))
-    {
-        error = true;
-        std::cout << "[GenProperty->CopyConstructorTest] FAIL @ TEST1" << std::endl;   
-    }
-    //Test 2:
+    BOOST_CHECK(test_string == copied_prop);
+    
     GenProperty test_int(123, key);
     GenProperty copied_prop2(test_int);
-    if (!(test_int == copied_prop2))
-    {
-        error = true;
-        std::cout << "[GenProperty->CopyConstructorTest] FAIL @ TEST2"  << std::endl;
-    }
-    //Test 3:
+    BOOST_CHECK(test_int == copied_prop2);
+    
     GenProperty test_float(3.14152089, key);
     GenProperty copied_prop3(test_float);
-    if (!(test_float == copied_prop3))
-    {
-        error = true;
-        std::cout << "[GenProperty->CopyConstructorTest] FAIL @ TEST3" << std::endl;
-    }
-    //Test 4:
+    BOOST_CHECK(test_float == copied_prop3);
+    
     FunctionProperty data_function = {
         "return amount * price;",
         "return lhs + rhs;"
     };
     GenProperty test_function(data_function, key);
     GenProperty copied_prop4(test_function);
-    if (!(test_function == copied_prop4))
-    {
-        error = true;
-        std::cout << "[GenProperty->CopyConstructorTest] FAIL @ TEST4" << std::endl;
-    }
-
-    BOOST_CHECK(!error);
+    BOOST_CHECK(test_function == copied_prop4);
 }
 
 /*============================= IO TESTS    ================================*/
@@ -260,35 +239,14 @@ BOOST_AUTO_TEST_CASE(GenPropertyAssignmentOperatorTest)
     GenProperty myprop_int(1023,"test3");
     GenProperty myprop_string("test!", "test4");
     
-    std::string error = "";
-
-    //TEST 1:
     myprop_float = myprop_float2;
-    if (!(myprop_float == myprop_float2))
-        error = "[GenProperty->AssignmentOperator] FAIL @ TEST 1";
-    //TEST 2:
+    BOOST_CHECK(myprop_float == myprop_float2);
     myprop_float = myprop_int;
-    if (!(myprop_float == myprop_int))    
-        error = "[GenProperty->AssignmentOperator] FAIL @ TEST 2";
-    //TEST 3:
+    BOOST_CHECK(myprop_float == myprop_int);    
     myprop_int = myprop_string;
-    if (!(myprop_int == myprop_string))    
-        error = "[GenProperty->AssignmentOperator] FAIL @ TEST 3";
-    //TEST 4:
+    BOOST_CHECK(myprop_int == myprop_string);  
     myprop_string = myprop_float;
-    if (!(myprop_string == myprop_float))    
-        error = "[GenProperty->AssignmentOperator] FAIL @ TEST 4";
-    
-    if (error.compare(""))
-    {
-        std::cout << error << std::endl;
-        BOOST_CHECK(false);    
-    }
-    else
-        BOOST_CHECK(true);
+    BOOST_CHECK(myprop_string == myprop_float);
 }
-
-
-
 
 BOOST_AUTO_TEST_SUITE_END()
