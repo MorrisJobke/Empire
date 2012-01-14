@@ -87,7 +87,7 @@ void SimpleTemplate::ParseString(string const& input, string& output)
                                 it++;
                             } else { // variable found
                                 GenProperty* property = mProperties[gathered];
-                                if (property && (property->GetType() == "Integer" || property->GetType() == "Float" || property->GetType() == "String")) {
+                                if (property && (property->GetType() == INT_T || property->GetType() == FLOAT_T || property->GetType() == STRING_T)) {
                                     string propertyValue;
                                     property->GetValue(propertyValue);
                                     result << propertyValue;

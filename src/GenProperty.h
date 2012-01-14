@@ -55,7 +55,7 @@ class GenProperty
     void GetValue(std::string& value);
     void GetValue(double& value, std::list< std::list<GenProperty> > properties);
 
-    std::string GetType() const;
+    PropertyTypes GetType() const;
     std::string GetKey() const;
 
     bool HasValue();

@@ -83,9 +83,9 @@ BOOST_AUTO_TEST_CASE(testRepoCreateProperty)
 
     try
     {
-        repo.CreatePropertyClass("RechnungsSteller", "String");
-        repo.CreatePropertyClass("RechnungsNehmer", "String");
-        repo.CreatePropertyClass("MeineZahl", "Integer");
+        repo.CreatePropertyClass("RechnungsSteller", STRING_T);
+        repo.CreatePropertyClass("RechnungsNehmer", STRING_T);
+        repo.CreatePropertyClass("MeineZahl", INT_T);
     }
     catch(ExcRepository &exc)
     {

@@ -205,7 +205,16 @@ std::ostream& operator<<(std::ostream& rOut, GenProperty const& rProp)
  */
 void GenProperty::PrintToStream(std::ostream& rOut) const
 {
-    rOut << "[PROP<" << this->GetType() << ">" << this->GetKey() << ":";
+    rOut << "[PROP<";
+    switch (this->GetType())
+    { 
+        case INT_T: rOut << "Integer"; break;
+        case FLOAT_T: rOut << "Float"; break;
+        case STRING_T: rOut << "String"; break;
+        case FUNCTION_T: rOut << "Function"; break;
+        default: rOut << "Undefined"; break;
+    }
+    rOut << ">" << this->GetKey() << ":";
 
     if (mpIntValue)
         rOut << *mpIntValue;
@@ -225,7 +234,16 @@ void GenProperty::PrintToStream(std::ostream& rOut) const
  */
 void GenProperty::WriteMetadata(std::string const& rPath)
 {
-    std::string value = GetType() + "\n";
+    std::string value = "";
+    switch (this->GetType())
+    { 
+        case INT_T: value += "Integer"; break;
+        case FLOAT_T: value+= "Float"; break;
+        case STRING_T: value+= "String"; break;
+        case FUNCTION_T: value+= "Function"; break;
+        default: value+= "Undefined"; break;
+    }
+    value += "\n";
     Filesystem::FileWriteString(rPath + "/" + mKey, value);
 }
 
@@ -519,11 +537,11 @@ void GenProperty::GetValue(double& value, std::list< std::list<GenProperty> > pr
         for (property = (*list).begin(); property != (*list).end(); ++property) {
             std::ostringstream oss;
 
-            if (property->GetType() == "Integer") {
+            if (property->GetType() == INT_T) {
                 int int_value;
                 property->GetValue(int_value);
                 context->AddVariable(property->GetKey(), int_value);
-            } else if (property->GetType() == "Float") {
+            } else if (property->GetType() == FLOAT_T) {
                 double double_value;
                 property->GetValue(double_value);
                 context->AddVariable(property->GetKey(), double_value);
@@ -553,17 +571,9 @@ void GenProperty::GetValue(double& value, std::list< std::list<GenProperty> > pr
  *
  * @return returns a string with the type of the instance
  */
-std::string GenProperty::GetType() const
+PropertyTypes GenProperty::GetType() const
 {
-    switch(mType)
-    {
-        case INT_T: return "Integer"; break;
-        case FLOAT_T: return "Float"; break;
-        case STRING_T: return "String"; break;
-        case FUNCTION_T: break;
-        case UNDEFINED_T: break;
-        default: return "";
-    }
+    return mType;
 }
 
 /*============================= INQUIRY    =================================*/
@@ -605,3 +615,4 @@ PropertyTypes GenProperty::StringToEnumType(std::string const& type)
 
     return UNDEFINED_T;
 }
+

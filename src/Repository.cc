@@ -241,7 +241,7 @@ void Repository::Load()
  *
  * @pre the repo exits and mRepoName is not empty
  */
-void Repository::CreatePropertyClass(std::string const& key, std::string const& type)
+void Repository::CreatePropertyClass(std::string const& key, PropertyTypes type)
 {
     /* check if repo exists */
 
@@ -259,11 +259,10 @@ void Repository::CreatePropertyClass(std::string const& key, std::string const& 
 
     /* create and write metadata property */
 
-    PropertyTypes new_type = GenProperty::StringToEnumType(type);
-    if (new_type == UNDEFINED_T)
+    if (type == UNDEFINED_T)
         throw ExcRepository("Err: Invalid Property Type");
 
-    GenProperty new_prop(new_type, key);
+    GenProperty new_prop(type, key);
     new_prop.WriteMetadata(this->mAbsoluteRepoPath + "/" + REPO_NAME);
 }
 

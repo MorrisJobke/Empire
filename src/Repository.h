@@ -48,7 +48,7 @@ class Repository
     void Init();
     void Load();
 
-    void CreatePropertyClass(std::string const& key, std::string const& type);
+    void CreatePropertyClass(std::string const& key, PropertyTypes type);
     void AddProperty(std::string const& key, std::string const& value);
     
     void RemoveProperty(std::string const& key);
