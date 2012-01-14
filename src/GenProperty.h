@@ -86,7 +86,6 @@ class GenProperty
     //}
     //
     
-    static PropertyTypes StringToEnumType(std::string const& type);
 };
 
 std::ostream&        operator<<(std::ostream& rOut, const GenProperty& rProp);

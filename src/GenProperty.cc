@@ -600,19 +600,4 @@ bool GenProperty::HasValue()
 
 /////////////////////////////// STATICS    ///////////////////////////////////
 
-/** "convert" a string to the enum type
- */
-PropertyTypes GenProperty::StringToEnumType(std::string const& type)
-{
-    if (type == "Integer")
-        return INT_T;
-    if (type == "Float")
-        return FLOAT_T;
-    if (type == "String")
-        return STRING_T;
-    if (type == "Function")
-        return FUNCTION_T;
-
-    return UNDEFINED_T;
-}
 
