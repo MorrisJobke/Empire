@@ -11,10 +11,12 @@
 
 #include <string>
 #include <list>
+#include <iostream>
+#include <fstream>
 
 #include "DefineException.h"
 #include "Filesystem.h"
-#include "GenProperty.h"
+#include "GenPropertyNew.h"
 
 #define REPO_NAME ".emp"
 
@@ -33,7 +35,7 @@ class Repository
     private:
     std::string mRepoName;
     std::string mAbsoluteRepoPath;
-    std::list<GenProperty*> PropertyList;
+    std::list<GenPropertyBase*> PropertyList;
 
     
     public:
@@ -43,19 +45,31 @@ class Repository
     bool IsOnTheRun();
     
     static bool IsExistent();
-    static PropertyTypes GetPropTypeFromStr(std::string const& str);
+    //static PropertyTypes GetPropTypeFromStr(std::string const& str);
 
+    /* actions */
     void Init();
     void Load();
 
-    void CreatePropertyClass(std::string const& key, PropertyTypes type);
+    
+    /* io */
+    void CreatePropertyClass(std::string const& key, std::string const& rType);
+    void ReadMetaDataFromFile(std::string const& rPath, std::string& rKey, std::string& rType);
+
+    void ReadPropDataFromFile(std::string const& rPath, GenPropertyBase* pProp);
+    void WritePropDataToFile(std::string const& rPath, GenPropertyBase* pProp);
+
+
+
     void AddProperty(std::string const& key, std::string const& value);
     
     void RemoveProperty(std::string const& key);
     void RemovePropertyClass(std::string const& key);
     void RemovePropertyClassAndInstances(std::string const& key);
 
-    std::list<GenProperty*> GetPropertyList(){ return this->PropertyList; };
+    std::list<GenPropertyBase*> GetPropertyList(){ return this->PropertyList; };
+
+    GenPropertyBase* CreatePropertyFromTypeString(std::string const& rType);
 };
 
 

@@ -1,5 +1,5 @@
 
-/* RepositoryTests.cpp<++>
+/* RepositoryTests.cpp
  * @Author:      The Sighter (sighter@resource-dnb.de)
  * @License:     GPL
  * @Created:     2011-12-21.
@@ -66,6 +66,24 @@ BOOST_AUTO_TEST_CASE(testRepositoryCreation)
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
 
+BOOST_AUTO_TEST_CASE(CreatePropertyFromTypeStringTest)
+{
+    Repository repo;
+
+    GenPropertyBase* p_new_prop = repo.CreatePropertyFromTypeString("int");
+
+    p_new_prop->SetKey("test_property");
+    ((GenProperty<int>*) p_new_prop)->SetValue(42);
+
+    cout << *p_new_prop << endl;
+
+    cout << "String representation: " << p_new_prop->ToString() << endl;
+
+    delete p_new_prop;
+}
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+
 BOOST_AUTO_TEST_CASE(testRepoCreateProperty)
 {
     Fs::ChangeCwd("test_repo");
@@ -83,9 +101,9 @@ BOOST_AUTO_TEST_CASE(testRepoCreateProperty)
 
     try
     {
-        repo.CreatePropertyClass("RechnungsSteller", STRING_T);
-        repo.CreatePropertyClass("RechnungsNehmer", STRING_T);
-        repo.CreatePropertyClass("MeineZahl", INT_T);
+        repo.CreatePropertyClass("RechnungsSteller", "string");
+        repo.CreatePropertyClass("RechnungsNehmer", "string");
+        repo.CreatePropertyClass("MeineZahl", "int");
     }
     catch(ExcRepository &exc)
     {
@@ -107,28 +125,137 @@ BOOST_AUTO_TEST_CASE(testRepoCreateProperty)
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
 
+BOOST_AUTO_TEST_CASE(ReadMetaDataFromFile)
+{
+    Fs::ChangeCwd("test_repo");
+
+    Repository repo;
+
+    try
+    {
+    repo.Init();
+    }
+    catch(ExcRepository &exc)
+    {
+        cout << exc.what() << endl;
+    }
+
+    string in_type = "double";
+    string in_key = "double_prop";
+
+
+    try
+    {
+        repo.CreatePropertyClass(in_key, in_type);
+    }
+    catch(ExcRepository &exc)
+    {
+        cout << exc.what() << endl;
+    }
+
+    /* read meta data */
+    string out_type = "";
+    string out_key = "";
+
+    repo.ReadMetaDataFromFile(".emp/double_prop", out_key, out_type);
+
+    BOOST_CHECK(out_type == in_type);
+    BOOST_CHECK(out_key == in_key);
+
+    remove(".emp/double_prop");
+    remove(".emp");
+
+    Fs::ChangeCwd("..");
+}
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+
+BOOST_AUTO_TEST_CASE(testRepoPropDataIO)
+{
+    Fs::ChangeCwd("test_repo");
+
+    Repository repo;
+
+    try
+    {
+    repo.Init();
+    }
+    catch(ExcRepository &exc)
+    {
+        cout << exc.what() << endl;
+    }
+
+
+    GenProperty<int> out_prop(42, "out_prop");
+
+    GenPropertyBase* p_out_prop = &out_prop;
+
+
+    try
+    {
+        repo.WritePropDataToFile(".", p_out_prop);
+    }
+    catch(ExcRepository &exc)
+    {
+        cout << exc.what() << endl;
+    }
+
+    /* read data */
+    GenProperty<int> in_prop("out_prop");
+
+    GenPropertyBase* p_in_prop = &in_prop;
+
+    repo.ReadPropDataFromFile("out_prop", p_in_prop);
+
+
+    //cout << *p_out_prop << endl << *p_in_prop << endl;
+
+    BOOST_CHECK(in_prop == out_prop);
+
+
+    remove("out_prop");
+    remove(".emp");
+
+    Fs::ChangeCwd("..");
+}
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+
 BOOST_AUTO_TEST_CASE(testRepoLoad)
 {
 
     /* create env */
-
     Fs::ChangeCwd("test_repo");
-    Fs::CreateDirectory(".emp");
 
-    GenProperty rechst("ich_selbst", "rechsteller");
-    GenProperty firmn(STRING_T, "firmen_name");
+    Repository repo;
 
-    rechst.WriteMetadata(".emp");
-    rechst.WriteData(".");
+    try
+    {
+    repo.Init();
+    }
+    catch(ExcRepository &exc)
+    {
+        cout << exc.what() << endl;
+    }
 
-    firmn.WriteMetadata(".emp");
+
+    GenProperty<string> rechst("ich_selbst", "rechsteller");
+    GenProperty<string> firmn("firmen_name");
+
+    GenPropertyBase* p_rechst = &rechst;
+    GenPropertyBase* p_firmn = &firmn;
+
+    repo.CreatePropertyClass(rechst.GetKey(), rechst.GetTypeN());
+    repo.CreatePropertyClass(firmn.GetKey(), firmn.GetTypeN());
+
+    repo.WritePropDataToFile(".", p_rechst);
+
 
     Fs::CreateDirectory("FirmaA");
 
     Fs::ChangeCwd("FirmaA");
 
-    GenProperty firmn_a("die Firma", "firmen_name");
-    firmn_a.WriteData(".");
+    GenProperty<string> firmn_a("die Firma", "firmen_name");
+    repo.WritePropDataToFile(".", &firmn_a);
 
 
     BOOST_CHECK(Fs::FileExists("firmen_name") == true);
@@ -136,20 +263,20 @@ BOOST_AUTO_TEST_CASE(testRepoLoad)
 
     /* load repos */
 
-    Repository repo;
+    Repository repo_load;
 
 
     //Fs::PrintDirEntries(".emp");
     
-    repo.Load();
+    repo_load.Load();
 
-    list<GenProperty*> prop_list = repo.GetPropertyList();
+    list<GenPropertyBase*> prop_list = repo_load.GetPropertyList();
 
-    cout << "comparing " << *(prop_list.front()) << " with " << firmn_a << endl;
-    BOOST_CHECK(*(prop_list.front()) == firmn_a);
+    cout << "comparing" << *(prop_list.front()) << " with " << firmn_a << endl;
+    BOOST_CHECK(*((GenProperty<string>*) prop_list.front()) == firmn_a);
     prop_list.pop_front();
     cout << "comparing " << *(prop_list.front()) << " with " << rechst << endl;
-    BOOST_CHECK(*(prop_list.front()) == rechst);
+    BOOST_CHECK(*((GenProperty<string>*) prop_list.front()) == rechst);
 
     remove("firmen_name");
     Fs::ChangeCwd("..");

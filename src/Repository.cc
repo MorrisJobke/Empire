@@ -139,7 +139,7 @@ void Repository::Load()
     /* repo check */
 
     if (this->mAbsoluteRepoPath == "")
-        throw ExcRepository("Err: Repo Exsists");
+        throw ExcRepository("ERR_REPO_NOTEXISTS");
 
     std::string start_dir = Fs::GetCwd();
 
@@ -166,9 +166,14 @@ void Repository::Load()
                 continue;
 
             /* create new property read it and append it to list */
-            GenProperty* p_new_prop = new GenProperty();
-            p_new_prop->ReadMetadata(this->mAbsoluteRepoPath + "/" + REPO_NAME + "/" + entry);
+            std::string new_type;
+            std::string new_key;
 
+            this->ReadMetaDataFromFile(this->mAbsoluteRepoPath + "/" + REPO_NAME + "/" + entry,
+                    new_key, new_type);
+
+            GenPropertyBase* p_new_prop = this->CreatePropertyFromTypeString(new_type);
+            p_new_prop->SetKey(new_key);
 
             this->PropertyList.push_back(p_new_prop);
         }
@@ -177,7 +182,7 @@ void Repository::Load()
     else
         perror ("Couldn't open the directory");
 
-    
+
     /*
      * now collect propery instances
      */
@@ -202,15 +207,15 @@ void Repository::Load()
                     continue;
 
                 /* search entry in the member property list */
-                std::list<GenProperty*>::const_iterator it;
+                std::list<GenPropertyBase*>::const_iterator it;
 
                 for (it = this->PropertyList.begin(); it != this->PropertyList.end(); it++)
                 {
                     if ((*it)->GetKey() == entry)
                     {
-                        std::cout << "Before -> " << *(*it) << std::endl;
-                        (*it)->ReadDataIfEmpty(entry);
-                        std::cout << "Read Property -> " << *(*it) << std::endl;
+                        std::cout << "Try to load: " << entry << std::endl;
+                        if (!(*it)->HasValue())
+                            this->ReadPropDataFromFile(entry, *it);
                     }
                 }
 
@@ -232,6 +237,29 @@ void Repository::Load()
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
 
+/** create a property from type-string
+ */
+GenPropertyBase* Repository::CreatePropertyFromTypeString(std::string const& rType)
+{
+    GenPropertyBase* p_new = NULL;
+
+    if (rType == GetTypeName<int>())
+        p_new = new GenProperty<int>();
+
+    else if (rType == GetTypeName<double>())
+        p_new = new GenProperty<double>();
+
+    else if (rType == GetTypeName<float>())
+        p_new = new GenProperty<float>();
+
+    else if (rType == GetTypeName<std::string>())
+        p_new = new GenProperty<std::string>();
+
+    return p_new;
+}
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+
 /** method to add a new property class
  *
  * thsi creates a new metafile in the .emp folder with key as name and type as
@@ -240,9 +268,13 @@ void Repository::Load()
  * @param the type
  *
  * @pre the repo exits and mRepoName is not empty
+ * @pre type string is valid
  */
-void Repository::CreatePropertyClass(std::string const& key, PropertyTypes type)
+void Repository::CreatePropertyClass(std::string const& key, std::string const& rType)
 {
+
+    /* TODO: check whether type is valid */
+
     /* check if repo exists */
 
     if (this->mAbsoluteRepoPath == "")
@@ -252,18 +284,106 @@ void Repository::CreatePropertyClass(std::string const& key, PropertyTypes type)
     /* check if property exists */
     
     //std::cout << "check for prop: " << this->mAbsoluteRepoPath + "/" + REPO_NAME + "/" + key << std::endl;
-    //
+
     if (Fs::FileExists(this->mAbsoluteRepoPath + "/" + REPO_NAME + "/" + key))
         throw ExcRepository("Err: Property exsists");
 
 
-    /* create and write metadata property */
+    /* create and write metadata file */
 
-    if (type == UNDEFINED_T)
-        throw ExcRepository("Err: Invalid Property Type");
+    std::string path = this->mAbsoluteRepoPath + "/" + REPO_NAME + "/" + key;
+    std::ofstream meta_file;
+    meta_file.open(path.c_str());
 
-    GenProperty new_prop(type, key);
-    new_prop.WriteMetadata(this->mAbsoluteRepoPath + "/" + REPO_NAME);
+    if (meta_file.is_open())
+    {
+        meta_file << rType;
+    }
+    /* TODO exception on file error */
+}
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+
+/** method to read a metadatafile
+ *
+ * @param rPath filepath
+ * @param rKey reference the key to be filled
+ * @param rType reference the type to be filled
+ */
+void Repository::ReadMetaDataFromFile(std::string const& rPath, std::string& rKey, std::string& rType)
+{
+    std::ifstream meta_file(rPath.c_str());
+
+    if (meta_file.is_open())
+    {
+        if (meta_file.good())
+        {
+            std::getline(meta_file, rType);
+        }
+    }
+
+    /* extract key */
+    std::string key = rPath;
+    std::string search_for = "/";
+
+    std::size_t found;
+    found = key.rfind(search_for);
+
+    if ( found != std::string::npos)
+        key.replace(0, found + 1,"");
+
+    rKey = key;
+}
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+
+/** write property data to file
+ *
+ * file name is determined by key
+ *
+ * @param rPath the directory path the file is written
+ * @param pProp pointer to a base property
+ */
+void Repository::WritePropDataToFile(std::string const& rPath, GenPropertyBase* pProp)
+{
+    std::string file_path(rPath + "/" + pProp->GetKey());
+
+    std::ofstream file(file_path.c_str());
+
+    if (file.is_open())
+    {
+        file << pProp->ToString();
+    }
+}
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+
+/** read property data from Filesystem
+ *
+ * @param rPath complete file path
+ * @param pProp pointer to the property the data is written to
+ */
+void Repository::ReadPropDataFromFile(std::string const& rPath, GenPropertyBase* pProp)
+{
+    std::ifstream file(rPath.c_str());
+
+    std::string buffer;
+
+    if (file.is_open())
+    {
+        if (file.good())
+        {
+            std::getline(file, buffer);
+        }
+    }
+
+    std::cout << "Try to set from string: " << buffer << std::endl;
+
+    /* string exception */
+    if (pProp->GetTypeN() == GetTypeName<std::string>())
+        ((GenProperty<std::string>*)pProp)->SetValue(buffer);
+    else
+        pProp->SetValueFromString(buffer);
 }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/

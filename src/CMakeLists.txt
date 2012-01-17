@@ -24,6 +24,7 @@ include_directories(${LUA_INCLUDE_DIR})
 # -Wno-conversion-null
 
 # libraries
+add_library(GenPropertyNew GenPropertyNew)
 
 ######################
 # Filesystem library #
@@ -43,7 +44,8 @@ target_link_libraries(GenProperty
 add_library(Repository Repository)
 target_link_libraries(Repository
     Filesystem
-    GenProperty)
+    GenPropertyNew
+    )
 
 ######################
 # Lua Helper library #
