@@ -49,6 +49,15 @@ class Repository
 
     /* actions */
     void Init();
+
+    void AddProperty(std::string const& key, std::string const& type, std::string const& value);
+    
+    void RemoveProperty(std::string rPath, std::string const& key);
+    void RemovePropertyClass(std::string const& key);
+    void RemovePropertyClassAndInstances(std::string const& key);
+
+
+
     void Load();
 
     
@@ -61,11 +70,6 @@ class Repository
 
 
 
-    void AddProperty(std::string const& key, std::string const& value);
-    
-    void RemoveProperty(std::string const& key);
-    void RemovePropertyClass(std::string const& key);
-    void RemovePropertyClassAndInstances(std::string const& key);
 
     std::list<GenPropertyBase*> GetPropertyList(){ return this->PropertyList; };
 
