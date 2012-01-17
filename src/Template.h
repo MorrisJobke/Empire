@@ -14,7 +14,7 @@
 #include <map>
 #include <sstream>
 
-#include "GenProperty.h"
+#include "GenPropertyNew.h"
 
 
 class ITemplate
@@ -22,8 +22,8 @@ class ITemplate
 public:
     virtual ~ITemplate() {}
 
-    virtual void AddProperty(GenProperty* property) = 0;
-    virtual void AddProperties(std::list<GenProperty*> properties) = 0;
+    virtual void AddProperty(GenPropertyBase* property) = 0;
+    virtual void AddProperties(std::list<GenPropertyBase*> properties) = 0;
 
     virtual void ParseString(std::string const& input, std::string& output) = 0;
     virtual void ParseFile(std::string const& path, std::string& output) = 0;
@@ -35,11 +35,11 @@ private:
     enum Behavior { EAT, GATHER };
     enum Expectation { ALPHANUM };
 
-    std::map<std::string, GenProperty*> mProperties;
+    std::map<std::string, GenPropertyBase*> mProperties;
 
 public:
-    virtual void AddProperty(GenProperty* property);
-    virtual void AddProperties(std::list<GenProperty*> properties);
+    virtual void AddProperty(GenPropertyBase* property);
+    virtual void AddProperties(std::list<GenPropertyBase*> properties);
 
     virtual void ParseString(std::string const& input, std::string& output);
     virtual void ParseFile(std::string const& path, std::string& output);

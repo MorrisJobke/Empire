@@ -22,9 +22,9 @@ using namespace std;
  *
  * @param property the property
  */
-void SimpleTemplate::AddProperty(GenProperty* property)
+void SimpleTemplate::AddProperty(GenPropertyBase* property)
 {
-    mProperties.insert(pair<string, GenProperty*>(property->GetKey(), property));
+    mProperties.insert(pair<string, GenPropertyBase*>(property->GetKey(), property));
 }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
@@ -33,9 +33,9 @@ void SimpleTemplate::AddProperty(GenProperty* property)
  *
  * @param properties the properties
  */
-void SimpleTemplate::AddProperties(list<GenProperty*> properties)
+void SimpleTemplate::AddProperties(list<GenPropertyBase*> properties)
 {
-    list<GenProperty*>::iterator it;
+    list<GenPropertyBase*>::iterator it;
     for (it = properties.begin(); it != properties.end(); it++) {
         AddProperty(*it);
     }
@@ -75,7 +75,7 @@ void SimpleTemplate::ParseString(string const& input, string& output)
                 if(*it == '@') {
                     result << *it;
                     it++;
-                    
+
                     // reset behavior
                     behavior = EAT;
                     gathered = "";
@@ -86,12 +86,14 @@ void SimpleTemplate::ParseString(string const& input, string& output)
                                 gathered += *it;
                                 it++;
                             } else { // variable found
-                                GenProperty* property = mProperties[gathered];
-                                if (property && (property->GetType() == INT_T || property->GetType() == FLOAT_T || property->GetType() == STRING_T)) {
-                                    string propertyValue;
-                                    property->GetValue(propertyValue);
+                                GenPropertyBase* property = mProperties[gathered];
+                                if (property && (
+                                    property->GetTypeN() == GetTypeName<int>() ||
+                                    property->GetTypeN() == GetTypeName<float>() ||
+                                    property->GetTypeN() == GetTypeName<string>())) {
+                                    string propertyValue = property->ToString();
                                     result << propertyValue;
-                                } else { 
+                                } else {
                                     // property not provided -> do nothing
                                 }
 
