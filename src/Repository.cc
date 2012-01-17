@@ -28,10 +28,10 @@ bool Repository::IsExistent()
         std::string cwd;
 
         repo_found = Fs::DirectoryExists(repo_name);
-        
+
         if (repo_found == true)
             return true;
-        
+
         cwd = Fs::GetCwd();
         if (cwd == "/")
             return false;
@@ -64,13 +64,13 @@ Repository::Repository()
         std::string cwd;
 
         repo_found = Fs::DirectoryExists(repo_name);
-        
+
         if (repo_found == true)
         {
             this->mAbsoluteRepoPath = Fs::GetCwd();
             break;
         }
-        
+
         cwd = Fs::GetCwd();
         if (cwd == "/")
         {
@@ -121,8 +121,8 @@ void Repository::Init()
     {
         throw ExcRepository("Err: Cannot Create Repo");
     }
-    
-    std::cout << "init Repo at: " << Fs::GetCwd() << std::endl;
+
+    //std::cout << "init Repo at: " << Fs::GetCwd() << std::endl;
 
     /* set absolute path */
     this->mAbsoluteRepoPath = Fs::GetCwd();
@@ -149,7 +149,7 @@ void Repository::Load()
      */
 
     Fs::ChangeCwd(this->mAbsoluteRepoPath);
-    std::cout << "Loading Repo at: " << this->mAbsoluteRepoPath << std::endl;
+    //std::cout << "Loading Repo at: " << this->mAbsoluteRepoPath << std::endl;
 
     DIR *dp;
     struct dirent *ep;
@@ -213,7 +213,7 @@ void Repository::Load()
                 {
                     if ((*it)->GetKey() == entry)
                     {
-                        std::cout << "Try to load: " << entry << std::endl;
+                        //std::cout << "Try to load: " << entry << std::endl;
                         if (!(*it)->HasValue())
                             this->ReadPropDataFromFile(entry, *it);
                     }
@@ -262,7 +262,7 @@ GenPropertyBase* Repository::CreatePropertyFromTypeString(std::string const& rTy
 
 /** method to add a new property class
  *
- * thsi creates a new metafile in the .emp folder with key as name and type as
+ * this creates a new metafile in the .emp folder with key as name and type as
  * content
  * @param the key
  * @param the type
@@ -282,7 +282,7 @@ void Repository::CreatePropertyClass(std::string const& key, std::string const& 
 
 
     /* check if property exists */
-    
+
     //std::cout << "check for prop: " << this->mAbsoluteRepoPath + "/" + REPO_NAME + "/" + key << std::endl;
 
     if (Fs::FileExists(this->mAbsoluteRepoPath + "/" + REPO_NAME + "/" + key))
@@ -377,7 +377,7 @@ void Repository::ReadPropDataFromFile(std::string const& rPath, GenPropertyBase*
         }
     }
 
-    std::cout << "Try to set from string: " << buffer << std::endl;
+    //std::cout << "Try to set from string: " << buffer << std::endl;
 
     /* string exception */
     if (pProp->GetTypeN() == GetTypeName<std::string>())
