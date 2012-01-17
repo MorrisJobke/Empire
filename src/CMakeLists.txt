@@ -24,7 +24,6 @@ include_directories(${LUA_INCLUDE_DIR})
 # -Wno-conversion-null
 
 # libraries
-add_library(GenPropertyNew GenPropertyNew)
 
 ######################
 # Filesystem library #
@@ -34,6 +33,7 @@ add_library(Filesystem Filesystem)
 #######################
 # GenProperty library #
 #######################
+add_library(GenPropertyNew GenPropertyNew)
 add_library(GenProperty GenProperty)
 target_link_libraries(GenProperty
     LuaHelper)
@@ -60,7 +60,7 @@ target_link_libraries(LuaHelper
 ######################
 add_library(Template Template)
 target_link_libraries(Template
-    GenProperty)
+    GenPropertyNew)
 
 # adding sub directories
 # parameter:
