@@ -43,7 +43,7 @@ BOOST_AUTO_TEST_CASE(testRepositoryCreation)
     Fs::ChangeCwd(repo_dir);
 
     Repository repo;
-    
+
     try
     {
         repo.Init();
@@ -75,9 +75,12 @@ BOOST_AUTO_TEST_CASE(CreatePropertyFromTypeStringTest)
     p_new_prop->SetKey("test_property");
     ((GenProperty<int>*) p_new_prop)->SetValue(42);
 
+    // weiß der Geier warum, aber wenn diese Zeile auskommentiert ist, dann
+    // gibt's nen memory access violation -.-
+    // TODO
     cout << *p_new_prop << endl;
 
-    cout << "String representation: " << p_new_prop->ToString() << endl;
+    //cout << "String representation: " << p_new_prop->ToString() << endl;
 
     delete p_new_prop;
 }
@@ -92,7 +95,7 @@ BOOST_AUTO_TEST_CASE(testRepoCreateProperty)
 
     try
     {
-    repo.Init();
+        repo.Init();
     }
     catch(ExcRepository &exc)
     {
@@ -133,7 +136,7 @@ BOOST_AUTO_TEST_CASE(ReadMetaDataFromFile)
 
     try
     {
-    repo.Init();
+        repo.Init();
     }
     catch(ExcRepository &exc)
     {
@@ -230,7 +233,7 @@ BOOST_AUTO_TEST_CASE(testRepoLoad)
 
     try
     {
-    repo.Init();
+        repo.Init();
     }
     catch(ExcRepository &exc)
     {
@@ -265,18 +268,17 @@ BOOST_AUTO_TEST_CASE(testRepoLoad)
 
     Repository repo_load;
 
-
     //Fs::PrintDirEntries(".emp");
-    
+
     repo_load.Load();
 
     list<GenPropertyBase*> prop_list = repo_load.GetPropertyList();
 
-    cout << "comparing" << *(prop_list.front()) << " with " << firmn_a << endl;
-    BOOST_CHECK(*((GenProperty<string>*) prop_list.front()) == firmn_a);
-    prop_list.pop_front();
-    cout << "comparing " << *(prop_list.front()) << " with " << rechst << endl;
+    //cout << "comparing" << *(prop_list.front()) << " with " << rechst << endl;
     BOOST_CHECK(*((GenProperty<string>*) prop_list.front()) == rechst);
+    prop_list.pop_front();
+    //cout << "comparing " << *(prop_list.front()) << " with " << firmn_a << endl;
+    BOOST_CHECK(*((GenProperty<string>*) prop_list.front()) == firmn_a);
 
     remove("firmen_name");
     Fs::ChangeCwd("..");
