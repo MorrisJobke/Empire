@@ -274,11 +274,11 @@ BOOST_AUTO_TEST_CASE(testRepoLoad)
 
     list<GenPropertyBase*> prop_list = repo_load.GetPropertyList();
 
-    //cout << "comparing" << *(prop_list.front()) << " with " << rechst << endl;
-    BOOST_CHECK(*((GenProperty<string>*) prop_list.front()) == rechst);
-    prop_list.pop_front();
-    //cout << "comparing " << *(prop_list.front()) << " with " << firmn_a << endl;
+    //cout << "comparing" << *(prop_list.front()) << " with " << firmn_a << endl;
     BOOST_CHECK(*((GenProperty<string>*) prop_list.front()) == firmn_a);
+    prop_list.pop_front();
+    //cout << "comparing " << *(prop_list.front()) << " with " << rechst << endl;
+    BOOST_CHECK(*((GenProperty<string>*) prop_list.front()) == rechst);
 
     remove("firmen_name");
     Fs::ChangeCwd("..");
