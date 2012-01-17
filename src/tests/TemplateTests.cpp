@@ -46,7 +46,7 @@ BOOST_AUTO_TEST_CASE(ReplaceVariablePlaceholder)
 
     string individual = "Pizzamann";
     string key = "individual";
-    GenProperty property(individual, key);
+    GenProperty<string> property(individual, key);
     tmpl->AddProperty(&property);
 
     string input = "Realität ist da,\nwo der @individual herkommt.@shouldDisappear";
@@ -71,7 +71,7 @@ BOOST_AUTO_TEST_CASE(TemplateReadFileTest)
 
     string individual = "Bill Gates";
     string key = "unimportantPerson";    
-    GenProperty property(individual, key);
+    GenProperty<string> property(individual, key);
     tmpl->AddProperty(&property);
     string path = "testtemplate";
 
