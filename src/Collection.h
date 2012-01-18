@@ -12,25 +12,33 @@
 #include <iostream>
 #include <list>
 
+#include <"Filesystem.h">
+
+DEFINE_VAR_EXCEPTION(ErrorColl)
 
 /** collection class
  */
-class coll
+class Coll
 {
+    private:
     std::list<std::list<GenPropertyBase*>> mPropList;
+    
+    std::string mPath;
+
+    void WriteToDir(std::string const& rPath);
 
     public:
 
-    coll();
-    coll(std::string const& rPath);
+    Coll();
+    Coll(std::string const& rPath);
 
-    ~coll();
+    ~Coll();
 
+    Declare(std::list<GenPropertyBase*> const&);
     AddRow(std::list<GenPropertyBase*> const&);
 
     std::list<std::list<GenPropertyBase*>> GetList() const;
 
-    WriteToDir(std::string const& rPath);
 
     /* NOTES:
      *
