@@ -174,7 +174,7 @@ void Repository::Load()
             std::string new_type;
             std::string new_key;
 
-            this->ReadMetaDataFromFile(this->mAbsoluteRepoPath + "/" + REPO_NAME + "/" + entry,
+            PropertyIo::ReadMetaDataFromFile(this->mAbsoluteRepoPath + "/" + REPO_NAME + "/" + entry,
                     new_key, new_type);
 
             GenPropertyBase* p_new_prop = this->CreatePropertyFromTypeString(new_type);
@@ -220,7 +220,7 @@ void Repository::Load()
                     {
                         //std::cout << "Try to load: " << entry << std::endl;
                         if (!(*it)->HasValue())
-                            this->ReadPropDataFromFile(entry, *it);
+                            PropertyIo::ReadDataFromFile(entry, *it);
                     }
                 }
 
@@ -293,18 +293,7 @@ void Repository::CreatePropertyClass(std::string const& key, std::string const& 
     if (Fs::FileExists(this->mAbsoluteRepoPath + "/" + REPO_NAME + "/" + key))
         throw ExcRepository("Err: Property exsists");
 
-
-    /* create and write metadata file */
-
-    std::string path = this->mAbsoluteRepoPath + "/" + REPO_NAME + "/" + key;
-    std::ofstream meta_file;
-    meta_file.open(path.c_str());
-
-    if (meta_file.is_open())
-    {
-        meta_file << rType;
-    }
-    /* TODO exception on file error */
+    PropertyIo::WriteMetaDataToDir(this->mAbsoluteRepoPath + "/" + REPO_NAME, key, rType);
 }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/

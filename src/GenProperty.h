@@ -12,6 +12,7 @@
 #include <iostream>
 #include <typeinfo>
 #include <sstream>
+#include <fstream>
 
 #include "GenPropertyBase.h"
 #include "DefineException.h"
@@ -209,5 +210,19 @@ class GenProperty : public GenPropertyBase
 
 std::ostream& operator<<(std::ostream& rOut, GenPropertyBase& rProp);
 
+
+/** Property io functions
+ */
+namespace PropertyIo
+{
+    void WriteMetaDataToDir(std::string const& rPath, std::string const& key, std::string const& rType);
+    void WriteMetaDataToDir(std::string const& rPath, GenPropertyBase* rProp);
+
+    void WritePropDataToDir(std::string const& rPath, GenPropertyBase* pProp);
+
+    void ReadMetaDataFromFile(std::string const& rPath, std::string& rKey, std::string& rType);
+
+    void ReadDataFromFile(std::string const& rPath, GenPropertyBase* pProp);
+}
 
 #endif

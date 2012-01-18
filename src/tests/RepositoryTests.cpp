@@ -160,7 +160,7 @@ BOOST_AUTO_TEST_CASE(ReadMetaDataFromFile)
     string out_type = "";
     string out_key = "";
 
-    repo.ReadMetaDataFromFile(".emp/double_prop", out_key, out_type);
+    PropertyIo::ReadMetaDataFromFile(".emp/double_prop", out_key, out_type);
 
     BOOST_CHECK(out_type == in_type);
     BOOST_CHECK(out_key == in_key);
@@ -196,7 +196,7 @@ BOOST_AUTO_TEST_CASE(testRepoPropDataIO)
 
     try
     {
-        repo.WritePropDataToFile(".", p_out_prop);
+        PropertyIo::WritePropDataToDir(".", p_out_prop);
     }
     catch(ExcRepository &exc)
     {
@@ -208,7 +208,7 @@ BOOST_AUTO_TEST_CASE(testRepoPropDataIO)
 
     GenPropertyBase* p_in_prop = &in_prop;
 
-    repo.ReadPropDataFromFile("out_prop", p_in_prop);
+    PropertyIo::ReadDataFromFile("out_prop", p_in_prop);
 
 
     //cout << *p_out_prop << endl << *p_in_prop << endl;
@@ -249,7 +249,7 @@ BOOST_AUTO_TEST_CASE(testRepoLoad)
     repo.CreatePropertyClass(rechst.GetKey(), rechst.GetTypeN());
     repo.CreatePropertyClass(firmn.GetKey(), firmn.GetTypeN());
 
-    repo.WritePropDataToFile(".", p_rechst);
+    PropertyIo::WritePropDataToDir(".", p_rechst);
 
 
     Fs::CreateDirectory("FirmaA");
@@ -257,7 +257,7 @@ BOOST_AUTO_TEST_CASE(testRepoLoad)
     Fs::ChangeCwd("FirmaA");
 
     GenProperty<string> firmn_a("die Firma", "firmen_name");
-    repo.WritePropDataToFile(".", &firmn_a);
+    PropertyIo::WritePropDataToDir(".", &firmn_a);
 
 
     BOOST_CHECK(Fs::FileExists("firmen_name") == true);
