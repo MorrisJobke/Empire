@@ -7,7 +7,7 @@ if(ENABLE_TESTING)
         FilesystemTests
         RepositoryTests
         CommandTests
-        #GenPropertyTest
+        GenPropertyTest
         TemplateTests)
 
     # used libraries

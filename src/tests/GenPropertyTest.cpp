@@ -18,7 +18,7 @@
 
 #include <boost/test/unit_test.hpp>
 
-#include "../GenProperty.h"
+#include "../GenPropertyNew.h"
 #include "../Filesystem.h"
 
 using namespace std;
@@ -32,10 +32,9 @@ BOOST_AUTO_TEST_CASE(GenPropertyIntTest)
     int data_int = 42;
     string key = "testproperty";
 
-    GenProperty myprop_int(data_int, key);
+    GenProperty<int> myprop_int(data_int, key);
 
-    int ret_int;
-    myprop_int.GetValue(ret_int);
+    int ret_int = myprop_int.GetValue();
 
     BOOST_CHECK(ret_int == data_int);
 }
@@ -44,16 +43,30 @@ BOOST_AUTO_TEST_CASE(GenPropertyIntTest)
 
 BOOST_AUTO_TEST_CASE(GenPropertyFloatTest)
 {
-    double data_float = 3.14159265;
+    float data_float = 3.14159265;
     string key = "testproperty";
 
-    GenProperty myprop_float(data_float, key);
+    GenProperty<float> myprop_float(data_float, key);
 
-    double ret_float;
-    myprop_float.GetValue(ret_float);
+    float ret_float = myprop_float.GetValue();
 
     BOOST_CHECK(ret_float == data_float);
-    BOOST_CHECK_CLOSE(ret_float, 3.14159265, 0.00000001);
+    BOOST_CHECK_CLOSE(ret_float, 3.14159265, 0.00001);
+}
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+
+BOOST_AUTO_TEST_CASE(GenPropertyDoubleTest)
+{
+    double data_double = 3.14159265;
+    string key = "testproperty";
+
+    GenProperty<double> myprop_double(data_double, key);
+
+    double ret_double = myprop_double.GetValue();
+
+    BOOST_CHECK(ret_double == data_double);
+    BOOST_CHECK_CLOSE(ret_double, 3.14159265, 0.00000001);
 }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
@@ -63,10 +76,9 @@ BOOST_AUTO_TEST_CASE(GenPropertyStringTest)
     string data_string = "I'm a really cool string";
     string key = "testproperty";
 
-    GenProperty myprop_string(data_string, key);
+    GenProperty<string> myprop_string(data_string, key);
 
-    string ret_string;
-    myprop_string.GetValue(ret_string);
+    string ret_string = myprop_string.GetValue();
 
     BOOST_CHECK(ret_string == data_string);
 }
@@ -78,175 +90,44 @@ BOOST_AUTO_TEST_CASE(GenPropertyCopyConstructorTest)
     string data_string = "This is a really useless string...";
     string key = "useless";
 
-    GenProperty test_string(data_string, key);
-    GenProperty copied_prop(test_string);
+    GenProperty<string> test_string(data_string, key);
+    GenProperty<string> copied_prop(test_string);
     BOOST_CHECK(test_string == copied_prop);
-    
-    GenProperty test_int(123, key);
-    GenProperty copied_prop2(test_int);
+
+    GenProperty<int> test_int(123, key);
+    GenProperty<int> copied_prop2(test_int);
     BOOST_CHECK(test_int == copied_prop2);
-    
-    GenProperty test_float(3.14152089, key);
-    GenProperty copied_prop3(test_float);
+
+    GenProperty<float> test_float(3.14152089, key);
+    GenProperty<float> copied_prop3(test_float);
     BOOST_CHECK(test_float == copied_prop3);
-    
-    FunctionProperty data_function = {
-        "return amount * price;",
-        "return lhs + rhs;"
-    };
-    GenProperty test_function(data_function, key);
-    GenProperty copied_prop4(test_function);
-    BOOST_CHECK(test_function == copied_prop4);
-}
 
-/*============================= IO TESTS    ================================*/
-
-BOOST_AUTO_TEST_CASE(GenPropertyIntIOTest)
-{
-    string dir = "test_propterty_data";
-    if (Filesystem::DirectoryExists(dir) == false)
-        Filesystem::CreateDirectory(dir);
-
-
-    int data_in = 42;
-    string key = "int_test_property";
-    string path = ".";
-
-    GenProperty myprop(data_in, key);
-
-    myprop.WriteMetadata(path);
-    myprop.WriteData(dir + "/" + path);
-
-    
-    GenProperty read_prop;
-
-    read_prop.ReadMetadata(key);
-    read_prop.ReadData(dir + "/" + key);
-
-    BOOST_CHECK(read_prop == myprop);
-
-    remove("int_test_property");
-    remove("test_propterty_data/int_test_property");
-    remove("test_propterty_data");
-}
-
-/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
-
-BOOST_AUTO_TEST_CASE(GenPropertyFloatIOTest)
-{
-    string dir = "test_propterty_data";
-    if (Filesystem::DirectoryExists(dir) == false)
-        Filesystem::CreateDirectory(dir);
-
-
-    float data_in = 42.34;
-    string key = "float_test_property";
-    string path = ".";
-
-    GenProperty myprop(data_in, key);
-
-    myprop.WriteMetadata(path);
-    myprop.WriteData(dir + "/" + path);
-
-    
-    GenProperty read_prop;
-
-    read_prop.ReadMetadata(key);
-    read_prop.ReadData(dir + "/" + key);
-
-    double data;
-
-    read_prop.GetValue(data);
-    
-    BOOST_CHECK_CLOSE(data, 42.34, 0.001);
-
-    remove("float_test_property");
-    remove("test_propterty_data/float_test_property");
-    remove("test_propterty_data");
-
-}
-
-/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
-
-BOOST_AUTO_TEST_CASE(GenPropertyStringIOTest)
-{
-    string dir = "test_propterty_data";
-    if (Filesystem::DirectoryExists(dir) == false)
-        Filesystem::CreateDirectory(dir);
-
-
-    string data_in = "supa dupa string";
-    string key = "string_test_property";
-    string path = ".";
-
-    GenProperty myprop(data_in, key);
-
-    myprop.WriteMetadata(path);
-    myprop.WriteData(dir + "/" + path);
-
-    
-    GenProperty read_prop;
-
-    read_prop.ReadMetadata(key);
-    read_prop.ReadData(dir + "/" + key);
-
-    BOOST_CHECK(read_prop == myprop);
-
-    remove("string_test_property");
-    remove("test_propterty_data/string_test_property");
-    remove("test_propterty_data");
-
-}
-
-BOOST_AUTO_TEST_CASE(GenPropertyFunctionTest)
-{
-    FunctionProperty data_function = {
-        "return amount * price;",
-        "return lhs + rhs;"
-    };
-    string key = "testproperty";
-
-    GenProperty myprop_function(data_function, key);
-
-    list<GenProperty> properties_1;
-    list<GenProperty> properties_2;
-    list< list<GenProperty> > properties;
-
-    std::string price = "price";
-    std::string amount = "amount";
-
-    properties_1.push_back(*(new GenProperty(1.5, amount)));
-    properties_1.push_back(*(new GenProperty(8, price)));
-
-    properties_2.push_back(*(new GenProperty(2, amount)));
-    properties_2.push_back(*(new GenProperty(15.0, price)));
-
-    properties.push_back(properties_1);
-    properties.push_back(properties_2);
-
-    double ret_double;
-    myprop_function.GetValue(ret_double, properties);
-
-    BOOST_CHECK(ret_double == 42.0);
+    // FunctionProperty data_function = {
+    //     "return amount * price;",
+    //     "return lhs + rhs;"
+    // };
+    // GenProperty test_function(data_function, key);
+    // GenProperty copied_prop4(test_function);
+    // BOOST_CHECK(test_function == copied_prop4);
 }
 
 /*======================== OPERATOR TESTS    ==============================*/
 
 BOOST_AUTO_TEST_CASE(GenPropertyAssignmentOperatorTest)
 {
-    GenProperty myprop_float(3.88884448, "test1");
-    GenProperty myprop_float2(7.99999999, "test2");
-    GenProperty myprop_int(1023,"test3");
-    GenProperty myprop_string("test!", "test4");
-    
+    GenProperty<float> myprop_float(3.88884448, "test1");
+    GenProperty<float> myprop_float2(7.99999999, "test2");
+    GenProperty<int> myprop_int(1023,"test3");
+    GenProperty<int> myprop_int2(1024,"test4");
+    GenProperty<string> myprop_string("test!", "test5");
+    GenProperty<string> myprop_string2("test2!", "test6");
+
     myprop_float = myprop_float2;
     BOOST_CHECK(myprop_float == myprop_float2);
-    myprop_float = myprop_int;
-    BOOST_CHECK(myprop_float == myprop_int);    
-    myprop_int = myprop_string;
-    BOOST_CHECK(myprop_int == myprop_string);  
-    myprop_string = myprop_float;
-    BOOST_CHECK(myprop_string == myprop_float);
+    myprop_int = myprop_int2;
+    BOOST_CHECK(myprop_int == myprop_int2);
+    myprop_string = myprop_string2;
+    BOOST_CHECK(myprop_string == myprop_string2);
 }
 
 BOOST_AUTO_TEST_SUITE_END()
