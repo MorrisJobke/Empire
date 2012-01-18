@@ -16,7 +16,7 @@
 
 #include "DefineException.h"
 #include "Filesystem.h"
-#include "GenPropertyNew.h"
+#include "GenProperty.h"
 
 #define REPO_NAME ".emp"
 

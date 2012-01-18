@@ -14,7 +14,7 @@
 #include <map>
 #include <sstream>
 
-#include "GenPropertyNew.h"
+#include "GenProperty.h"
 
 
 class ITemplate

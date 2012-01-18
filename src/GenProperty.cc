@@ -6,7 +6,7 @@
  * @Editor:      Vim
  */
 
-#include "GenPropertyNew.h"
+#include "GenProperty.h"
 
 
 /** define important types

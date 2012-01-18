@@ -14,8 +14,7 @@ if(ENABLE_TESTING)
     target_link_libraries(EmpireTest
         ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY}
         Filesystem
-        #GenProperty
-        GenPropertyNew
+        GenProperty
         Repository
         Template)
 endif()

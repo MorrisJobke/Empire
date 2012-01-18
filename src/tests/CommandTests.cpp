@@ -18,7 +18,7 @@
 
 #include <boost/test/unit_test.hpp>
 
-#include "../GenPropertyNew.h"
+#include "../GenProperty.h"
 #include "../Filesystem.h"
 
 using namespace std;
