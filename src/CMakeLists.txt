@@ -28,10 +28,19 @@ include_directories(${LUA_INCLUDE_DIR})
 ######################
 add_library(Filesystem Filesystem)
 
+########################
+# FunctionType library #
+########################
+add_library(FunctionType FunctionType)
+target_link_libraries(FunctionType
+    LuaHelper)
+
 #######################
 # GenProperty library #
 #######################
 add_library(GenProperty GenProperty)
+target_link_libraries(GenProperty
+    FunctionType)
 
 ######################
 # Repository library #
