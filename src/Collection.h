@@ -30,7 +30,19 @@ class coll
 
     std::list<std::list<GenPropertyBase*>> GetList() const;
 
-    WriteToDir(std::string const& rPath)
+    WriteToDir(std::string const& rPath);
+
+    /* NOTES:
+     *
+     * - beim initialisieren laden von festplatte
+     * - alle aktionen schreiben sofort auf die platte
+     * - mehrere ordner 0 - n, die nullten sind meta files --> declare methode
+     * - fill methode propertie liste mit zeigern werte extrahieren
+     *
+     * - destructor
+     *
+     *
+     */
 };
 
 
