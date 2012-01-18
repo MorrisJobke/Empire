@@ -34,9 +34,6 @@ add_library(Filesystem Filesystem)
 # GenProperty library #
 #######################
 add_library(GenPropertyNew GenPropertyNew)
-add_library(GenProperty GenProperty)
-target_link_libraries(GenProperty
-    LuaHelper)
 
 ######################
 # Repository library #
