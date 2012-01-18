@@ -393,7 +393,7 @@ void Repository::ReadPropDataFromFile(std::string const& rPath, GenPropertyBase*
  * This is only done if the property class exists
  * TODO: create property class on demand
  */
-void AddProperty(std::string const& key, std::string const& value)
+void Repository::AddProperty(std::string const& key, std::string const& type, std::string const& value)
 {
 }
 

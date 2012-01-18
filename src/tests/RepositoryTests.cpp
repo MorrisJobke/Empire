@@ -181,7 +181,7 @@ BOOST_AUTO_TEST_CASE(testRepoPropDataIO)
 
     try
     {
-    repo.Init();
+        repo.Init();
     }
     catch(ExcRepository &exc)
     {
@@ -245,7 +245,6 @@ BOOST_AUTO_TEST_CASE(testRepoLoad)
     GenProperty<string> firmn("firmen_name");
 
     GenPropertyBase* p_rechst = &rechst;
-    GenPropertyBase* p_firmn = &firmn;
 
     repo.CreatePropertyClass(rechst.GetKey(), rechst.GetTypeN());
     repo.CreatePropertyClass(firmn.GetKey(), firmn.GetTypeN());

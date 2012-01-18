@@ -7,15 +7,14 @@ if(ENABLE_TESTING)
         FilesystemTests
         RepositoryTests
         CommandTests
-        #GenPropertyTest
+        GenPropertyTest
         TemplateTests)
 
     # used libraries
     target_link_libraries(EmpireTest
         ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY}
         Filesystem
-        #GenProperty
-        GenPropertyNew
+        GenProperty
         Repository
         Template)
 endif()
