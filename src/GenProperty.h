@@ -173,6 +173,17 @@ class GenProperty : public GenPropertyBase
     {
         Filesystem::FileDelete(rPath);
     }
+
+    /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+
+    /** delete metadata from Filesystem
+     *
+     * @param rPath complete file path
+     */
+    void RemovePropertyClass(std::string const& rPath)
+    {
+        Filesystem::FileDelete(rPath);
+    }
         
         /*============================= INQUIRY    =================================*/
         
