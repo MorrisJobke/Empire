@@ -12,7 +12,9 @@
 #include <iostream>
 #include <list>
 
-#include <"Filesystem.h">
+#include "Filesystem.h"
+#include "GenPropertyBase.h"
+#include "GenProperty.h"
 
 DEFINE_VAR_EXCEPTION(ErrorColl)
 
@@ -21,7 +23,7 @@ DEFINE_VAR_EXCEPTION(ErrorColl)
 class Coll
 {
     private:
-    std::list<std::list<GenPropertyBase*>> mPropList;
+    std::list< std::list<GenPropertyBase*> > mPropList;
     
     std::string mPath;
 
@@ -34,10 +36,10 @@ class Coll
 
     ~Coll();
 
-    Declare(std::list<GenPropertyBase*> const&);
-    AddRow(std::list<GenPropertyBase*> const&);
+    void Declare(std::list<GenPropertyBase*> const&);
+    void AddRow(std::list<GenPropertyBase*> const&);
 
-    std::list<std::list<GenPropertyBase*>> GetList() const;
+    std::list< std::list<GenPropertyBase*> > GetList() const;
 
 
     /* NOTES:
