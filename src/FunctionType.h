@@ -22,10 +22,8 @@ public:
     FunctionType();
     FunctionType(std::list<std::string> const& rFunctions);
 
-    /**
-     * copy constructor/assignment operator: declare and define if needed to
-     */
     /** copy constructor
+     * declare and define if needed to
      */
     // FunctionType(FunctionType& rOrigin);
     /** assignment operator
