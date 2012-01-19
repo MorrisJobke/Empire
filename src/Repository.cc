@@ -268,7 +268,7 @@ void Repository::CreatePropertyClass(std::string const& key, std::string const& 
     //std::cout << "check for prop: " << this->mAbsoluteRepoPath + "/" + REPO_NAME + "/" + key << std::endl;
 
     if (Fs::FileExists(this->mAbsoluteRepoPath + "/" + REPO_NAME + "/" + key))
-        throw ExcRepository("Err: Property exsists");
+        throw ExcRepository("PROP_EXISTS");
 
     PropertyIo::WriteMetaDataToDir(this->mAbsoluteRepoPath + "/" + REPO_NAME, key, rType);
 }
@@ -371,7 +371,15 @@ void Repository::AddProperty(std::string const& key, std::string const& type, st
         
         if (type != "")
         {
-            this->CreatePropertyClass(key, type); //throws exception if already set...            
+            try
+            {
+                this->CreatePropertyClass(key, type);
+            }
+            catch(ExcRepository exc)
+            {
+                
+            }
+
             GenPropertyBase* p_new_prop = PropertyHelpers::CreatePropertyFromTypeString(type);
             p_new_prop->SetKey(key);
             p_new_prop->SetValueFromString(value);
@@ -381,20 +389,18 @@ void Repository::AddProperty(std::string const& key, std::string const& type, st
         {
             const char* float_regex = "[+-]?((\\d+\\.\\d+)|\\.\\d+)$";
             const char* int_regex = "[+-]?\\d+$";
-            const char* test_string = "123123";
 
             regex_t* regex = new regex_t;
             regcomp(regex, int_regex, REG_EXTENDED | REG_NOSUB);
             if(!regexec(regex, test_string, 0 , 0 , 0 ))
-                std::cout << "Value is int!" << std::endl;
+                this->AddProperty(key, GetTypeName<int>(), value);
             else
             {
                 regcomp(regex, float_regex, REG_EXTENDED | REG_NOSUB);
                 if(!regexec(regex, test_string, 0 , 0 , 0 ))
-                    std::cout << "Value is float!" << std::endl;
+                    this->AddProperty(key, GetTypeName<float>(), value);
                 else
-                    std::cout << "Value is string!" << std::endl;
-                
+                    this->AddProperty(key, GetTypeName<std::string>(), value);
             }
         }
     }
@@ -438,6 +444,40 @@ void Repository::RemovePropertyClass(std::string const& key)
         throw PropClassNotExists();
     }
 }   
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+
+/** delete metadata & all propertys with the given key from filesystem
+ *
+ * @param key the key of the property to remove
+ */
+void RemovePropertyClassAndInstances(std::string const& key)
+{
+    DIR *dp;
+    struct dirent *ep;
+
+    dp = opendir (REPO_NAME);
+    if (dp != NULL)
+    {
+        while ((ep = readdir (dp)))
+        {
+            std::string entry = ep->d_name;
+
+            /* skip standard links */
+            if (entry == "." || entry == "..")
+                continue;
+
+            if (entry == key)
+                RemoveProperty(this->mAbsoluteRepoPath + "/" + REPO_NAME + "/" + key);
+                //TODO: props in unterordnern?
+        }
+        (void) closedir (dp);
+    }
+    else
+        perror ("Couldn't open the directory");
+
+    RemovePropertyClass(type);
+}
 
 /*============================= ACESS      =================================*/
 
