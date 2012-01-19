@@ -368,6 +368,7 @@ void Repository::AddProperty(std::string const& key, std::string const& type, st
 {
     if(!this->ContainsProperty(key))
     {
+        std::cout << "key=" << key << "type=" << type << "value=" << value << std::endl;
         
         if (type != "")
         {
@@ -380,14 +381,18 @@ void Repository::AddProperty(std::string const& key, std::string const& type, st
                 
             }
 
+            //std::cout << "creating new Property..." << std::endl;
             GenPropertyBase* p_new_prop = PropertyHelpers::CreatePropertyFromTypeString(type);
+            //std::cout << "set Prop key..." << std::endl;
             p_new_prop->SetKey(key);
+            //std::cout << "setting value from string" << std::endl;
             p_new_prop->SetValueFromString(value);
             this->PropertyList.push_back(p_new_prop);
         }
         else //TODO: does not work for now...
         {
-            const char* float_regex = "[+-]?((\\d+\\.\\d+)|\\.\\d+)$";
+            perror("not implemented:(");
+         /*   const char* float_regex = "[+-]?((\\d+\\.\\d+)|\\.\\d+)$";
             const char* int_regex = "[+-]?\\d+$";
 
             regex_t* regex = new regex_t;
@@ -402,6 +407,7 @@ void Repository::AddProperty(std::string const& key, std::string const& type, st
                 else
                     this->AddProperty(key, GetTypeName<std::string>(), value);
             }
+        */
         }
     }
     else

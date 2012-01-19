@@ -296,33 +296,6 @@ BOOST_AUTO_TEST_CASE(testRepoLoad)
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
 
-BOOST_AUTO_TEST_CASE(testTypRecognition)
-{ 
-
-    const char* float_regex = "[+-]?((\\d+\\.\\d+)|\\.\\d+)$";
-    const char* int_regex = "[+-]?\\d+$";
-    const char* test_string = "123123";
-
-    regex_t* regex = new regex_t;
-    regcomp(regex, int_regex, REG_EXTENDED | REG_NOSUB);
-    if(!regexec(regex, test_string, 0 , 0 , 0 ))
-        std::cout << "Value is int!" << std::endl;
-    else
-    {
-        regcomp(regex, float_regex, REG_EXTENDED | REG_NOSUB);
-        if(!regexec(regex, test_string, 0 , 0 , 0 ))
-            std::cout << "Value is float!" << std::endl;
-        else
-            std::cout << "Value is string!" << std::endl;
-        
-    }
-
-    BOOST_CHECK(true);
-}
-
-
-/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
-
 BOOST_AUTO_TEST_CASE(testRepoRemovePropertyClass)
 {
     Fs::ChangeCwd("test_repo");
@@ -362,8 +335,72 @@ BOOST_AUTO_TEST_CASE(testRepoRemovePropertyClass)
     BOOST_CHECK(Fs::FileExists(".emp/MeineZahl") == false);
 
     remove(".emp");
-
+    
     Fs::ChangeCwd("..");
+
+}
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+
+/*
+BOOST_AUTO_TEST_CASE(testAutoValueTypeRecognition)
+{
+    const char* float_regex = "^[+-]?((\\d+\\.\\d+)|\\.\\d+)$";
+    const char* int_regex = "^[:digit:]*";
+    const char* test_string = "1234123";
+
+    regex_t regex;
+    if(regcomp(&regex, int_regex, REG_EXTENDED | REG_NOSUB))
+        std::cout << "ERROR!!!" << std::endl;
+
+    std::cout << REG_EPAREN << std::endl;
+    int errcode = regexec(&regex, test_string, 0 , NULL, 0 );
+    size_t length = regerror (errcode, &regex, NULL, 0);
+    char *buffer = new char[100];
+    (void) regerror (errcode, &regex, buffer, length);
+    std::cout << "reg-error: " << buffer << std::endl;
+
+    if(!regexec(&regex, test_string, 0 , NULL, 0 ))
+        std::cout << "INT!!!" << std::endl;
+    else
+    {
+        regcomp(&regex, float_regex, REG_EXTENDED | REG_NOSUB);
+        if(!regexec(&regex, test_string, 0 , NULL, 0 ))
+            std::cout << "FLOAT!!!" << std::endl;
+        else
+            std::cout << "string!!!" << std::endl;
+    }
+    regfree(&regex);
+}
+*/
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+
+BOOST_AUTO_TEST_CASE(AddPropertyTest)
+{
+    /* create env */
+    Fs::ChangeCwd("test_repo2");
+
+    Repository repo;
+
+    try
+    {
+        repo.Init();
+    }
+    catch(ExcRepository &exc)
+    {
+        cout << exc.what() << endl;
+    }
+    
+    repo.AddProperty("ich_selbst", "string", "RechnungsSteller");
+    repo.AddProperty("intAuto", "", "123892");
+    repo.AddProperty("floatAuto", "", "0.7863");
+    repo.AddProperty("stringAuto", "", "Das ist keine Zahl...");
+    
+    BOOST_CHECK(repo.ContainsProperty("ich_selbst"));
+    BOOST_CHECK(repo.ContainsProperty("intAuto"));
+    BOOST_CHECK(repo.ContainsProperty("floatAuto"));
+    BOOST_CHECK(repo.ContainsProperty("stringAuto"));
 }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
