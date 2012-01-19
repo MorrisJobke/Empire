@@ -14,6 +14,8 @@
 #include <iostream>
 #include <fstream>
 
+#include <regex.h>
+
 #include "DefineException.h"
 #include "Filesystem.h"
 #include "GenProperty.h"
@@ -45,6 +47,7 @@ class Repository
     bool IsOnTheRun();
     
     static bool IsExistent();
+    bool ContainsProperty(std::string const& key);
     //static PropertyTypes GetPropTypeFromStr(std::string const& str);
 
     /* actions */

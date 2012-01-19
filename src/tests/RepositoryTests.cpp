@@ -293,4 +293,30 @@ BOOST_AUTO_TEST_CASE(testRepoLoad)
 
 }
 
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+
+BOOST_AUTO_TEST_CASE(testTypRecognition)
+{ 
+
+    const char* float_regex = "[+-]?((\\d+\\.\\d+)|\\.\\d+)$";
+    const char* int_regex = "[+-]?\\d+$";
+    const char* test_string = "123123";
+
+    regex_t* regex = new regex_t;
+    regcomp(regex, int_regex, REG_EXTENDED | REG_NOSUB);
+    if(!regexec(regex, test_string, 0 , 0 , 0 ))
+        std::cout << "Value is int!" << std::endl;
+    else
+    {
+        regcomp(regex, float_regex, REG_EXTENDED | REG_NOSUB);
+        if(!regexec(regex, test_string, 0 , 0 , 0 ))
+            std::cout << "Value is float!" << std::endl;
+        else
+            std::cout << "Value is string!" << std::endl;
+        
+    }
+
+    BOOST_CHECK(true);
+}
+
 BOOST_AUTO_TEST_SUITE_END()

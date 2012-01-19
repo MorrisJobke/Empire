@@ -389,8 +389,41 @@ void Repository::ReadPropDataFromFile(std::string const& rPath, GenPropertyBase*
  */
 void Repository::AddProperty(std::string const& key, std::string const& type, std::string const& value)
 {
-}
+    if(!this->ContainsProperty(key))
+    {
+        
+        if (type != "")
+        {
+            this->CreatePropertyClass(key, type); //throws exception if already set...            
+            GenPropertyBase* p_new_prop = this->CreatePropertyFromTypeString(type);
+            p_new_prop->SetKey(key);
+            p_new_prop->SetValueFromString(value);
+            this->PropertyList.push_back(p_new_prop);
+        }
+        else //TODO: does not work for now...
+        {
+            const char* float_regex = "[+-]?((\\d+\\.\\d+)|\\.\\d+)$";
+            const char* int_regex = "[+-]?\\d+$";
+            const char* test_string = "123123";
 
+            regex_t* regex = new regex_t;
+            regcomp(regex, int_regex, REG_EXTENDED | REG_NOSUB);
+            if(!regexec(regex, test_string, 0 , 0 , 0 ))
+                std::cout << "Value is int!" << std::endl;
+            else
+            {
+                regcomp(regex, float_regex, REG_EXTENDED | REG_NOSUB);
+                if(!regexec(regex, test_string, 0 , 0 , 0 ))
+                    std::cout << "Value is float!" << std::endl;
+                else
+                    std::cout << "Value is string!" << std::endl;
+                
+            }
+        }
+    }
+    else
+        throw PropExistentError();
+}
 
 
 /*============================= ACESS      =================================*/
@@ -398,6 +431,21 @@ void Repository::AddProperty(std::string const& key, std::string const& type, st
 bool Repository::IsOnTheRun()
 {
     return true;
+}
+
+bool Repository::ContainsProperty(std::string const& key)
+{
+    std::list<GenPropertyBase*>::const_iterator it;
+
+    for (it = this->PropertyList.begin(); it != this->PropertyList.end(); it++)
+    {
+        if ((*it)->GetKey() == key)
+        {
+            return true;
+        }
+    }
+
+    return false;
 }
 
 /*============================= INQUIRY    =================================*/
