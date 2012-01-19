@@ -1,0 +1,30 @@
+%!TEX root = Testprotokolle.tex
+
+\section{Rechnungsnummer-Syntax}
+
+\renewcommand{\arraystretch}{1.5}
+
+\begin{center}
+ \begin{tabular}{|p{0.21\textwidth}|p{0.7\textwidth}|}
+	\hline
+	\textbf{Identifikator}  & /T0060/ \\
+	\hline
+	\textbf{Datum} & \today \\
+	\hline
+	\textbf{Bearbeiter} & Michael Hertel \\
+	\hline
+	\textbf{Bezeichnung} & Rechnungsnummer-Syntax \\
+	\hline
+	\textbf{Ausgangszustand} & 
+		Rechnungsnummer-Syntax mit enthaltenem Platzhalter für Jahr, Monat, Tag und den Teil der fortlaufenden Nummer. \\
+	\hline
+	\textbf{Aktionen} & 
+		Generieren mehrere Rechnungen mit sich in Jahr, Monat und Tag unterscheidenden Datums. \\
+	\hline
+	\textbf{Zielzustand} & 
+		Die Jahr, Monat und Tag Platzhalter entsprechen dem angegeben Datum und die fortlaufende Nummer erhöht sich bei weiteren neugenerierten Rechnung immer nur dann, wenn es schon Rechnungen mit identischen Platzhalter Werten gibt. Dabei erhöht sich die fortlaufende Nummer um die Anzahl der bereits mit diesen Werten der Platzhalter generierten Rechnungen plus eins. \\
+	\hline
+	\textbf{Status} & Test erfolgreich \\
+	\hline
+ \end{tabular}
+\end{center}

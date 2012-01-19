@@ -1,0 +1,35 @@
+\documentclass[a4paper, 11pt, ngerman, fleqn]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{babel}
+\usepackage{ngerman}
+\usepackage{coordsys,logsys,color}
+\usepackage{german,fancyhdr}
+\usepackage{hyperref}
+\usepackage{texdraw}
+\usepackage{colortbl}
+\usepackage{paralist}
+\input{txdtools}
+
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{hyperref}
+\definecolor{darkblue}{rgb}{0,0,.6}
+\hypersetup{pdftex=false, colorlinks=true, breaklinks=true, linkcolor=darkblue, menucolor=darkblue, pagecolor=darkblue, urlcolor=darkblue, citecolor=darkblue}
+
+\pagestyle{fancy}
+
+\input{Header}
+
+\begin{document}
+	\input{TP00-Titelblatt} \newpage
+	\tableofcontents \newpage
+	\input{TP01-Repository} \newpage
+	\input{TP02-Erstellen} \newpage
+	\input{TP03-Auslesen} \newpage
+	\input{TP04-Bearbeiten} \newpage
+	\input{TP05-Loeschen} \newpage
+	\input{TP06-Rechnungsnummer-Syntax} \newpage
+	\input{TP07-Latex-Template} \newpage
+	\input{TP08-HTML-Template}
+\end{document}
