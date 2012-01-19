@@ -78,7 +78,7 @@ BOOST_AUTO_TEST_CASE(CreatePropertyFromTypeStringTest)
     // weiß der Geier warum, aber wenn diese Zeile auskommentiert ist, dann
     // gibt's nen memory access violation -.-
     // TODO
-    cout << *p_new_prop << endl;
+    // cout << *p_new_prop << endl;
 
     //cout << "String representation: " << p_new_prop->ToString() << endl;
 
@@ -221,6 +221,7 @@ BOOST_AUTO_TEST_CASE(testRepoPropDataIO)
 
     Fs::ChangeCwd("..");
 }
+
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
 
 BOOST_AUTO_TEST_CASE(testRepoLoad)
@@ -361,9 +362,17 @@ BOOST_AUTO_TEST_CASE(testRepoRemovePropertyClass)
     BOOST_CHECK(Fs::FileExists(".emp/MeineZahl") == false);
 
     remove(".emp");
-    
-    Fs::ChangeCwd("..");
 
+    Fs::ChangeCwd("..");
+}
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+
+BOOST_AUTO_TEST_CASE(testRepoDeleteEnv)
+{
+    /** this test should always be the last one */
+    if (Fs::DirectoryExists("test_repo") == true)
+        remove("test_repo");
 }
 
 BOOST_AUTO_TEST_SUITE_END()
