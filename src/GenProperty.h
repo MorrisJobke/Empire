@@ -162,6 +162,17 @@ class GenProperty : public GenPropertyBase
 
             return out.str();
         }
+
+    /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+
+    /** delete property from Filesystem
+     *
+     * @param rPath complete file path
+     */
+    void RemoveProperty(std::string const& rPath)
+    {
+        Filesystem::FileDelete(rPath);
+    }
         
         /*============================= INQUIRY    =================================*/
         
@@ -224,8 +235,6 @@ namespace PropertyIo
     void ReadMetaDataFromFile(std::string const& rPath, std::string& rKey, std::string& rType);
 
     void ReadDataFromFile(std::string const& rPath, GenPropertyBase* pProp);
-
-    void RemoveProperty(std::string const& rPath);
 }
 
 #endif
