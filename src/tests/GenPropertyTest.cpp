@@ -123,12 +123,15 @@ BOOST_AUTO_TEST_CASE(GenPropertyCopyConstructorTest)
     GenProperty<float> copied_prop3(test_float);
     BOOST_CHECK(test_float == copied_prop3);
 
-    // FunctionProperty data_function = {
-    //     "return amount * price;",
-    //     "return lhs + rhs;"
-    // };
-    // GenProperty test_function(data_function, key);
-    // GenProperty copied_prop4(test_function);
+    string map = "return amount * price;";
+    string reduce = "return lhs + rhs;";
+    list<string> functions;
+    functions.push_back(map);
+    functions.push_back(reduce);
+    FunctionType data_function(functions);
+
+    // GenProperty<FunctionType> test_function(data_function, key);
+    // GenProperty<FunctionType> copied_prop4(test_function);
     // BOOST_CHECK(test_function == copied_prop4);
 }
 
