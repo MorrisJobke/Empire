@@ -202,6 +202,23 @@ namespace Filesystem
     }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+
+     /** 
+     * @brief function to delete a given file
+     * @param rFilePath path of the file that should be deleted
+     */ 
+    void FileDelete(string const& rFilePath)
+    {       
+        if (FileExists(rFilePath))
+        {
+            remove(rFilePath.c_str());
+        }
+        else
+            throw CannotFindFileError();
+    }
+
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
     /** 
      * @brief function to check wether a given file exists
      * @param rPath path of file

@@ -31,6 +31,7 @@ namespace Filesystem
      */
     DEFINE_FAST_EXCEPTION(CannotCreateDirError, "Cannot create directory.")
     DEFINE_FAST_EXCEPTION(CannotOpenFileError, "Cannot create file.")
+    DEFINE_FAST_EXCEPTION(CannotFindFileError, "File not exists.")
 
     void PrintCwd();
     string GetCwd();
@@ -42,6 +43,7 @@ namespace Filesystem
 
     void FileWriteString(string const& rFilePath, string& rContent);
     void FileAppendString(string const& rFilePath, string& rContent);
+    void FileDelete(string const& rFilePath);
     bool FileExists(std::string const& rPath);
     
     std::string FileReadString(string const& rFilePath);

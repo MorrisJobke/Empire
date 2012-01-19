@@ -83,6 +83,26 @@ BOOST_AUTO_TEST_CASE(testFileCreation)
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
 
+/** test the delete of a file
+ *  
+ */
+BOOST_AUTO_TEST_CASE(testFileDelete)
+{
+    string content = "This is my\n Content";
+    string path = "test_file";
+
+    Fs::FileWriteString(path, content);
+
+
+    BOOST_CHECK(Fs::FileExists(path) == true);
+
+    Fs::FileDelete(path);
+    
+    BOOST_CHECK(Fs::FileExists(path) == false);
+}
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+
 /** test the reading of a file
  *  
  * if it is created remove it */
