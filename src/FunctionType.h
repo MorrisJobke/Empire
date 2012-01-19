@@ -30,9 +30,10 @@ public:
     // FunctionType(FunctionType& rOrigin);
     /** assignment operator
      */
-    // FunctionType& operator=(FunctionType& rRight);
+    FunctionType& operator=(FunctionType& rRight);
 
     bool operator==(FunctionType& rRight);
+    bool operator!=(FunctionType& rRight);
 
     void ToOutStream(std::ostream& rOut);
 };

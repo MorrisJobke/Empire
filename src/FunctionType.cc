@@ -29,6 +29,15 @@ FunctionType::FunctionType(std::list<std::string> const& rFunctions)
 {
 }
 
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+
+/** copy constructor
+ */
+// FunctionType::FunctionType(FunctionType& rOrigin)
+// {
+//     this->mList = rOrigin.mList;
+// }
+
 /*============================= OPERATORS ==================================*/
 
 /** equal operator
@@ -41,6 +50,26 @@ bool FunctionType::operator==(FunctionType& rRight)
     return true;
 }
 
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+
+/** un-equal operator
+ */
+bool FunctionType::operator!=(FunctionType& rRight)
+{
+    return not (*this == rRight);
+}
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+
+/** assignment operator
+ */
+FunctionType& FunctionType::operator=(FunctionType& rRight)
+{
+    if (this != &rRight)
+        this->mList = rRight.mList;
+
+    return *this;
+}
 /*============================= OPERATIONS =================================*/
 
 /** overloaded operator to write class to stream
