@@ -392,12 +392,12 @@ void Repository::AddProperty(std::string const& key, std::string const& type, st
 
             regex_t* regex = new regex_t;
             regcomp(regex, int_regex, REG_EXTENDED | REG_NOSUB);
-            if(!regexec(regex, test_string, 0 , 0 , 0 ))
+            if(!regexec(regex, value.c_str(), 0 , 0 , 0 ))
                 this->AddProperty(key, GetTypeName<int>(), value);
             else
             {
                 regcomp(regex, float_regex, REG_EXTENDED | REG_NOSUB);
-                if(!regexec(regex, test_string, 0 , 0 , 0 ))
+                if(!regexec(regex, value.c_str(), 0 , 0 , 0 ))
                     this->AddProperty(key, GetTypeName<float>(), value);
                 else
                     this->AddProperty(key, GetTypeName<std::string>(), value);
@@ -451,7 +451,7 @@ void Repository::RemovePropertyClass(std::string const& key)
  *
  * @param key the key of the property to remove
  */
-void RemovePropertyClassAndInstances(std::string const& key)
+void Repository::RemovePropertyClassAndInstances(std::string const& key)
 {
     DIR *dp;
     struct dirent *ep;
@@ -468,15 +468,18 @@ void RemovePropertyClassAndInstances(std::string const& key)
                 continue;
 
             if (entry == key)
-                RemoveProperty(this->mAbsoluteRepoPath + "/" + REPO_NAME + "/" + key);
+            {
+                std::string const path = this->mAbsoluteRepoPath + "/" + REPO_NAME + "/" + key;
+                this->RemoveProperty(path, key);
                 //TODO: props in unterordnern?
+            }
         }
         (void) closedir (dp);
     }
     else
         perror ("Couldn't open the directory");
 
-    RemovePropertyClass(type);
+    RemovePropertyClass(key);
 }
 
 /*============================= ACESS      =================================*/
