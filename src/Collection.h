@@ -10,6 +10,7 @@
 #define COLLECTION_H
 
 #include <iostream>
+#include <sstream>
 #include <list>
 
 #include "Filesystem.h"

@@ -61,6 +61,9 @@ void Coll::Declare(std::list<GenPropertyBase*> const& pPropList)
     {
         PropertyIo::WriteMetaDataToDir(this->mPath + "/" + "0", (*it));
     }
+
+    /* append to the front of the member list */
+    this->mPropList.push_back(pPropList);
 }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
@@ -69,8 +72,73 @@ void Coll::Declare(std::list<GenPropertyBase*> const& pPropList)
  *
  * @param list with property members
  */
-void Coll::AddRow(std::list<GenPropertyBase*> const&)
+void Coll::AddRow(std::list<GenPropertyBase*> const& pPropList)
 {
+    /* scan all entries */
+    
+    //std::cout << "Adding Row. Entries: " << pPropList.size() << std::endl;
+    std::list<GenPropertyBase*>::const_iterator it;
+
+    std::list<GenPropertyBase*> new_row;
+
+    for (it = pPropList.begin(); it != pPropList.end(); it++)
+    {
+        std::list<GenPropertyBase*>::const_iterator it_meta;
+        std::list<GenPropertyBase*> meta_list = this->mPropList.front();
+
+        //std::cout << meta_list.size() << std::endl;
+
+
+        bool found_entry = false;
+
+        /* go through the 0th list entry and check types and existens */
+        for (it_meta = meta_list.begin(); it_meta != meta_list.end(); it_meta++)
+        {
+            //std::cout << "Compare " << *it << " and " << *it_meta << std::endl;
+            if ((*it)->GetKey() == (*it_meta)->GetKey())
+            {
+                if ((*it)->GetTypeN() == (*it_meta)->GetTypeN())
+                {
+                    found_entry = true;
+                    //std::cout << "Prop Match " << *it << std::endl;
+                    break;
+
+                }
+                else
+                {
+                    throw ErrorColl("COLL_TYPE_MISSMATCH_IN_ROW");
+                }
+            }
+        }
+
+        /* case if we validated the property */
+        if (found_entry == true)
+        {
+            /* calculate the row idx */
+            int idx = this->mPropList.size();
+            std::stringstream str;
+            str << idx;
+
+            /* create the row-dir if neccesary */
+            if (Fs::DirectoryExists(this->mPath + "/" + str.str()) == false)
+            {
+                Fs::CreateDirectory(this->mPath + "/" + str.str());
+            }
+
+            /* write prop data */
+            PropertyIo::WritePropDataToDir(this->mPath + "/" + str.str(), (*it));
+
+            /* append prop to row structure */
+            new_row.push_back((*it));
+        }
+        
+
+    }
+
+    /* append the filled list if not empty */
+    if (new_row.empty() == false)
+        this->mPropList.push_back(new_row);
+
 }
 
 /*============================= ACESS      =================================*/
