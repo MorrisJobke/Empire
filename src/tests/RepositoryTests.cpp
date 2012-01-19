@@ -319,4 +319,49 @@ BOOST_AUTO_TEST_CASE(testTypRecognition)
     BOOST_CHECK(true);
 }
 
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+
+BOOST_AUTO_TEST_CASE(testRepoRemovePropertyClass)
+{
+    Fs::ChangeCwd("test_repo");
+
+    Repository repo;
+
+    try
+    {
+        repo.Init();
+    }
+    catch(ExcRepository &exc)
+    {
+        cout << exc.what() << endl;
+    }
+
+    try
+    {
+        repo.CreatePropertyClass("RechnungsSteller", "string");
+        repo.CreatePropertyClass("RechnungsNehmer", "string");
+        repo.CreatePropertyClass("MeineZahl", "int");
+    }
+    catch(ExcRepository &exc)
+    {
+        cout << exc.what() << endl;
+    }
+
+    BOOST_CHECK(Fs::FileExists(".emp/RechnungsSteller") == true);
+    BOOST_CHECK(Fs::FileExists(".emp/RechnungsNehmer") == true);
+    BOOST_CHECK(Fs::FileExists(".emp/MeineZahl") == true);
+
+    repo.RemovePropertyClass("RechnungsSteller");
+    repo.RemovePropertyClass("RechnungsNehmer");
+    repo.RemovePropertyClass("MeineZahl");
+
+    BOOST_CHECK(Fs::FileExists(".emp/RechnungsSteller") == false);
+    BOOST_CHECK(Fs::FileExists(".emp/RechnungsNehmer") == false);
+    BOOST_CHECK(Fs::FileExists(".emp/MeineZahl") == false);
+    
+    Fs::ChangeCwd("..");
+
+}
+
 BOOST_AUTO_TEST_SUITE_END()

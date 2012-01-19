@@ -446,6 +446,7 @@ void Repository::AddProperty(std::string const& key, std::string const& type, st
      */
     void Repository::RemovePropertyClass(std::string const& key)
     {
+        Filesystem::FileDelete(this->mAbsoluteRepoPath + "/" + REPO_NAME + "/" + key);
     }
 
 /*============================= ACESS      =================================*/
