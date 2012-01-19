@@ -19,7 +19,7 @@ namespace Fs = Filesystem;
  *
  * @param the directory where the directory should be read from
  */
-Coll(std::string const& rPath)
+Coll::Coll(std::string const& rPath)
 :   mPath(rPath)
 {
     /* load Collection from directory */
@@ -29,7 +29,7 @@ Coll(std::string const& rPath)
 
 /** destructor
  */
-~Coll()
+Coll::~Coll()
 {
 }
 
@@ -42,16 +42,25 @@ Coll(std::string const& rPath)
  *
  * @param list with property members
  */
-Declare(std::list<GenPropertyBase*> const&)
+void Coll::Declare(std::list<GenPropertyBase*> const& pPropList)
 {
     if (!mPropList.empty())
         throw ErrorColl("COLL_ALREADY_DECLARED");
 
-    if (Fs::DirectoryExists(rPath + "/" + "0"))
+    if (Fs::DirectoryExists(this->mPath + "/" + "0"))
         throw ErrorColl("COLL_DECLARE_DIR_EXISTS");
 
     /* create the declare dir */
-    Fs::CreateDirectory(rPath + "/" + "0");
+    Fs::CreateDirectory(this->mPath);
+    Fs::CreateDirectory(this->mPath + "/" + "0");
+
+    /* create meta files */
+    std::list<GenPropertyBase*>::const_iterator it;
+
+    for (it = pPropList.begin(); it != pPropList.end(); it++)
+    {
+        PropertyIo::WriteMetaDataToDir(this->mPath + "/" + "0", (*it));
+    }
 }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
@@ -60,13 +69,13 @@ Declare(std::list<GenPropertyBase*> const&)
  *
  * @param list with property members
  */
-AddRow(std::list<GenPropertyBase*> const&)
+void Coll::AddRow(std::list<GenPropertyBase*> const&)
 {
 }
 
 /*============================= ACESS      =================================*/
 
-std::list<std::list<GenPropertyBase*>> GetList() const
+std::list< std::list<GenPropertyBase*> > Coll::GetList() const
 {
 }
 
@@ -75,6 +84,6 @@ std::list<std::list<GenPropertyBase*>> GetList() const
 
 /////////////////////////////// PRIVATE    ///////////////////////////////////
 
-void WriteToDir(std::string const& rPath)
+void Coll::WriteToDir(std::string const& rPath)
 {
 }

@@ -8,6 +8,7 @@ if(ENABLE_TESTING)
         RepositoryTests
         CommandTests
         GenPropertyTest
+        CollectionTests
         TemplateTests)
 
     # used libraries
@@ -16,5 +17,6 @@ if(ENABLE_TESTING)
         Filesystem
         GenProperty
         Repository
-        Template)
+        Template
+        Collection)
 endif()

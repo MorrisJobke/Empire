@@ -48,12 +48,19 @@ add_library(LuaHelper LuaHelper)
 target_link_libraries(LuaHelper
     ${LUA_LIBRARIES})
 
-
 ######################
 # Template library   #
 ######################
 add_library(Template Template)
 target_link_libraries(Template
+    GenProperty)
+
+######################
+# Template library   #
+######################
+add_library(Collection Collection)
+target_link_libraries(Collection
+    Filesystem
     GenProperty)
 
 # adding sub directories
