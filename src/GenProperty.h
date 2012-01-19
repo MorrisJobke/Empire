@@ -16,7 +16,6 @@
 
 #include "GenPropertyBase.h"
 #include "DefineException.h"
-#include "Filesystem.h"
 
 /** typename templates
  */
@@ -163,27 +162,6 @@ class GenProperty : public GenPropertyBase
             return out.str();
         }
 
-    /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
-
-    /** delete property from Filesystem
-     *
-     * @param rPath complete file path
-     */
-    void RemoveProperty(std::string const& rPath)
-    {
-        Filesystem::FileDelete(rPath);
-    }
-
-    /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
-
-    /** delete metadata from Filesystem
-     *
-     * @param rPath complete file path
-     */
-    void RemovePropertyClass(std::string const& rPath)
-    {
-        Filesystem::FileDelete(rPath);
-    }
         
         /*============================= INQUIRY    =================================*/
         

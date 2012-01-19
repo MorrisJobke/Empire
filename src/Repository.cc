@@ -426,6 +426,28 @@ void Repository::AddProperty(std::string const& key, std::string const& type, st
 }
 
 
+    /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+
+    /** delete property from Filesystem
+     *
+     * @param rPath complete file path
+     * @param key key of the property
+     */
+    void Repository::RemoveProperty(std::string const& rPath, std::string const& key)
+    {
+        Filesystem::FileDelete(rPath);
+    }
+
+    /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+
+    /** delete metadata from Filesystem
+     *
+     * @param rPath complete file path
+     */
+    void Repository::RemovePropertyClass(std::string const& key)
+    {
+    }
+
 /*============================= ACESS      =================================*/
 
 bool Repository::IsOnTheRun()
