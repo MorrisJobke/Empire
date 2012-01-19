@@ -26,6 +26,8 @@ DEFINE_FAST_EXCEPTION(CannotCreateRepoError,"Cannot create repository")
 DEFINE_FAST_EXCEPTION(RepoExistentError,"A repository exists here")
 DEFINE_FAST_EXCEPTION(PropExistentError,"Property exists already")
 DEFINE_FAST_EXCEPTION(PropInvalidTypeError,"Created property has invalid type")
+DEFINE_FAST_EXCEPTION(PropNotExists, "Property not exists.")
+DEFINE_FAST_EXCEPTION(PropClassNotExists, "PropertyClass not exists.")
 
 DEFINE_VAR_EXCEPTION(ExcRepository)
 

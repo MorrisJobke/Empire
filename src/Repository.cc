@@ -434,7 +434,14 @@ void Repository::AddProperty(std::string const& key, std::string const& type, st
  */
 void Repository::RemoveProperty(std::string const& rPath, std::string const& key)
 {
-    Filesystem::FileDelete(rPath);
+    try
+    {
+        Filesystem::FileDelete(rPath);
+    }
+    catch(Filesystem::CannotFindFileError const& e)
+    {
+        throw PropNotExists();
+    }
 }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
@@ -445,8 +452,15 @@ void Repository::RemoveProperty(std::string const& rPath, std::string const& key
  */
 void Repository::RemovePropertyClass(std::string const& key)
 {
-    Filesystem::FileDelete(this->mAbsoluteRepoPath + "/" + REPO_NAME + "/" + key);
-}
+    try
+    {
+        Filesystem::FileDelete(this->mAbsoluteRepoPath + "/" + REPO_NAME + "/" + key);
+    }
+    catch(Filesystem::CannotFindFileError const& e)
+    {
+        throw PropClassNotExists();
+    }
+}   
 
 /*============================= ACESS      =================================*/
 
