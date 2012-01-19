@@ -61,14 +61,126 @@ void Coll::Load(std::string const& rPath)
     this->mPath = rPath;
 
     if (Fs::DirectoryExists(rPath) == false)
-        throw ErrorColl("COLL_NO_COLL_HERE");
+        throw ErrorColl("COLL_NO_COLL_FOUND");
     
     /* load Collection from directory */
 
+    std::list<GenPropertyBase*> dec_list;
+
     /* check declared dir and load */
+    DIR *dp;
+    struct dirent *ep;
+
+    std::string dir_path = this->mPath + "/" + "0";
+    dp = opendir (dir_path.c_str());
+    if (dp != NULL)
+    {
+        while ((ep = readdir (dp)))
+        {
+            std::string entry = ep->d_name;
+
+            /* skip standard links */
+            if (entry == "." || entry == "..")
+                continue;
+
+            /* create new property read it and append it to list */
+            std::string new_type;
+            std::string new_key;
+
+            PropertyIo::ReadMetaDataFromFile(this->mPath + "/" + "0" + "/" + entry,
+                    new_key, new_type);
+
+            GenPropertyBase* p_new_prop = PropertyHelpers::CreatePropertyFromTypeString(new_type);
+            p_new_prop->SetKey(new_key);
+            
+            std::cout << "read prop data: " << *p_new_prop << std::endl;
+
+            dec_list.push_back(p_new_prop);
+        }
+        (void) closedir (dp);
+    }
+    else
+        throw ErrorColl("COLL_NO_DEC_FOUND");
+    
+    this->mPropList.push_back(dec_list);
     
     
     /* if nessecary load other dirs */
+
+    /* count dir entries */
+    int dir_count = 0;
+
+    dp = opendir (this->mPath.c_str());
+    if (dp != NULL)
+    {
+        while ((ep = readdir (dp)))
+        {
+            std::string entry = ep->d_name;
+
+            /* skip standard links */
+            if (entry == "." || entry == "..")
+                continue;
+
+            dir_count++;
+
+        }
+        (void) closedir (dp);
+    }
+    else
+        throw ErrorColl("COLL_NO_COLL_FOUND");
+
+    /* scan data dirs */
+
+    std::cout << "Dir count " << dir_count << std::endl;
+
+    for (int dir_idx = 1; dir_idx < dir_count; dir_idx++)
+    {
+        std::stringstream str;
+        str << dir_idx;
+
+        std::list<GenPropertyBase*> new_list;
+
+        std::string dir_path = this->mPath + "/" + str.str();
+        dp = opendir (dir_path.c_str());
+        if (dp != NULL)
+        {
+            while ((ep = readdir (dp)))
+            {
+                std::string entry = ep->d_name;
+
+                /* skip standard links */
+                if (entry == "." || entry == "..")
+                    continue;
+
+                /* create new property read it and append it to list */
+                std::string new_type;
+                std::string new_key;
+
+                /* load matching prop */
+                PropertyIo::ReadMetaDataFromFile(this->mPath + "/" + "0" + "/" + entry,
+                        new_key, new_type);
+
+                GenPropertyBase* p_new_prop = PropertyHelpers::CreatePropertyFromTypeString(new_type);
+                p_new_prop->SetKey(new_key);
+
+                PropertyIo::ReadDataFromFile(this->mPath + "/" + str.str() + "/" + entry, p_new_prop);
+
+                
+                std::cout << "read prop data: " << *p_new_prop << std::endl;
+
+                new_list.push_back(p_new_prop);
+            }
+            (void) closedir (dp);
+        }
+        else
+            throw ErrorColl("COLL_NO_DEC_FOUND");
+
+        if (new_list.empty() == false)
+        {
+            std::cout << "pushing data: " << std::endl;
+            this->mPropList.push_back(new_list);
+        }
+    }
 }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
@@ -181,10 +293,40 @@ void Coll::ToOutStream(std::ostream& rOut)
     rOut << "This is a Collection";
 }
 
+
+void Coll::DebugPrint()
+{
+    int outer_count = 0;
+    std::list< std::list<GenPropertyBase*> >::const_iterator outer;
+
+    for (outer = this->mPropList.begin(); outer != this->mPropList.end(); outer++);
+    {
+        std::cout << outer_count << "{" << std::endl;
+        
+        std::list<GenPropertyBase*>::const_iterator inner;
+        std::cout << "label" << std::endl;
+
+        for (inner = (*outer).begin(); inner != (*outer).end(); inner++)
+        {
+            if ((*inner) == NULL)
+                std::cout << "NULL" << std::endl;
+            else
+                std::cout << "   " << *(*inner) << std::endl;
+
+
+        }
+
+        std::cout << "}" << std::endl;
+        outer_count++;
+    }
+}
+
+
 /*============================= ACESS      =================================*/
 
 std::list< std::list<GenPropertyBase*> > Coll::GetList() const
 {
+    return this->mPropList;
 }
 
 /*============================= INQUIRY    =================================*/
