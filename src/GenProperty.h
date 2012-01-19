@@ -92,8 +92,8 @@ class GenProperty : public GenPropertyBase
             if (this->mpData)
                 delete (typ*) this->mpData;
         };
-        
-        /*============================= ACESS      =================================*/
+
+        /*============================= ACCESS      ================================*/
 
         void SetValue(typ value)
         {
