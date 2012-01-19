@@ -97,11 +97,11 @@ BOOST_AUTO_TEST_CASE(GenPropertyFunctionTest)
     FunctionType func(functions);
     string key = "testproperty";
 
-    // GenProperty<FunctionType> myprop_func(func, key);
+    GenProperty<FunctionType> myprop_func(func, key);
 
-    // FunctionType ret_function = myprop_func.GetValue();
+    FunctionType ret_function = myprop_func.GetValue();
 
-    // BOOST_CHECK(ret_function == func);
+    BOOST_CHECK(ret_function == func);
 }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/

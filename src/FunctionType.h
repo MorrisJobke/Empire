@@ -21,14 +21,18 @@ private:
 public:
     FunctionType();
     FunctionType(std::list<std::string> const& rFunctions);
-    ~FunctionType();
+
+    /**
+     * copy constructor/assignment operator: declare and define if needed to
+     */
     /** copy constructor
      */
-    FunctionType(FunctionType& rOrigin);
-
+    // FunctionType(FunctionType& rOrigin);
     /** assignment operator
      */
-    FunctionType& operator=(FunctionType& rRight);
+    // FunctionType& operator=(FunctionType& rRight);
+
+    bool operator==(FunctionType& rRight);
 
     void ToOutStream(std::ostream& rOut);
 };

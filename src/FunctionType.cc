@@ -29,15 +29,18 @@ FunctionType::FunctionType(std::list<std::string> const& rFunctions)
 {
 }
 
-/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+/*============================= OPERATORS ==================================*/
 
-/** the destructor
+/** equal operator
  */
-FunctionType::~FunctionType()
+bool FunctionType::operator==(FunctionType& rRight)
 {
+    if (this->mList != rRight.mList)
+        return false;
+
+    return true;
 }
 
-/*============================= OPERATORS ==================================*/
 /*============================= OPERATIONS =================================*/
 
 /** overloaded operator to write class to stream
@@ -50,12 +53,16 @@ std::ostream& operator<<(std::ostream& rOut, FunctionType rFunctionType)
     return rOut;
 }
 
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+
 /** overloaded operator to read class from stream
  */
 std::istream& operator>>(std::istream& rIn, FunctionType rFunctionType)
 {
     return rIn;
 }
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
 
 /** operator to write class to stream
  */
