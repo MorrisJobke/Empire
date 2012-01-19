@@ -8,12 +8,19 @@
 #ifndef FUNCTIONTYPE_H
 #define FUNCTIONTYPE_H
 
-/** Lua Context
+#include <list>
+#include <string>
+#include <iostream>
+
+/** data type for our so-called "functions"
  */
 class FunctionType
 {
+private:
+    std::list<std::string> mList;
 public:
     FunctionType();
+    FunctionType(std::list<std::string> const& rFunctions);
     ~FunctionType();
     /** copy constructor
      */
@@ -24,9 +31,11 @@ public:
     FunctionType& operator=(FunctionType& rRight);
 
     void ToOutStream(std::ostream& rOut);
-
-    std::ostream& operator<<(std::ostream& lhs, FunctionType const& rhs);
 };
+
+
+std::ostream& operator<<(std::ostream& rOut, FunctionType rFunctionType);
+std::istream& operator>>(std::istream& rIn, FunctionType rFunctionType);
 
 
 #endif

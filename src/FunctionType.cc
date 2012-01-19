@@ -7,17 +7,63 @@
 
 #include "FunctionType.h"
 
-std::ostream& operator<<(std::ostream& rOut, FunctionType& rProp)
-{
-   rProp.ToOutStream(rOut);
-   return rOut;
-};
 
 /////////////////////////////// PUBLIC ///////////////////////////////////////
 
 /*============================= LIFECYCLE ==================================*/
+
+/** the constructor
+ */
+FunctionType::FunctionType()
+{
+}
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+
+/** the constructor
+ *
+ * @param rFunctions list of strings with functions
+ */
+FunctionType::FunctionType(std::list<std::string> const& rFunctions)
+:   mList(rFunctions)
+{
+}
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+
+/** the destructor
+ */
+FunctionType::~FunctionType()
+{
+}
+
 /*============================= OPERATORS ==================================*/
 /*============================= OPERATIONS =================================*/
+
+/** overloaded operator to write class to stream
+ *
+ * wrappers ToOutStream
+ */
+std::ostream& operator<<(std::ostream& rOut, FunctionType rFunctionType)
+{
+    rFunctionType.ToOutStream(rOut);
+    return rOut;
+}
+
+/** overloaded operator to read class from stream
+ */
+std::istream& operator>>(std::istream& rIn, FunctionType rFunctionType)
+{
+    return rIn;
+}
+
+/** operator to write class to stream
+ */
+void FunctionType::ToOutStream(std::ostream& rOut)
+{
+    rOut << "huhu";
+}
+
 /*============================= ACCESS     =================================*/
 /*============================= INQUIRY    =================================*/
 
