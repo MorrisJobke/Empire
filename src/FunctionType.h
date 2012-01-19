@@ -24,6 +24,8 @@ public:
     FunctionType& operator=(FunctionType& rRight);
 
     void ToOutStream(std::ostream& rOut);
+
+    std::ostream& operator<<(std::ostream& lhs, FunctionType const& rhs);
 };
 
 
