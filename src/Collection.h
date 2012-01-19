@@ -13,6 +13,10 @@
 #include <sstream>
 #include <list>
 
+//#include <unistd.h>
+//#include <sys/stat.h>
+//#include <dirent.h>
+
 #include "Filesystem.h"
 #include "GenPropertyBase.h"
 #include "GenProperty.h"
@@ -44,6 +48,8 @@ class Coll
     std::list< std::list<GenPropertyBase*> > GetList() const;
 
     void ToOutStream(std::ostream& rOut);
+
+    void DebugPrint();
 
     /* NOTES:
      *
