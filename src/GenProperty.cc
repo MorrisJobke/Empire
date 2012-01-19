@@ -160,5 +160,16 @@ namespace PropertyIo
             pProp->SetValueFromString(buffer);
     }
 
+    /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+
+    /** delete property from Filesystem
+     *
+     * @param rPath complete file path
+     */
+    void RemoveProperty(std::string const& rPath)
+    {
+        Filesystem::FileDelete(rPath);
+    }
+
 }
 

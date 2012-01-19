@@ -16,6 +16,7 @@
 
 #include "GenPropertyBase.h"
 #include "DefineException.h"
+#include "Filesystem.h"
 
 /** typename templates
  */
@@ -223,6 +224,8 @@ namespace PropertyIo
     void ReadMetaDataFromFile(std::string const& rPath, std::string& rKey, std::string& rType);
 
     void ReadDataFromFile(std::string const& rPath, GenPropertyBase* pProp);
+
+    void RemoveProperty(std::string const& rPath);
 }
 
 #endif
