@@ -16,13 +16,18 @@ namespace Fs = Filesystem;
 /*============================= LIFECYCLE ==================================*/
 
 /** constructor
+ */
+Coll::Coll()
+{
+}
+
+/** constructor
  *
  * @param the directory where the directory should be read from
  */
 Coll::Coll(std::string const& rPath)
 :   mPath(rPath)
 {
-    /* load Collection from directory */
 }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
@@ -36,7 +41,37 @@ Coll::~Coll()
 
 /*============================= OPERATORS ==================================*/
 
+std::ostream& operator<<(std::ostream& rOut, Coll rColl)
+{
+    rColl.ToOutStream(rOut);
+    return rOut;
+}
+
+std::istream& operator>>(std::istream& rIn, Coll rColl)
+{
+    return rIn;
+}
+
 /*============================= OPERATIONS =================================*/
+
+/** this method loads a collection from a DirectoryExists
+ */
+void Coll::Load(std::string const& rPath)
+{
+    this->mPath = rPath;
+
+    if (Fs::DirectoryExists(rPath) == false)
+        throw ErrorColl("COLL_NO_COLL_HERE");
+    
+    /* load Collection from directory */
+
+    /* check declared dir and load */
+    
+    
+    /* if nessecary load other dirs */
+}
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
 
 /* this creates the folder 0 with property types
  *
@@ -141,6 +176,11 @@ void Coll::AddRow(std::list<GenPropertyBase*> const& pPropList)
 
 }
 
+void Coll::ToOutStream(std::ostream& rOut)
+{
+    rOut << "This is a Collection";
+}
+
 /*============================= ACESS      =================================*/
 
 std::list< std::list<GenPropertyBase*> > Coll::GetList() const
@@ -155,3 +195,6 @@ std::list< std::list<GenPropertyBase*> > Coll::GetList() const
 void Coll::WriteToDir(std::string const& rPath)
 {
 }
+
+
+

@@ -136,7 +136,17 @@ BOOST_AUTO_TEST_CASE(CollectionAddRowTest)
     remove("coll_test/1");
     remove("coll_test/2");
     remove("coll_test");
+
+
     
+}
+
+
+BOOST_AUTO_TEST_CASE(CollectionPropTest)
+{
+
+    GenProperty<Coll> coll("collection");
+
 }
 
 BOOST_AUTO_TEST_SUITE_END()

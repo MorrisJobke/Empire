@@ -37,11 +37,13 @@ class Coll
 
     ~Coll();
 
+    void Load(std::string const& rPath);
     void Declare(std::list<GenPropertyBase*> const&);
     void AddRow(std::list<GenPropertyBase*> const&);
 
     std::list< std::list<GenPropertyBase*> > GetList() const;
 
+    void ToOutStream(std::ostream& rOut);
 
     /* NOTES:
      *
@@ -55,6 +57,9 @@ class Coll
      *
      */
 };
+
+std::ostream& operator<<(std::ostream& rOut, Coll rColl);
+std::istream& operator>>(std::istream& rIn, Coll rColl);
 
 
 #endif
