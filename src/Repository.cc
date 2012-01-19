@@ -177,7 +177,7 @@ void Repository::Load()
             PropertyIo::ReadMetaDataFromFile(this->mAbsoluteRepoPath + "/" + REPO_NAME + "/" + entry,
                     new_key, new_type);
 
-            GenPropertyBase* p_new_prop = this->CreatePropertyFromTypeString(new_type);
+            GenPropertyBase* p_new_prop = PropertyHelpers::CreatePropertyFromTypeString(new_type);
             p_new_prop->SetKey(new_key);
 
             this->PropertyList.push_back(p_new_prop);
@@ -238,29 +238,6 @@ void Repository::Load()
 
     Fs::ChangeCwd(start_dir);
 
-}
-
-/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
-
-/** create a property from type-string
- */
-GenPropertyBase* Repository::CreatePropertyFromTypeString(std::string const& rType)
-{
-    GenPropertyBase* p_new = NULL;
-
-    if (rType == GetTypeName<int>())
-        p_new = new GenProperty<int>();
-
-    else if (rType == GetTypeName<double>())
-        p_new = new GenProperty<double>();
-
-    else if (rType == GetTypeName<float>())
-        p_new = new GenProperty<float>();
-
-    else if (rType == GetTypeName<std::string>())
-        p_new = new GenProperty<std::string>();
-
-    return p_new;
 }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
@@ -395,7 +372,7 @@ void Repository::AddProperty(std::string const& key, std::string const& type, st
         if (type != "")
         {
             this->CreatePropertyClass(key, type); //throws exception if already set...            
-            GenPropertyBase* p_new_prop = this->CreatePropertyFromTypeString(type);
+            GenPropertyBase* p_new_prop = PropertyHelpers::CreatePropertyFromTypeString(type);
             p_new_prop->SetKey(key);
             p_new_prop->SetValueFromString(value);
             this->PropertyList.push_back(p_new_prop);

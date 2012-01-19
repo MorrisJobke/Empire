@@ -162,3 +162,27 @@ namespace PropertyIo
 
 }
 
+namespace PropertyHelpers
+{
+    /** create a property from type-string
+    */
+    GenPropertyBase* CreatePropertyFromTypeString(std::string const& rType)
+    {
+        GenPropertyBase* p_new = NULL;
+
+        if (rType == GetTypeName<int>())
+            p_new = new GenProperty<int>();
+
+        else if (rType == GetTypeName<double>())
+            p_new = new GenProperty<double>();
+
+        else if (rType == GetTypeName<float>())
+            p_new = new GenProperty<float>();
+
+        else if (rType == GetTypeName<std::string>())
+            p_new = new GenProperty<std::string>();
+
+        return p_new;
+    }
+}
+

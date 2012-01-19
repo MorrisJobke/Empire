@@ -78,7 +78,6 @@ class Repository
 
     std::list<GenPropertyBase*> GetPropertyList(){ return this->PropertyList; };
 
-    GenPropertyBase* CreatePropertyFromTypeString(std::string const& rType);
 };
 
 

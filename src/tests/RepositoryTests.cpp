@@ -70,7 +70,7 @@ BOOST_AUTO_TEST_CASE(CreatePropertyFromTypeStringTest)
 {
     Repository repo;
 
-    GenPropertyBase* p_new_prop = repo.CreatePropertyFromTypeString("int");
+    GenPropertyBase* p_new_prop = PropertyHelpers::CreatePropertyFromTypeString("int");
 
     p_new_prop->SetKey("test_property");
     ((GenProperty<int>*) p_new_prop)->SetValue(42);

@@ -17,6 +17,8 @@
 #include "GenPropertyBase.h"
 #include "DefineException.h"
 
+#include "Collection.h"
+
 /** typename templates
  */
 template <typename typ>
@@ -224,6 +226,11 @@ namespace PropertyIo
     void ReadMetaDataFromFile(std::string const& rPath, std::string& rKey, std::string& rType);
 
     void ReadDataFromFile(std::string const& rPath, GenPropertyBase* pProp);
+}
+
+namespace PropertyHelpers
+{
+    GenPropertyBase* CreatePropertyFromTypeString(std::string const& rType);
 }
 
 #endif
