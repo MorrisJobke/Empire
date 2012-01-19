@@ -359,6 +359,8 @@ BOOST_AUTO_TEST_CASE(testRepoRemovePropertyClass)
     BOOST_CHECK(Fs::FileExists(".emp/RechnungsSteller") == false);
     BOOST_CHECK(Fs::FileExists(".emp/RechnungsNehmer") == false);
     BOOST_CHECK(Fs::FileExists(".emp/MeineZahl") == false);
+
+    remove(".emp");
     
     Fs::ChangeCwd("..");
 
