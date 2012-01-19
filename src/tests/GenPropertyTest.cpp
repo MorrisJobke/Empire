@@ -13,6 +13,7 @@
 
 #include <iostream>
 #include <string>
+#include <list>
 
 #include <stdio.h>
 
@@ -20,6 +21,7 @@
 
 #include "../GenProperty.h"
 #include "../Filesystem.h"
+#include "../FunctionType.h"
 
 using namespace std;
 
@@ -81,6 +83,25 @@ BOOST_AUTO_TEST_CASE(GenPropertyStringTest)
     string ret_string = myprop_string.GetValue();
 
     BOOST_CHECK(ret_string == data_string);
+}
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+
+BOOST_AUTO_TEST_CASE(GenPropertyFunctionTest)
+{
+    string map = "return amount * price;";
+    string reduce = "return lhs + rhs;";
+    list<string> functions;
+    functions.push_back(map);
+    functions.push_back(reduce);
+    FunctionType func(functions);
+    string key = "testproperty";
+
+    // GenProperty<FunctionType> myprop_func(func, key);
+
+    // FunctionType ret_function = myprop_func.GetValue();
+
+    // BOOST_CHECK(ret_function == func);
 }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/

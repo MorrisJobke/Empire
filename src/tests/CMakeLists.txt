@@ -18,5 +18,6 @@ if(ENABLE_TESTING)
         GenProperty
         Repository
         Template
-        Collection)
+        Collection
+        FunctionType)
 endif()
