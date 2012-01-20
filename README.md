@@ -19,7 +19,7 @@ Ubuntu:
 
 ArchLinux:
 
-    sudo pacman -S boost lua doxygen graphviz
+    sudo pacman -S boost cmake doxygen graphviz lua pcre
 
 Mac:
 
