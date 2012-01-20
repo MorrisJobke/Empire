@@ -51,7 +51,9 @@ BOOST_AUTO_TEST_CASE(testRepositoryCreation)
     }
     catch(ExcRepository &exc)
     {
-        cout << exc.what() << endl;
+        string err = exc.what();
+        if(err != "Err: Repo Exsists")
+            cout << exc.what() << endl;
     }
 
     string meta_data_folder = ".emp";
@@ -100,7 +102,9 @@ BOOST_AUTO_TEST_CASE(testRepoCreateProperty)
     }
     catch(ExcRepository &exc)
     {
-        cout << exc.what() << endl;
+        string err = exc.what();
+        if(err != "Err: Repo Exsists")
+            cout << exc.what() << endl;
     }
 
     try
@@ -141,7 +145,9 @@ BOOST_AUTO_TEST_CASE(ReadMetaDataFromFile)
     }
     catch(ExcRepository &exc)
     {
-        cout << exc.what() << endl;
+        string err = exc.what();
+        if(err != "Err: Repo Exsists")
+            cout << exc.what() << endl;
     }
 
     string in_type = "double";
@@ -186,7 +192,9 @@ BOOST_AUTO_TEST_CASE(testRepoPropDataIO)
     }
     catch(ExcRepository &exc)
     {
-        cout << exc.what() << endl;
+        string err = exc.what();
+        if(err != "Err: Repo Exsists")
+            cout << exc.what() << endl;
     }
 
 
@@ -239,7 +247,9 @@ BOOST_AUTO_TEST_CASE(testRepoLoad)
     }
     catch(ExcRepository &exc)
     {
-        cout << exc.what() << endl;
+        string err = exc.what();
+        if(err != "Err: Repo Exsists")
+            cout << exc.what() << endl;
     }
 
 
@@ -309,7 +319,9 @@ BOOST_AUTO_TEST_CASE(testRepoRemovePropertyClass)
     }
     catch(ExcRepository &exc)
     {
-        cout << exc.what() << endl;
+        string err = exc.what();
+        if(err != "Err: Repo Exsists")
+            cout << exc.what() << endl;
     }
 
     try
@@ -389,7 +401,9 @@ BOOST_AUTO_TEST_CASE(AddPropertyTest)
     }
     catch(ExcRepository &exc)
     {
-        cout << exc.what() << endl;
+        string err = exc.what();
+        if(err != "Err: Repo Exsists")
+            cout << exc.what() << endl;
     }
     
     repo.AddProperty("ich_selbst", "std::string", "Das ist ein String.");
