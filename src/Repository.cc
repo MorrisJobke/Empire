@@ -374,7 +374,10 @@ void Repository::AddProperty(std::string const& key, std::string const& type, st
             {
                 this->CreatePropertyClass(key, type);
             }
-            catch(ExcRepository exc){}
+            catch(ExcRepository exc)
+            {
+                // TODO
+            }
 
             GenPropertyBase* p_new_prop = PropertyHelpers::CreatePropertyFromTypeString(type);
             p_new_prop->SetKey(key);
