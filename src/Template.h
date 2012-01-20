@@ -33,7 +33,7 @@ class SimpleTemplate : public ITemplate
 {
 private:
     enum Behavior { EAT, GATHER };
-    enum Expectation { ALPHANUM };
+    enum Expectation { ALPHANUM, NONECOLLECTIONEND };
 
     std::map<std::string, GenPropertyBase*> mProperties;
 

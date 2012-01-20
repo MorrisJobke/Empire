@@ -52,6 +52,7 @@ void SimpleTemplate::ParseString(string const& input, string& output)
 {
     ostringstream result;
     string gathered;
+    std::list< std::list<GenPropertyBase*> > collection;
     SimpleTemplate::Behavior behavior = EAT;
     SimpleTemplate::Expectation expectation = ALPHANUM;
 
@@ -62,8 +63,13 @@ void SimpleTemplate::ParseString(string const& input, string& output)
             case EAT:
                 // Variables in template start with @
                 if (*it == '@') {
-                    behavior = GATHER;
-                    expectation = ALPHANUM;
+                    if (*(it + 1) == '@') {
+                        it++;
+                        result << '@';
+                    } else {
+                        behavior = GATHER;
+                        expectation = ALPHANUM;
+                    }
                 } else {
                     result << *it;
                 }
@@ -72,40 +78,66 @@ void SimpleTemplate::ParseString(string const& input, string& output)
 
                 break;
             case GATHER:
-                if(*it == '@') {
-                    result << *it;
-                    it++;
-
-                    // reset behavior
-                    behavior = EAT;
-                    gathered = "";
-                } else {
-                    switch (expectation) {
-                        case ALPHANUM:
-                            if (isalnum(*it)) {
-                                gathered += *it;
-                                it++;
-                            } else { // variable found
-                                GenPropertyBase* property = mProperties[gathered];
-                                if (property && (
-                                    property->GetTypeN() == GetTypeName<int>() ||
-                                    property->GetTypeN() == GetTypeName<float>() ||
-                                    property->GetTypeN() == GetTypeName<string>())) {
-                                    string propertyValue = property->ToString();
-                                    result << propertyValue;
-                                } else {
-                                    // property not provided -> do nothing
-                                }
-
-                                // reset behavior
-                                behavior = EAT;
-                                gathered = "";
-
-                                // btw do not increament it !
-                                // because we have to eat this non alpha character
+                switch (expectation) {
+                    case ALPHANUM:
+                        if (isalnum(*it)) {
+                            gathered += *it;
+                            it++;
+                        } else if (*it == '{' && mProperties[gathered] &&
+                                   mProperties[gathered]->GetTypeN() == GetTypeName<Coll>()) { // Collection
+                            Coll coll = ((GenProperty<Coll>*)mProperties[gathered])->GetValue();
+                            collection = coll.GetList();
+                            behavior = GATHER;
+                            expectation = NONECOLLECTIONEND;
+                            gathered = "";
+                            it++;
+                        } else { // variable found
+                            GenPropertyBase* property = mProperties[gathered];
+                            if (property) {
+                                string propertyValue = property->ToString();
+                                result << propertyValue;
                             }
 
-                    }
+                            // reset behavior
+                            behavior = EAT;
+                            gathered = "";
+
+                            // btw do not increament it !
+                            // because we have to eat this non alpha character
+                        }
+                        break;
+                    case NONECOLLECTIONEND:
+                        if (gathered == "" && *it == '\n') {
+                            // swallow first \n
+                        } else if (*it != '}') {
+                            gathered += *it;
+                        } else {
+                            // for each list of properties
+                            std::list< std::list<GenPropertyBase*> > list = collection;
+                            std::list< std::list<GenPropertyBase*> >::iterator properties;
+                            for (properties = list.begin(); properties != list.end(); properties++) {
+                                // create new SimpleTemplate instance,
+                                SimpleTemplate* tmpl = new SimpleTemplate();
+                                
+                                // assign properties to it
+                                std::list<GenPropertyBase*>::iterator property;
+                                for (property = properties->begin(); property != properties->end(); property++) {
+                                    tmpl->AddProperty(*property);
+                                }
+                                
+                                // and render it ...
+                                string output;
+                                tmpl->ParseString(gathered, output);
+                                result << output;
+                            }
+
+                            // reset behavior
+                            behavior = EAT;
+                            gathered = "";
+                        }
+
+                        it++;
+                        break;
                 }
                 break;
         }

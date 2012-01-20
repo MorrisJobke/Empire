@@ -87,4 +87,57 @@ BOOST_AUTO_TEST_CASE(TemplateReadFileTest)
     remove(path.c_str());
 }
 
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+
+BOOST_AUTO_TEST_CASE(TemplateCollectionTest)
+{
+    GenProperty<string> ingredient1_ingredient("Midori Melon Liqueur", "ingredient");
+    GenProperty<double> ingredient1_oz(1, "oz");
+    GenProperty<string> ingredient2_ingredient("Blue Curacao", "ingredient");
+    GenProperty<double> ingredient2_oz(1, "oz");
+    GenProperty<string> ingredient3_ingredient("Lemonade", "ingredient");
+    GenProperty<double> ingredient3_oz(0.5, "oz");
+
+    std::list<GenPropertyBase*> ingredient1;
+    ingredient1.push_back(&ingredient1_ingredient);
+    ingredient1.push_back(&ingredient1_oz);
+
+    std::list<GenPropertyBase*> ingredient2;
+    ingredient2.push_back(&ingredient2_ingredient);
+    ingredient2.push_back(&ingredient2_oz);
+
+    std::list<GenPropertyBase*> ingredient3;
+    ingredient3.push_back(&ingredient3_ingredient);
+    ingredient3.push_back(&ingredient3_oz);
+
+    Coll ingredients_coll("ingredients");
+    ingredients_coll.Declare(ingredient1);
+    ingredients_coll.AddRow(ingredient2);
+    ingredients_coll.AddRow(ingredient3);
+
+    GenProperty<Coll> ingredients(ingredients_coll, "ingredients");
+
+    SimpleTemplate* tmpl = new SimpleTemplate();
+    tmpl->AddProperty(&ingredients);
+
+    string input = "Nerds Recipe\n\n@ingredients{\n@oz oz @ingredient\n}";
+    string output;
+    tmpl->ParseString(input, output);
+
+    // std::cout << "output: " << output << endl;
+
+    BOOST_CHECK(output == "Nerds Recipe\n\n1 oz Midori Melon Liqueur\n1 oz Blue Curacao\n0.5 oz Lemonade\n");
+
+    remove("ingredients/0");
+    remove("ingredients/0/ingredient");
+    remove("ingredients/0/oz");
+    remove("ingredients/1");
+    remove("ingredients/1/ingredient");
+    remove("ingredients/1/oz");
+    remove("ingredients/2");
+    remove("ingredients/2/ingredient");
+    remove("ingredients/2/oz");
+    remove("ingredients");
+}
+
 BOOST_AUTO_TEST_SUITE_END()
