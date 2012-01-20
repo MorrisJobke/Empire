@@ -15,7 +15,7 @@ Benötigte Pakete
 
 Ubuntu:
 
-    sudo apt-get install libluabind-dev cmake libboost-test-dev
+    sudo apt-get install cmake libboost-test-dev libluabind-dev libpcre3-dev
 
 ArchLinux:
 
@@ -23,7 +23,7 @@ ArchLinux:
 
 Mac:
 
-    brew install cmake boost lua doxygen
+    brew install boost cmake doxygen lua
 
 CMake
 -----
