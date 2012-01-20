@@ -14,6 +14,7 @@
 #include <dirent.h>
 #include <errno.h>
 #include <cstring>
+#include <ftw.h>
 
 #include <iostream>
 #include <fstream>
@@ -40,6 +41,8 @@ namespace Filesystem
     void CreateDirectory(string const& rDirPath);
     bool DirectoryExists(string const& rDirPath);
     void PrintDirEntries(string const& rDirPath);
+    void RemoveDirRec(string const& rPath);
+    int RemoveFile(const char *fpath, const struct stat *sb, int typeflag, struct FTW *ftwbuf);
 
     void FileWriteString(string const& rFilePath, string& rContent);
     void FileAppendString(string const& rFilePath, string& rContent);

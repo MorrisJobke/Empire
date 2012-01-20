@@ -158,6 +158,36 @@ namespace Filesystem
     }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+
+    /** remove the directory recursive
+     * @param rPath path of the directory
+     */ 
+    void RemoveDirRec(string const& rPath)
+    {
+        char* path = new char[rPath.size() + 1];
+        strcpy(path, rPath.c_str());
+        nftw(path, RemoveFile, 64, FTW_DEPTH | FTW_PHYS);
+    }
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+
+    /** remove the file
+     * @param fpath path of the file, which should deleted
+     * @param sb pointer to the stat-struct with the file-informations of fpath
+     * @param typeflag type of file, which should deleted
+     * @param ftwbuf pointer to the ftw-struct with information about relative depth to starting point
+     */ 
+    int RemoveFile(const char *fpath, const struct stat *sb, int typeflag, struct FTW *ftwbuf)
+    {
+        int rv = remove(fpath);
+
+        if (rv)
+            perror(fpath);
+        return rv;
+    }
+
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
     
     /** 
      * @brief function to write a string to file

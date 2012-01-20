@@ -158,4 +158,27 @@ BOOST_AUTO_TEST_CASE(FileReadStringTest)
     remove(path.c_str());
 }
 
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+
+/** test the recursive delete of directories
+ *  
+ */
+BOOST_AUTO_TEST_CASE(testRemoveDirRec)
+{
+    string dir_name = "test_dir2";
+
+    try
+    {
+        Fs::CreateDirectory(dir_name);
+    }
+    catch(Fs::CannotCreateDirError &exc)
+    {
+        cout << "Cannot create directory"  << endl;
+        BOOST_CHECK(false);
+    }
+    
+    Fs::RemoveDirRec(dir_name);
+    BOOST_CHECK(Fs::DirectoryExists(dir_name) == false);
+}
+
 BOOST_AUTO_TEST_SUITE_END()
