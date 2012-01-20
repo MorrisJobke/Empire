@@ -392,7 +392,7 @@ BOOST_AUTO_TEST_CASE(AddPropertyTest)
         cout << exc.what() << endl;
     }
     
-    repo.AddProperty("ich_selbst", "string", "RechnungsSteller");
+    repo.AddProperty("ich_selbst", "std::string", "Das ist ein String.");
     repo.AddProperty("intAuto", "", "123892");
     repo.AddProperty("floatAuto", "", "0.7863");
     repo.AddProperty("stringAuto", "", "Das ist keine Zahl...");

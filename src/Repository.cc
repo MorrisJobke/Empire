@@ -368,8 +368,6 @@ void Repository::AddProperty(std::string const& key, std::string const& type, st
 {
     if(!this->ContainsProperty(key))
     {
-        std::cout << "key=" << key << "type=" << type << "value=" << value << std::endl;
-        
         if (type != "")
         {
             try
@@ -383,25 +381,17 @@ void Repository::AddProperty(std::string const& key, std::string const& type, st
             p_new_prop->SetValueFromString(value);
             this->PropertyList.push_back(p_new_prop);
         }
-        else //TODO: does not work for now...
+        else //get type from value string
         {
-            perror("not implemented:(");
-         /*   const char* float_regex = "[+-]?((\\d+\\.\\d+)|\\.\\d+)$";
-            const char* int_regex = "[+-]?\\d+$";
-
-            regex_t* regex = new regex_t;
-            regcomp(regex, int_regex, REG_EXTENDED | REG_NOSUB);
-            if(!regexec(regex, value.c_str(), 0 , 0 , 0 ))
+           if(RegexHelpers::isInt(value))
                 this->AddProperty(key, GetTypeName<int>(), value);
             else
             {
-                regcomp(regex, float_regex, REG_EXTENDED | REG_NOSUB);
-                if(!regexec(regex, value.c_str(), 0 , 0 , 0 ))
+                if(RegexHelpers::isFloat(value))
                     this->AddProperty(key, GetTypeName<float>(), value);
                 else
                     this->AddProperty(key, GetTypeName<std::string>(), value);
             }
-        */
         }
     }
     else
@@ -545,5 +535,15 @@ namespace RegexHelpers
         30);                /* number of elements in the output vector */
 
         return rc > 0;
+    }
+
+    bool isInt(std::string value) 
+    {
+        return MatchesRegex(value, INT_PATTERN);
+    }
+    
+    bool isFloat(std::string value) 
+    {
+        return MatchesRegex(value, FLOAT_PATTERN);
     }
 }

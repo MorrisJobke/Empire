@@ -82,6 +82,12 @@ class Repository
 
 namespace RegexHelpers
 {
+
+    #define INT_PATTERN "^[+-]?\\d+$"
+    #define FLOAT_PATTERN "^[+-]?((\\d+\\.\\d+)|\\.\\d+)$"
+
+    bool isInt(std::string value);
+    bool isFloat(std::string value);
     bool MatchesRegex(std::string rTargetString, std::string rPattern);
 }
 
