@@ -130,7 +130,7 @@ BOOST_AUTO_TEST_CASE(GenPropertyCopyConstructorTest)
     functions.push_back(reduce);
     FunctionType data_function(functions);
 
-    // GenProperty<FunctionType> test_function(data_function, key);
+    GenProperty<FunctionType> test_function(data_function, key);
     // GenProperty<FunctionType> copied_prop4(test_function);
     // BOOST_CHECK(test_function == copied_prop4);
 }
