@@ -13,10 +13,12 @@ set(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin)
 #
 set(CMAKE_BUILD_TYPE Debug)
 
-set(CMAKE_CXX_FLAGS_DEBUG "-g -Wall -Wextra -Wformat=2 -Winit-self -Winline -Wpacked -Wp,-D_FORTIFY_SOURCE=2 -Wpointer-arith -Wlarger-than-65500 -Wmissing-declarations -Wmissing-format-attribute -Wmissing-noreturn -Wredundant-decls -Wsign-compare -Wstrict-aliasing=2 -Wswitch-enum -Wundef -Wunreachable-code -Wunsafe-loop-optimizations -Wwrite-strings -Wuninitialized -Wconversion-null -lpcre")
+set(CMAKE_CXX_FLAGS_DEBUG "-g -Wall -Wextra -Wformat=2 -Winit-self -Winline -Wpacked -Wp,-D_FORTIFY_SOURCE=2 -Wpointer-arith -Wlarger-than-65500 -Wmissing-declarations -Wmissing-format-attribute -Wmissing-noreturn -Wredundant-decls -Wsign-compare -Wstrict-aliasing=2 -Wswitch-enum -Wundef -Wunreachable-code -Wunsafe-loop-optimizations -Wwrite-strings -Wuninitialized -Wconversion-null")
 
 find_package(Lua51 REQUIRED)
 include_directories(${LUA_INCLUDE_DIR})
+# find_package(PCRE REQUIRED) // still not distributed
+include(${PROJECT_BINARY_DIR}/../FindPCRE.cmake)
 
 # some annoying warnings: (disabled in above Code)
 # -Weffc++
@@ -48,7 +50,8 @@ target_link_libraries(GenProperty
 add_library(Repository Repository)
 target_link_libraries(Repository
     Filesystem
-    GenProperty)
+    GenProperty
+    ${PCRE_LIBRARIES})
 
 ######################
 # Lua Helper library #
