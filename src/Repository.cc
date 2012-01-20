@@ -376,16 +376,10 @@ void Repository::AddProperty(std::string const& key, std::string const& type, st
             {
                 this->CreatePropertyClass(key, type);
             }
-            catch(ExcRepository exc)
-            {
-                
-            }
+            catch(ExcRepository exc){}
 
-            //std::cout << "creating new Property..." << std::endl;
             GenPropertyBase* p_new_prop = PropertyHelpers::CreatePropertyFromTypeString(type);
-            //std::cout << "set Prop key..." << std::endl;
             p_new_prop->SetKey(key);
-            //std::cout << "setting value from string" << std::endl;
             p_new_prop->SetValueFromString(value);
             this->PropertyList.push_back(p_new_prop);
         }
@@ -514,3 +508,42 @@ bool Repository::ContainsProperty(std::string const& key)
 /////////////////////////////// PROTECTED  ///////////////////////////////////
 
 /////////////////////////////// PRIVATE    ///////////////////////////////////
+
+namespace RegexHelpers
+{
+    bool MatchesRegex(std::string rTargetString, std::string rPattern)
+    {
+        pcre *re;
+        const char *error;
+        const char *data = rTargetString.c_str();
+        int erroffset;
+        int rc;
+        int ovector[30];
+
+        re = pcre_compile(
+        rPattern.c_str(),   /* the pattern */
+        0,                  /* default options */
+        &error,             /* for error message */
+        &erroffset,         /* for error offset */
+        NULL);              /* use default character table */
+
+        if (! re)
+        {
+            fprintf(stderr, "PCRE compilation failed at expression offset %d: %s\n", erroffset, error);
+            return false;
+            //TODO: throw exception
+        }
+
+        rc = pcre_exec(
+        re,                 /* the compiled pattern */
+        NULL,               /* no extra data - we didn't study the pattern */
+        data,               /* the subject string */
+        strlen(data),       /* the length of the subject */
+        0,                  /* start at offset 0 in the subject */
+        0,                  /* default options */
+        ovector,            /* output vector for substring information */
+        30);                /* number of elements in the output vector */
+
+        return rc > 0;
+    }
+}

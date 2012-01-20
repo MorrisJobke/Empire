@@ -14,7 +14,7 @@
 #include <iostream>
 #include <fstream>
 
-#include <regex.h>
+#include <pcre.h>
 
 #include "DefineException.h"
 #include "Filesystem.h"
@@ -80,6 +80,9 @@ class Repository
 
 };
 
-
+namespace RegexHelpers
+{
+    bool MatchesRegex(std::string rTargetString, std::string rPattern);
+}
 
 #endif

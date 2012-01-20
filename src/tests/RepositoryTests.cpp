@@ -17,6 +17,7 @@
 #include <list>
 
 #include <stdio.h>
+#include <pcre.h> 
 
 #include <boost/test/unit_test.hpp>
 
@@ -342,37 +343,36 @@ BOOST_AUTO_TEST_CASE(testRepoRemovePropertyClass)
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
 
-/*
-BOOST_AUTO_TEST_CASE(testAutoValueTypeRecognition)
+
+BOOST_AUTO_TEST_CASE(testRegexMatch)
 {
-    const char* float_regex = "^[+-]?((\\d+\\.\\d+)|\\.\\d+)$";
-    const char* int_regex = "^[:digit:]*";
-    const char* test_string = "1234123";
+    char const* int_pattern = "^[+-]?\\d+$";
+    char const* float_pattern = "^[+-]?((\\d+\\.\\d+)|\\.\\d+)$";
 
-    regex_t regex;
-    if(regcomp(&regex, int_regex, REG_EXTENDED | REG_NOSUB))
-        std::cout << "ERROR!!!" << std::endl;
+    /* should match: */
+    BOOST_CHECK(RegexHelpers::MatchesRegex("1234", int_pattern));
+    BOOST_CHECK(RegexHelpers::MatchesRegex("+1234", int_pattern));
+    BOOST_CHECK(RegexHelpers::MatchesRegex("-1234", int_pattern));
 
-    std::cout << REG_EPAREN << std::endl;
-    int errcode = regexec(&regex, test_string, 0 , NULL, 0 );
-    size_t length = regerror (errcode, &regex, NULL, 0);
-    char *buffer = new char[100];
-    (void) regerror (errcode, &regex, buffer, length);
-    std::cout << "reg-error: " << buffer << std::endl;
+    BOOST_CHECK(RegexHelpers::MatchesRegex("1234.4", float_pattern));
+    BOOST_CHECK(RegexHelpers::MatchesRegex("-.4", float_pattern));
+    BOOST_CHECK(RegexHelpers::MatchesRegex("+1234.4", float_pattern));
 
-    if(!regexec(&regex, test_string, 0 , NULL, 0 ))
-        std::cout << "INT!!!" << std::endl;
-    else
-    {
-        regcomp(&regex, float_regex, REG_EXTENDED | REG_NOSUB);
-        if(!regexec(&regex, test_string, 0 , NULL, 0 ))
-            std::cout << "FLOAT!!!" << std::endl;
-        else
-            std::cout << "string!!!" << std::endl;
-    }
-    regfree(&regex);
+    /* shouldn't match: */
+    BOOST_CHECK(!RegexHelpers::MatchesRegex("1234.", int_pattern));
+    BOOST_CHECK(!RegexHelpers::MatchesRegex(".1234", int_pattern));
+    BOOST_CHECK(!RegexHelpers::MatchesRegex("s1234", int_pattern));
+    BOOST_CHECK(!RegexHelpers::MatchesRegex("1234s", int_pattern));
+    BOOST_CHECK(!RegexHelpers::MatchesRegex("Das ist eine Zahl: 1234", int_pattern));
+
+    BOOST_CHECK(!RegexHelpers::MatchesRegex("+12344", float_pattern));
+    BOOST_CHECK(!RegexHelpers::MatchesRegex("12.34.4", float_pattern));
+    BOOST_CHECK(!RegexHelpers::MatchesRegex("+12.34.4", float_pattern));
+    BOOST_CHECK(!RegexHelpers::MatchesRegex("+123.4s", float_pattern));
+    BOOST_CHECK(!RegexHelpers::MatchesRegex("1s234.4", float_pattern));
+    BOOST_CHECK(!RegexHelpers::MatchesRegex("s1234.4", float_pattern));
+
 }
-*/
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
 
