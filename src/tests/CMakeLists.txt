@@ -5,7 +5,7 @@ if(ENABLE_TESTING)
     add_executable(EmpireTest
         MainTests
         FilesystemTests
-        #RepositoryTests
+        RepositoryTests
         CommandTests
         GenPropertyTest
         CollectionTests
