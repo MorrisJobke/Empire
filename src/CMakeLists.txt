@@ -75,7 +75,9 @@ target_link_libraries(LuaHelper
 ######################
 add_library(Template Template)
 target_link_libraries(Template
-    GenProperty)
+    GenProperty
+    LuaHelper
+    FunctionType)
 
 ######################
 # Template library   #

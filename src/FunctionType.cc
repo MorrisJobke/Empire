@@ -29,15 +29,6 @@ FunctionType::FunctionType(std::list<std::string> const& rFunctions)
 {
 }
 
-/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
-
-/** copy constructor
- */
-// FunctionType::FunctionType(FunctionType& rOrigin)
-// {
-//     this->mList = rOrigin.mList;
-// }
-
 /*============================= OPERATORS ==================================*/
 
 /** equal operator
@@ -59,17 +50,6 @@ bool FunctionType::operator!=(FunctionType& rRight)
     return not (*this == rRight);
 }
 
-/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
-
-/** assignment operator
- */
-FunctionType& FunctionType::operator=(FunctionType& rRight)
-{
-    if (this != &rRight)
-        this->mList = rRight.mList;
-
-    return *this;
-}
 /*============================= OPERATIONS =================================*/
 
 /** overloaded operator to write class to stream
@@ -97,10 +77,39 @@ std::istream& operator>>(std::istream& rIn, FunctionType rFunctionType)
  */
 void FunctionType::ToOutStream(std::ostream& rOut)
 {
-    rOut << "huhu";
+    rOut << "\nFunctionType";
+
+    std::list<std::string>::iterator it;
+    for (it = mList.begin(); it != mList.end(); it++) {
+        rOut << "\t{" << *it << "}";
+    }
 }
 
 /*============================= ACCESS     =================================*/
+
+std::string FunctionType::GetMapFunction()
+{
+    std::list<std::string>::iterator it;
+    it = mList.begin();
+    if (it != mList.end())
+        return *it;
+    else
+        return "";
+}
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+
+std::string FunctionType::GetReduceFunction()
+{
+    std::list<std::string>::iterator it;
+    it = mList.begin();
+    it++;
+    if (it != mList.end())
+        return *it;
+    else
+        return "";
+}
+
 /*============================= INQUIRY    =================================*/
 
 /////////////////////////////// PROTECTED  ///////////////////////////////////

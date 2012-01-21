@@ -15,6 +15,8 @@
 #include <sstream>
 
 #include "GenProperty.h"
+#include "FunctionType.h"
+#include "LuaHelper.h"
 
 
 class ITemplate

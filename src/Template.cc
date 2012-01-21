@@ -55,6 +55,7 @@ void SimpleTemplate::ParseString(string const& input, string& output)
     std::list< std::list<GenPropertyBase*> > collection;
     SimpleTemplate::Behavior behavior = EAT;
     SimpleTemplate::Expectation expectation = ALPHANUM;
+    LuaHelper* helper = new LuaHelper();
 
     string::const_iterator it;
     it = input.begin();
@@ -94,8 +95,45 @@ void SimpleTemplate::ParseString(string const& input, string& output)
                         } else { // variable found
                             GenPropertyBase* property = mProperties[gathered];
                             if (property) {
-                                string propertyValue = property->ToString();
-                                result << propertyValue;
+                                if (property->GetTypeN() == GetTypeName<FunctionType>())
+                                {
+                                    GenProperty<FunctionType>* funcProperty = (GenProperty<FunctionType>*) property;
+                                    LuaContext* context = helper->CreateContext();
+
+                                    // adding Properties to context - white list
+                                    std::map<std::string, GenPropertyBase*>::iterator mapit;
+                                    GenPropertyBase* prop;
+                                    for (mapit = mProperties.begin(); mapit != mProperties.end(); mapit++) {
+                                        prop = mapit->second;
+                                        std::string type = prop->GetTypeN();
+                                        if (type == GetTypeName<int>())
+                                        {
+                                            GenProperty<int>* cast_prop = (GenProperty<int>*) prop;
+                                            context->AddVariable(cast_prop->GetKey(), cast_prop->GetValue());
+                                        }
+                                        if (type == GetTypeName<float>())
+                                        {
+                                            GenProperty<float>* cast_prop = (GenProperty<float>*) prop;
+                                            context->AddVariable(cast_prop->GetKey(), cast_prop->GetValue());
+                                        }
+                                        if (type == GetTypeName<double>())
+                                        {
+                                            GenProperty<double>* cast_prop = (GenProperty<double>*) prop;
+                                            context->AddVariable(cast_prop->GetKey(), cast_prop->GetValue());
+                                        }
+                                    }
+
+                                    // execute function
+                                    double val = 0;
+                                    double& value = val;
+                                    context->Execute(funcProperty->GetValue().GetMapFunction(), value);
+                                    result << value;
+                                }
+                                else
+                                {
+                                    string propertyValue = property->ToString();
+                                    result << propertyValue;
+                                }
                             }
 
                             // reset behavior
@@ -118,13 +156,23 @@ void SimpleTemplate::ParseString(string const& input, string& output)
                             for (properties = list.begin(); properties != list.end(); properties++) {
                                 // create new SimpleTemplate instance,
                                 SimpleTemplate* tmpl = new SimpleTemplate();
-                                
+
                                 // assign properties to it
                                 std::list<GenPropertyBase*>::iterator property;
                                 for (property = properties->begin(); property != properties->end(); property++) {
                                     tmpl->AddProperty(*property);
                                 }
-                                
+                                // assign also all functions
+                                std::map<std::string, GenPropertyBase*>::iterator mapit;
+                                GenPropertyBase* prop;
+                                for (mapit = mProperties.begin(); mapit != mProperties.end(); mapit++) {
+                                    prop = mapit->second;
+                                    if (prop->GetTypeN() == GetTypeName<FunctionType>())
+                                    {
+                                        tmpl->AddProperty(prop);
+                                    }
+                                }
+
                                 // and render it ...
                                 string output;
                                 tmpl->ParseString(gathered, output);
@@ -144,6 +192,7 @@ void SimpleTemplate::ParseString(string const& input, string& output)
     }
 
     output = result.str();
+    delete helper;
 }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/

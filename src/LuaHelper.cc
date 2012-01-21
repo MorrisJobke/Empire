@@ -63,7 +63,7 @@ LuaContext* LuaHelper::CreateContext()
  * @param name the variable name
  * @param value variable name
  */
-void LuaContext::AddVariable(std::string const& name, int& value)
+void LuaContext::AddVariable(std::string const& name, int value)
 {
     std::ostringstream oss;
     oss << name << "=" << value << ";";
@@ -77,7 +77,7 @@ void LuaContext::AddVariable(std::string const& name, int& value)
  * @param name variable name
  * @param value variable name
  */
-void LuaContext::AddVariable(std::string const& name, double& value)
+void LuaContext::AddVariable(std::string const& name, double value)
 {
     std::ostringstream oss;
     oss << name << "=" << value << ";";
