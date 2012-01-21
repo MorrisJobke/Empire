@@ -15,6 +15,7 @@
 #include <errno.h>
 #include <cstring>
 #include <ftw.h>
+#include <list>
 
 #include <iostream>
 #include <fstream>
@@ -43,9 +44,10 @@ namespace Filesystem
     void PrintDirEntries(string const& rDirPath);
     void RemoveDirRec(string const& rPath);
     int RemoveFile(const char *fpath, const struct stat *sb, int typeflag, struct FTW *ftwbuf);
+    void RemoveFilesInDirRec(std::string const& rName, std::string const& rDirPath);
 
-    void FileWriteString(string const& rFilePath, string& rContent);
-    void FileAppendString(string const& rFilePath, string& rContent);
+    void FileWriteString(string const& rFilePath, string const& rContent);
+    void FileAppendString(string const& rFilePath, string const& rContent);
     void FileDelete(string const& rFilePath);
     bool FileExists(std::string const& rPath);
     

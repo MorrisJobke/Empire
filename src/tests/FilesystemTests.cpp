@@ -181,4 +181,35 @@ BOOST_AUTO_TEST_CASE(testRemoveDirRec)
     BOOST_CHECK(Fs::DirectoryExists(dir_name) == false);
 }
 
+BOOST_AUTO_TEST_CASE(testRemoveFilesInDirRec)
+{
+    string dir_name = "test_dir3";
+    string dir2_name = "test_4";
+    
+    try
+    {
+        Fs::CreateDirectory(dir_name);
+        Fs::FileWriteString(dir_name + "/" + "test1", "test");
+        Fs::FileWriteString(dir_name + "/" + "test", "I'm a bad file.");
+        Fs::CreateDirectory(dir2_name);
+        Fs::FileWriteString(dir2_name + "/" + "test1", "test");
+        Fs::FileWriteString(dir2_name + "/" + "test", "I'm a bad file.");
+    }
+    catch(Fs::CannotCreateDirError &exc)
+    {
+        cout << "Cannot create directory or file"  << endl;
+        BOOST_CHECK(false);
+    }
+    
+    Fs::RemoveFilesInDirRec("test", ".");
+    
+    BOOST_CHECK(Fs::FileExists(dir_name + "/" + "test1"));
+    BOOST_CHECK(!Fs::FileExists(dir_name + "/" + "test"));
+    BOOST_CHECK(Fs::FileExists(dir2_name + "/" + "test1"));
+    BOOST_CHECK(!Fs::FileExists(dir2_name + "/" + "test"));
+
+    Fs::RemoveDirRec(dir_name);
+    Fs::RemoveDirRec(dir2_name);
+}
+
 BOOST_AUTO_TEST_SUITE_END()

@@ -186,6 +186,58 @@ namespace Filesystem
         return rv;
     }
 
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+
+    /** remove all files with specified filename in the given directory recursively
+     *
+     * @param rName the name of the files
+     * @param rDirPath directory where the files should be removed
+     */
+    void RemoveFilesInDirRec(std::string const& rName, std::string const& rDirPath)
+    {
+        std::list<std::string> dirPathsToDo;
+        std::string currDir;
+
+        dirPathsToDo.push_back(rDirPath);
+
+        DIR *dp;
+        struct dirent *ep;
+
+        while(!dirPathsToDo.empty())
+        {
+            currDir = dirPathsToDo.front();
+            dp = opendir (currDir.c_str());
+            dirPathsToDo.pop_front();;
+            
+            //std::cout << "Scanning DIR: " << currDir << std::endl;
+            if (dp != NULL)
+            {
+                while ((ep = readdir (dp)))
+                {
+                    std::string fileName = ep->d_name;
+                    //std::cout << "Scanning File:" << fileName << std::endl;
+
+                    //ignore . and ..
+                    if(fileName == ".." || fileName == ".")
+                        continue;
+
+                    if (ep->d_type == DT_DIR)
+                    {
+                        //std::cout << "Putting dir on list: " << currDir + "/" + fileName << std::endl;
+                        dirPathsToDo.push_back(currDir + "/" + fileName);
+                    }   
+                    else if (fileName == rName)
+                    {
+                        //std::cout << "Deleting: " << currDir + "/" + fileName << std::endl;
+                        FileDelete(currDir + "/" + fileName);
+                    }
+                }
+                (void) closedir (dp);
+            }
+            else
+                perror ("Couldn't open the directory");
+        }
+    }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
     
@@ -194,7 +246,7 @@ namespace Filesystem
      * @param rFilePath path where string should be written
      * @param rContent  string that should be written
      */
-    void FileWriteString(string const& rFilePath, string& rContent)
+    void FileWriteString(string const& rFilePath, string const& rContent)
     {
         ofstream file;
 
@@ -216,7 +268,7 @@ namespace Filesystem
      * @param rFilePath path of the file that should be appended
      * @param rContent string that will be appended to the given File
      */ 
-    void FileAppendString(string const& rFilePath, string& rContent)
+    void FileAppendString(string const& rFilePath, string const& rContent)
     {
         ofstream file;
 
