@@ -97,11 +97,50 @@ BOOST_AUTO_TEST_CASE(GenPropertyFunctionTest)
     FunctionType func(functions);
     string key = "testproperty";
 
+    /** complete function */
+
     GenProperty<FunctionType> myprop_func(func, key);
 
     FunctionType ret_function = myprop_func.GetValue();
-
     BOOST_CHECK(ret_function == func);
+
+    string ret_string = ret_function.GetMapFunction();
+    BOOST_CHECK(ret_string == map);
+
+    ret_string = ret_function.GetReduceFunction();
+    BOOST_CHECK(ret_string == reduce);
+
+    /** just map function */
+
+    functions.pop_back();
+    FunctionType func2(functions);
+
+    GenProperty<FunctionType> myprop_func2(func2, key);
+
+    ret_function = myprop_func2.GetValue();
+    BOOST_CHECK(ret_function == func2);
+
+    ret_string = ret_function.GetMapFunction();
+    BOOST_CHECK(ret_string == map);
+
+    ret_string = ret_function.GetReduceFunction();
+    BOOST_CHECK(ret_string == "");
+
+    /** no functions */
+
+    functions.pop_back();
+    FunctionType func3(functions);
+
+    GenProperty<FunctionType> myprop_func3(func3, key);
+
+    ret_function = myprop_func3.GetValue();
+    BOOST_CHECK(ret_function == func3);
+
+    ret_string = ret_function.GetMapFunction();
+    BOOST_CHECK(ret_string == "");
+
+    ret_string = ret_function.GetReduceFunction();
+    BOOST_CHECK(ret_string == "");
 }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
