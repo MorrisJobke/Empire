@@ -306,14 +306,12 @@ void Coll::DebugPrint()
         std::list<GenPropertyBase*>::const_iterator inner;
         std::cout << "label" << std::endl;
 
-        for (inner = (*outer).begin(); inner != (*outer).end(); inner++)
+        for (inner = outer->begin(); inner != outer->end(); inner++)
         {
             if ((*inner) == NULL)
                 std::cout << "NULL" << std::endl;
             else
                 std::cout << "   " << *(*inner) << std::endl;
-
-
         }
 
         std::cout << "}" << std::endl;
