@@ -443,33 +443,24 @@ void Repository::RemovePropertyClass(std::string const& key)
  */
 void Repository::RemovePropertyClassAndInstances(std::string const& key)
 {
-    DIR *dp;
-    struct dirent *ep;
+    //remove from file system
+    Fs::RemoveFilesInDirRec(key, this->mAbsoluteRepoPath + "/" + REPO_NAME);
 
-    dp = opendir (REPO_NAME);
-    if (dp != NULL)
-    {
-        while ((ep = readdir (dp)))
-        {
-            std::string entry = ep->d_name;
-
-            /* skip standard links */
-            if (entry == "." || entry == "..")
-                continue;
-
-            if (entry == key)
-            {
-                std::string const path = this->mAbsoluteRepoPath + "/" + REPO_NAME + "/" + key;
-                this->RemoveProperty(path, key);
-                //TODO: props in unterordnern?
-            }
-        }
-        (void) closedir (dp);
-    }
-    else
-        perror ("Couldn't open the directory");
-
+    //remove the class
     RemovePropertyClass(key);
+
+    //remove from property list
+    std::list<GenPropertyBase*>::iterator it;
+
+    for (it = this->PropertyList.begin(); it != this->PropertyList.end(); it++)
+    {
+        if ((*it)->GetKey() == key)
+        {
+            it = PropertyList.erase(it);
+            --it;
+        }
+    }
+
 }
 
 /*============================= ACESS      =================================*/
