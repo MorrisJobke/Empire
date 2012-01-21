@@ -191,20 +191,20 @@ BOOST_AUTO_TEST_CASE(TemplateCollectionAndFunctionTest)
     tmpl->AddProperty(&ingredients);
     tmpl->AddProperty(&price);
 
-    string input = "Nerds Recipe Vol.2\n\n@ingredients{\n@oz oz @ingredient @price\n}";
+    string input = "Nerds Recipe Vol.2\n\n@ingredients{\n@oz oz @ingredient(á @priceperoz €) @price\n}";
     string output;
     tmpl->ParseString(input, output);
 
-    BOOST_CHECK(output == "Nerds Recipe Vol.2\n\n1 oz Midori Melon Liqueur 1.67\n3 oz Blue Curacao 6.09\n0.5 oz Lemonade 3.92\n");
+    BOOST_CHECK(output == "Nerds Recipe Vol.2\n\n1 oz Midori Melon Liqueur(á 1.67 €) 1.67\n3 oz Blue Curacao(á 2.03 €) 6.09\n0.5 oz Lemonade(á 7.84 €) 3.92\n");
 
 
-    // string input = "Nerds Recipe Vol.2\n\n@ingredients{\n@oz oz @ingredient @price\n}\nTotal:\t @price";
-    // output = "";
-    // tmpl->ParseString(input, output);
+    input = "Nerds Recipe Vol.2\n\n@ingredients{\n@oz oz @ingredient\n}\nTotal:\t@price €";
+    output = "";
+    tmpl->ParseString(input, output);
 
     // std::cout << "output: " << output << endl;
 
-    // BOOST_CHECK(output == "Nerds Recipe Vol.2\n\n1 oz Midori Melon Liqueur 1.67\n3 oz Blue Curacao 6.09\n0.5 oz Lemonade 3.92\n\nTotal:\t11.68");
+    BOOST_CHECK(output == "Nerds Recipe Vol.2\n\n1 oz Midori Melon Liqueur\n3 oz Blue Curacao\n0.5 oz Lemonade\n\nTotal:\t11.68 €");
 
     remove("ingredients/0/ingredient");
     remove("ingredients/0/oz");
