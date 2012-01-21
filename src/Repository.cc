@@ -366,36 +366,33 @@ void Repository::ReadPropDataFromFile(std::string const& rPath, GenPropertyBase*
  */
 void Repository::AddProperty(std::string const& key, std::string const& type, std::string const& value)
 {
+    std::string tmp_type = type;
+
     if(!this->ContainsProperty(key))
     {
-        if (type != "")
+        if (tmp_type == "") //recognize type from value
         {
-            try
-            {
-                this->CreatePropertyClass(key, type);
-            }
-            catch(ExcRepository exc)
-            {
-                // TODO
-            }
-
-            GenPropertyBase* p_new_prop = PropertyHelpers::CreatePropertyFromTypeString(type);
-            p_new_prop->SetKey(key);
-            p_new_prop->SetValueFromString(value);
-            this->PropertyList.push_back(p_new_prop);
-        }
-        else //get type from value string
-        {
-           if(RegexHelper::isInt(value))
-                this->AddProperty(key, GetTypeName<int>(), value);
+            if(RegexHelper::isInt(value))
+                tmp_type = GetTypeName<int>();
+            else if(RegexHelper::isFloat(value))
+                tmp_type = GetTypeName<float>();
             else
-            {
-                if(RegexHelper::isFloat(value))
-                    this->AddProperty(key, GetTypeName<float>(), value);
-                else
-                    this->AddProperty(key, GetTypeName<std::string>(), value);
-            }
+                tmp_type = GetTypeName<std::string>();
         }
+    
+        try
+        {
+            this->CreatePropertyClass(key, type);
+        }
+        catch(ExcRepository exc)
+        {
+            // TODO
+        }
+
+        GenPropertyBase* p_new_prop = PropertyHelpers::CreatePropertyFromTypeString(tmp_type);
+        p_new_prop->SetKey(key);
+        p_new_prop->SetValueFromString(value);
+        this->PropertyList.push_back(p_new_prop);
     }
     else
         throw PropExistentError();
