@@ -92,8 +92,8 @@ void Coll::Load(std::string const& rPath)
 
             GenPropertyBase* p_new_prop = PropertyHelpers::CreatePropertyFromTypeString(new_type);
             p_new_prop->SetKey(new_key);
-            
-            std::cout << "read prop data: " << *p_new_prop << std::endl;
+
+            // std::cout << "read prop data: " << *p_new_prop << std::endl;
 
             dec_list.push_back(p_new_prop);
         }
@@ -131,7 +131,7 @@ void Coll::Load(std::string const& rPath)
 
     /* scan data dirs */
 
-    std::cout << "Dir count " << dir_count << std::endl;
+    // std::cout << "Dir count " << dir_count << std::endl;
 
     for (int dir_idx = 1; dir_idx < dir_count; dir_idx++)
     {
@@ -165,8 +165,8 @@ void Coll::Load(std::string const& rPath)
 
                 PropertyIo::ReadDataFromFile(this->mPath + "/" + str.str() + "/" + entry, p_new_prop);
 
-                
-                std::cout << "read prop data: " << *p_new_prop << std::endl;
+
+                // std::cout << "read prop data: " << *p_new_prop << std::endl;
 
                 new_list.push_back(p_new_prop);
             }
@@ -177,7 +177,7 @@ void Coll::Load(std::string const& rPath)
 
         if (new_list.empty() == false)
         {
-            std::cout << "pushing data: " << std::endl;
+            // std::cout << "pushing data: " << std::endl;
             this->mPropList.push_back(new_list);
         }
     }

@@ -145,84 +145,82 @@ BOOST_AUTO_TEST_CASE(CollectionAddRowTest)
 BOOST_AUTO_TEST_CASE(CollectionPropTest)
 {
     ///* create some properties */
-    //
-    //GenProperty<string> product("product"); 
-    //GenProperty<string> unvalid("unvalid"); 
-    //GenProperty<int> units("units"); 
-    //GenProperty<double> price("price"); 
 
-    //std::list<GenPropertyBase*> prop_list;
+    GenProperty<string> product("product");
+    GenProperty<string> unvalid("unvalid");
+    GenProperty<int> units("units");
+    GenProperty<double> price("price");
 
-    //prop_list.push_back(&product);
-    //prop_list.push_back(&units);
-    //prop_list.push_back(&price);
+    std::list<GenPropertyBase*> prop_list;
 
-    ///* create entries */
-    //product.SetValue("Dildo");
-    //units.SetValue(4);
-    //price.SetValue(23.99);
-    //unvalid.SetValue("lolol");
+    prop_list.push_back(&product);
+    prop_list.push_back(&units);
+    prop_list.push_back(&price);
 
-    //std::list<GenPropertyBase*> entry_list;
-    //entry_list.push_back(&product);
-    //entry_list.push_back(&units);
-    //entry_list.push_back(&price);
-    //
+    /* create entries */
+    product.SetValue("Dildo");
+    units.SetValue(4);
+    price.SetValue(23.99);
+    unvalid.SetValue("lolol");
 
-    //try
-    //{
-
-    //    Coll mycol("coll_test");
-
-    //    mycol.Declare(prop_list);
-
-    //    mycol.AddRow(entry_list);
-    //}
-    //catch(ErrorColl &exc)
-    //{
-    //    cout << exc.what() << endl;
-    //}
+    std::list<GenPropertyBase*> entry_list;
+    entry_list.push_back(&product);
+    entry_list.push_back(&units);
+    entry_list.push_back(&price);
 
 
+    try
+    {
+
+       Coll mycol("coll_test");
+
+       mycol.Declare(prop_list);
+
+       mycol.AddRow(entry_list);
+    }
+    catch(ErrorColl &exc)
+    {
+       cout << exc.what() << endl;
+    }
 
 
 
-    //BOOST_CHECK(Fs::DirectoryExists("coll_test") == true);
-    //BOOST_CHECK(Fs::DirectoryExists("coll_test/1") == true);
-    //BOOST_CHECK(Fs::FileExists("coll_test/1/product") == true);
-    //BOOST_CHECK(Fs::FileExists("coll_test/1/units") == true);
-    //BOOST_CHECK(Fs::FileExists("coll_test/1/price") == true);
+
+
+    BOOST_CHECK(Fs::DirectoryExists("coll_test") == true);
+    BOOST_CHECK(Fs::DirectoryExists("coll_test/1") == true);
+    BOOST_CHECK(Fs::FileExists("coll_test/1/product") == true);
+    BOOST_CHECK(Fs::FileExists("coll_test/1/units") == true);
+    BOOST_CHECK(Fs::FileExists("coll_test/1/price") == true);
 
 
 
     ///* try to load the collection */
-    //GenProperty<Coll> coll("collection");
-    //
-    //cout << "here" << endl;
-    ////Coll mycol = coll.GetValue();
-    //Coll mycol;
-    //cout << "here" << endl;
+    GenProperty<Coll> coll("collection");
 
-    //try
-    //{
-    //    mycol.Load("coll_test");
-    //    mycol.DebugPrint();
-    //}
-    //catch(ErrorColl &exc)
-    //{
-    //    cout << exc.what() << endl;
-    //}
+    //Coll mycol = coll.GetValue();
+    Coll mycol;
+
+    try
+    {
+       mycol.Load("coll_test");
+       // mycol.DebugPrint();
+    }
+    catch(ErrorColl &exc)
+    {
+       cout << exc.what() << endl;
+    }
 
 
-    //remove("coll_test/0/product");
-    //remove("coll_test/0/units");
-    //remove("coll_test/0/price");
-    //remove("coll_test/1/product");
-    //remove("coll_test/1/units");
-    //remove("coll_test/1/price");
-    //remove("coll_test/0");
-    //remove("coll_test/1");
-    //remove("coll_test");
+    remove("coll_test/0/product");
+    remove("coll_test/0/units");
+    remove("coll_test/0/price");
+    remove("coll_test/1/product");
+    remove("coll_test/1/units");
+    remove("coll_test/1/price");
+    remove("coll_test/0");
+    remove("coll_test/1");
+    remove("coll_test");
 
 }
 
