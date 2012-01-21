@@ -33,6 +33,13 @@ endif()
 ######################
 add_library(Filesystem Filesystem)
 
+#######################
+# RegexHelper library #
+#######################
+add_library(RegexHelper RegexHelper)
+target_link_libraries(Filesystem
+    ${PCRE_LIBRARIES})
+
 ########################
 # FunctionType library #
 ########################
@@ -54,7 +61,7 @@ add_library(Repository Repository)
 target_link_libraries(Repository
     Filesystem
     GenProperty
-    ${PCRE_LIBRARIES})
+    RegexHelper)
 
 ######################
 # Lua Helper library #

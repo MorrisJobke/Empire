@@ -362,27 +362,27 @@ BOOST_AUTO_TEST_CASE(testRegexMatch)
     char const* float_pattern = "^[+-]?((\\d+\\.\\d+)|\\.\\d+)$";
 
     /* should match: */
-    BOOST_CHECK(RegexHelpers::MatchesRegex("1234", int_pattern));
-    BOOST_CHECK(RegexHelpers::MatchesRegex("+1234", int_pattern));
-    BOOST_CHECK(RegexHelpers::MatchesRegex("-1234", int_pattern));
+    BOOST_CHECK(RegexHelper::MatchesRegex("1234", int_pattern));
+    BOOST_CHECK(RegexHelper::MatchesRegex("+1234", int_pattern));
+    BOOST_CHECK(RegexHelper::MatchesRegex("-1234", int_pattern));
 
-    BOOST_CHECK(RegexHelpers::MatchesRegex("1234.4", float_pattern));
-    BOOST_CHECK(RegexHelpers::MatchesRegex("-.4", float_pattern));
-    BOOST_CHECK(RegexHelpers::MatchesRegex("+1234.4", float_pattern));
+    BOOST_CHECK(RegexHelper::MatchesRegex("1234.4", float_pattern));
+    BOOST_CHECK(RegexHelper::MatchesRegex("-.4", float_pattern));
+    BOOST_CHECK(RegexHelper::MatchesRegex("+1234.4", float_pattern));
 
     /* shouldn't match: */
-    BOOST_CHECK(!RegexHelpers::MatchesRegex("1234.", int_pattern));
-    BOOST_CHECK(!RegexHelpers::MatchesRegex(".1234", int_pattern));
-    BOOST_CHECK(!RegexHelpers::MatchesRegex("s1234", int_pattern));
-    BOOST_CHECK(!RegexHelpers::MatchesRegex("1234s", int_pattern));
-    BOOST_CHECK(!RegexHelpers::MatchesRegex("Das ist eine Zahl: 1234", int_pattern));
+    BOOST_CHECK(!RegexHelper::MatchesRegex("1234.", int_pattern));
+    BOOST_CHECK(!RegexHelper::MatchesRegex(".1234", int_pattern));
+    BOOST_CHECK(!RegexHelper::MatchesRegex("s1234", int_pattern));
+    BOOST_CHECK(!RegexHelper::MatchesRegex("1234s", int_pattern));
+    BOOST_CHECK(!RegexHelper::MatchesRegex("Das ist eine Zahl: 1234", int_pattern));
 
-    BOOST_CHECK(!RegexHelpers::MatchesRegex("+12344", float_pattern));
-    BOOST_CHECK(!RegexHelpers::MatchesRegex("12.34.4", float_pattern));
-    BOOST_CHECK(!RegexHelpers::MatchesRegex("+12.34.4", float_pattern));
-    BOOST_CHECK(!RegexHelpers::MatchesRegex("+123.4s", float_pattern));
-    BOOST_CHECK(!RegexHelpers::MatchesRegex("1s234.4", float_pattern));
-    BOOST_CHECK(!RegexHelpers::MatchesRegex("s1234.4", float_pattern));
+    BOOST_CHECK(!RegexHelper::MatchesRegex("+12344", float_pattern));
+    BOOST_CHECK(!RegexHelper::MatchesRegex("12.34.4", float_pattern));
+    BOOST_CHECK(!RegexHelper::MatchesRegex("+12.34.4", float_pattern));
+    BOOST_CHECK(!RegexHelper::MatchesRegex("+123.4s", float_pattern));
+    BOOST_CHECK(!RegexHelper::MatchesRegex("1s234.4", float_pattern));
+    BOOST_CHECK(!RegexHelper::MatchesRegex("s1234.4", float_pattern));
 
 }
 

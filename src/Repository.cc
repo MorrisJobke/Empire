@@ -386,11 +386,11 @@ void Repository::AddProperty(std::string const& key, std::string const& type, st
         }
         else //get type from value string
         {
-           if(RegexHelpers::isInt(value))
+           if(RegexHelper::isInt(value))
                 this->AddProperty(key, GetTypeName<int>(), value);
             else
             {
-                if(RegexHelpers::isFloat(value))
+                if(RegexHelper::isFloat(value))
                     this->AddProperty(key, GetTypeName<float>(), value);
                 else
                     this->AddProperty(key, GetTypeName<std::string>(), value);
@@ -501,52 +501,3 @@ bool Repository::ContainsProperty(std::string const& key)
 /////////////////////////////// PROTECTED  ///////////////////////////////////
 
 /////////////////////////////// PRIVATE    ///////////////////////////////////
-
-namespace RegexHelpers
-{
-    bool MatchesRegex(std::string rTargetString, std::string rPattern)
-    {
-        pcre *re;
-        const char *error;
-        const char *data = rTargetString.c_str();
-        int erroffset;
-        int rc;
-        int ovector[30];
-
-        re = pcre_compile(
-        rPattern.c_str(),   /* the pattern */
-        0,                  /* default options */
-        &error,             /* for error message */
-        &erroffset,         /* for error offset */
-        NULL);              /* use default character table */
-
-        if (! re)
-        {
-            fprintf(stderr, "PCRE compilation failed at expression offset %d: %s\n", erroffset, error);
-            return false;
-            //TODO: throw exception
-        }
-
-        rc = pcre_exec(
-        re,                 /* the compiled pattern */
-        NULL,               /* no extra data - we didn't study the pattern */
-        data,               /* the subject string */
-        strlen(data),       /* the length of the subject */
-        0,                  /* start at offset 0 in the subject */
-        0,                  /* default options */
-        ovector,            /* output vector for substring information */
-        30);                /* number of elements in the output vector */
-
-        return rc > 0;
-    }
-
-    bool isInt(std::string value) 
-    {
-        return MatchesRegex(value, INT_PATTERN);
-    }
-    
-    bool isFloat(std::string value) 
-    {
-        return MatchesRegex(value, FLOAT_PATTERN);
-    }
-}

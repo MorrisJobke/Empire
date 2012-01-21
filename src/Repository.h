@@ -14,11 +14,10 @@
 #include <iostream>
 #include <fstream>
 
-#include <pcre.h>
-
 #include "DefineException.h"
 #include "Filesystem.h"
 #include "GenProperty.h"
+#include "RegexHelper.h"
 
 #define REPO_NAME ".emp"
 
@@ -79,16 +78,5 @@ class Repository
     std::list<GenPropertyBase*> GetPropertyList(){ return this->PropertyList; };
 
 };
-
-namespace RegexHelpers
-{
-
-    #define INT_PATTERN "^[+-]?\\d+$"
-    #define FLOAT_PATTERN "^[+-]?((\\d+\\.\\d+)|\\.\\d+)$"
-
-    bool isInt(std::string value);
-    bool isFloat(std::string value);
-    bool MatchesRegex(std::string rTargetString, std::string rPattern);
-}
 
 #endif
