@@ -37,7 +37,7 @@ add_library(Filesystem Filesystem)
 # RegexHelper library #
 #######################
 add_library(RegexHelper RegexHelper)
-target_link_libraries(Filesystem
+target_link_libraries(RegexHelper
     ${PCRE_LIBRARIES})
 
 ########################
