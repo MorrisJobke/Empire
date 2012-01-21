@@ -113,7 +113,7 @@ void Repository::Init()
     /* check if repo is already there */
 
     if (this->mAbsoluteRepoPath != "")
-        throw ExcRepository("Err: Repo Exsists");
+        throw ExcRepository("Err: Repo Exists");
 
 
     /* create the repo directory */
@@ -260,7 +260,7 @@ void Repository::CreatePropertyClass(std::string const& key, std::string const& 
     /* check if repo exists */
 
     if (this->mAbsoluteRepoPath == "")
-        throw ExcRepository("Err: Repo Not Exsists");
+        throw ExcRepository("Err: Repo Not Exists");
 
 
     /* check if property exists */

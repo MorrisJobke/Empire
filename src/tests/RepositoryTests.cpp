@@ -52,7 +52,7 @@ BOOST_AUTO_TEST_CASE(testRepositoryCreation)
     catch(ExcRepository &exc)
     {
         string err = exc.what();
-        if(err != "Err: Repo Exsists")
+        if(err != "Err: Repo Exists")
             cout << exc.what() << endl;
     }
 
@@ -100,7 +100,7 @@ BOOST_AUTO_TEST_CASE(testRepoCreateProperty)
     catch(ExcRepository &exc)
     {
         string err = exc.what();
-        if(err != "Err: Repo Exsists")
+        if(err != "Err: Repo Exists")
             cout << exc.what() << endl;
     }
 
@@ -143,7 +143,7 @@ BOOST_AUTO_TEST_CASE(ReadMetaDataFromFile)
     catch(ExcRepository &exc)
     {
         string err = exc.what();
-        if(err != "Err: Repo Exsists")
+        if(err != "Err: Repo Exists")
             cout << exc.what() << endl;
     }
 
@@ -190,7 +190,7 @@ BOOST_AUTO_TEST_CASE(testRepoPropDataIO)
     catch(ExcRepository &exc)
     {
         string err = exc.what();
-        if(err != "Err: Repo Exsists")
+        if(err != "Err: Repo Exists")
             cout << exc.what() << endl;
     }
 
@@ -245,7 +245,7 @@ BOOST_AUTO_TEST_CASE(testRepoLoad)
     catch(ExcRepository &exc)
     {
         string err = exc.what();
-        if(err != "Err: Repo Exsists")
+        if(err != "Err: Repo Exists")
             cout << exc.what() << endl;
     }
 
@@ -319,7 +319,7 @@ BOOST_AUTO_TEST_CASE(testRepoRemovePropertyClass)
     catch(ExcRepository &exc)
     {
         string err = exc.what();
-        if(err != "Err: Repo Exsists")
+        if(err != "Err: Repo Exists")
             cout << exc.what() << endl;
     }
 
@@ -331,7 +331,9 @@ BOOST_AUTO_TEST_CASE(testRepoRemovePropertyClass)
     }
     catch(ExcRepository &exc)
     {
-        cout << exc.what() << endl;
+        string err = exc.what();
+        if(err != "Err: Repo Exists")
+            cout << exc.what() << endl;
     }
 
     BOOST_CHECK(Fs::FileExists(".emp/RechnungsSteller") == true);
