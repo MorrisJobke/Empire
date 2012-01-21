@@ -195,9 +195,16 @@ BOOST_AUTO_TEST_CASE(TemplateCollectionAndFunctionTest)
     string output;
     tmpl->ParseString(input, output);
 
-    std::cout << "output: " << output << endl;
-
     BOOST_CHECK(output == "Nerds Recipe Vol.2\n\n1 oz Midori Melon Liqueur 1.67\n3 oz Blue Curacao 6.09\n0.5 oz Lemonade 3.92\n");
+
+
+    // string input = "Nerds Recipe Vol.2\n\n@ingredients{\n@oz oz @ingredient @price\n}\nTotal:\t @price";
+    // output = "";
+    // tmpl->ParseString(input, output);
+
+    // std::cout << "output: " << output << endl;
+
+    // BOOST_CHECK(output == "Nerds Recipe Vol.2\n\n1 oz Midori Melon Liqueur 1.67\n3 oz Blue Curacao 6.09\n0.5 oz Lemonade 3.92\n\nTotal:\t11.68");
 
     remove("ingredients/0/ingredient");
     remove("ingredients/0/oz");
