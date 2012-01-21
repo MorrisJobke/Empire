@@ -115,15 +115,10 @@ BOOST_AUTO_TEST_CASE(GenPropertyFunctionTest)
     functions.pop_back();
     FunctionType func2(functions);
 
-    GenProperty<FunctionType> myprop_func2(func2, key);
-
-    ret_function = myprop_func2.GetValue();
-    BOOST_CHECK(ret_function == func2);
-
-    ret_string = ret_function.GetMapFunction();
+    ret_string = func2.GetMapFunction();
     BOOST_CHECK(ret_string == map);
 
-    ret_string = ret_function.GetReduceFunction();
+    ret_string = func2.GetReduceFunction();
     BOOST_CHECK(ret_string == "");
 
     /** no functions */
@@ -131,15 +126,11 @@ BOOST_AUTO_TEST_CASE(GenPropertyFunctionTest)
     functions.pop_back();
     FunctionType func3(functions);
 
-    GenProperty<FunctionType> myprop_func3(func3, key);
-
-    ret_function = myprop_func3.GetValue();
-    BOOST_CHECK(ret_function == func3);
-
-    ret_string = ret_function.GetMapFunction();
+    ret_string = func3.GetMapFunction();
+    cout << ret_string;
     BOOST_CHECK(ret_string == "");
 
-    ret_string = ret_function.GetReduceFunction();
+    ret_string = func3.GetReduceFunction();
     BOOST_CHECK(ret_string == "");
 }
 
