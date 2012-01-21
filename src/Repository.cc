@@ -409,9 +409,9 @@ void Repository::RemoveProperty(std::string const& rPath, std::string const& key
 {
     try
     {
-        Filesystem::FileDelete(rPath);
+        Fs::FileDelete(rPath);
     }
-    catch(Filesystem::CannotFindFileError const& e)
+    catch(Fs::CannotFindFileError const& e)
     {
         throw PropNotExists();
     }
@@ -427,9 +427,9 @@ void Repository::RemovePropertyClass(std::string const& key)
 {
     try
     {
-        Filesystem::FileDelete(this->mAbsoluteRepoPath + "/" + REPO_NAME + "/" + key);
+        Fs::FileDelete(this->mAbsoluteRepoPath + "/" + REPO_NAME + "/" + key);
     }
-    catch(Filesystem::CannotFindFileError const& e)
+    catch(Fs::CannotFindFileError const& e)
     {
         throw PropClassNotExists();
     }
