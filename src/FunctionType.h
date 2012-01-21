@@ -26,6 +26,9 @@ public:
     bool operator!=(FunctionType& rRight);
 
     void ToOutStream(std::ostream& rOut);
+
+    std::string GetMapFunction();
+    std::string GetReduceFunction();
 };
 
 

@@ -81,6 +81,30 @@ void FunctionType::ToOutStream(std::ostream& rOut)
 }
 
 /*============================= ACCESS     =================================*/
+
+std::string FunctionType::GetMapFunction()
+{
+    std::list<std::string>::iterator it;
+    it = mList.begin();
+    if (!it->empty())
+        return *it;
+    else
+        return "";
+}
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+
+std::string FunctionType::GetReduceFunction()
+{
+    std::list<std::string>::iterator it;
+    it = mList.begin();
+    it++;
+    if (it != mList.end() && !it->empty())
+        return *it;
+    else
+        return "";
+}
+
 /*============================= INQUIRY    =================================*/
 
 /////////////////////////////// PROTECTED  ///////////////////////////////////
