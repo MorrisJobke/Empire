@@ -37,8 +37,8 @@ namespace Filesystem
            else
                break;
         }
-        
-        cout << buffer << endl;
+
+        std::cout << buffer << std::endl;
         delete[] buffer;
     }
 
@@ -46,8 +46,8 @@ namespace Filesystem
      /** 
      * @brief function wich returns the current working dir
      * @return returns the current working directory as string
-     */ 
-    string GetCwd()
+     */
+    std::string GetCwd()
     {
         int buf_grain = 10;
         int buf_size = 10;
@@ -67,8 +67,8 @@ namespace Filesystem
            else
                break;
         }
-        
-        string ret = buffer;
+
+        std::string ret = buffer;
         delete[] buffer;
 
         return ret;
@@ -79,8 +79,8 @@ namespace Filesystem
      * @brief function to change the current working directory
      * @param rPath path of new working directory
      * @return returns true when cwd change succeeds, otherwise false
-     */ 
-    bool ChangeCwd(string const& rPath)
+     */
+    bool ChangeCwd(std::string const& rPath)
     {
         int ret = chdir(rPath.c_str());
         
@@ -95,8 +95,8 @@ namespace Filesystem
      /** 
      * @brief function to create a new directory
      * @param rDirPath path of the new directory
-     */ 
-    void CreateDirectory (string const& rDirPath)
+     */
+    void CreateDirectory (std::string const& rDirPath)
     {
         /* create char array */
         char* cstr = new char[rDirPath.size() + 1];
@@ -119,8 +119,8 @@ namespace Filesystem
      * @brief function to check if a given directory exists
      * @param rDirPath path of directory
      * @return returns true when given directory exists, otherwise false
-     */    
-    bool DirectoryExists(string const& rDirPath)
+     */
+    bool DirectoryExists(std::string const& rDirPath)
     {
         /* create char array */
         char* cstr = new char[rDirPath.size() + 1];
@@ -140,8 +140,8 @@ namespace Filesystem
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
 
     /** print out all dir entries
-     */ 
-    void PrintDirEntries(string const& rDirPath)
+     */
+    void PrintDirEntries(std::string const& rDirPath)
     {
         DIR *dp;
         struct dirent *ep;
@@ -150,7 +150,7 @@ namespace Filesystem
         if (dp != NULL)
         {
             while ((ep = readdir (dp)))
-                cout << ep->d_name << endl;
+                std::cout << ep->d_name << std::endl;
             (void) closedir (dp);
         }
         else
@@ -161,8 +161,8 @@ namespace Filesystem
 
     /** remove the directory recursive
      * @param rPath path of the directory
-     */ 
-    void RemoveDirRec(string const& rPath)
+     */
+    void RemoveDirRec(std::string const& rPath)
     {
         char* path = new char[rPath.size() + 1];
         strcpy(path, rPath.c_str());
@@ -246,9 +246,9 @@ namespace Filesystem
      * @param rFilePath path where string should be written
      * @param rContent  string that should be written
      */
-    void FileWriteString(string const& rFilePath, string const& rContent)
+    void FileWriteString(std::string const& rFilePath, std::string const& rContent)
     {
-        ofstream file;
+        std::ofstream file;
 
         file.open(rFilePath.c_str());
         
@@ -267,10 +267,10 @@ namespace Filesystem
      * @brief function to append a given string to a given file
      * @param rFilePath path of the file that should be appended
      * @param rContent string that will be appended to the given File
-     */ 
-    void FileAppendString(string const& rFilePath, string const& rContent)
+     */
+    void FileAppendString(std::string const& rFilePath, std::string const& rContent)
     {
-        ofstream file;
+        std::ofstream file;
 
         file.open(rFilePath.c_str(), ios::app);
         
@@ -288,9 +288,9 @@ namespace Filesystem
      /** 
      * @brief function to delete a given file
      * @param rFilePath path of the file that should be deleted
-     */ 
-    void FileDelete(string const& rFilePath)
-    {       
+     */
+    void FileDelete(std::string const& rFilePath)
+    {
         if (FileExists(rFilePath))
         {
             remove(rFilePath.c_str());
@@ -305,8 +305,8 @@ namespace Filesystem
      * @brief function to check wether a given file exists
      * @param rPath path of file
      * @return returns true when given file exists, otherwise false
-     */ 
-    bool FileExists(string const& rPath)
+     */
+    bool FileExists(std::string const& rPath)
     {
         /* create char array */
         char* cstr = new char[rPath.size() + 1];
@@ -330,7 +330,7 @@ namespace Filesystem
      * @param rFilePath path where string should be written
      * @return string from file
      */
-    std::string FileReadString(string const& rFilePath)
+    std::string FileReadString(std::string const& rFilePath)
     {
         std::string result = "";
         std::string line;

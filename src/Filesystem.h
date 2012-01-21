@@ -27,8 +27,6 @@
 
 namespace Filesystem
 {
-    using namespace std;
-
     /** exceptions
      */
     DEFINE_FAST_EXCEPTION(CannotCreateDirError, "Cannot create directory.")
@@ -36,22 +34,22 @@ namespace Filesystem
     DEFINE_FAST_EXCEPTION(CannotFindFileError, "File not exists.")
 
     void PrintCwd();
-    string GetCwd();
-    bool ChangeCwd(string const& rPath);
+    std::string GetCwd();
+    bool ChangeCwd(std::string const& rPath);
 
-    void CreateDirectory(string const& rDirPath);
-    bool DirectoryExists(string const& rDirPath);
-    void PrintDirEntries(string const& rDirPath);
-    void RemoveDirRec(string const& rPath);
+    void CreateDirectory(std::string const& rDirPath);
+    bool DirectoryExists(std::string const& rDirPath);
+    void PrintDirEntries(std::string const& rDirPath);
+    void RemoveDirRec(std::string const& rPath);
     int RemoveFile(const char *fpath, const struct stat *sb, int typeflag, struct FTW *ftwbuf);
     void RemoveFilesInDirRec(std::string const& rName, std::string const& rDirPath);
 
-    void FileWriteString(string const& rFilePath, string const& rContent);
-    void FileAppendString(string const& rFilePath, string const& rContent);
-    void FileDelete(string const& rFilePath);
+    void FileWriteString(std::string const& rFilePath, std::string const& rContent);
+    void FileAppendString(std::string const& rFilePath, std::string const& rContent);
+    void FileDelete(std::string const& rFilePath);
     bool FileExists(std::string const& rPath);
-    
-    std::string FileReadString(string const& rFilePath);
+
+    std::string FileReadString(std::string const& rFilePath);
 }
 
 
