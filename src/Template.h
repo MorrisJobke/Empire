@@ -15,6 +15,7 @@
 #include <sstream>
 
 #include "GenProperty.h"
+#include "FunctionType.h"
 
 
 class ITemplate
