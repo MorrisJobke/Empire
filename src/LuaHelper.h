@@ -31,8 +31,8 @@ public:
     LuaContext(lua_State* state);
     ~LuaContext();
 
-    void AddVariable(std::string const& name, int& value);
-    void AddVariable(std::string const& name, double& value);
+    void AddVariable(std::string const& name, int value);
+    void AddVariable(std::string const& name, double value);
 
     void Execute(std::string const& lua, std::string& result);
     void Execute(std::string const& lua, double& result);
