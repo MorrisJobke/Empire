@@ -207,6 +207,7 @@ BOOST_AUTO_TEST_CASE(testRepoPropDataIO)
     catch(ExcRepository &exc)
     {
         cout << exc.what() << endl;
+        BOOST_CHECK(false);
     }
 
     /* read data */
@@ -392,7 +393,7 @@ BOOST_AUTO_TEST_CASE(testRegexMatch)
 BOOST_AUTO_TEST_CASE(AddPropertyTest)
 {
     /* create env */
-    Fs::ChangeCwd("test_repo2");
+    Fs::ChangeCwd("test_repo");
 
     Repository repo;
 
@@ -403,19 +404,27 @@ BOOST_AUTO_TEST_CASE(AddPropertyTest)
     catch(ExcRepository &exc)
     {
         string err = exc.what();
-        if(err != "Err: Repo Exsists")
+        if(err != "Err: Repo Exists")
             cout << exc.what() << endl;
     }
-    
+
     repo.AddProperty("ich_selbst", "std::string", "Das ist ein String.");
     repo.AddProperty("intAuto", "", "123892");
     repo.AddProperty("floatAuto", "", "0.7863");
     repo.AddProperty("stringAuto", "", "Das ist keine Zahl...");
-    
+
     BOOST_CHECK(repo.ContainsProperty("ich_selbst"));
     BOOST_CHECK(repo.ContainsProperty("intAuto"));
     BOOST_CHECK(repo.ContainsProperty("floatAuto"));
     BOOST_CHECK(repo.ContainsProperty("stringAuto"));
+
+    remove(".emp/ich_selbst");
+    remove(".emp/intAuto");
+    remove(".emp/floatAuto");
+    remove(".emp/stringAuto");
+    remove(".emp");
+
+    Fs::ChangeCwd("..");
 }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
