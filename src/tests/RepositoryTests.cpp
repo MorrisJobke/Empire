@@ -78,12 +78,9 @@ BOOST_AUTO_TEST_CASE(CreatePropertyFromTypeStringTest)
     p_new_prop->SetKey("test_property");
     ((GenProperty<int>*) p_new_prop)->SetValue(42);
 
-    // weiß der Geier warum, aber wenn diese Zeile auskommentiert ist, dann
-    // gibt's nen memory access violation -.-
-    // TODO
     // cout << *p_new_prop << endl;
 
-    //cout << "String representation: " << p_new_prop->ToString() << endl;
+    // cout << "String representation: " << p_new_prop->ToString() << endl;
 
     delete p_new_prop;
 }
