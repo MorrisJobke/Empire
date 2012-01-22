@@ -463,12 +463,7 @@ void Repository::RemovePropertyClassAndInstances(std::string const& key)
 
 }
 
-/*============================= ACESS      =================================*/
-
-bool Repository::IsOnTheRun()
-{
-    return true;
-}
+/*============================= ACCESS      =================================*/
 
 bool Repository::ContainsProperty(std::string const& key)
 {

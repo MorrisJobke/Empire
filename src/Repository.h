@@ -40,13 +40,11 @@ class Repository
     std::string mAbsoluteRepoPath;
     std::list<GenPropertyBase*> PropertyList;
 
-    
+
     public:
     Repository();
     ~Repository();
-    
-    bool IsOnTheRun();
-    
+
     static bool IsExistent();
     bool ContainsProperty(std::string const& key);
     //static PropertyTypes GetPropTypeFromStr(std::string const& str);
