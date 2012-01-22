@@ -12,11 +12,21 @@
 #include <string>
 #include <stdexcept>
 
+/** base exception class to avoid redeclaration of what()
+ */
 class BaseException : public std::runtime_error {
 public:
-    std::string mWhat;
+    std::string mWhat; ///< store message
+    /** the constructor
+     *
+     * @param message error message
+     */
     BaseException(std::string const message)
         : std::runtime_error(message) {};
+    /** what message is stored
+     *
+     * @return error message
+     */
     std::string what()
     {
         return mWhat;

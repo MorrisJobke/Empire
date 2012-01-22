@@ -32,6 +32,10 @@ FunctionType::FunctionType(std::list<std::string> const& rFunctions)
 /*============================= OPERATORS ==================================*/
 
 /** equal operator
+ *
+ * @param rRight object to compare with
+ *
+ * @return boolean
  */
 bool FunctionType::operator==(FunctionType& rRight)
 {
@@ -44,6 +48,10 @@ bool FunctionType::operator==(FunctionType& rRight)
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
 
 /** un-equal operator
+ *
+ * @param rRight object to compare with
+ *
+ * @return boolean
  */
 bool FunctionType::operator!=(FunctionType& rRight)
 {
@@ -55,6 +63,11 @@ bool FunctionType::operator!=(FunctionType& rRight)
 /** overloaded operator to write class to stream
  *
  * wrappers ToOutStream
+ *
+ * @param rOut stream to write to
+ * @param rFunctionType object to read from
+ *
+ * @return out stream
  */
 std::ostream& operator<<(std::ostream& rOut, FunctionType rFunctionType)
 {
@@ -65,6 +78,13 @@ std::ostream& operator<<(std::ostream& rOut, FunctionType rFunctionType)
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
 
 /** overloaded operator to read class from stream
+ *
+ * doesn't work, because it isn't used in this way
+ *
+ * @param rIn stream to read from
+ * @param rFunctionType object to write to
+ *
+ * @return in stream
  */
 std::istream& operator>>(std::istream& rIn, FunctionType rFunctionType)
 {
@@ -74,6 +94,7 @@ std::istream& operator>>(std::istream& rIn, FunctionType rFunctionType)
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
 
 /** operator to write class to stream
+ * @param rOut stream to write to
  */
 void FunctionType::ToOutStream(std::ostream& rOut)
 {
