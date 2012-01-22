@@ -28,14 +28,14 @@ Mac:
 CMake
 -----
 
-	cd src/build/
-	cmake ..
+	cd build/
+	cmake ../src
 	make
 
 Tests
 -----
 
-	cd src/build/bin
+	cd bin/
 	./EmpireTest --log_level=test_suite
 
 Handbuch
