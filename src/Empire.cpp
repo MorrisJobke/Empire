@@ -70,30 +70,35 @@ int main(int argc, char* argv[])
             argc--;
             argv++;
             Sp::init(argc, argv);
+            return 0;
         }
         else if (strcmp(argv[0], "add") == 0)
         {
             argc--;
             argv++;
             Sp::add(argc, argv);
+            return 0;
         }
         else if (strcmp(argv[0], "modify") == 0)
         {
             argc--;
             argv++;
             Sp::modify(argc, argv);
+            return 0;
         }
         else if (strcmp(argv[0], "render") == 0)
         {
             argc--;
             argv++;
             Sp::render(argc, argv);
+            return 0;
         }
         else if (strcmp(argv[0], "show") == 0)
         {
             argc--;
             argv++;
             Sp::show(argc, argv);
+            return 0;
         }
         else
         {
