@@ -5,11 +5,13 @@
 #include <cstring>
 
 #include "Repository.h"
+//#include "SyntaxParser.h"
 
 #ifndef NULL
 #define NULL 0
 #endif
 
+//namespace Sp = SyntaxParser;
 
 /** function to print the help
  */
@@ -57,45 +59,47 @@ int main(int argc, char* argv[])
 
     while (argc > 0)
     {
-    
-
-        /* help */
-
         if (strcmp(argv[0], "-h")    == 0 ||
             strcmp(argv[0], "-help") == 0)
         {
             usage();
             return 0;
         }
-
-
-        /* create repository */
-
-        if (strcmp(argv[0], "init") == 0)
+        else if (strcmp(argv[0], "init") == 0)
         {
-            try
-            {
-                working_repo.Init();
-            }
-            catch(RepoExistentError &exc)
-            {
-                std::cout << "You have already a repo here." << std::endl;
-                return 0;
-            }
-            catch(CannotCreateRepoError &exc)
-            {
-                std::cout << "The repository can not be created, maybe you do not have" << std::endl
-                     << "permissions." << std::endl;
-                return 1;
-            }
-
+            //Sp::init();
             argc--;
             argv++;
         }
+        else if (strcmp(argv[0], "add") == 0)
+        {
+            argc--;
+            argv++;
+            //Sp::add(argc, argv);
+        }
+        else if (strcmp(argv[0], "modify") == 0)
+        {
+            argc--;
+            argv++;
+            //Sp::modify(argc, argv);
+        }
+        else if (strcmp(argv[0], "render") == 0)
+        {
+            argc--;
+            argv++;
+            //Sp::render(argc, argv);
+        }
+        else if (strcmp(argv[0], "show") == 0)
+        {
+            argc--;
+            argv++;
+            //Sp::show(argc, argv);
+        }
+        else
+        {
+            usage();
+            return 0;
+        }
     }
-
-
-
-
     return 0;
 }
