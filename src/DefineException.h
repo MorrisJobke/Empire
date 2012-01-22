@@ -10,41 +10,41 @@
 #define DEFINEEXCEPTION_H
 
 #include <string>
+#include <stdexcept>
 
+class BaseException : public std::runtime_error {
+public:
+    std::string mWhat;
+    BaseException(std::string const message)
+        : std::runtime_error(message) {};
+    std::string what()
+    {
+        return mWhat;
+    }
+    ~BaseException() throw() {};
+};
 
 /** this macro defines a standard exception
  */
 #define DEFINE_FAST_EXCEPTION(className, Message) \
-class className \
+class className : public BaseException\
 { \
-    private: \
-        std::string mWhat; \
     public: \
         className() \
-            : mWhat(Message) \
+            : BaseException(Message) \
         { } \
-        std::string what() \
-        { \
-            return mWhat; \
-        } \
 };
 
 
 /** this macro defines a standard exception
  */
 #define DEFINE_VAR_EXCEPTION(className) \
-class className \
+class className : public BaseException \
 { \
-    private: \
-        std::string mWhat; \
     public: \
         className(std::string const& message) \
-            : mWhat(message) \
+            : BaseException(message) \
         { } \
-        std::string what() \
-        { \
-            return mWhat; \
-        } \
 };
 
 

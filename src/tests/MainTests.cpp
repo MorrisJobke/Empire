@@ -3,6 +3,7 @@
 #include <boost/test/unit_test.hpp>
 
 #include "../Filesystem.h"
+#include "../DefineException.h"
 
 namespace Fs = Filesystem;
 
