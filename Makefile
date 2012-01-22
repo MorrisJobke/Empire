@@ -12,3 +12,6 @@ testprotokolle:
 	cd docs/Testprotokolle/LaTeX \
 	&& pdflatex -interaction scrollmode -no-shell-escape Testprotokolle.tex \
 	&& mv Testprotokolle.pdf ..
+
+dokumentation:
+	doxygen doxygen.config
