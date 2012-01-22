@@ -38,6 +38,13 @@ Tests
 	cd src/build/bin
 	./EmpireTest --log_level=test_suite
 
+Handbuch
+-------------
+
+Erstellen:
+
+	make handbuch
+
 Testprotokolle
 -------------
 
