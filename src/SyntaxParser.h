@@ -11,6 +11,8 @@
 
 #include "Repository.h"
 
+DEFINE_FAST_EXCEPTION(NotEnoughArgs, "Not enough arguments.")
+
 namespace SyntaxParser
 {
     void add(int argc, char* argv[]);

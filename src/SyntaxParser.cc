@@ -8,6 +8,8 @@
 
 #include "SyntaxParser.h"
 
+namespace Fs = Filesystem;
+
 //////////////////////////////////////////////////////////////////////////////
 namespace SyntaxParser
 {
@@ -18,7 +20,21 @@ namespace SyntaxParser
      */
     void add(int argc, char* argv[])
     {
-        
+        //Check if collection with name exists
+        if(Fs::DirectoryExists(argv[0]) == true)
+        {
+            //add as Collection
+        }
+        else
+        {
+            Repository working_repo;
+            if (argc == 3)
+                working_repo.AddProperty(argv[0], argv[1], argv[2]);
+            else if (argc == 2)
+                working_repo.AddProperty(argv[0], argv[1], "");
+            else
+                throw NotEnoughArgs();
+        }
     }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
