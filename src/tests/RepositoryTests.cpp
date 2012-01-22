@@ -433,7 +433,12 @@ BOOST_AUTO_TEST_CASE(testRepoDeleteEnv)
 {
     /** this test should always be the last one */
     if (Fs::DirectoryExists("test_repo") == true)
-        remove("test_repo");
+        Fs::RemoveDirRec("test_repo");
+    BOOST_CHECK(Fs::FileExists("test_repo") == false);
+
+    if (Fs::DirectoryExists(".emp") == true)
+        Fs::RemoveDirRec(".emp");
+    BOOST_CHECK(Fs::FileExists(".emp") == false);
 }
 
 BOOST_AUTO_TEST_SUITE_END()
