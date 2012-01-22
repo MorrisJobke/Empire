@@ -13,7 +13,7 @@ namespace Fs = Filesystem;
 //////////////////////////////////////////////////////////////////////////////
 namespace SyntaxParser
 {
-    /** Add Command
+    /** add command
      *
      * @param argc count of arguments
      * @param argv arguments
@@ -51,7 +51,7 @@ namespace SyntaxParser
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
 
-    /** add command
+    /** show command
      *
      * @param argc count of arguments
      * @param argv arguments
@@ -72,20 +72,20 @@ namespace SyntaxParser
     {
         Repository working_repo;
         try
-            {
-                working_repo.Init();
-            }
-            catch(RepoExistentError &exc)
-            {
-                std::cout << "You have already a repo here." << std::endl;
-                return;
-            }
-            catch(CannotCreateRepoError &exc)
-            {
-                std::cout << "The repository can not be created, maybe you do not have" << std::endl
-                     << "permissions." << std::endl;
-                return;
-            }        
+        {
+            working_repo.Init();
+        }
+        catch(RepoExistentError &exc)
+        {
+            std::cout << "You have already a repo here." << std::endl;
+            return;
+        }
+        catch(CannotCreateRepoError &exc)
+        {
+            std::cout << "The repository can not be created, maybe you do not have" << std::endl
+                 << "permissions." << std::endl;
+            return;
+        }
     }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
