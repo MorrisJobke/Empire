@@ -5,13 +5,13 @@
 #include <cstring>
 
 #include "Repository.h"
-//#include "SyntaxParser.h"
+#include "SyntaxParser.h"
 
 #ifndef NULL
 #define NULL 0
 #endif
 
-//namespace Sp = SyntaxParser;
+namespace Sp = SyntaxParser;
 
 /** function to print the help
  */
@@ -67,33 +67,33 @@ int main(int argc, char* argv[])
         }
         else if (strcmp(argv[0], "init") == 0)
         {
-            //Sp::init();
             argc--;
             argv++;
+            Sp::init(argc, argv);
         }
         else if (strcmp(argv[0], "add") == 0)
         {
             argc--;
             argv++;
-            //Sp::add(argc, argv);
+            Sp::add(argc, argv);
         }
         else if (strcmp(argv[0], "modify") == 0)
         {
             argc--;
             argv++;
-            //Sp::modify(argc, argv);
+            Sp::modify(argc, argv);
         }
         else if (strcmp(argv[0], "render") == 0)
         {
             argc--;
             argv++;
-            //Sp::render(argc, argv);
+            Sp::render(argc, argv);
         }
         else if (strcmp(argv[0], "show") == 0)
         {
             argc--;
             argv++;
-            //Sp::show(argc, argv);
+            Sp::show(argc, argv);
         }
         else
         {

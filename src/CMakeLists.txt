@@ -85,7 +85,7 @@ target_link_libraries(Template
     FunctionType)
 
 ######################
-# Template library   #
+# Collection library   #
 ######################
 add_library(Collection Collection)
 target_link_libraries(Collection
@@ -109,4 +109,5 @@ add_executable(Empire Empire)
 #   used libraries
 target_link_libraries(Empire
     Repository
+    SyntaxParser
     Filesystem)
