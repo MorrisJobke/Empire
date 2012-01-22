@@ -55,5 +55,4 @@ Erstellen:
 Doxygen
 -------
 
-	cd src/
-	doxygen doxygen.config
+	make dokumentation
