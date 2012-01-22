@@ -9,6 +9,7 @@
 #ifndef SYNTAXPARSER_H
 #define SYNTAXPARSER_H
 
+#include "Repository.h"
 
 namespace SyntaxParser
 {
