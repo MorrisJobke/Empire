@@ -33,6 +33,11 @@ endif()
 ######################
 add_library(Filesystem Filesystem)
 
+########################
+# SyntaxParser library #
+########################
+add_library(SyntaxParser SyntaxParser)
+
 #######################
 # RegexHelper library #
 #######################
