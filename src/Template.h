@@ -24,10 +24,28 @@ class ITemplate
 public:
     virtual ~ITemplate() {}
 
+    /** add a property for use in the template
+     *
+     * @param property the property
+     */
     virtual void AddProperty(GenPropertyBase* property) = 0;
+    /** add a list of properties for use in the template
+     *
+     * @param properties the properties
+     */
     virtual void AddProperties(std::list<GenPropertyBase*> properties) = 0;
 
+    /** parse a string
+     *
+     * @param input the string to parse
+     * @param output the parsed result
+     */
     virtual void ParseString(std::string const& input, std::string& output) = 0;
+    /** parse a string obtained from a file
+     *
+     * @param path the path to the file which content should be parsed
+     * @param output the parsed result
+     */
     virtual void ParseFile(std::string const& path, std::string& output) = 0;
 };
 
