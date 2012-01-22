@@ -87,6 +87,8 @@ void FunctionType::ToOutStream(std::ostream& rOut)
 
 /*============================= ACCESS     =================================*/
 
+/** getter for first list entry (map function)
+ */
 std::string FunctionType::GetMapFunction()
 {
     std::list<std::string>::iterator it;
@@ -99,6 +101,8 @@ std::string FunctionType::GetMapFunction()
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
 
+/** getter for second list entry (reduce function)
+ */
 std::string FunctionType::GetReduceFunction()
 {
     std::list<std::string>::iterator it;
