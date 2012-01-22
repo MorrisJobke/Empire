@@ -82,7 +82,7 @@ void SimpleTemplate::ParseString(string const& input, string& output)
             case GATHER:
                 switch (expectation) {
                     case ALPHANUM:
-                        if (isalnum(*it)) {
+                        if (isalnum(*it) || *it == '_') {
                             gathered += *it;
                             it++;
                         } else if (*it == '{' && mProperties[gathered] &&
