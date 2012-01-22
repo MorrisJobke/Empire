@@ -1,0 +1,31 @@
+\documentclass[a4paper, 11pt, ngerman, fleqn]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{babel}
+\usepackage{ngerman}
+\usepackage{coordsys,logsys,color}
+\usepackage{german,fancyhdr}
+\usepackage{hyperref}
+\usepackage{texdraw}
+\input{txdtools}
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{hyperref}
+\definecolor{darkblue}{rgb}{0,0,.6}
+\hypersetup{pdftex=false, colorlinks=true, breaklinks=true, linkcolor=darkblue, menucolor=darkblue, pagecolor=darkblue, urlcolor=darkblue, citecolor=darkblue}
+
+\pagestyle{fancy}
+
+\input{Header}
+
+\begin{document}
+	\input{HB00-Titelblatt} \newpage
+	\tableofcontents \newpage
+	\input{HB01-Kurzbeschreibung} \newpage
+	\input{HB02-Zielgruppe} \newpage
+	\input{HB03-Anwendungsfälle} \newpage
+	\input{HB04-Installationsanleitung} \newpage
+	\input{HB05-Backup} \newpage
+	\input{HB06-Deinstallieren} \newpage
+	\input{HB07-Glossar}
+\end{document}
