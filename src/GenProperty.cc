@@ -46,14 +46,14 @@ namespace PropertyIo
     /** write type to a file with the name of the key
      *
      * @param rPath the directory to write the file to
-     * @param key the key
+     * @param rKey the key
      * @param rType the type
      */
-    void WriteMetaDataToDir(std::string const& rPath, std::string const& key, std::string const& rType)
+    void WriteMetaDataToDir(std::string const& rPath, std::string const& rKey, std::string const& rType)
     {
         /* create and write metadata file */
 
-        std::string path = rPath + "/" + key;
+        std::string path = rPath + "/" + rKey;
         std::ofstream meta_file;
         meta_file.open(path.c_str());
 
@@ -71,11 +71,11 @@ namespace PropertyIo
     /** wrapper function for the upper one
      *
      * @param rPath the directory to write the file to
-     * @param property to read type and key from
+     * @param pProp property to read type and key from
      */
-    void WriteMetaDataToDir(std::string const& rPath, GenPropertyBase* rProp)
+    void WriteMetaDataToDir(std::string const& rPath, GenPropertyBase* pProp)
     {
-        WriteMetaDataToDir(rPath, rProp->GetKey(), rProp->GetTypeN());
+        WriteMetaDataToDir(rPath, pProp->GetKey(), pProp->GetTypeN());
     }
 
     /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
@@ -83,7 +83,7 @@ namespace PropertyIo
     /** write the property data to file. Filename is determined by the key
      *
      * @param rPath the dir path
-     * @param property to read key and data from
+     * @param pProp property to read key and data from
      */
     void WritePropDataToDir(std::string const& rPath, GenPropertyBase* pProp)
     {

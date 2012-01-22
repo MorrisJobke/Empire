@@ -14,8 +14,8 @@ namespace RegexHelper
      /** 
      * @brief function wich checks if a given string is matching to a given regex-pattern
      * @param rTargetString given String to check against the pattern
-     * @param rTargetString given regex pattern to check
-     */ 
+     * @param rPattern given regex pattern to check
+     */
     bool MatchesRegex(std::string rTargetString, std::string rPattern)
     {
         pcre *re;
@@ -54,16 +54,16 @@ namespace RegexHelper
 
     /** 
      * @brief function wich checks if a given string contains an int value
-     * @param rTargetString given string to check
+     * @param value given string to check
      */
-    bool isInt(std::string value) 
+    bool isInt(std::string value)
     {
         return MatchesRegex(value, INT_PATTERN);
     }
     
     /** 
      * @brief function wich checks if a given string contains a float value
-     * @param rTargetString given string to check
+     * @param value given string to check
      */
     bool isFloat(std::string value) 
     {

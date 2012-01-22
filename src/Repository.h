@@ -38,7 +38,7 @@ class Repository
     private:
     std::string mRepoName;
     std::string mAbsoluteRepoPath;
-    std::list<GenPropertyBase*> PropertyList;
+    std::list<GenPropertyBase*> mPropertyList;
 
 
     public:
@@ -72,8 +72,11 @@ class Repository
 
 
 
-
-    std::list<GenPropertyBase*> GetPropertyList(){ return this->PropertyList; };
+    /** getter for member attribute mPropertyList
+     *
+     * @return the list of properties
+     */
+    std::list<GenPropertyBase*> GetPropertyList(){ return this->mPropertyList; };
 
 };
 

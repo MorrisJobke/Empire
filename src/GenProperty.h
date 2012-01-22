@@ -220,7 +220,7 @@ std::ostream& operator<<(std::ostream& rOut, GenPropertyBase& rProp);
 namespace PropertyIo
 {
     void WriteMetaDataToDir(std::string const& rPath, std::string const& key, std::string const& rType);
-    void WriteMetaDataToDir(std::string const& rPath, GenPropertyBase* rProp);
+    void WriteMetaDataToDir(std::string const& rPath, GenPropertyBase* pProp);
 
     void WritePropDataToDir(std::string const& rPath, GenPropertyBase* pProp);
 

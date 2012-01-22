@@ -29,6 +29,8 @@ LuaHelper::~LuaHelper()
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
 
 /** LuaContext's Constructor
+ *
+ * @param state a lua state needed to execute LUA script code
  */
 LuaContext::LuaContext(lua_State* state)
 :   mState(state),

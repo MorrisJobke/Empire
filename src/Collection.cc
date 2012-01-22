@@ -23,7 +23,7 @@ Coll::Coll()
 
 /** constructor
  *
- * @param the directory where the directory should be read from
+ * @param rPath the directory where the directory should be read from
  */
 Coll::Coll(std::string const& rPath)
 :   mPath(rPath)

@@ -14,6 +14,8 @@ namespace Fs = Filesystem;
 /*============================= STATICS   ==================================*/
 
 /** this function checks if a repo is Existent
+ *
+ * @return boolean
  */
 bool Repository::IsExistent()
 {
@@ -180,7 +182,7 @@ void Repository::Load()
             GenPropertyBase* p_new_prop = PropertyHelpers::CreatePropertyFromTypeString(new_type);
             p_new_prop->SetKey(new_key);
 
-            this->PropertyList.push_back(p_new_prop);
+            this->mPropertyList.push_back(p_new_prop);
         }
         (void) closedir (dp);
     }
@@ -214,7 +216,7 @@ void Repository::Load()
                 /* search entry in the member property list */
                 std::list<GenPropertyBase*>::const_iterator it;
 
-                for (it = this->PropertyList.begin(); it != this->PropertyList.end(); it++)
+                for (it = this->mPropertyList.begin(); it != this->mPropertyList.end(); it++)
                 {
                     if ((*it)->GetKey() == entry)
                     {
@@ -246,8 +248,8 @@ void Repository::Load()
  *
  * this creates a new metafile in the .emp folder with key as name and type as
  * content
- * @param the key
- * @param the type
+ * @param key the key
+ * @param rType the type
  *
  * @pre the repo exits and mRepoName is not empty
  * @pre type string is valid
@@ -363,6 +365,10 @@ void Repository::ReadPropDataFromFile(std::string const& rPath, GenPropertyBase*
  *
  * This is only done if the property class exists
  * TODO: create property class on demand
+ *
+ * @param key the key of the property
+ * @param type the type of the property
+ * @param value the value of the property
  */
 void Repository::AddProperty(std::string const& key, std::string const& type, std::string const& value)
 {
@@ -392,7 +398,7 @@ void Repository::AddProperty(std::string const& key, std::string const& type, st
         GenPropertyBase* p_new_prop = PropertyHelpers::CreatePropertyFromTypeString(tmp_type);
         p_new_prop->SetKey(key);
         p_new_prop->SetValueFromString(value);
-        this->PropertyList.push_back(p_new_prop);
+        this->mPropertyList.push_back(p_new_prop);
     }
     else
         throw PropExistentError();
@@ -421,7 +427,7 @@ void Repository::RemoveProperty(std::string const& rPath, std::string const& key
 
 /** delete metadata from Filesystem
  *
- * @param rPath complete file path
+ * @param key key name
  */
 void Repository::RemovePropertyClass(std::string const& key)
 {
@@ -452,11 +458,11 @@ void Repository::RemovePropertyClassAndInstances(std::string const& key)
     //remove from property list
     std::list<GenPropertyBase*>::iterator it;
 
-    for (it = this->PropertyList.begin(); it != this->PropertyList.end(); it++)
+    for (it = this->mPropertyList.begin(); it != this->mPropertyList.end(); it++)
     {
         if ((*it)->GetKey() == key)
         {
-            it = PropertyList.erase(it);
+            it = this->mPropertyList.erase(it);
             --it;
         }
     }
@@ -465,11 +471,17 @@ void Repository::RemovePropertyClassAndInstances(std::string const& key)
 
 /*============================= ACCESS      =================================*/
 
+/** check existance of property with the given key
+ *
+ * @param key the key of the property to check for
+ *
+ * @return boolean
+ */
 bool Repository::ContainsProperty(std::string const& key)
 {
     std::list<GenPropertyBase*>::const_iterator it;
 
-    for (it = this->PropertyList.begin(); it != this->PropertyList.end(); it++)
+    for (it = this->mPropertyList.begin(); it != this->mPropertyList.end(); it++)
     {
         if ((*it)->GetKey() == key)
         {
