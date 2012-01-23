@@ -19,33 +19,9 @@ namespace Fs = Filesystem;
  */
 bool Repository::IsExistent()
 {
-    bool repo_found = false;
-    std::string parent = "..";
-    std::string repo_name = REPO_NAME;
-    std::string old_cwd = Fs::GetCwd();
-
-
-    while(true)
-    {
-        std::string cwd;
-
-        repo_found = Fs::DirectoryExists(repo_name);
-
-        if (repo_found == true)
-        {
-            Fs::ChangeCwd(old_cwd);
-            return true;
-        }
-
-        cwd = Fs::GetCwd();
-        if (cwd == "/")
-        {
-            Fs::ChangeCwd(old_cwd);
-            return false;
-        }
-
-        Fs::ChangeCwd(parent);
-    }
+    if (this->mAbsoluteRepoPath != "")
+        return true;
+    return false;
 }
 
 

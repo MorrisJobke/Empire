@@ -46,7 +46,7 @@ int main(int argc, char* argv[])
 
     if (argc == 0)
     {
-        if (Repository::IsExistent())
+        if (working_repo.IsExistent())
             std::cout << "You have a repository here" << std::endl;
 
         usage();

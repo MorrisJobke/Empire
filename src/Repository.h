@@ -45,7 +45,7 @@ class Repository
     Repository();
     ~Repository();
 
-    static bool IsExistent();
+    bool IsExistent();
     bool ContainsProperty(std::string const& key);
     //static PropertyTypes GetPropTypeFromStr(std::string const& str);
 
