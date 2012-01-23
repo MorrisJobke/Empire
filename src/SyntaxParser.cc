@@ -31,7 +31,7 @@ namespace SyntaxParser
             if (argc == 3)
                 working_repo.AddProperty(argv[0], argv[1], argv[2]);
             else if (argc == 2)
-                working_repo.AddProperty(argv[0], argv[1], "");
+                working_repo.AddProperty(argv[0], "", argv[1]);
             else
                 throw NotEnoughArgs();
         }
