@@ -10,6 +10,7 @@
 #define SYNTAXPARSER_H
 
 #include "Repository.h"
+#include "Template.h"
 
 DEFINE_FAST_EXCEPTION(NotEnoughArgs, "Not enough arguments.")
 
