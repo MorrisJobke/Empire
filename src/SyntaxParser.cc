@@ -114,44 +114,83 @@ namespace SyntaxParser
             std::cout << "There isn't any repository in this or it's parent directories." << std::endl;
             return;
         }
-        if (argc == 0)
+        if (argc != 2)
         {
-            std::cout << "You need to specify a template." << std::endl;
-            std::cout << "Synopsis: emp render <path-to-template>\n\n"
-                 << "  --help, -h   print this help\n";
+            std::cout << "You need to specify a template and an output path.\n"
+                      << "Synopsis: emp render <path-to-template> <path-to-output>\n\n";
             return;
         }
-        while (argc > 0)
+        std::string file = *argv;
+        argc--;
+        argv++;
+
+        if (!Fs::FileExists(file))
         {
-            if (!Fs::FileExists(*argv))
-            {
-                std::cout << *argv << " The specified file could not be found." << std::endl;
-            }
-
-            // create template object
-            SimpleTemplate* tmpl = new SimpleTemplate();
-            // load all properties
-            tmpl->AddProperties(working_repo.GetPropertyList());
-            // parse input and write to variable
-            std::string output;
-            tmpl->ParseFile(*argv, output);
-
-            // // extract filename
-            // std::string key = rPath;
-            // std::string search_for = "/";
-
-            // std::size_t found;
-            // found = key.rfind(search_for);
-
-            // if ( found != std::string::npos)
-            //     key.replace(0, found + 1,"");
-
-            // // write file
-            // Fs::FileWriteString()
-
-
-            argc--;
-            argv++;
+            std::cout << file << " The specified template file could not be found." << std::endl;
+            return;
         }
+
+        // create template object
+        SimpleTemplate* tmpl = new SimpleTemplate();
+        // load all properties
+        tmpl->AddProperties(working_repo.GetPropertyList());
+        // parse input and write to variable
+        std::string output;
+        tmpl->ParseFile(file, output);
+
+        // extract filename
+        std::string filename = file;
+        std::string search_for = "/";
+        std::size_t found;
+        found = filename.rfind(search_for);
+
+        if (found != std::string::npos)
+            filename.replace(0, found + 1,"");
+
+        // getting output path
+        std::string path = *argv;
+        argc--;
+        argv++;
+
+        // directory OR file
+        if (Fs::DirectoryExists(path))
+        {
+            // directory
+            if (Fs::FileExists(path + "/" + filename))
+            {
+                // contains already the file
+                std::cout << path + "/" + filename << " The specified output file exists." << std::endl;
+                return;
+            }
+            if (path.substr(path.size() - 1, 1) == "/")
+                path += filename;
+            else
+                path += "/" + filename;
+        }
+        else
+        {
+            // it's a file or directory doesn't exists
+            // check if it's a file
+            if (Fs::FileExists(path))
+            {
+                std::cout << path << " The specified output directory contains already a file named like the tmeplate file." << std::endl;
+                return;
+            }
+            // extract directory
+            std::string dir = path;
+            // found and search_for are already declared above
+            found = dir.rfind(search_for);
+
+            if (found != std::string::npos)
+                dir = dir.substr(0, found);
+            // create dir if it doesn't exists
+            if (!Fs::DirectoryExists(dir))
+            {
+                Fs::CreateDirectoryRec(dir);
+            }
+            if (path.substr(path.size() - 1, 1) == "/")
+                path += "/" + filename;
+        }
+        Fs::FileWriteString(path, output);
     }
 }
