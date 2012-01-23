@@ -13,6 +13,16 @@ namespace Fs = Filesystem;
 //////////////////////////////////////////////////////////////////////////////
 namespace SyntaxParser
 {
+    /** function to print the help
+     */
+    void usage()
+    {
+        std::cout << "Synopsis: emp <actions> [<action-arguments>] [<action-options>]\n\n"
+             << "  init         initialize a repository in the working directory\n"
+             << std::endl
+             << "  --help, -h   print this help\n";
+    }
+
     /** add command
      *
      * @param argc count of arguments

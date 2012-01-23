@@ -13,17 +13,6 @@
 
 namespace Sp = SyntaxParser;
 
-/** function to print the help
- */
-static void usage()
-{
-    std::cout << "Synopsis: emp <actions> [<action-arguments>] [<action-options>]\n\n"
-         << "  init         initialize a repository in the working directory\n"
-         << std::endl
-         << "  --help, -h   print this help\n";
-}
-
-
 /** this is the main function of the program
  *
  * to keep things simple all control flow happens here
@@ -49,7 +38,7 @@ int main(int argc, char* argv[])
         if (working_repo.IsExistent())
             std::cout << "You have a repository here" << std::endl;
 
-        usage();
+        Sp::usage();
 
         return 0;
     }
@@ -62,7 +51,7 @@ int main(int argc, char* argv[])
         if (strcmp(argv[0], "-h")    == 0 ||
             strcmp(argv[0], "-help") == 0)
         {
-            usage();
+            Sp::usage();
             return 0;
         }
         else if (strcmp(argv[0], "init") == 0)
@@ -102,7 +91,7 @@ int main(int argc, char* argv[])
         }
         else
         {
-            usage();
+            Sp::usage();
             return 0;
         }
     }
