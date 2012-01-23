@@ -44,16 +44,17 @@ Repository::Repository()
 
     while(true)
     {
-        std::string cwd;
+        std::string cwd = Fs::GetCwd();
 
         repo_found = Fs::DirectoryExists(repo_name);
 
         if (repo_found == true)
         {
-            this->mAbsoluteRepoPath = Fs::GetCwd();
+            this->mAbsoluteRepoPath = cwd;
             break;
         }
-        else
+
+        if (cwd == "/")
         {
             this->mAbsoluteRepoPath = "";
             break;
