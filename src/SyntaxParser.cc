@@ -19,6 +19,7 @@ namespace SyntaxParser
     {
         std::cout << "Synopsis: emp <actions> [<action-arguments>] [<action-options>]\n\n"
              << "  init         initialize a repository in the working directory\n"
+             << "  render       renders a file to ouput/ using repository in working directory\n"
              << std::endl
              << "  --help, -h   print this help\n";
     }
@@ -107,6 +108,50 @@ namespace SyntaxParser
      */
     void render(int argc, char* argv[])
     {
-        
+        Repository working_repo;
+        if (!working_repo.IsExistent())
+        {
+            std::cout << "There isn't any repository in this or it's parent directories." << std::endl;
+            return;
+        }
+        if (argc == 0)
+        {
+            std::cout << "You need to specify a template." << std::endl;
+            std::cout << "Synopsis: emp render <path-to-template>\n\n"
+                 << "  --help, -h   print this help\n";
+            return;
+        }
+        while (argc > 0)
+        {
+            if (!Fs::FileExists(*argv))
+            {
+                std::cout << *argv << " The specified file could not be found." << std::endl;
+            }
+
+            // create template object
+            SimpleTemplate* tmpl = new SimpleTemplate();
+            // load all properties
+            tmpl->AddProperties(working_repo.GetPropertyList());
+            // parse input and write to variable
+            string output;
+            tmpl-ParseFile(*argv, output);
+
+            // extract filename
+            std::string key = rPath;
+            std::string search_for = "/";
+
+            std::size_t found;
+            found = key.rfind(search_for);
+
+            if ( found != std::string::npos)
+                key.replace(0, found + 1,"");
+
+            // write file
+            Fs::FileWriteString()
+
+
+            argc--;
+            argv++;
+        }
     }
 }
