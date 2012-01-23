@@ -15,3 +15,7 @@ testprotokolle:
 
 dokumentation:
 	doxygen doxygen.config
+
+invtemp:
+	cd templates/invoices \
+	&& pdflatex -interaction scrollmode -no-shell-escape invoice.tex \
