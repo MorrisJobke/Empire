@@ -109,8 +109,30 @@ namespace Filesystem
         delete[] cstr;
 
         if (ret != 0)
-           throw CannotCreateDirError();
+            throw CannotCreateDirError();
 
+    }
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+
+     /**
+     * @brief function to create a new directory recursively
+     * @param rDirPath path of the new directory
+     */
+    void CreateDirectoryRec (std::string const& rDirPath)
+    {
+        // extract filename
+        std::string dir = rDirPath;
+        std::size_t found;
+        found = rDirPath.rfind("/");
+
+        if (found != std::string::npos)
+        {
+            std::string base = rDirPath.substr(0, found);
+            if (!DirectoryExists(base))
+                CreateDirectoryRec(base);
+            CreateDirectory(rDirPath);
+        }
     }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/

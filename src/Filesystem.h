@@ -38,6 +38,7 @@ namespace Filesystem
     bool ChangeCwd(std::string const& rPath);
 
     void CreateDirectory(std::string const& rDirPath);
+    void CreateDirectoryRec(std::string const& rDirPath);
     bool DirectoryExists(std::string const& rDirPath);
     void PrintDirEntries(std::string const& rDirPath);
     void RemoveDirRec(std::string const& rPath);
