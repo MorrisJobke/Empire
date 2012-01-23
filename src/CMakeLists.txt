@@ -18,7 +18,7 @@ set(CMAKE_CXX_FLAGS_DEBUG "-g -Wall -Wextra -Wformat=2 -Winit-self -Winline -Wpa
 find_package(Lua51 REQUIRED)
 include_directories(${LUA_INCLUDE_DIR})
 # find_package(PCRE REQUIRED) // still not distributed
-include(${PROJECT_BINARY_DIR}/../FindPCRE.cmake)
+include(${PROJECT_BINARY_DIR}/../src/FindPCRE.cmake)
 if(NOT PCRE_FOUND)
     message(FATAL_ERROR "PCRE not installed, CMake will exit.")
 endif()
