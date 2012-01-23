@@ -230,6 +230,7 @@ void Repository::Load()
  */
 void Repository::CreatePropertyClass(std::string const& key, std::string const& rType)
 {
+    std::cout << "creating .emp-file for " << key << " type=" << rType << std::endl;
 
     /* TODO: check whether type is valid */
 
@@ -301,6 +302,8 @@ void Repository::WritePropDataToFile(std::string const& rPath, GenPropertyBase* 
     {
         file << pProp->ToString();
     }
+
+    file.close();
 }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
@@ -362,7 +365,7 @@ void Repository::AddProperty(std::string const& key, std::string const& type, st
     
         try
         {
-            this->CreatePropertyClass(key, type);
+            this->CreatePropertyClass(key, tmp_type);
         }
         catch(ExcRepository exc)
         {
@@ -373,6 +376,7 @@ void Repository::AddProperty(std::string const& key, std::string const& type, st
         p_new_prop->SetKey(key);
         p_new_prop->SetValueFromString(value);
         this->mPropertyList.push_back(p_new_prop);
+        this->WritePropDataToFile(this->mAbsoluteRepoPath, p_new_prop);
     }
     else
         throw PropExistentError();
