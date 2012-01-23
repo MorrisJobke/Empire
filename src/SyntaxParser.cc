@@ -133,21 +133,21 @@ namespace SyntaxParser
             // load all properties
             tmpl->AddProperties(working_repo.GetPropertyList());
             // parse input and write to variable
-            string output;
-            tmpl-ParseFile(*argv, output);
+            std::string output;
+            tmpl->ParseFile(*argv, output);
 
-            // extract filename
-            std::string key = rPath;
-            std::string search_for = "/";
+            // // extract filename
+            // std::string key = rPath;
+            // std::string search_for = "/";
 
-            std::size_t found;
-            found = key.rfind(search_for);
+            // std::size_t found;
+            // found = key.rfind(search_for);
 
-            if ( found != std::string::npos)
-                key.replace(0, found + 1,"");
+            // if ( found != std::string::npos)
+            //     key.replace(0, found + 1,"");
 
-            // write file
-            Fs::FileWriteString()
+            // // write file
+            // Fs::FileWriteString()
 
 
             argc--;
