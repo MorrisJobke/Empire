@@ -53,9 +53,7 @@ Repository::Repository()
             this->mAbsoluteRepoPath = Fs::GetCwd();
             break;
         }
-
-        cwd = Fs::GetCwd();
-        if (cwd == "/")
+        else
         {
             this->mAbsoluteRepoPath = "";
             break;
