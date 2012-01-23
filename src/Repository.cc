@@ -230,7 +230,6 @@ void Repository::Load()
  */
 void Repository::CreatePropertyClass(std::string const& key, std::string const& rType)
 {
-    std::cout << "creating .emp-file for " << key << " type=" << rType << std::endl;
 
     /* TODO: check whether type is valid */
 
