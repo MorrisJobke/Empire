@@ -11,6 +11,7 @@
 
 #include "Repository.h"
 #include "Template.h"
+#include "Filesystem.h"
 
 DEFINE_FAST_EXCEPTION(NotEnoughArgs, "Not enough arguments.")
 
@@ -22,7 +23,6 @@ namespace SyntaxParser
     void show(int argc, char* argv[]);
     void init(int argc, char* argv[]);
     void render(int argc, char* argv[]);
-
 }
 
 

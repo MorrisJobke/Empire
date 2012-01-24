@@ -69,7 +69,42 @@ namespace SyntaxParser
      */
     void show(int argc, char* argv[])
     {
+        Repository working_repo;
+        working_repo.Load();
+        std::list <GenPropertyBase*> propList = working_repo.GetPropertyList();
         
+        std::cout << "Used Properties:" << std::endl;
+
+        std::list<GenPropertyBase*>::const_iterator it;
+
+        for (it = propList.begin(); it != propList.end(); it++)
+        {
+            std::string key = (*it)->GetKey();
+            std::string type = (*it)->GetTypeN();
+            
+            if (Fs::FileExists(key))
+            {
+                std::cout << "\t";
+                std::cout << key << "<" << type << ">";
+                std::string value = Filesystem::FileReadString(key);
+                std::cout << " = " << value;    
+                std::cout << std::endl;    
+            }
+        }
+
+        std::cout << std::endl << "Unused Properties:" << std::endl;
+
+        for (it = propList.begin(); it != propList.end(); it++)
+        {
+            std::string key = (*it)->GetKey();
+            std::string type = (*it)->GetTypeN();
+            
+            if (!Fs::FileExists(key))
+            {
+                std::cout << "\t";
+                std::cout << key << "<" << type << ">" << std::endl;;
+            }
+        }
     }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
