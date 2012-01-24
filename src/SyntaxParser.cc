@@ -19,7 +19,11 @@ namespace SyntaxParser
     {
         std::cout << "Synopsis: emp <actions> [<action-arguments>] [<action-options>]\n\n"
              << "  init         initialize a repository in the working directory\n"
+             << "  add          adds a given property to the repository in working directory\n"
+             << "  remove       removes a given property from repository in working directory\n"
+             << "  modify       modifies a given property from repository in working directory\n"
              << "  render       renders a file to ouput/ using repository in working directory\n"
+             << "  show         prints used and unused variables\n"
              << std::endl
              << "  --help, -h   print this help\n";
     }
@@ -31,6 +35,20 @@ namespace SyntaxParser
      */
     void add(int argc, char* argv[])
     {
+         Repository working_repo;
+        if (!working_repo.IsExistent())
+        {
+            std::cout << "There isn't any repository in this or it's parent directories." << std::endl;
+            return;
+        }
+        if (argc < 2 || argc > 3)
+        {
+            std::cout << "You need to specify a key and a value at least.\n"
+                      << "Specifying a type is optional.\n"
+                      << "Synopsis: emp add <key> [<type>] <value>\n\n";
+            return;
+        }
+
         //Check if collection with name exists
         if(Fs::DirectoryExists(argv[0]) == true)
         {
@@ -119,6 +137,12 @@ namespace SyntaxParser
     void init(int argc, char* argv[])
     {
         Repository working_repo;
+        if (working_repo.IsExistent())
+        {
+            std::cout << "There is a already a repository in this or it's parent directories." << std::endl;
+            return;
+        }
+
         try
         {
             working_repo.Init();
