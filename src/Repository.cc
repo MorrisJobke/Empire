@@ -351,12 +351,12 @@ void Repository::AddProperty(std::string const& key, std::string const& type, st
 {
     std::string tmp_type = type;
 
-    if(!this->ContainsProperty(key))
+    if(!Fs::FileExists(key))
     {
 
         if (tmp_type == "string")
             tmp_type = GetTypeName<std::string>();
-            
+
         if (tmp_type == "") //recognize type from value
         {
             if(RegexHelper::isInt(value))
@@ -367,13 +367,25 @@ void Repository::AddProperty(std::string const& key, std::string const& type, st
                 tmp_type = GetTypeName<std::string>();
         }
     
-        try
+        /* check if Propertyclass exists already, otherwise create it*/
+        if(!Fs::FileExists(this->mAbsoluteRepoPath + "/" + REPO_NAME + "/" + key))
         {
-            this->CreatePropertyClass(key, tmp_type);
+            try
+            {
+                this->CreatePropertyClass(key, tmp_type);
+            }
+            catch(ExcRepository exc)
+            {
+                throw PropClassCreateError();
+            }
         }
-        catch(ExcRepository exc)
+        else //check if existing propertyClass is ok
         {
-            // TODO
+            this->Load();
+            std::string fileType = this->GetPropertyFromKey(key)->GetTypeN();
+            
+            if(fileType != type)
+                throw PropClassExistsWithOtherKey();
         }
 
         GenPropertyBase* p_new_prop = PropertyHelpers::CreatePropertyFromTypeString(tmp_type);
@@ -431,7 +443,7 @@ void Repository::RemovePropertyClass(std::string const& key)
 void Repository::RemovePropertyClassAndInstances(std::string const& key)
 {
     //remove from file system
-    Fs::RemoveFilesInDirRec(key, this->mAbsoluteRepoPath + "/" + REPO_NAME);
+    Fs::RemoveFilesInDirRec(key, this->mAbsoluteRepoPath);
 
     //remove the class
     RemovePropertyClass(key);
@@ -473,6 +485,27 @@ bool Repository::ContainsProperty(std::string const& key)
     return false;
 }
 
+/** returns the property containing the given key
+ *
+ * @param key the key of the property wanted
+ *
+ * @return GenPropertyBase*
+ */
+GenPropertyBase* Repository::GetPropertyFromKey(std::string const& key)
+{
+    std::list<GenPropertyBase*>::const_iterator it;
+
+    for (it = this->mPropertyList.begin(); it != this->mPropertyList.end(); it++)
+    {
+        if ((*it)->GetKey() == key)
+        {
+            std::cout << "returning: " << (*it) << std::endl;
+            return (*it);
+        }
+    }
+
+    return NULL;
+}
 /*============================= INQUIRY    =================================*/
 /////////////////////////////// PROTECTED  ///////////////////////////////////
 

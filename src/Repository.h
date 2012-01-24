@@ -27,6 +27,8 @@ DEFINE_FAST_EXCEPTION(PropExistentError,"Property exists already")
 DEFINE_FAST_EXCEPTION(PropInvalidTypeError,"Created property has invalid type")
 DEFINE_FAST_EXCEPTION(PropNotExists, "Property not exists.")
 DEFINE_FAST_EXCEPTION(PropClassNotExists, "PropertyClass not exists.")
+DEFINE_FAST_EXCEPTION(PropClassExistsWithOtherKey, "PropertyClass exists with an other key already.")
+DEFINE_FAST_EXCEPTION(PropClassCreateError, "Cannot create PropertyClass.")
 
 DEFINE_VAR_EXCEPTION(ExcRepository)
 
@@ -47,6 +49,7 @@ class Repository
 
     bool IsExistent();
     bool ContainsProperty(std::string const& key);
+    GenPropertyBase* GetPropertyFromKey(std::string const& key);
     //static PropertyTypes GetPropTypeFromStr(std::string const& str);
 
     /* actions */
