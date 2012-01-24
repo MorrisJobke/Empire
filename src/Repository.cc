@@ -353,6 +353,10 @@ void Repository::AddProperty(std::string const& key, std::string const& type, st
 
     if(!this->ContainsProperty(key))
     {
+
+        if (tmp_type == "string")
+            tmp_type = GetTypeName<std::string>();
+            
         if (tmp_type == "") //recognize type from value
         {
             if(RegexHelper::isInt(value))

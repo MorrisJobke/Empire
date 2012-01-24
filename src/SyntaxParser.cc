@@ -72,10 +72,10 @@ namespace SyntaxParser
         Repository working_repo;
         working_repo.Load();
         std::list <GenPropertyBase*> propList = working_repo.GetPropertyList();
-        
-        std::cout << "Used Properties:" << std::endl;
 
         std::list<GenPropertyBase*>::const_iterator it;
+        std::list<GenPropertyBase*> used;
+        std::list<GenPropertyBase*> unused;
 
         for (it = propList.begin(); it != propList.end(); it++)
         {
@@ -83,27 +83,29 @@ namespace SyntaxParser
             std::string type = (*it)->GetTypeN();
             
             if (Fs::FileExists(key))
-            {
-                std::cout << "\t";
-                std::cout << key << "<" << type << ">";
-                std::string value = Filesystem::FileReadString(key);
-                std::cout << " = " << value;    
-                std::cout << std::endl;    
-            }
+                used.push_back(*it);
+            else
+                unused.push_back(*it);
         }
 
-        std::cout << std::endl << "Unused Properties:" << std::endl;
-
-        for (it = propList.begin(); it != propList.end(); it++)
+        std::cout << "Used Properties(" << used.size() << "):" << std::endl;
+        for (it = used.begin(); it != used.end(); it++)
         {
             std::string key = (*it)->GetKey();
             std::string type = (*it)->GetTypeN();
-            
-            if (!Fs::FileExists(key))
-            {
-                std::cout << "\t";
-                std::cout << key << "<" << type << ">" << std::endl;;
-            }
+            std::string value = Filesystem::FileReadString(key);
+
+            std::cout << "\t";
+            std::cout << key << "<" << type << "> = " << value << std::endl;;
+        }
+
+        std::cout << std::endl << "Unused Properties(" << unused.size() << "):" << std::endl;
+        for (it = unused.begin(); it != unused.end(); it++)
+        {
+            std::string key = (*it)->GetKey();
+            std::string type = (*it)->GetTypeN();
+            std::cout << "\t";
+            std::cout << key << "<" << type << ">" << std::endl;;
         }
     }
 
