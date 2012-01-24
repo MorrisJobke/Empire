@@ -23,6 +23,7 @@ namespace SyntaxParser
     void show(int argc, char* argv[]);
     void init(int argc, char* argv[]);
     void render(int argc, char* argv[]);
+    void remove(int argc, char* argv[]);
 }
 
 

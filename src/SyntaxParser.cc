@@ -230,4 +230,14 @@ namespace SyntaxParser
         }
         Fs::FileWriteString(path, output);
     }
+
+    /** remove command
+     *
+     * @param argc count of arguments
+     * @param argv arguments
+     */
+    void remove(int argc, char* argv[])
+    {
+        
+    }
 }
