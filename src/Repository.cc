@@ -506,6 +506,15 @@ GenPropertyBase* Repository::GetPropertyFromKey(std::string const& key)
 
     return NULL;
 }
+
+/** returns the absolute repo path
+ *
+ * @return repo path as std::string
+ */
+std::string Repository::GetRepositoryPath()
+{
+    return this->mAbsoluteRepoPath;
+}
 /*============================= INQUIRY    =================================*/
 /////////////////////////////// PROTECTED  ///////////////////////////////////
 

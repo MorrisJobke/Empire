@@ -106,24 +106,32 @@ namespace SyntaxParser
                 unused.push_back(*it);
         }
 
-        std::cout << "Used Properties(" << used.size() << "):" << std::endl;
-        for (it = used.begin(); it != used.end(); it++)
-        {
-            std::string key = (*it)->GetKey();
-            std::string type = (*it)->GetTypeN();
-            std::string value = Filesystem::FileReadString(key);
+        std::cout << "Repository root path: " << working_repo.GetRepositoryPath() << std::endl;
 
-            std::cout << "\t";
-            std::cout << key << "<" << type << "> = " << value << std::endl;;
+        if (used.size() != 0)
+        {
+            std::cout << std::endl << "Used Properties(" << used.size() << "):" << std::endl;
+            for (it = used.begin(); it != used.end(); it++)
+            {
+                std::string key = (*it)->GetKey();
+                std::string type = (*it)->GetTypeN();
+                std::string value = Filesystem::FileReadString(key);
+
+                std::cout << "\t";
+                std::cout << key << "<" << type << "> = " << value << std::endl;;
+            }
         }
 
-        std::cout << std::endl << "Unused Properties(" << unused.size() << "):" << std::endl;
-        for (it = unused.begin(); it != unused.end(); it++)
+        if (unused.size() != 0)
         {
-            std::string key = (*it)->GetKey();
-            std::string type = (*it)->GetTypeN();
-            std::cout << "\t";
-            std::cout << key << "<" << type << ">" << std::endl;;
+            std::cout << std::endl << "Unused Properties(" << unused.size() << "):" << std::endl;
+            for (it = unused.begin(); it != unused.end(); it++)
+            {
+                std::string key = (*it)->GetKey();
+                std::string type = (*it)->GetTypeN();
+                std::cout << "\t";
+                std::cout << key << "<" << type << ">" << std::endl;;
+            }
         }
     }
 
