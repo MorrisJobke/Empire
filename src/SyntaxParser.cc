@@ -238,6 +238,21 @@ namespace SyntaxParser
      */
     void remove(int argc, char* argv[])
     {
-        
+        Repository working_repo;
+        if (!working_repo.IsExistent())
+        {
+            std::cout << "There isn't any repository in this or it's parent directories." << std::endl;
+            return;
+        }
+        if (argc != 1)
+        {
+            std::cout << "You need to specify a key.\n"
+                      << "Synopsis: emp remove <key>\n\n";
+            return;
+        }
+        else
+        {
+            working_repo.RemoveProperty(argv[0]);
+        }
     }
 }
