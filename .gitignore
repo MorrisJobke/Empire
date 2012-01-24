@@ -17,7 +17,9 @@ tags
 
 # generated pdf's
 docs/Pflichtenheft/Pflichtenheft.pdf
+docs/Pflichtenheft/LaTeX/Pflichtenheft.pdf
 docs/Testprotokolle/Testprotokolle.pdf
+docs/Testprotokolle/LaTeX/Testprotokolle.pdf
 docs/Handbuch/Handbuch.pdf
 docs/Handbuch/LaTeX/Handbuch.pdf
 # matriculation numbers
