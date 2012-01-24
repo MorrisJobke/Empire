@@ -75,8 +75,7 @@
 \setkomavar{fromname}{@fromname}
 \setkomavar{fromaddress}{@fromstreet\\@fromcity}
 \setkomavar{fromphone}[\Mobilefone~]{@frommobile}
-\setkomavar{fromemail}[\Letter~]{@fromemail \\ Ust-IdNr.: @fromustidnr}
-
+\setkomavar{fromemail}[\Letter~]{@fromemail \linebreak Ust-IdNr.: @fromustidnr}
 
 
 % Anlage neu definieren
@@ -96,8 +95,10 @@
 \end{tabular}%
 \hfill
 \begin{tabular}[t]{l@{}}%
-  \usekomavar[\Mobilefone~]{fromphone}\\
-   \usekomavar[\Letter~]{fromemail}\\
+\setkomavar{fromphone}[\Mobilefone~]{@frommobile}
+\usekomavar[\Mobilefone~]{fromphone}\\
+\setkomavar{fromemail}[\Letter~]{@fromemail}
+\usekomavar[\Letter~]{fromemail}\\
 \end{tabular}%
 \ifkomavarempty{frombank}{}{%
 \hfill
@@ -117,7 +118,7 @@ Bankverbindung: \\
 \setkomavar{invoice}{@nr}
 %---------------------------------------------------------------------------
 % Datum und Ort werden hier eingetragen
-\setkomavar{date}{@date\\ \\ \footnotesize Leistungsdatum \\ \normalsize @accomplishment}
+\setkomavar{date}{@date \\ \footnotesize Leistungsdatum \\ \normalsize @accomplishment}
 \setkomavar{place}{@place}
 %---------------------------------------------------------------------------
 
@@ -139,12 +140,12 @@ Bankverbindung: \\
 \opening{}
 
 
-
 \vspace{5pt}
 \begin{tabularx}{\textwidth}{ccXrr}
 \hline
 \tiny {Menge} & \tiny {Einheit} & \tiny {Beschreibung} & \tiny {Einzelpreis} & \tiny {Gesamtpreis} \\ \hline
- @quantity & @unit & @description & @price EUR & @total EUR \\ \hline \hline
+ @quantity & @unit & @description & @price EUR & @total EUR \\ \hline 
+\hline
 \multicolumn{ 4}{l}{ \textbf{Gesamtsumme} } & \textbf{@alltotal EUR} \\ \hline
 \end{tabularx}
 
