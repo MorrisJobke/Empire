@@ -56,7 +56,9 @@ class GenProperty : public GenPropertyBase
 
         /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
 
-        /* empty constructor with key
+        /** empty constructor with key
+         *
+         * @param rKey the key for the new property
          */
         GenProperty(std::string const& rKey)
         {
@@ -65,7 +67,10 @@ class GenProperty : public GenPropertyBase
 
         /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
 
-        /* constructor with value and key
+        /** constructor with value and key
+         *
+         * @param value the value for the new property
+         * @param rKey the key for the new property
          */
         GenProperty(typ value, std::string const& rKey)
         {
@@ -76,7 +81,9 @@ class GenProperty : public GenPropertyBase
 
         /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
 
-        /* copy constructor
+        /** copy constructor
+         *
+         * @param rOrigin the property, which should be copied
          */
         GenProperty(GenProperty<typ>& rOrigin)
         {
@@ -95,6 +102,10 @@ class GenProperty : public GenPropertyBase
 
         /*============================= ACCESS      ================================*/
 
+        /** setter for the value of a property
+         *
+         * @param value the new value for the property
+         */
         void SetValue(typ value)
         {
             if (!(this->mpData))
@@ -103,6 +114,10 @@ class GenProperty : public GenPropertyBase
                 *((typ*)(this->mpData)) = value;
         };
 
+        /** setter for the value of a property, if it's a string
+         *
+         * @param rValue the new value as string for the property
+         */
         void SetValueFromString(std::string const& rValue)
         {
             typ buffer;
@@ -116,6 +131,10 @@ class GenProperty : public GenPropertyBase
     
         /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
 
+        /** getter for the value of the property
+         *
+         * @return returns the value of the property
+         */
         typ GetValue()
         {
             if (this->HasValue())
@@ -126,12 +145,19 @@ class GenProperty : public GenPropertyBase
 
         /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
 
+        /** getter for the type of the property
+         *
+         * @return returns a string which contains the typename
+         */
         std::string GetTypeN()
         {
             //std::cout << "printing type";
             return GetTypeName<typ>();
         };
 
+        /** print function for the value of the property
+         *
+         */
         void Print()
         {
             std::cout << this->GetValue();
@@ -142,6 +168,10 @@ class GenProperty : public GenPropertyBase
 
         /*============================= OPERATIONS =================================*/
 
+        /** method to print the type, key and value of the property to the outstream
+         *
+         * @param rOut the outstream where the data is printed
+         */
         void ToOutStream(std::ostream& rOut)
         {
             if (this->HasValue())
@@ -156,6 +186,10 @@ class GenProperty : public GenPropertyBase
             }
         }
 
+        /** method to return the value of the property as string
+         *
+         * @return returns a string with the value of the property
+         */
         std::string ToString()
         {
             std::stringstream out;
@@ -170,7 +204,10 @@ class GenProperty : public GenPropertyBase
         
         /*============================= OPERATORS ==================================*/
 
-        /** equal operator 
+        /** equal operator
+         *
+         * @param rRight property which should be compared with the current property
+         * @return returns true, if rRight is the same property, else false
          */
         bool operator==(GenProperty<typ>& rRight)
         {
@@ -189,6 +226,9 @@ class GenProperty : public GenPropertyBase
         /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
 
         /** assignment operator
+         *
+         * @param rRight property which should be assigned to the current property
+         * @return returns the current property
          */
         GenProperty<typ>& operator=(GenProperty<typ>& rRight)
         {
