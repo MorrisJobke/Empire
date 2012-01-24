@@ -165,6 +165,28 @@ BOOST_AUTO_TEST_CASE(GenPropertyCopyConstructorTest)
     // BOOST_CHECK(test_function == copied_prop4);
 }
 
+BOOST_AUTO_TEST_CASE(GenPropertySetValueFromString)
+{
+    GenProperty<float> myprop_float;
+    GenProperty<int> myprop_int;
+    GenProperty<string> myprop_string;
+    GenProperty<string> myprop_string2;
+
+    myprop_float.SetValueFromString("1.2345");
+    BOOST_CHECK(myprop_float.GetValue() == 1.2345);
+    std::cout << "value = " << myprop_float.GetValue() << std::endl;
+
+    myprop_int.SetValueFromString("12345");
+    BOOST_CHECK(myprop_int.GetValue() == 12345);
+
+    myprop_string.SetValueFromString("Test 123");
+    BOOST_CHECK(myprop_string.GetValue() == "Test 123");
+
+    myprop_string2.SetValueFromString("Test");
+    BOOST_CHECK(myprop_string2.GetValue() == "Test");
+
+}
+
 /*======================== OPERATOR TESTS    ==============================*/
 
 BOOST_AUTO_TEST_CASE(GenPropertyAssignmentOperatorTest)
