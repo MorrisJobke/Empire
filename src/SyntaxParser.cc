@@ -192,7 +192,8 @@ namespace SyntaxParser
                     if ((*stringIt).length() > maxLength)
                         maxLength = (*stringIt).length();
 
-                std::cout << "Used by template, but undefined(" << unused.size() << "):" << std::endl;
+                std::cout << COLOR_BOLD << "Used by template, but undefined(" << unused.size() << "):" << COLOR_CLEAR << std::endl;
+                std::cout << COLOR_RED;
                 for (stringIt = unused.begin(); stringIt != unused.end();)
                 {
                     for(int i = 0; i < 3; i++)
@@ -207,7 +208,7 @@ namespace SyntaxParser
                     }
                     std::cout << std::endl;
                 }
-                std::cout << std::endl;
+                std::cout << COLOR_CLEAR << std::endl;
             }
             else
                 std::cout << "All values for your given template are defined." << std::endl;
@@ -224,13 +225,15 @@ namespace SyntaxParser
                     if ((*stringIt).length() > maxLength)
                         maxLength = (*stringIt).length();
 
-                std::cout << "Used by template and defined(" << used.size() << "):" << std::endl;
+                std::cout << COLOR_BOLD << "Used by template and defined(" << used.size() << "):" << COLOR_CLEAR << std::endl;
+                std::cout << COLOR_GREEN;
                 for (stringIt = used.begin(); stringIt != used.end(); stringIt++)
                 {
-                    std::cout   << "\t" << (*stringIt) << "<" << working_repo.GetPropertyFromKey(*stringIt)->GetTypeN() 
-                                << "> = " << Fs::FileReadString(*stringIt) << std::endl;
+                    std::cout   << "\t" << (*stringIt) << COLOR_BLUE 
+                                << "<" << working_repo.GetPropertyFromKey(*stringIt)->GetTypeN() 
+                                << ">" << COLOR_GREEN << " = " << Fs::FileReadString(*stringIt) << std::endl;
                 }
-                std::cout << std::endl;
+                std::cout << COLOR_CLEAR << std::endl;
             }
         }
         else //normal mode
@@ -254,7 +257,9 @@ namespace SyntaxParser
 
             if (used.size() != 0)
             {
-                std::cout << "Used Properties(" << used.size() << "):" << std::endl;
+                std::cout << COLOR_BOLD << "Used Properties(" << used.size() 
+                          << "):" << COLOR_CLEAR << std::endl;
+                std::cout << COLOR_GREEN;
                 for (it = used.begin(); it != used.end(); it++)
                 {
                     std::string key = (*it)->GetKey();
@@ -262,14 +267,17 @@ namespace SyntaxParser
                     std::string value = Filesystem::FileReadString(key);
 
                     std::cout << "\t";
-                    std::cout << key << "<" << type << "> = " << value << std::endl;;
+                    std::cout << key << COLOR_BLUE << "<" << type 
+                    << "> " << COLOR_GREEN << "= " << value << std::endl;;
                 }
-                std::cout << std::endl;
+                std::cout << COLOR_CLEAR << std::endl;
             }
 
             if (unused.size() != 0)
             {
-                std::cout << "Unused Properties(" << unused.size() << "):" << std::endl;
+                std::cout << COLOR_BOLD << "Unused Properties(" << unused.size() 
+                          << "):" << COLOR_CLEAR << std::endl;
+                std::cout << COLOR_RED;
                 for (it = unused.begin(); it != unused.end(); it++)
                 {
                     std::string key = (*it)->GetKey();
@@ -277,7 +285,7 @@ namespace SyntaxParser
                     std::cout << "\t";
                     std::cout << key << "<" << type << ">" << std::endl;;
                 }
-                std::cout << std::endl;
+                std::cout << COLOR_CLEAR << std::endl;
             }
         }
     }
