@@ -442,11 +442,8 @@ void Repository::RemovePropertyClass(std::string const& key)
  */
 void Repository::RemovePropertyClassAndInstances(std::string const& key)
 {
-    //remove from file system
-    Fs::RemoveFilesInDirRec(key, this->mAbsoluteRepoPath);
-
-    //remove the class
-    RemovePropertyClass(key);
+    //remove all instances and property class
+    Fs::RemoveFilesInDirRec(key, this->mAbsoluteRepoPath); 
 
     //remove from property list
     std::list<GenPropertyBase*>::iterator it;

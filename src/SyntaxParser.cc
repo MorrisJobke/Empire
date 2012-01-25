@@ -431,15 +431,18 @@ namespace SyntaxParser
             std::cout << "There isn't any repository in this or it's parent directories." << std::endl;
             return;
         }
-        if (argc != 1)
+        if (argc != 1 && !((argc == 2) && strcmp(argv[0], "--all") == 0))
         {
             std::cout << "You need to specify a key.\n"
-                      << "Synopsis: emp remove <key>\n\n";
+                      << "Synopsis: emp remove [--all] <key>\n\n";
             return;
         }
         else
         {
-            working_repo.RemoveProperty(argv[0]);
+            if(argc == 2)
+                working_repo.RemovePropertyClassAndInstances(argv[1]);
+            else
+                working_repo.RemoveProperty(argv[0]);
         }
     }
 }
