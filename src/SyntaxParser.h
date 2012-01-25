@@ -19,6 +19,7 @@ DEFINE_FAST_EXCEPTION(NotEnoughArgs, "Not enough arguments.")
 #define COLOR_RED "\033[31m"
 #define COLOR_GREEN "\033[32m"
 #define COLOR_BLUE "\033[34m"
+#define COLOR_CYAN "\033[36m"
 #define COLOR_CLEAR "\033[0m"
 #define COLOR_BOLD "\033[1m"
 

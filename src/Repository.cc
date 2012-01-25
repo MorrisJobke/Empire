@@ -155,7 +155,7 @@ void Repository::Load()
                     new_key, new_type);
 
             GenPropertyBase* p_new_prop = PropertyHelpers::CreatePropertyFromTypeString(new_type);
-            p_new_prop->SetKey(new_key);
+            p_new_prop->SetKey(new_key);     
 
             this->mPropertyList.push_back(p_new_prop);
         }
@@ -388,7 +388,7 @@ void Repository::AddProperty(std::string const& key, std::string const& type, st
             this->Load();
             std::string fileType = this->GetPropertyFromKey(key)->GetTypeN();
             
-            if(fileType != type)
+            if(fileType != tmp_type)
                 throw PropClassExistsWithOtherKey();
         }
 
@@ -396,7 +396,7 @@ void Repository::AddProperty(std::string const& key, std::string const& type, st
         p_new_prop->SetKey(key);
         p_new_prop->SetValueFromString(value);
         this->mPropertyList.push_back(p_new_prop);
-        this->WritePropDataToFile(this->mAbsoluteRepoPath, p_new_prop);
+        this->WritePropDataToFile(Fs::GetCwd(), p_new_prop);
     }
     else
         throw PropExistentError();
@@ -514,6 +514,63 @@ GenPropertyBase* Repository::GetPropertyFromKey(std::string const& key)
 std::string Repository::GetRepositoryPath()
 {
     return this->mAbsoluteRepoPath;
+}
+
+/** iterates throug parent folders recursively and returns first matching value
+ *
+ * @param rKey key of the property
+ * @param rPath working directory to start from
+ * @return value as std::string, NULL if no value is defined
+ */
+std::string Repository::getFirstDefinedValueRec(std::string const& rKey, std::string const& rPath, std::string& rFoundPath)
+{
+    std::string currDir = rPath;
+
+    while(currDir != Fs::GetParentFolderPath(this->mAbsoluteRepoPath))
+    {
+        if (Fs::FileExists(currDir + "/" + rKey))
+        {
+            rFoundPath = currDir;
+            return Fs::FileReadString(currDir + "/" + rKey);
+        }
+        else
+            currDir = Fs::GetParentFolderPath(currDir);            
+    }
+    return "";
+}
+
+std::list<std::string> Repository::GetDefindedValuesInCwd()
+{
+    std::list<std::string> result;
+    std::list<GenPropertyBase*>::const_iterator it;
+    std::string path = Fs::GetCwd();
+    std::string found_path;
+    for (it = this->mPropertyList.begin(); it != this->mPropertyList.end(); it++)
+    {
+        std::string value = this->getFirstDefinedValueRec((*it)->GetKey(), path, found_path);
+
+        if(value != "")
+            result.push_back((*it)->GetKey());
+    }
+
+    return result;
+}
+
+std::list<std::string> Repository::GetUnDefindedValuesInCwd()
+{
+    std::list<std::string> result;
+    std::list<GenPropertyBase*>::const_iterator it;
+    std::string path = Fs::GetCwd();
+    std::string found_path;
+    for (it = this->mPropertyList.begin(); it != this->mPropertyList.end(); it++)
+    {
+        std::string value = this->getFirstDefinedValueRec((*it)->GetKey(), path, found_path);
+
+        if(value == "")
+            result.push_back((*it)->GetKey());
+    }
+
+    return result;
 }
 /*============================= INQUIRY    =================================*/
 /////////////////////////////// PROTECTED  ///////////////////////////////////

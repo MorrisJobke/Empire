@@ -201,24 +201,9 @@ namespace SyntaxParser
             std::list<GenPropertyBase*>::const_iterator propIt;
             bool found;
 
-            //get unused properties from template:
-            for (stringIt = templateProperties.begin(); stringIt != templateProperties.end(); stringIt++)
-            {
-                found = false;
-                for (propIt = propList.begin(); propIt != propList.end(); propIt++)
-                {
-                    if ((*propIt)->GetKey() == *stringIt)
-                    {
-                        found = true;
-                        break;
-                    }
-                }
-                if (found)
-                    used.push_back(*stringIt);
-                else
-                    unused.push_back(*stringIt);
-            }
-
+            used = working_repo.GetDefindedValuesInCwd();
+            unused = working_repo.GetUnDefindedValuesInCwd();
+            
             /* print unused */
             if(unused.size() > 0)
             {
@@ -248,10 +233,8 @@ namespace SyntaxParser
                 }
                 std::cout << COLOR_CLEAR << std::endl;
             }
-            else
-                std::cout << "All values for your given template are defined." << std::endl;
-            
-            if (used.size() > 0 && unused.size() > 0)
+            /* print used */
+            if (used.size() > 0)
             {
                 /* print used*/
                 used.sort();
@@ -262,8 +245,10 @@ namespace SyntaxParser
                 for (stringIt = used.begin(); stringIt != used.end(); stringIt++)
                     if ((*stringIt).length() > maxLength)
                         maxLength = (*stringIt).length();
-
-                std::cout << COLOR_BOLD << "Used by template and defined(" << used.size() << "):" << COLOR_CLEAR << std::endl;
+                if(unused.size() == 0)
+                    std::cout << COLOR_BOLD << "All values for your given template are defined(" << used.size() << "):" << COLOR_CLEAR << std::endl;
+                else
+                    std::cout << COLOR_BOLD << "Used by template and defined(" << used.size() << "):" << COLOR_CLEAR << std::endl;
                 std::cout << COLOR_GREEN;
                 for (stringIt = used.begin(); stringIt != used.end(); stringIt++)
                 {
@@ -276,20 +261,13 @@ namespace SyntaxParser
         }
         else //normal mode
         {
-            std::list<GenPropertyBase*>::const_iterator it;
-            std::list<GenPropertyBase*> used;
-            std::list<GenPropertyBase*> unused;
+            std::list<std::string>::const_iterator it;
+            std::list<GenPropertyBase*> usedProperties;
+            std::list<std::string> used;
+            std::list<std::string> unused;
 
-            for (it = propList.begin(); it != propList.end(); it++)
-            {
-                std::string key = (*it)->GetKey();
-                std::string type = (*it)->GetTypeN();
-                
-                if (Fs::FileExists(key))
-                    used.push_back(*it);
-                else
-                    unused.push_back(*it);
-            }
+            used = working_repo.GetDefindedValuesInCwd();
+            unused = working_repo.GetUnDefindedValuesInCwd();
 
             std::cout << "Repository root path: " << working_repo.GetRepositoryPath() << std::endl << std::endl;
 
@@ -297,16 +275,21 @@ namespace SyntaxParser
             {
                 std::cout << COLOR_BOLD << "Used Properties(" << used.size() 
                           << "):" << COLOR_CLEAR << std::endl;
-                std::cout << COLOR_GREEN;
                 for (it = used.begin(); it != used.end(); it++)
                 {
-                    std::string key = (*it)->GetKey();
-                    std::string type = (*it)->GetTypeN();
-                    std::string value = Filesystem::FileReadString(key);
-
-                    std::cout << "\t";
+                    std::string key = *it;
+                    std::string type = working_repo.GetPropertyFromKey(key)->GetTypeN();
+                    std::string loc;
+                    std::string value = working_repo.getFirstDefinedValueRec(key, Fs::GetCwd(), loc);
+                    std::string color;
+                    if (loc == Fs::GetCwd())
+                        color = COLOR_GREEN;
+                    else
+                        color = COLOR_CYAN;
+                                           
+                    std::cout << color << "\t";
                     std::cout << key << COLOR_BLUE << "<" << type 
-                    << "> " << COLOR_GREEN << "= " << value << std::endl;;
+                    << "> " << color << "= " << value << std::endl;;
                 }
                 std::cout << COLOR_CLEAR << std::endl;
             }
@@ -316,12 +299,13 @@ namespace SyntaxParser
                 std::cout << COLOR_BOLD << "Unused Properties(" << unused.size() 
                           << "):" << COLOR_CLEAR << std::endl;
                 std::cout << COLOR_RED;
+                
                 for (it = unused.begin(); it != unused.end(); it++)
                 {
-                    std::string key = (*it)->GetKey();
-                    std::string type = (*it)->GetTypeN();
+                    std::string key = *it;
+                    std::string type = working_repo.GetPropertyFromKey(key)->GetTypeN();
                     std::cout << "\t";
-                    std::cout << key << "<" << type << ">" << std::endl;;
+                    std::cout << key << COLOR_BLUE << "<" << type << ">" << COLOR_CLEAR << std::endl;;
                 }
                 std::cout << COLOR_CLEAR << std::endl;
             }

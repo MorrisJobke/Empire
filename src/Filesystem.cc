@@ -374,6 +374,20 @@ namespace Filesystem
 
         return result;
     }
+
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
 
+    /** 
+     * @brief function to get the parent dir from a given string
+     * @param rFile path from the given dir
+     * @return parent dir as std::string
+     */
+    std::string GetParentFolderPath(std::string const& rPath)
+    {
+         int found = rPath.find_last_of("/");
+         std::string result = rPath.substr(0, found);
+        
+        return result;
+    }
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
 }

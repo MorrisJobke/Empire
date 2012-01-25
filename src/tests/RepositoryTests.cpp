@@ -429,6 +429,48 @@ BOOST_AUTO_TEST_CASE(AddPropertyTest)
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
 
+BOOST_AUTO_TEST_CASE(getFirstDefinedValueRecTest)
+{
+    string repo_dir = "test_repo";
+
+    if (Fs::DirectoryExists(repo_dir) == false)
+        Fs::CreateDirectory(repo_dir);
+    else
+    {
+        Fs::RemoveDirRec(repo_dir);
+        Fs::CreateDirectory(repo_dir);
+    }
+
+    Repository repo;
+
+    try
+    {
+        repo.Init();
+    }
+    catch(ExcRepository &exc)
+    {
+        string err = exc.what();
+        if(err != "Err: Repo Exists")
+            cout << exc.what() << endl;
+    }
+
+    repo.AddProperty("intAuto", "", "123892");
+    repo.AddProperty("int2", "", "123");
+    remove(".emp/intAuto");
+    remove("intAuto");
+    
+    Fs::CreateDirectory("test");
+    Fs::ChangeCwd("test");
+    repo.AddProperty("intAuto", "", "892");
+    std::string pos;
+    std::string value = repo.getFirstDefinedValueRec("intAuto", Fs::GetCwd(), pos);
+    BOOST_CHECK(value == "892");
+    value = repo.getFirstDefinedValueRec("int2", Fs::GetCwd(), pos);
+    BOOST_CHECK(value == "123");
+}
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+
 BOOST_AUTO_TEST_CASE(testRepoDeleteEnv)
 {
     /** this test should always be the last one */

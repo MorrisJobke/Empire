@@ -51,6 +51,7 @@ namespace Filesystem
     bool FileExists(std::string const& rPath);
 
     std::string FileReadString(std::string const& rFilePath);
+    std::string GetParentFolderPath(std::string const& rPath);
 }
 
 
