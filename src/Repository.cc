@@ -407,8 +407,8 @@ void Repository::AddProperty(std::string const& key, std::string const& type, st
             this->Load();
 
             std::string fileType = this->GetPropertyByKey(key)->GetTypeN();
-
-            if(fileType != type)
+ 
+            if(fileType != tmp_type)
                 throw PropClassExistsWithOtherKey();
         }
 
