@@ -199,8 +199,6 @@ namespace PropertyHelpers
         else if (rType == "string")
             p_new = new GenProperty<std::string>();
 
-        else if (rType == GetTypeName<Coll>())
-            p_new = new GenProperty<Coll>();
         else
             throw ErrorGenProperty("Not a supported type");
 
