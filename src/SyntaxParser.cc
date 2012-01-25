@@ -138,7 +138,7 @@ namespace SyntaxParser
             if(unused.size() > 0)
             {
                 unused.sort();
-
+                unused.unique();
                 //get length of longest key
                 unsigned int maxLength = 0;
                 for (stringIt = unused.begin(); stringIt != unused.end(); stringIt++)
@@ -169,6 +169,7 @@ namespace SyntaxParser
             {
                 /* print used*/
                 used.sort();
+                used.unique();
 
                 //get length of longest key
                 unsigned int maxLength = 0;
@@ -177,19 +178,10 @@ namespace SyntaxParser
                         maxLength = (*stringIt).length();
 
                 std::cout << "Used by template and defined(" << used.size() << "):" << std::endl;
-                for (stringIt = used.begin(); stringIt != used.end();)
+                for (stringIt = used.begin(); stringIt != used.end(); stringIt++)
                 {
-                    for(int i = 0; i < 3; i++)
-                    {
-                        if (stringIt == used.end())
-                            break;
-                        std::cout << "\t" << *stringIt;
-                        for (int j = maxLength - (*stringIt).length(); j > 0; j--)
-                            std::cout << " ";
-
-                        stringIt++;
-                    }
-                    std::cout << std::endl;
+                    std::cout   << "\t" << (*stringIt) << "<" << working_repo.GetPropertyFromKey(*stringIt)->GetTypeN() 
+                                << "> = " << Fs::FileReadString(*stringIt) << std::endl;
                 }
                 std::cout << std::endl;
             }
@@ -211,11 +203,11 @@ namespace SyntaxParser
                     unused.push_back(*it);
             }
 
-            std::cout << "Repository root path: " << working_repo.GetRepositoryPath() << std::endl;
+            std::cout << "Repository root path: " << working_repo.GetRepositoryPath() << std::endl << std::endl;
 
             if (used.size() != 0)
             {
-                std::cout << std::endl << "Used Properties(" << used.size() << "):" << std::endl;
+                std::cout << "Used Properties(" << used.size() << "):" << std::endl;
                 for (it = used.begin(); it != used.end(); it++)
                 {
                     std::string key = (*it)->GetKey();
@@ -225,11 +217,12 @@ namespace SyntaxParser
                     std::cout << "\t";
                     std::cout << key << "<" << type << "> = " << value << std::endl;;
                 }
+                std::cout << std::endl;
             }
 
             if (unused.size() != 0)
             {
-                std::cout << std::endl << "Unused Properties(" << unused.size() << "):" << std::endl;
+                std::cout << "Unused Properties(" << unused.size() << "):" << std::endl;
                 for (it = unused.begin(); it != unused.end(); it++)
                 {
                     std::string key = (*it)->GetKey();
@@ -237,6 +230,7 @@ namespace SyntaxParser
                     std::cout << "\t";
                     std::cout << key << "<" << type << ">" << std::endl;;
                 }
+                std::cout << std::endl;
             }
         }
     }

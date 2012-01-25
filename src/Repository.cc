@@ -499,7 +499,6 @@ GenPropertyBase* Repository::GetPropertyFromKey(std::string const& key)
     {
         if ((*it)->GetKey() == key)
         {
-            std::cout << "returning: " << (*it) << std::endl;
             return (*it);
         }
     }
