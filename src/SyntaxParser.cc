@@ -35,7 +35,7 @@ namespace SyntaxParser
      */
     void add(int argc, char* argv[])
     {
-         Repository working_repo;
+        Repository working_repo;
         if (!working_repo.IsExistent())
         {
             std::cout << "There isn't any repository in this or it's parent directories." << std::endl;
@@ -88,49 +88,155 @@ namespace SyntaxParser
     void show(int argc, char* argv[])
     {
         Repository working_repo;
+
+        if (!working_repo.IsExistent())
+        {
+            std::cout << "There isn't any repository in this or it's parent directories." << std::endl;
+            return;
+        }
+        if (argc > 1)
+        {
+            std::cout << "This command runs without any parameters.\n"
+                      << "Specifying a template is optional and gives you\n"
+                      << "some template specific information.\n"
+                      << "Synopsis: emp show [<path-to-template>]\n\n";
+            return;
+        }
+
         working_repo.Load();
         std::list <GenPropertyBase*> propList = working_repo.GetPropertyList();
 
-        std::list<GenPropertyBase*>::const_iterator it;
-        std::list<GenPropertyBase*> used;
-        std::list<GenPropertyBase*> unused;
-
-        for (it = propList.begin(); it != propList.end(); it++)
+        if (argc != 0) //template mode
         {
-            std::string key = (*it)->GetKey();
-            std::string type = (*it)->GetTypeN();
-            
-            if (Fs::FileExists(key))
-                used.push_back(*it);
-            else
-                unused.push_back(*it);
-        }
+            SimpleTemplate* tmpl = new SimpleTemplate();
+            std::list<std::string> templateProperties = tmpl->GetKeyList(argv[0]);
+            std::list<std::string> unused;
+            std::list<std::string> used;
+            std::list<std::string>::const_iterator stringIt;
+            std::list<GenPropertyBase*>::const_iterator propIt;
+            bool found;
 
-        std::cout << "Repository root path: " << working_repo.GetRepositoryPath() << std::endl;
-
-        if (used.size() != 0)
-        {
-            std::cout << std::endl << "Used Properties(" << used.size() << "):" << std::endl;
-            for (it = used.begin(); it != used.end(); it++)
+            //get unused properties from template:
+            for (stringIt = templateProperties.begin(); stringIt != templateProperties.end(); stringIt++)
             {
-                std::string key = (*it)->GetKey();
-                std::string type = (*it)->GetTypeN();
-                std::string value = Filesystem::FileReadString(key);
+                found = false;
+                for (propIt = propList.begin(); propIt != propList.end(); propIt++)
+                {
+                    if ((*propIt)->GetKey() == *stringIt)
+                    {
+                        found = true;
+                        break;
+                    }
+                }
+                if (found)
+                    used.push_back(*stringIt);
+                else
+                    unused.push_back(*stringIt);
+            }
 
-                std::cout << "\t";
-                std::cout << key << "<" << type << "> = " << value << std::endl;;
+            /* print unused */
+            if(unused.size() > 0)
+            {
+                unused.sort();
+
+                //get length of longest key
+                unsigned int maxLength = 0;
+                for (stringIt = unused.begin(); stringIt != unused.end(); stringIt++)
+                    if ((*stringIt).length() > maxLength)
+                        maxLength = (*stringIt).length();
+
+                std::cout << "Used by template, but undefined(" << unused.size() << "):" << std::endl;
+                for (stringIt = unused.begin(); stringIt != unused.end();)
+                {
+                    for(int i = 0; i < 3; i++)
+                    {
+                        if (stringIt == unused.end())
+                            break;
+                        std::cout << "\t" << *stringIt;
+                        for (int j = maxLength - (*stringIt).length(); j > 0; j--)
+                            std::cout << " ";
+
+                        stringIt++;
+                    }
+                    std::cout << std::endl;
+                }
+                std::cout << std::endl;
+            }
+            else
+                std::cout << "All values for your given template are defined.";
+            
+            if (used.size() > 0 && unused.size() > 0)
+            {
+                /* print used*/
+                used.sort();
+
+                //get length of longest key
+                unsigned int maxLength = 0;
+                for (stringIt = used.begin(); stringIt != used.end(); stringIt++)
+                    if ((*stringIt).length() > maxLength)
+                        maxLength = (*stringIt).length();
+
+                std::cout << "Used by template and defined(" << used.size() << "):" << std::endl;
+                for (stringIt = used.begin(); stringIt != used.end();)
+                {
+                    for(int i = 0; i < 3; i++)
+                    {
+                        if (stringIt == used.end())
+                            break;
+                        std::cout << "\t" << *stringIt;
+                        for (int j = maxLength - (*stringIt).length(); j > 0; j--)
+                            std::cout << " ";
+
+                        stringIt++;
+                    }
+                    std::cout << std::endl;
+                }
+                std::cout << std::endl;
             }
         }
-
-        if (unused.size() != 0)
+        else //normal mode
         {
-            std::cout << std::endl << "Unused Properties(" << unused.size() << "):" << std::endl;
-            for (it = unused.begin(); it != unused.end(); it++)
+            std::list<GenPropertyBase*>::const_iterator it;
+            std::list<GenPropertyBase*> used;
+            std::list<GenPropertyBase*> unused;
+
+            for (it = propList.begin(); it != propList.end(); it++)
             {
                 std::string key = (*it)->GetKey();
                 std::string type = (*it)->GetTypeN();
-                std::cout << "\t";
-                std::cout << key << "<" << type << ">" << std::endl;;
+                
+                if (Fs::FileExists(key))
+                    used.push_back(*it);
+                else
+                    unused.push_back(*it);
+            }
+
+            std::cout << "Repository root path: " << working_repo.GetRepositoryPath() << std::endl;
+
+            if (used.size() != 0)
+            {
+                std::cout << std::endl << "Used Properties(" << used.size() << "):" << std::endl;
+                for (it = used.begin(); it != used.end(); it++)
+                {
+                    std::string key = (*it)->GetKey();
+                    std::string type = (*it)->GetTypeN();
+                    std::string value = Filesystem::FileReadString(key);
+
+                    std::cout << "\t";
+                    std::cout << key << "<" << type << "> = " << value << std::endl;;
+                }
+            }
+
+            if (unused.size() != 0)
+            {
+                std::cout << std::endl << "Unused Properties(" << unused.size() << "):" << std::endl;
+                for (it = unused.begin(); it != unused.end(); it++)
+                {
+                    std::string key = (*it)->GetKey();
+                    std::string type = (*it)->GetTypeN();
+                    std::cout << "\t";
+                    std::cout << key << "<" << type << ">" << std::endl;;
+                }
             }
         }
     }

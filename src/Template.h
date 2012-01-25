@@ -47,6 +47,7 @@ public:
      * @param output the parsed result
      */
     virtual void ParseFile(std::string const& path, std::string& output) = 0;
+
 };
 
 class SimpleTemplate : public ITemplate
@@ -63,6 +64,7 @@ public:
 
     virtual void ParseString(std::string const& input, std::string& output);
     virtual void ParseFile(std::string const& path, std::string& output);
+    std::list<std::string> GetKeyList(std::string path);
 };
 
 #endif

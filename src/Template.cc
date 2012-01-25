@@ -281,6 +281,48 @@ void SimpleTemplate::ParseFile(string const& path, string& output)
     output = result;
 }
 
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+
+/** get a list of properties in a given template
+ *
+ * @param path the path to the file which content should be parsed
+ * @return list of properties
+ */
+std::list<std::string> SimpleTemplate::GetKeyList(std::string path)
+{
+    std::string propNameBuffer;
+    std::list<std::string> propertyList;
+    std::string input = Filesystem::FileReadString(path);
+
+    string::const_iterator it;
+    it = input.begin();
+    // TODO: parse variable at end of string fails
+    while (it < input.end())
+    {
+        if (*it == '@') 
+        {
+            if (*(it + 1) == '@') 
+            {
+                it++;
+            }
+            else 
+            {
+                it++;
+                propNameBuffer = "";
+                while(isalnum(*it) || *it == '_')
+                {
+                    propNameBuffer += *it;
+                    it++;
+                }
+                if (*it != '{') //ignore Collections
+                    propertyList.push_back(propNameBuffer);
+            }
+        }
+        it++;
+    }
+    return propertyList;    
+}
+
 /*============================= ACCESS     =================================*/
 /*============================= INQUIRY    =================================*/
 
