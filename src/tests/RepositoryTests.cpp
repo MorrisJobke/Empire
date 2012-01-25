@@ -429,7 +429,7 @@ BOOST_AUTO_TEST_CASE(AddPropertyTest)
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
 
-BOOST_AUTO_TEST_CASE(getFirstDefinedValueRecTest)
+BOOST_AUTO_TEST_CASE(GetFirstDefinedValueRecTest)
 {
     string repo_dir = "test_repo";
 
@@ -463,9 +463,9 @@ BOOST_AUTO_TEST_CASE(getFirstDefinedValueRecTest)
     Fs::ChangeCwd("test");
     repo.AddProperty("intAuto", "", "892");
     std::string pos;
-    std::string value = repo.getFirstDefinedValueRec("intAuto", Fs::GetCwd(), pos);
+    std::string value = repo.GetFirstDefinedValueRec("intAuto", Fs::GetCwd(), pos);
     BOOST_CHECK(value == "892");
-    value = repo.getFirstDefinedValueRec("int2", Fs::GetCwd(), pos);
+    value = repo.GetFirstDefinedValueRec("int2", Fs::GetCwd(), pos);
     BOOST_CHECK(value == "123");
 }
 

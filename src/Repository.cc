@@ -523,7 +523,7 @@ std::string Repository::GetRepositoryPath()
  * @param rPath working directory to start from
  * @return value as std::string, NULL if no value is defined
  */
-std::string Repository::getFirstDefinedValueRec(std::string const& rKey, std::string const& rPath, std::string& rFoundPath)
+std::string Repository::GetFirstDefinedValueRec(std::string const& rKey, std::string const& rPath, std::string& rFoundPath)
 {
     std::string currDir = rPath;
 
@@ -548,7 +548,7 @@ std::list<std::string> Repository::GetDefindedValuesInCwd()
     std::string found_path;
     for (it = this->mPropertyList.begin(); it != this->mPropertyList.end(); it++)
     {
-        std::string value = this->getFirstDefinedValueRec((*it)->GetKey(), path, found_path);
+        std::string value = this->GetFirstDefinedValueRec((*it)->GetKey(), path, found_path);
 
         if(value != "")
             result.push_back((*it)->GetKey());
@@ -565,7 +565,7 @@ std::list<std::string> Repository::GetUnDefindedValuesInCwd()
     std::string found_path;
     for (it = this->mPropertyList.begin(); it != this->mPropertyList.end(); it++)
     {
-        std::string value = this->getFirstDefinedValueRec((*it)->GetKey(), path, found_path);
+        std::string value = this->GetFirstDefinedValueRec((*it)->GetKey(), path, found_path);
 
         if(value == "")
             result.push_back((*it)->GetKey());

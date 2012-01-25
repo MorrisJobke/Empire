@@ -246,7 +246,7 @@ namespace SyntaxParser
                 {
                     std::string key = *it;
                     std::string path, color;
-                    std::string value = working_repo.getFirstDefinedValueRec(key, Fs::GetCwd(), path);
+                    std::string value = working_repo.GetFirstDefinedValueRec(key, Fs::GetCwd(), path);
                     std::string type = working_repo.GetPropertyByKey(key)->GetTypeN();
 
                     if (path == Fs::GetCwd())
@@ -282,7 +282,7 @@ namespace SyntaxParser
                     std::string key = *it;
                     std::string type = working_repo.GetPropertyByKey(key)->GetTypeN();
                     std::string loc;
-                    std::string value = working_repo.getFirstDefinedValueRec(key, Fs::GetCwd(), loc);
+                    std::string value = working_repo.GetFirstDefinedValueRec(key, Fs::GetCwd(), loc);
                     std::string color;
                     if (loc == Fs::GetCwd())
                         color = COLOR_GREEN;
