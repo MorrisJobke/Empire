@@ -48,7 +48,7 @@ namespace SyntaxParser
                       << "Specifying a type is optional.\n"
                       << "Synopsis: emp add <key> [<type>] <value>\n"
                       << "For an interactive add use:\n"
-                      << "addi <template>\n\n";
+                      << "emp addi <template>\n\n";
             return;
         }
 
