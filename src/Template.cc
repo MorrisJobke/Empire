@@ -301,7 +301,7 @@ std::list<std::string> SimpleTemplate::GetKeyList(std::string const& path)
     {
         if (*it == '@') 
         {
-            if (*(it + 1) == '@') 
+            if (*(it + 1) == '@') //ignoring @@
             {
                 it++;
             }
@@ -323,6 +323,7 @@ std::list<std::string> SimpleTemplate::GetKeyList(std::string const& path)
         }
         it++;
     }
+
     propertyList.sort();
     propertyList.unique();
     return propertyList;    
@@ -343,7 +344,7 @@ std::list<std::string> SimpleTemplate::GetMissingProperties(std::string const& r
     std::list<std::string>::const_iterator stringIt;
     std::list<GenPropertyBase*>::const_iterator propIt;
     bool found;
-
+    
     for (stringIt = needed.begin(); stringIt != needed.end(); stringIt++)
     {
         found = false;
@@ -360,6 +361,40 @@ std::list<std::string> SimpleTemplate::GetMissingProperties(std::string const& r
     }
     return missing;
 }
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+
+/** get a list of properties that are used by the template and also defined
+ *
+ * @param rPath the path to the file of the template
+ * @param rAvailable already defined properties
+ * @return list of property-keys
+ */
+std::list<std::string> SimpleTemplate::GetAvailableProperties(std::string const& rPath, std::list<GenPropertyBase*> const& rAvailable)
+{
+    std::list<std::string> needed = this->GetKeyList(rPath);
+    std::list<std::string> available;
+    std::list<std::string>::const_iterator stringIt;
+    std::list<GenPropertyBase*>::const_iterator propIt;
+    bool found;
+
+    for (stringIt = needed.begin(); stringIt != needed.end(); stringIt++)
+    {
+        found = false;
+        for (propIt = rAvailable.begin(); propIt != rAvailable.end(); propIt++)
+        {
+            if ((*propIt)->GetKey() == *stringIt)
+            {
+                found = true;
+                break;
+            }
+        }
+        if (found)
+            available.push_back(*stringIt);
+    }
+    return available;
+}
+
 /*============================= ACCESS     =================================*/
 /*============================= INQUIRY    =================================*/
 

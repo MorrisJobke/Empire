@@ -66,6 +66,7 @@ public:
     virtual void ParseFile(std::string const& path, std::string& output);
     std::list<std::string> GetKeyList(std::string const& path);
     std::list<std::string> GetMissingProperties(std::string const& rPath, std::list<GenPropertyBase*> const& rAvailable);
+    std::list<std::string> GetAvailableProperties(std::string const& rPath, std::list<GenPropertyBase*> const& rAvailable);
 };
 
 #endif
