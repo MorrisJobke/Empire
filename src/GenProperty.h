@@ -51,6 +51,7 @@ class GenProperty : public GenPropertyBase
         /* default constructor
          */
         GenProperty()
+        :   GenPropertyBase()
         {
         }
 
@@ -61,6 +62,7 @@ class GenProperty : public GenPropertyBase
          * @param rKey the key for the new property
          */
         GenProperty(std::string const& rKey)
+        :   GenPropertyBase()
         {
             this->mKey = rKey;
         }
@@ -73,6 +75,7 @@ class GenProperty : public GenPropertyBase
          * @param rKey the key for the new property
          */
         GenProperty(typ value, std::string const& rKey)
+        :   GenPropertyBase()
         {
             this->mKey = rKey;
 
@@ -86,6 +89,7 @@ class GenProperty : public GenPropertyBase
          * @param rOrigin the property, which should be copied
          */
         GenProperty(GenProperty<typ>& rOrigin)
+        :   GenPropertyBase()
         {
             this->mKey = rOrigin.GetKey();
 
