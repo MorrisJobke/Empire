@@ -26,7 +26,7 @@ int main(int argc, char* argv[])
 {
 
     Repository working_repo;
-    
+
 
     /* Skip over command name */
 

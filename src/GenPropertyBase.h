@@ -65,13 +65,13 @@ class GenPropertyBase
          *
          */
         virtual void Print() = 0;
-        
+
         /** method to print the type, key and value of the property to the outstream
          *
          * @param rOut the outstream where the data is printed
          */
         virtual void ToOutStream(std::ostream& rOut) = 0;
-        
+
         /** getter for the type of the property
          *
          * @return returns a string which contains the typename
@@ -83,7 +83,7 @@ class GenPropertyBase
          * @return returns a string with the value of the property
          */
         virtual std::string ToString() = 0;
-        
+
         /** setter for the value of a property, if it's a string
          *
          * @param rValue the new value as string for the property

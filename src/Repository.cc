@@ -155,7 +155,7 @@ void Repository::Load()
                     new_key, new_type);
 
             GenPropertyBase* p_new_prop = PropertyHelpers::CreatePropertyFromTypeString(new_type);
-            p_new_prop->SetKey(new_key);     
+            p_new_prop->SetKey(new_key);
 
             this->mPropertyList.push_back(p_new_prop);
         }
@@ -246,7 +246,7 @@ void Repository::CreatePropertyClass(std::string const& key, std::string const& 
 
     if (Fs::FileExists(this->mAbsoluteRepoPath + "/" + REPO_NAME + "/" + key))
         throw PropExistentError();
-    
+
     /* correct type conversion */
     GenPropertyBase* new_prop = PropertyHelpers::CreatePropertyFromTypeString(rType);
 
@@ -370,7 +370,7 @@ void Repository::AddProperty(std::string const& key, std::string const& type, st
             else
                 tmp_type = GetTypeName<std::string>();
         }
-    
+
         /* check if Propertyclass exists already, otherwise create it*/
         if(!Fs::FileExists(this->mAbsoluteRepoPath + "/" + REPO_NAME + "/" + key))
         {
@@ -437,7 +437,7 @@ void Repository::RemovePropertyClass(std::string const& key)
     {
         throw PropClassNotExists();
     }
-}   
+}
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
 
@@ -448,7 +448,7 @@ void Repository::RemovePropertyClass(std::string const& key)
 void Repository::RemovePropertyClassAndInstances(std::string const& key)
 {
     //remove all instances and property class
-    Fs::RemoveFilesInDirRec(key, this->mAbsoluteRepoPath); 
+    Fs::RemoveFilesInDirRec(key, this->mAbsoluteRepoPath);
 
     //remove from property list
     std::list<GenPropertyBase*>::iterator it;
@@ -535,7 +535,7 @@ std::string Repository::GetFirstDefinedValueRec(std::string const& rKey, std::st
             return Fs::FileReadString(currDir + "/" + rKey);
         }
         else
-            currDir = Fs::GetParentFolderPath(currDir);            
+            currDir = Fs::GetParentFolderPath(currDir);
     }
     return "";
 }

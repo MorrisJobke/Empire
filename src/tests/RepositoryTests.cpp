@@ -17,7 +17,7 @@
 #include <list>
 
 #include <stdio.h>
-#include <pcre.h> 
+#include <pcre.h>
 
 #include <boost/test/unit_test.hpp>
 
@@ -350,7 +350,7 @@ BOOST_AUTO_TEST_CASE(testRepoRemovePropertyClass)
     BOOST_CHECK(Fs::FileExists(".emp/MeineZahl") == false);
 
     remove(".emp");
-    
+
     Fs::ChangeCwd("..");
 
 }
@@ -458,7 +458,7 @@ BOOST_AUTO_TEST_CASE(GetFirstDefinedValueRecTest)
     repo.AddProperty("int2", "", "123");
     remove(".emp/intAuto");
     remove("intAuto");
-    
+
     Fs::CreateDirectory("test");
     Fs::ChangeCwd("test");
     repo.AddProperty("intAuto", "", "892");

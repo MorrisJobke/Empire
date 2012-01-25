@@ -29,7 +29,7 @@ class Coll
 {
     private:
     std::list< std::list<GenPropertyBase*> > mPropList;
-    
+
     std::string mPath;
 
     void WriteToDir(std::string const& rPath);

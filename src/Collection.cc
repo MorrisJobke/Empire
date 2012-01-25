@@ -64,7 +64,7 @@ void Coll::Load(std::string const& rPath)
 
     if (Fs::DirectoryExists(rPath) == false)
         throw ErrorColl("COLL_NO_COLL_FOUND");
-    
+
     /* load Collection from directory */
 
     std::list<GenPropertyBase*> dec_list;
@@ -103,10 +103,10 @@ void Coll::Load(std::string const& rPath)
     }
     else
         throw ErrorColl("COLL_NO_DEC_FOUND");
-    
+
     this->mPropList.push_back(dec_list);
-    
-    
+
+
     /* if nessecary load other dirs */
 
     /* count dir entries */
@@ -224,7 +224,7 @@ void Coll::Declare(std::list<GenPropertyBase*> const& pPropList)
 void Coll::AddRow(std::list<GenPropertyBase*> const& pPropList)
 {
     /* scan all entries */
-    
+
     //std::cout << "Adding Row. Entries: " << pPropList.size() << std::endl;
     std::list<GenPropertyBase*>::const_iterator it;
 
@@ -280,7 +280,7 @@ void Coll::AddRow(std::list<GenPropertyBase*> const& pPropList)
             /* append prop to row structure */
             new_row.push_back((*it));
         }
-        
+
 
     }
 
@@ -310,7 +310,7 @@ void Coll::DebugPrint()
     for (outer = this->mPropList.begin(); outer != this->mPropList.end(); outer++);
     {
         std::cout << outer_count << "{" << std::endl;
-        
+
         std::list<GenPropertyBase*>::const_iterator inner;
         std::cout << "label" << std::endl;
 

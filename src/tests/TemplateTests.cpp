@@ -70,20 +70,20 @@ BOOST_AUTO_TEST_CASE(TemplateReadFileTest)
     SimpleTemplate* tmpl = new SimpleTemplate();
 
     string individual = "Bill Gates";
-    string key = "unimportantPerson";    
+    string key = "unimportantPerson";
     GenProperty<string> property(individual, key);
     tmpl->AddProperty(&property);
     string path = "testtemplate";
 
     string input = "\"640 Kilobyte ought to be enough for anybody.\"\n@unimportantPerson, 1981@nothingToSeeHere";
-    
+
     Filesystem::FileWriteString(path, input);
 
     string output;
     tmpl->ParseFile(path, output);
 
     BOOST_CHECK(output == "\"640 Kilobyte ought to be enough for anybody.\"\nBill Gates, 1981");
-    
+
     remove(path.c_str());
 }
 

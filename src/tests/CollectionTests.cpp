@@ -30,10 +30,10 @@ BOOST_AUTO_TEST_SUITE(CollectionTests_Suite)
 BOOST_AUTO_TEST_CASE(CollectionDeclareTest)
 {
     /* create some properties */
-    
-    GenProperty<string> product("product"); 
-    GenProperty<int> units("units"); 
-    GenProperty<double> price("price"); 
+
+    GenProperty<string> product("product");
+    GenProperty<int> units("units");
+    GenProperty<double> price("price");
 
     std::list<GenPropertyBase*> prop_list;
 
@@ -64,17 +64,17 @@ BOOST_AUTO_TEST_CASE(CollectionDeclareTest)
     remove("coll_test/0/price");
     remove("coll_test/0");
     remove("coll_test");
-    
+
 }
 
 BOOST_AUTO_TEST_CASE(CollectionAddRowTest)
 {
     /* create some properties */
-    
-    GenProperty<string> product("product"); 
-    GenProperty<string> unvalid("unvalid"); 
-    GenProperty<int> units("units"); 
-    GenProperty<double> price("price"); 
+
+    GenProperty<string> product("product");
+    GenProperty<string> unvalid("unvalid");
+    GenProperty<int> units("units");
+    GenProperty<double> price("price");
 
     std::list<GenPropertyBase*> prop_list;
 
@@ -93,7 +93,7 @@ BOOST_AUTO_TEST_CASE(CollectionAddRowTest)
     entry_list.push_back(&units);
     entry_list.push_back(&price);
     entry_list.push_back(&unvalid);
-    
+
 
     try
     {
@@ -138,7 +138,7 @@ BOOST_AUTO_TEST_CASE(CollectionAddRowTest)
     remove("coll_test");
 
 
-    
+
 }
 
 

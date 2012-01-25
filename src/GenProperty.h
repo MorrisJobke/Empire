@@ -47,7 +47,7 @@ class GenProperty : public GenPropertyBase
         /////////////////////////////// PUBLIC ///////////////////////////////////////
 
         /*============================= LIFECYCLE ==================================*/
-        
+
         /* default constructor
          */
         GenProperty()
@@ -88,7 +88,7 @@ class GenProperty : public GenPropertyBase
         GenProperty(GenProperty<typ>& rOrigin)
         {
             this->mKey = rOrigin.GetKey();
-            
+
             this->SetValue(rOrigin.GetValue());
         }
 
@@ -109,7 +109,7 @@ class GenProperty : public GenPropertyBase
         void SetValue(typ value)
         {
             if (!(this->mpData))
-                this->mpData = (void*) new typ(value); 
+                this->mpData = (void*) new typ(value);
             else
                 *((typ*)(this->mpData)) = value;
         };
@@ -128,7 +128,7 @@ class GenProperty : public GenPropertyBase
 
             this->SetValue(buffer);
         }
-    
+
         /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
 
         /** getter for the value of the property
@@ -199,9 +199,9 @@ class GenProperty : public GenPropertyBase
             return out.str();
         }
 
-        
+
         /*============================= INQUIRY    =================================*/
-        
+
         /*============================= OPERATORS ==================================*/
 
         /** equal operator

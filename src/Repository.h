@@ -70,7 +70,7 @@ class Repository
 
     void Load();
 
-    
+
     /* io */
     void CreatePropertyClass(std::string const& key, std::string const& rType);
     void ReadMetaDataFromFile(std::string const& rPath, std::string& rKey, std::string& rType);

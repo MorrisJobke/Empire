@@ -97,7 +97,7 @@ namespace PropertyIo
         }
 
         file.close();
-        
+
         /* TODO check if whole file is written */
 
     }

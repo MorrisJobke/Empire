@@ -299,13 +299,13 @@ std::list<std::string> SimpleTemplate::GetKeyList(std::string const& path)
     // TODO: parse variable at end of string fails
     while (it < input.end())
     {
-        if (*it == '@') 
+        if (*it == '@')
         {
             if (*(it + 1) == '@') //ignoring @@
             {
                 it++;
             }
-            else 
+            else
             {
                 it++;
                 propNameBuffer = "";
@@ -316,7 +316,7 @@ std::list<std::string> SimpleTemplate::GetKeyList(std::string const& path)
                 }
                 if (*it == '{') //ignore Collections
                     while(*it != '}')
-                        it++; 
+                        it++;
                 else
                     propertyList.push_back(propNameBuffer);
             }
@@ -326,7 +326,7 @@ std::list<std::string> SimpleTemplate::GetKeyList(std::string const& path)
 
     propertyList.sort();
     propertyList.unique();
-    return propertyList;    
+    return propertyList;
 }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
@@ -344,7 +344,7 @@ std::list<std::string> SimpleTemplate::GetMissingProperties(std::string const& r
     std::list<std::string>::const_iterator stringIt;
     std::list<GenPropertyBase*>::const_iterator propIt;
     bool found;
-    
+
     for (stringIt = needed.begin(); stringIt != needed.end(); stringIt++)
     {
         found = false;

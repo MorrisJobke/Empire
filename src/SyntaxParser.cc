@@ -30,7 +30,7 @@ namespace SyntaxParser
     }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
-    
+
     /** create command
      *
      * only creates a property instance, useful for collections
@@ -105,7 +105,7 @@ namespace SyntaxParser
     }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
-    
+
     /** add command
      *
      * @param argc count of arguments
@@ -135,23 +135,23 @@ namespace SyntaxParser
             return;
         }
         std::cout << "missing elements: " << missing.size() << std::endl;
-        
+
         std::list<std::string>::const_iterator it;
         std::string tmpValue;
 
         for(it = missing.begin(); it != missing.end(); it++)
         {
-            std::cout << "Please enter a value for \"" << *it << "\", press [Enter] to skip:" << std::endl; 
+            std::cout << "Please enter a value for \"" << *it << "\", press [Enter] to skip:" << std::endl;
             std::getline(std::cin, tmpValue);
             if (tmpValue != "")
                 working_repo.AddProperty(*it, "", tmpValue);
             else
                 std::cout << "[SKIPPED]" << std::endl;
-        } 
+        }
     }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
-    
+
     /** modify command
      *
      * @param argc count of arguments
@@ -159,7 +159,7 @@ namespace SyntaxParser
      */
     void modify(int argc, char* argv[])
     {
-        
+
     }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
@@ -197,7 +197,7 @@ namespace SyntaxParser
             std::list<std::string> unused;
             std::list<std::string> used;
             std::list<std::string>::const_iterator it;
-           
+
             used = tmpl->GetAvailableProperties(argv[0], working_repo.GetPropertyList());
             unused = tmpl->GetMissingProperties(argv[0], working_repo.GetPropertyList());
 
@@ -275,7 +275,7 @@ namespace SyntaxParser
 
             if (used.size() != 0)
             {
-                std::cout << COLOR_BOLD << "Used Properties(" << used.size() 
+                std::cout << COLOR_BOLD << "Used Properties(" << used.size()
                           << "):" << COLOR_CLEAR << std::endl;
                 for (it = used.begin(); it != used.end(); it++)
                 {
@@ -288,9 +288,9 @@ namespace SyntaxParser
                         color = COLOR_GREEN;
                     else
                         color = COLOR_CYAN;
-                                           
+
                     std::cout << color << "\t";
-                    std::cout << key << COLOR_BLUE << "<" << type 
+                    std::cout << key << COLOR_BLUE << "<" << type
                     << "> " << color << "= " << value << std::endl;;
                 }
                 std::cout << COLOR_CLEAR << std::endl;
@@ -298,10 +298,10 @@ namespace SyntaxParser
 
             if (unused.size() != 0)
             {
-                std::cout << COLOR_BOLD << "Unused Properties(" << unused.size() 
+                std::cout << COLOR_BOLD << "Unused Properties(" << unused.size()
                           << "):" << COLOR_CLEAR << std::endl;
                 std::cout << COLOR_RED;
-                
+
                 for (it = unused.begin(); it != unused.end(); it++)
                 {
                     std::string key = *it;
@@ -348,7 +348,7 @@ namespace SyntaxParser
     }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
-    
+
     /** render command
      *
      * @param argc count of arguments

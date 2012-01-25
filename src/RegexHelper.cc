@@ -11,7 +11,7 @@
 //////////////////////////////////////////////////////////////////////////////
 namespace RegexHelper
 {
-     /** 
+     /**
      * @brief function wich checks if a given string is matching to a given regex-pattern
      * @param rTargetString given String to check against the pattern
      * @param rPattern given regex pattern to check
@@ -52,7 +52,7 @@ namespace RegexHelper
         return rc > 0;
     }
 
-    /** 
+    /**
      * @brief function wich checks if a given string contains an int value
      * @param value given string to check
      */
@@ -60,12 +60,12 @@ namespace RegexHelper
     {
         return MatchesRegex(value, INT_PATTERN);
     }
-    
-    /** 
+
+    /**
      * @brief function wich checks if a given string contains a float value
      * @param value given string to check
      */
-    bool isFloat(std::string value) 
+    bool isFloat(std::string value)
     {
         return MatchesRegex(value, FLOAT_PATTERN);
     }
