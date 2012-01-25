@@ -104,9 +104,12 @@ namespace SyntaxParser
 
         for(it = missing.begin(); it != missing.end(); it++)
         {
-            std::cout << "Please enter a value for \"" << *it << "\"" << std::endl; 
-            std::cin >> tmpValue;
-            working_repo.AddProperty(*it, "", tmpValue);
+            std::cout << "Please enter a value for \"" << *it << "\", press [Enter] to skip:" << std::endl; 
+            std::getline(std::cin, tmpValue);
+            if (tmpValue != "")
+                working_repo.AddProperty(*it, "", tmpValue);
+            else
+                std::cout << "[SKIPPED]" << std::endl;
         } 
     }
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
