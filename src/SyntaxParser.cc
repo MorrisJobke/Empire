@@ -45,7 +45,9 @@ namespace SyntaxParser
         {
             std::cout << "You need to specify a key and a value at least.\n"
                       << "Specifying a type is optional.\n"
-                      << "Synopsis: emp add <key> [<type>] <value>\n\n";
+                      << "Synopsis: emp add <key> [<type>] <value>\n"
+                      << "For an interactive add use:\n"
+                      << "addi <template>\n\n";
             return;
         }
 
@@ -66,6 +68,46 @@ namespace SyntaxParser
         }
     }
 
+    /** add command
+     *
+     * @param argc count of arguments
+     * @param argv arguments
+     */
+    void addi(int argc, char* argv[])
+    {
+        Repository working_repo;
+        if (!working_repo.IsExistent())
+        {
+            std::cout << "There isn't any repository in this or it's parent directories." << std::endl;
+            return;
+        }
+        if (argc != 1)
+        {
+            std::cout << "You need to specify a template.\n"
+                      << "Synopsis: emp addi <path-to-template>\n\n";
+            return;
+        }
+        working_repo.Load();
+
+        SimpleTemplate* tmpl = new SimpleTemplate();
+        std::list<std::string> missing = tmpl->GetMissingProperties(argv[0], working_repo.GetPropertyList());
+        if (missing.size() == 0)
+        {
+            std::cout << "There are no properties missing. You are ready to render." << std::endl;
+            return;
+        }
+        std::cout << "missing elements: " << missing.size() << std::endl;
+        
+        std::list<std::string>::const_iterator it;
+        std::string tmpValue;
+
+        for(it = missing.begin(); it != missing.end(); it++)
+        {
+            std::cout << "Please enter a value for \"" << *it << "\"" << std::endl; 
+            std::cin >> tmpValue;
+            working_repo.AddProperty(*it, "", tmpValue);
+        } 
+    }
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
     
     /** modify command
@@ -108,6 +150,7 @@ namespace SyntaxParser
 
         if (argc != 0) //template mode
         {
+            //TODO: replace by SimpleTemplate::GetMissingProperties
             SimpleTemplate* tmpl = new SimpleTemplate();
             std::list<std::string> templateProperties = tmpl->GetKeyList(argv[0]);
             std::list<std::string> unused;
@@ -163,7 +206,7 @@ namespace SyntaxParser
                 std::cout << std::endl;
             }
             else
-                std::cout << "All values for your given template are defined.";
+                std::cout << "All values for your given template are defined." << std::endl;
             
             if (used.size() > 0 && unused.size() > 0)
             {

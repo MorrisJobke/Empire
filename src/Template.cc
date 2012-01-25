@@ -288,7 +288,7 @@ void SimpleTemplate::ParseFile(string const& path, string& output)
  * @param path the path to the file which content should be parsed
  * @return list of properties
  */
-std::list<std::string> SimpleTemplate::GetKeyList(std::string path)
+std::list<std::string> SimpleTemplate::GetKeyList(std::string const& path)
 {
     std::string propNameBuffer;
     std::list<std::string> propertyList;
@@ -323,6 +323,33 @@ std::list<std::string> SimpleTemplate::GetKeyList(std::string path)
     return propertyList;    
 }
 
+std::list<std::string> SimpleTemplate::GetMissingProperties(std::string const& rPath, std::list<GenPropertyBase*> const& rAvailable)
+{
+    std::list<std::string> needed = this->GetKeyList(rPath);
+    std::list<std::string> missing;
+    std::list<std::string>::const_iterator stringIt;
+    std::list<GenPropertyBase*>::const_iterator propIt;
+    bool found;
+
+    for (stringIt = needed.begin(); stringIt != needed.end(); stringIt++)
+    {
+        found = false;
+        for (propIt = rAvailable.begin(); propIt != rAvailable.end(); propIt++)
+        {
+            if ((*propIt)->GetKey() == *stringIt)
+            {
+                found = true;
+                break;
+            }
+        }
+        if (!found)
+            missing.push_back(*stringIt);
+    }
+
+    missing.unique();
+    missing.sort();
+    return missing;
+}
 /*============================= ACCESS     =================================*/
 /*============================= INQUIRY    =================================*/
 
