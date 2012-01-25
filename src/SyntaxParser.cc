@@ -128,7 +128,7 @@ namespace SyntaxParser
         working_repo.Load();
 
         SimpleTemplate* tmpl = new SimpleTemplate();
-        std::list<std::string> missing = tmpl->GetMissingProperties(argv[0], working_repo.GetPropertyList());
+        std::list<std::string> missing = tmpl->GetMissingProperties(argv[0], working_repo.GetDefindedValuesInCwd());
         if (missing.size() == 0)
         {
             std::cout << "There are no properties missing. You are ready to render." << std::endl;
@@ -194,13 +194,13 @@ namespace SyntaxParser
         {
             //TODO: replace by SimpleTemplate::GetMissingProperties
             SimpleTemplate* tmpl = new SimpleTemplate();
-            std::list<std::string> unused;
-            std::list<std::string> used;
+            std::list<std::string> unused, used, created;
             std::list<std::string>::const_iterator it;
-
-            used = tmpl->GetAvailableProperties(argv[0], working_repo.GetPropertyList());
-            unused = tmpl->GetMissingProperties(argv[0], working_repo.GetPropertyList());
-
+           
+            used = tmpl->GetAvailableProperties(argv[0], working_repo.GetDefindedValuesInCwd());
+            unused = tmpl->GetMissingProperties(argv[0], working_repo.GetDefindedValuesInCwd());
+            created = tmpl->GetAvailableProperties(argv[0], working_repo.GetUnDefindedValuesInCwd());
+            
             /* print unused */
             if(unused.size() > 0)
             {
@@ -212,7 +212,7 @@ namespace SyntaxParser
                     if ((*it).length() > maxLength)
                         maxLength = (*it).length();
 
-                std::cout << COLOR_BOLD << "Used by template, but undefined(" << unused.size() << "):" << COLOR_CLEAR << std::endl;
+                std::cout << COLOR_BOLD << "Used by template, but not added jet(" << unused.size() << "):" << COLOR_CLEAR << std::endl;
                 std::cout << COLOR_RED;
                 for (it = unused.begin(); it != unused.end();)
                 {
@@ -230,6 +230,7 @@ namespace SyntaxParser
                 }
                 std::cout << COLOR_CLEAR << std::endl;
             }
+
             /* print used */
             if (used.size() > 0)
             {
@@ -240,7 +241,7 @@ namespace SyntaxParser
                 if(unused.size() == 0)
                     std::cout << COLOR_BOLD << "All values for your given template are defined(" << used.size() << "):" << COLOR_CLEAR << std::endl;
                 else
-                    std::cout << COLOR_BOLD << "Used by template and defined(" << used.size() << "):" << COLOR_CLEAR << std::endl;
+                    std::cout << COLOR_BOLD << "Used by template and already added(" << used.size() << "):" << COLOR_CLEAR << std::endl;
                 std::cout << COLOR_GREEN;
                 for (it = used.begin(); it != used.end(); it++)
                 {
@@ -257,6 +258,28 @@ namespace SyntaxParser
                     std::cout   << "\t" << color << key << COLOR_BLUE
                                 << "<" << type
                                 << ">" << color << " = " << value << std::endl;
+                }
+                std::cout << COLOR_CLEAR << std::endl;
+            }
+
+            /* print created */
+            if (used.size() > 0)
+            {
+                created.sort();
+
+                std::cout << COLOR_BOLD << "Used by template and created(" << created.size() << "):" << COLOR_CLEAR << std::endl;
+                std::cout << COLOR_CLEAR;
+                for (it = created.begin(); it != created.end(); it++)
+                {
+                    std::string key = *it;
+                    std::string path, color;
+                    std::string type = working_repo.GetPropertyByKey(key)->GetTypeN();
+
+                    color = "";
+
+                    std::cout   << "\t" << color << key << COLOR_BLUE
+                                << "<" << type
+                                << ">" << color << std::endl;
                 }
                 std::cout << COLOR_CLEAR << std::endl;
             }

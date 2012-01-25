@@ -573,6 +573,7 @@ std::list<std::string> Repository::GetUnDefindedValuesInCwd()
 
     return result;
 }
+
 /*============================= INQUIRY    =================================*/
 /////////////////////////////// PROTECTED  ///////////////////////////////////
 

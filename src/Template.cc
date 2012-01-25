@@ -337,20 +337,19 @@ std::list<std::string> SimpleTemplate::GetKeyList(std::string const& path)
  * @param rAvailable already defined properties
  * @return list of property-keys
  */
-std::list<std::string> SimpleTemplate::GetMissingProperties(std::string const& rPath, std::list<GenPropertyBase*> const& rAvailable)
+std::list<std::string> SimpleTemplate::GetMissingProperties(std::string const& rPath, std::list<std::string> const& rAvailable)
 {
     std::list<std::string> needed = this->GetKeyList(rPath);
     std::list<std::string> missing;
-    std::list<std::string>::const_iterator stringIt;
-    std::list<GenPropertyBase*>::const_iterator propIt;
+    std::list<std::string>::const_iterator stringIt, it2;
     bool found;
 
     for (stringIt = needed.begin(); stringIt != needed.end(); stringIt++)
     {
         found = false;
-        for (propIt = rAvailable.begin(); propIt != rAvailable.end(); propIt++)
+        for (it2 = rAvailable.begin(); it2 != rAvailable.end(); it2++)
         {
-            if ((*propIt)->GetKey() == *stringIt)
+            if (*it2 == *stringIt)
             {
                 found = true;
                 break;
@@ -370,20 +369,19 @@ std::list<std::string> SimpleTemplate::GetMissingProperties(std::string const& r
  * @param rAvailable already defined properties
  * @return list of property-keys
  */
-std::list<std::string> SimpleTemplate::GetAvailableProperties(std::string const& rPath, std::list<GenPropertyBase*> const& rAvailable)
+std::list<std::string> SimpleTemplate::GetAvailableProperties(std::string const& rPath, std::list<std::string> const& rAvailable)
 {
     std::list<std::string> needed = this->GetKeyList(rPath);
     std::list<std::string> available;
-    std::list<std::string>::const_iterator stringIt;
-    std::list<GenPropertyBase*>::const_iterator propIt;
+    std::list<std::string>::const_iterator stringIt, it2;
     bool found;
 
     for (stringIt = needed.begin(); stringIt != needed.end(); stringIt++)
     {
         found = false;
-        for (propIt = rAvailable.begin(); propIt != rAvailable.end(); propIt++)
+        for (it2 = rAvailable.begin(); it2 != rAvailable.end(); it2++)
         {
-            if ((*propIt)->GetKey() == *stringIt)
+            if (*it2 == *stringIt)
             {
                 found = true;
                 break;
