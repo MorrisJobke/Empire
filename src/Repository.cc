@@ -237,7 +237,7 @@ void Repository::CreatePropertyClass(std::string const& key, std::string const& 
     /* check if repo exists */
 
     if (this->mAbsoluteRepoPath == "")
-        throw ExcRepository("Err: Repo Not Exists");
+        throw ExcRepository("REPO_NOT_EXISTS");
 
 
     /* check if property exists */
@@ -245,9 +245,14 @@ void Repository::CreatePropertyClass(std::string const& key, std::string const& 
     //std::cout << "check for prop: " << this->mAbsoluteRepoPath + "/" + REPO_NAME + "/" + key << std::endl;
 
     if (Fs::FileExists(this->mAbsoluteRepoPath + "/" + REPO_NAME + "/" + key))
-        throw ExcRepository("PROP_EXISTS");
+        throw PropExistentError();
+    
+    /* correct type conversion */
+    GenPropertyBase* new_prop = PropertyHelpers::CreatePropertyFromTypeString(rType);
 
-    PropertyIo::WriteMetaDataToDir(this->mAbsoluteRepoPath + "/" + REPO_NAME, key, rType);
+    PropertyIo::WriteMetaDataToDir(this->mAbsoluteRepoPath + "/" + REPO_NAME, key, new_prop->GetTypeN());
+
+    delete new_prop;
 }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
@@ -341,7 +346,6 @@ void Repository::ReadPropDataFromFile(std::string const& rPath, GenPropertyBase*
 /** add a property with the given value, in the current wd
  *
  * This is only done if the property class exists
- * TODO: create property class on demand
  *
  * @param key the key of the property
  * @param type the type of the property

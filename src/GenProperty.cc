@@ -189,6 +189,9 @@ namespace PropertyHelpers
         else if (rType == GetTypeName<std::string>())
             p_new = new GenProperty<std::string>();
 
+        else if (rType == "string")
+            p_new = new GenProperty<std::string>();
+
         return p_new;
     }
 }
