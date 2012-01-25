@@ -20,6 +20,7 @@ namespace SyntaxParser
         std::cout << "Synopsis: emp <actions> [<action-arguments>] [<action-options>]\n\n"
              << "  init         initialize a repository in the working directory\n"
              << "  add          adds a given property to the repository in working directory\n"
+             << "  cadd         adds a collection property to the repository in working directory\n"
              << "  addi         interactive adding of all properties in a given template\n"
              << "  remove       removes a given property from repository in working directory\n"
              << "  modify       modifies a given property from repository in working directory\n"
@@ -65,7 +66,7 @@ namespace SyntaxParser
     }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
-    
+
     /** collection add command
      *
      * create a collection in the current dir
@@ -115,7 +116,7 @@ namespace SyntaxParser
         while (argc > 0)
         {
             std::string new_key = argv[0];
-            
+
             if (working_repo.ContainsProperty(new_key) == false)
             {
                 std::cout << "The following key is not declared in repository: " << new_key << std::endl;
@@ -138,13 +139,13 @@ namespace SyntaxParser
             working_repo.CreatePropertyClass(coll_name, GetTypeName<Coll>());
         }
 
-        
+
         Coll c(coll_name);
         c.Declare(props_to_declare);
     }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
-    
+
     /** add command
      *
      * @param argc count of arguments
@@ -277,11 +278,11 @@ namespace SyntaxParser
             SimpleTemplate* tmpl = new SimpleTemplate();
             std::list<std::string> unused, used, created;
             std::list<std::string>::const_iterator it;
-           
+
             used = tmpl->GetAvailableProperties(argv[0], working_repo.GetDefindedValuesInCwd());
             unused = tmpl->GetMissingProperties(argv[0], working_repo.GetDefindedValuesInCwd());
             created = tmpl->GetAvailableProperties(argv[0], working_repo.GetUnDefindedValuesInCwd());
-            
+
             /* print unused */
             if(unused.size() > 0)
             {
