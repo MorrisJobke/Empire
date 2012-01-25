@@ -9,6 +9,7 @@
 #include "SyntaxParser.h"
 
 namespace Fs = Filesystem;
+namespace Ch = ConsoleHelper;
 
 //////////////////////////////////////////////////////////////////////////////
 namespace SyntaxParser
@@ -280,68 +281,33 @@ namespace SyntaxParser
             std::list<std::string>::const_iterator it;
 
             used = tmpl->GetAvailableProperties(argv[0], working_repo.GetDefindedValuesInCwd());
-            unused = tmpl->GetMissingProperties(argv[0], working_repo.GetDefindedValuesInCwd());
+            unused = tmpl->GetMissingProperties(argv[0], working_repo.GetUnDefindedValuesInCwd());
             created = tmpl->GetAvailableProperties(argv[0], working_repo.GetUnDefindedValuesInCwd());
 
             /* print unused */
             if(unused.size() > 0)
             {
-                unused.sort();
-                unused.unique();
-                //get length of longest key
-                unsigned int maxLength = 0;
-                for (it = unused.begin(); it != unused.end(); it++)
-                    if ((*it).length() > maxLength)
-                        maxLength = (*it).length();
+                Ch::printHeader("Used by template, but not added or defined(", unused.size());
+                Ch::printTripleList(unused, MISSING);
+            }
 
-                std::cout << COLOR_BOLD << "Used by template, but not added jet(" << unused.size() << "):" << COLOR_CLEAR << std::endl;
-                std::cout << COLOR_RED;
-                for (it = unused.begin(); it != unused.end();)
-                {
-                    for(int i = 0; i < 3; i++)
-                    {
-                        if (it == unused.end())
-                            break;
-                        std::cout << "\t" << *it;
-                        for (int j = maxLength - (*it).length(); j > 0; j--)
-                            std::cout << " ";
-
-                        it++;
-                    }
-                    std::cout << std::endl;
-                }
-                std::cout << COLOR_CLEAR << std::endl;
+            
+            /* print created */
+            if(created.size() > 0)
+            {
+                Ch::printHeader("Used by template, but only defined(", created.size());
+                Ch::printValueList(created, CREATED, false, true, working_repo);
             }
 
             /* print used */
             if (used.size() > 0)
             {
-                /* print used*/
-                used.sort();
-                used.unique();
-
                 if(unused.size() == 0)
-                    std::cout << COLOR_BOLD << "All values for your given template are defined(" << used.size() << "):" << COLOR_CLEAR << std::endl;
+                    Ch::printHeader("All values for your given template are available(", used.size());
                 else
-                    std::cout << COLOR_BOLD << "Used by template and already added(" << used.size() << "):" << COLOR_CLEAR << std::endl;
-                std::cout << COLOR_GREEN;
-                for (it = used.begin(); it != used.end(); it++)
-                {
-                    std::string key = *it;
-                    std::string path, color;
-                    std::string value = working_repo.GetFirstDefinedValueRec(key, Fs::GetCwd(), path);
-                    std::string type = working_repo.GetPropertyByKey(key)->GetTypeN();
+                    Ch::printHeader("Used by template and already added(", used.size());
 
-                    if (path == Fs::GetCwd())
-                        color = COLOR_GREEN;
-                    else
-                        color = COLOR_CYAN;
-
-                    std::cout   << "\t" << color << key << COLOR_BLUE
-                                << "<" << type
-                                << ">" << color << " = " << value << std::endl;
-                }
-                std::cout << COLOR_CLEAR << std::endl;
+                Ch::printValueList(used, ADDED, true, true, working_repo);
             }
 
             /* print created */
@@ -369,7 +335,6 @@ namespace SyntaxParser
         else //normal mode
         {
             std::list<std::string>::const_iterator it;
-            std::list<GenPropertyBase*> usedProperties;
             std::list<std::string> used;
             std::list<std::string> unused;
 
@@ -378,43 +343,17 @@ namespace SyntaxParser
 
             std::cout << "Repository root path: " << working_repo.GetRepositoryPath() << std::endl << std::endl;
 
-            if (used.size() != 0)
+            if (used.size() > 0)
             {
-                std::cout << COLOR_BOLD << "Added Properties(" << used.size()
-                          << "):" << COLOR_CLEAR << std::endl;
-                for (it = used.begin(); it != used.end(); it++)
-                {
-                    std::string key = *it;
-                    std::string type = working_repo.GetPropertyByKey(key)->GetTypeN();
-                    std::string loc;
-                    std::string value = working_repo.GetFirstDefinedValueRec(key, Fs::GetCwd(), loc);
-                    std::string color;
-                    if (loc == Fs::GetCwd())
-                        color = COLOR_GREEN;
-                    else
-                        color = COLOR_CYAN;
+                Ch::printHeader("Added Properties(", used.size());
 
-                    std::cout << color << "\t";
-                    std::cout << key << COLOR_BLUE << "<" << type
-                    << "> " << color << "= " << value << std::endl;;
-                }
-                std::cout << COLOR_CLEAR << std::endl;
+                Ch::printValueList(used, ADDED, true, true, working_repo);   
             }
 
-            if (unused.size() != 0)
+            if (unused.size() > 0)
             {
-                std::cout << COLOR_BOLD << "Created Properties(" << unused.size()
-                          << "):" << COLOR_CLEAR << std::endl;
-                std::cout << COLOR_RED;
-
-                for (it = unused.begin(); it != unused.end(); it++)
-                {
-                    std::string key = *it;
-                    std::string type = working_repo.GetPropertyByKey(key)->GetTypeN();
-                    std::cout << "\t";
-                    std::cout << key << COLOR_BLUE << "<" << type << ">" << COLOR_CLEAR << std::endl;;
-                }
-                std::cout << COLOR_CLEAR << std::endl;
+                Ch::printHeader("Created Properties(", unused.size());
+                Ch::printValueList(unused, ADDED, false, true, working_repo);
             }
         }
     }
@@ -575,4 +514,96 @@ namespace SyntaxParser
                 working_repo.RemoveProperty(argv[0]);
         }
     }
+}
+
+namespace ConsoleHelper{
+
+    void printColor(PrintMode mode)
+    {
+        std::cout << getColor(mode);
+    }
+
+    std::string getColor(PrintMode mode)
+    {
+        switch(mode)
+        {
+            case CREATED:   return COLOR_CLEAR;
+            case MISSING:   return COLOR_RED;
+            case ADDED:     return COLOR_GREEN;
+        }
+        return ""; 
+    }
+
+    void printTripleList(std::list<std::string> const& rList, PrintMode mode)
+    {
+        std::list<std::string> tmpList = rList;
+        std::list<std::string>::const_iterator it;
+
+        tmpList.sort();
+        tmpList.unique();
+                
+        unsigned int maxLength = 0;
+        for (it = tmpList.begin(); it != tmpList.end(); it++)
+            if ((*it).length() > maxLength)
+                maxLength = (*it).length();
+
+        printColor(mode);
+        for (it = tmpList.begin(); it != tmpList.end();)
+        {
+            for(int i = 0; i < 3; i++)
+            {
+                if (it == tmpList.end())
+                    break;
+                std::cout << "\t" << *it;
+                for (int j = maxLength - (*it).length(); j > 0; j--)
+                    std::cout << " ";
+
+                it++;
+            }
+            std::cout << std::endl;
+        }
+        std::cout << COLOR_CLEAR << std::endl;
+    }
+
+    void printValueList(std::list<std::string> rList, PrintMode mode, bool rValues, bool rTypes, Repository working_repo)
+    {
+        std::list<std::string> tmpList = rList;
+        std::list<std::string>::const_iterator it;
+
+        tmpList.sort();
+        tmpList.unique();
+
+        for (it = tmpList.begin(); it != tmpList.end(); it++)
+        {
+            std::string key = *it;
+            std::string path, color, value, type;
+            
+            if (rValues)
+                value = working_repo.GetFirstDefinedValueRec(key, Fs::GetCwd(), path);
+            if (rTypes)
+                type = working_repo.GetPropertyByKey(key)->GetTypeN();    
+            
+
+            if (path == Fs::GetCwd())
+                color = getColor(mode);
+            else
+                color = COLOR_CYAN;
+
+            std::cout   << "\t" << color << key;
+            
+            if (rTypes)
+                std::cout << COLOR_BLUE << "<" << type << ">";
+            if (rValues)
+                std::cout << color << " = " << value;
+
+            std::cout << COLOR_CLEAR << std::endl;
+        }
+        std::cout << std::endl;
+    }
+
+    void printHeader(std::string header, int count)
+    {
+        std::cout << COLOR_BOLD << header << count << "):" << COLOR_CLEAR << std::endl;
+    }
+    
 }

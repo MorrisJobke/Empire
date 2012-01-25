@@ -24,6 +24,8 @@ DEFINE_FAST_EXCEPTION(NotEnoughArgs, "Not enough arguments.")
 #define COLOR_CLEAR "\033[0m"
 #define COLOR_BOLD "\033[1m"
 
+enum PrintMode { CREATED, MISSING, ADDED };
+
 namespace SyntaxParser
 {
     void usage();
@@ -37,6 +39,16 @@ namespace SyntaxParser
     void init(int argc, char* argv[]);
     void render(int argc, char* argv[]);
     void remove(int argc, char* argv[]);
+}
+
+namespace ConsoleHelper
+{
+    
+    void printColor(PrintMode mode);
+    std::string getColor(PrintMode mode);
+    void printTripleList(std::list<std::string> const& rList, PrintMode color);
+    void printValueList(std::list<std::string> rList, PrintMode mode, bool rValues, bool rTypes, Repository working_repo);
+    void printHeader(std::string header, int count);
 }
 
 
