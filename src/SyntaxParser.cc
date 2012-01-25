@@ -20,6 +20,7 @@ namespace SyntaxParser
         std::cout << "Synopsis: emp <actions> [<action-arguments>] [<action-options>]\n\n"
              << "  init         initialize a repository in the working directory\n"
              << "  add          adds a given property to the repository in working directory\n"
+             << "  addi         interactive adding of all properties in a given template\n"
              << "  remove       removes a given property from repository in working directory\n"
              << "  modify       modifies a given property from repository in working directory\n"
              << "  render       renders a file to ouput/ using repository in working directory\n"
