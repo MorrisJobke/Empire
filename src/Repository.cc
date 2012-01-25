@@ -386,8 +386,8 @@ void Repository::AddProperty(std::string const& key, std::string const& type, st
         else //check if existing propertyClass is ok
         {
             this->Load();
-            std::string fileType = this->GetPropertyFromKey(key)->GetTypeN();
-            
+            std::string fileType = this->GetPropertyByKey(key)->GetTypeN();
+
             if(fileType != type)
                 throw PropClassExistsWithOtherKey();
         }
@@ -492,7 +492,7 @@ bool Repository::ContainsProperty(std::string const& key)
  *
  * @return GenPropertyBase*
  */
-GenPropertyBase* Repository::GetPropertyFromKey(std::string const& key)
+GenPropertyBase* Repository::GetPropertyByKey(std::string const& key)
 {
     std::list<GenPropertyBase*>::const_iterator it;
 

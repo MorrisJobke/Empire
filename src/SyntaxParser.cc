@@ -267,8 +267,8 @@ namespace SyntaxParser
                 std::cout << COLOR_GREEN;
                 for (stringIt = used.begin(); stringIt != used.end(); stringIt++)
                 {
-                    std::cout   << "\t" << (*stringIt) << COLOR_BLUE 
-                                << "<" << working_repo.GetPropertyFromKey(*stringIt)->GetTypeN() 
+                    std::cout   << "\t" << (*stringIt) << COLOR_BLUE
+                                << "<" << working_repo.GetPropertyByKey(*stringIt)->GetTypeN()
                                 << ">" << COLOR_GREEN << " = " << Fs::FileReadString(*stringIt) << std::endl;
                 }
                 std::cout << COLOR_CLEAR << std::endl;
