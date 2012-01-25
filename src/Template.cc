@@ -323,7 +323,8 @@ std::list<std::string> SimpleTemplate::GetKeyList(std::string const& path)
         }
         it++;
     }
-
+    propertyList.sort();
+    propertyList.unique();
     return propertyList;    
 }
 
@@ -357,9 +358,6 @@ std::list<std::string> SimpleTemplate::GetMissingProperties(std::string const& r
         if (!found)
             missing.push_back(*stringIt);
     }
-
-    missing.unique();
-    missing.sort();
     return missing;
 }
 /*============================= ACCESS     =================================*/
