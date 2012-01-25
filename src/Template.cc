@@ -314,12 +314,16 @@ std::list<std::string> SimpleTemplate::GetKeyList(std::string const& path)
                     propNameBuffer += *it;
                     it++;
                 }
-                if (*it != '{') //ignore Collections
+                if (*it == '{') //ignore Collections
+                    while(*it != '}')
+                        it++; 
+                else
                     propertyList.push_back(propNameBuffer);
             }
         }
         it++;
     }
+
     return propertyList;    
 }
 
