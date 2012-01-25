@@ -298,7 +298,7 @@ namespace SyntaxParser
 
             if (used.size() != 0)
             {
-                std::cout << COLOR_BOLD << "Used Properties(" << used.size()
+                std::cout << COLOR_BOLD << "Added Properties(" << used.size()
                           << "):" << COLOR_CLEAR << std::endl;
                 for (it = used.begin(); it != used.end(); it++)
                 {
@@ -321,7 +321,7 @@ namespace SyntaxParser
 
             if (unused.size() != 0)
             {
-                std::cout << COLOR_BOLD << "Unused Properties(" << unused.size()
+                std::cout << COLOR_BOLD << "Created Properties(" << unused.size()
                           << "):" << COLOR_CLEAR << std::endl;
                 std::cout << COLOR_RED;
 
