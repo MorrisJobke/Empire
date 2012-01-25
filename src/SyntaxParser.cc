@@ -309,28 +309,6 @@ namespace SyntaxParser
 
                 Ch::printValueList(used, ADDED, true, true, working_repo);
             }
-
-            /* print created */
-            if (used.size() > 0)
-            {
-                created.sort();
-
-                std::cout << COLOR_BOLD << "Used by template and created(" << created.size() << "):" << COLOR_CLEAR << std::endl;
-                std::cout << COLOR_CLEAR;
-                for (it = created.begin(); it != created.end(); it++)
-                {
-                    std::string key = *it;
-                    std::string path, color;
-                    std::string type = working_repo.GetPropertyByKey(key)->GetTypeN();
-
-                    color = "";
-
-                    std::cout   << "\t" << color << key << COLOR_BLUE
-                                << "<" << type
-                                << ">" << color << std::endl;
-                }
-                std::cout << COLOR_CLEAR << std::endl;
-            }
         }
         else //normal mode
         {
@@ -584,7 +562,7 @@ namespace ConsoleHelper{
                 type = working_repo.GetPropertyByKey(key)->GetTypeN();    
             
 
-            if (path == Fs::GetCwd())
+            if (path == Fs::GetCwd() || !rValues)
                 color = getColor(mode);
             else
                 color = COLOR_CYAN;
