@@ -39,7 +39,8 @@ add_library(Filesystem Filesystem)
 add_library(SyntaxParser SyntaxParser)
 target_link_libraries(SyntaxParser
     Repository
-    Template)
+    Template
+    Filesystem)
 
 #######################
 # RegexHelper library #
