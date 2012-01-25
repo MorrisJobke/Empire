@@ -55,6 +55,8 @@ std::istream& operator>>(std::istream& rIn, Coll rColl)
 /*============================= OPERATIONS =================================*/
 
 /** this method loads a collection from a DirectoryExists
+ *
+ * @param rPath path of the collection
  */
 void Coll::Load(std::string const& rPath)
 {
@@ -185,9 +187,9 @@ void Coll::Load(std::string const& rPath)
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
 
-/* this creates the folder 0 with property types
+/** this creates the folder 0 with property types
  *
- * @param list with property members
+ * @param pPropList list with property members
  */
 void Coll::Declare(std::list<GenPropertyBase*> const& pPropList)
 {
@@ -215,9 +217,9 @@ void Coll::Declare(std::list<GenPropertyBase*> const& pPropList)
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
 
-/* this creates a new numbered folder wth property data files
+/** this creates a new numbered folder wth property data files
  *
- * @param list with property members
+ * @param pPropList list with property members
  */
 void Coll::AddRow(std::list<GenPropertyBase*> const& pPropList)
 {
@@ -288,12 +290,18 @@ void Coll::AddRow(std::list<GenPropertyBase*> const& pPropList)
 
 }
 
+/** prints "This is a Collection" to the stream
+ *
+ * @param rOut the outstream where the data is printed
+ */
 void Coll::ToOutStream(std::ostream& rOut)
 {
     rOut << "This is a Collection";
 }
 
-
+/** method for debugging. prints the content of the collection
+ *
+ */
 void Coll::DebugPrint()
 {
     int outer_count = 0;
@@ -321,6 +329,11 @@ void Coll::DebugPrint()
 
 
 /*============================= ACESS      =================================*/
+
+/** getter for the propertylist of the collection
+ *
+ * @return returns the propertylist
+ */
 
 std::list< std::list<GenPropertyBase*> > Coll::GetList() const
 {
