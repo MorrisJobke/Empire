@@ -324,7 +324,7 @@ namespace SyntaxParser
         Repository working_repo;
         if (working_repo.IsExistent())
         {
-            std::cout << "There is a already a repository in this or it's parent directories." << std::endl;
+            std::cout << "There is already a repository in this or it's parent directories." << std::endl;
             return;
         }
 
