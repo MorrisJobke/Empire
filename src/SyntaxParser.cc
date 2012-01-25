@@ -194,16 +194,13 @@ namespace SyntaxParser
         {
             //TODO: replace by SimpleTemplate::GetMissingProperties
             SimpleTemplate* tmpl = new SimpleTemplate();
-            std::list<std::string> templateProperties = tmpl->GetKeyList(argv[0]);
             std::list<std::string> unused;
             std::list<std::string> used;
-            std::list<std::string>::const_iterator stringIt;
-            std::list<GenPropertyBase*>::const_iterator propIt;
-            bool found;
+            std::list<std::string>::const_iterator it;
+           
+            used = tmpl->GetAvailableProperties(argv[0], working_repo.GetPropertyList());
+            unused = tmpl->GetMissingProperties(argv[0], working_repo.GetPropertyList());
 
-            used = working_repo.GetDefindedValuesInCwd();
-            unused = working_repo.GetUnDefindedValuesInCwd();
-            
             /* print unused */
             if(unused.size() > 0)
             {
@@ -211,23 +208,23 @@ namespace SyntaxParser
                 unused.unique();
                 //get length of longest key
                 unsigned int maxLength = 0;
-                for (stringIt = unused.begin(); stringIt != unused.end(); stringIt++)
-                    if ((*stringIt).length() > maxLength)
-                        maxLength = (*stringIt).length();
+                for (it = unused.begin(); it != unused.end(); it++)
+                    if ((*it).length() > maxLength)
+                        maxLength = (*it).length();
 
                 std::cout << COLOR_BOLD << "Used by template, but undefined(" << unused.size() << "):" << COLOR_CLEAR << std::endl;
                 std::cout << COLOR_RED;
-                for (stringIt = unused.begin(); stringIt != unused.end();)
+                for (it = unused.begin(); it != unused.end();)
                 {
                     for(int i = 0; i < 3; i++)
                     {
-                        if (stringIt == unused.end())
+                        if (it == unused.end())
                             break;
-                        std::cout << "\t" << *stringIt;
-                        for (int j = maxLength - (*stringIt).length(); j > 0; j--)
+                        std::cout << "\t" << *it;
+                        for (int j = maxLength - (*it).length(); j > 0; j--)
                             std::cout << " ";
 
-                        stringIt++;
+                        it++;
                     }
                     std::cout << std::endl;
                 }
@@ -240,21 +237,26 @@ namespace SyntaxParser
                 used.sort();
                 used.unique();
 
-                //get length of longest key
-                unsigned int maxLength = 0;
-                for (stringIt = used.begin(); stringIt != used.end(); stringIt++)
-                    if ((*stringIt).length() > maxLength)
-                        maxLength = (*stringIt).length();
                 if(unused.size() == 0)
                     std::cout << COLOR_BOLD << "All values for your given template are defined(" << used.size() << "):" << COLOR_CLEAR << std::endl;
                 else
                     std::cout << COLOR_BOLD << "Used by template and defined(" << used.size() << "):" << COLOR_CLEAR << std::endl;
                 std::cout << COLOR_GREEN;
-                for (stringIt = used.begin(); stringIt != used.end(); stringIt++)
+                for (it = used.begin(); it != used.end(); it++)
                 {
-                    std::cout   << "\t" << (*stringIt) << COLOR_BLUE
-                                << "<" << working_repo.GetPropertyByKey(*stringIt)->GetTypeN()
-                                << ">" << COLOR_GREEN << " = " << Fs::FileReadString(*stringIt) << std::endl;
+                    std::string key = *it;
+                    std::string path, color;
+                    std::string value = working_repo.getFirstDefinedValueRec(key, Fs::GetCwd(), path);
+                    std::string type = working_repo.GetPropertyByKey(key)->GetTypeN();
+
+                    if (path == Fs::GetCwd())
+                        color = COLOR_GREEN;
+                    else
+                        color = COLOR_CYAN;
+
+                    std::cout   << "\t" << color << key << COLOR_BLUE
+                                << "<" << type
+                                << ">" << color << " = " << value << std::endl;
                 }
                 std::cout << COLOR_CLEAR << std::endl;
             }
