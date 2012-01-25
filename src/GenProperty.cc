@@ -35,8 +35,9 @@ DEFINE_NEW_GETTYPENAME(Coll*)
 
 std::ostream& operator<<(std::ostream& rOut, GenPropertyBase& rProp)
 {
-   rProp.ToOutStream(rOut);
-   return rOut;
+    //std::cout << "Streaming property:\n" << rProp.GetKey() << std::endl;
+    rProp.ToOutStream(rOut);
+    return rOut;
 };
 
 
@@ -198,6 +199,8 @@ namespace PropertyHelpers
         else if (rType == "string")
             p_new = new GenProperty<std::string>();
 
+        else if (rType == GetTypeName<Coll>())
+            p_new = new GenProperty<Coll>();
         else
             throw ErrorGenProperty("Not a supported type");
 
