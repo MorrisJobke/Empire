@@ -323,6 +323,14 @@ std::list<std::string> SimpleTemplate::GetKeyList(std::string const& path)
     return propertyList;    
 }
 
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+
+/** get a list of properties that are used by the template, but not defined
+ *
+ * @param rPath the path to the file of the template
+ * @param rAvailable already defined properties
+ * @return list of property-keys
+ */
 std::list<std::string> SimpleTemplate::GetMissingProperties(std::string const& rPath, std::list<GenPropertyBase*> const& rAvailable)
 {
     std::list<std::string> needed = this->GetKeyList(rPath);
