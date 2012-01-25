@@ -170,21 +170,12 @@ namespace SyntaxParser
             return;
         }
 
-        //Check if collection with name exists
-        if(Fs::DirectoryExists(argv[0]) == true)
-        {
-            //add as Collection
-        }
+        if (argc == 3)
+            working_repo.AddProperty(argv[0], argv[1], argv[2]);
+        else if (argc == 2)
+            working_repo.AddProperty(argv[0], "", argv[1]);
         else
-        {
-            Repository working_repo;
-            if (argc == 3)
-                working_repo.AddProperty(argv[0], argv[1], argv[2]);
-            else if (argc == 2)
-                working_repo.AddProperty(argv[0], "", argv[1]);
-            else
-                throw NotEnoughArgs();
-        }
+            throw NotEnoughArgs();
     }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
@@ -194,7 +185,7 @@ namespace SyntaxParser
      * @param argc count of arguments
      * @param argv arguments
      */
-    void addi(int argc, char* argv[])
+    void interactive_add(int argc, char* argv[])
     {
         Repository working_repo;
         if (!working_repo.IsExistent())

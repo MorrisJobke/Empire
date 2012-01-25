@@ -75,11 +75,11 @@ int main(int argc, char* argv[])
             Sp::add(argc, argv);
             return 0;
         }
-        else if (strcmp(argv[0], "addi") == 0)
+        else if (strcmp(argv[0], "iadd") == 0)
         {
             argc--;
             argv++;
-            Sp::addi(argc, argv);
+            Sp::interactive_add(argc, argv);
             return 0;
         }
         else if (strcmp(argv[0], "cadd") == 0)
