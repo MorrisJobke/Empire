@@ -368,6 +368,7 @@ namespace SyntaxParser
                       << "Synopsis: emp render <path-to-template> <path-to-output>\n\n";
             return;
         }
+        working_repo.Load();
         std::string file = *argv;
         argc--;
         argv++;
