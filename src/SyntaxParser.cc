@@ -122,7 +122,7 @@ namespace SyntaxParser
                 return;
             };
 
-            GenPropertyBase* ext_prop = working_repo.GetPropertyFromKey(new_key);
+            GenPropertyBase* ext_prop = working_repo.GetPropertyByKey(new_key);
             GenPropertyBase* new_prop = PropertyHelpers::CreatePropertyFromTypeString(ext_prop->GetTypeN());
             new_prop->SetKey(new_key);
 
