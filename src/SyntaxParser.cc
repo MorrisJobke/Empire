@@ -252,8 +252,8 @@ namespace SyntaxParser
                 std::cout << COLOR_GREEN;
                 for (stringIt = used.begin(); stringIt != used.end(); stringIt++)
                 {
-                    std::cout   << "\t" << (*stringIt) << COLOR_BLUE 
-                                << "<" << working_repo.GetPropertyFromKey(*stringIt)->GetTypeN() 
+                    std::cout   << "\t" << (*stringIt) << COLOR_BLUE
+                                << "<" << working_repo.GetPropertyByKey(*stringIt)->GetTypeN()
                                 << ">" << COLOR_GREEN << " = " << Fs::FileReadString(*stringIt) << std::endl;
                 }
                 std::cout << COLOR_CLEAR << std::endl;
@@ -278,7 +278,7 @@ namespace SyntaxParser
                 for (it = used.begin(); it != used.end(); it++)
                 {
                     std::string key = *it;
-                    std::string type = working_repo.GetPropertyFromKey(key)->GetTypeN();
+                    std::string type = working_repo.GetPropertyByKey(key)->GetTypeN();
                     std::string loc;
                     std::string value = working_repo.getFirstDefinedValueRec(key, Fs::GetCwd(), loc);
                     std::string color;
@@ -303,7 +303,7 @@ namespace SyntaxParser
                 for (it = unused.begin(); it != unused.end(); it++)
                 {
                     std::string key = *it;
-                    std::string type = working_repo.GetPropertyFromKey(key)->GetTypeN();
+                    std::string type = working_repo.GetPropertyByKey(key)->GetTypeN();
                     std::cout << "\t";
                     std::cout << key << COLOR_BLUE << "<" << type << ">" << COLOR_CLEAR << std::endl;;
                 }

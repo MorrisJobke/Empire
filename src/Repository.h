@@ -49,7 +49,7 @@ class Repository
 
     bool IsExistent();
     bool ContainsProperty(std::string const& key);
-    GenPropertyBase* GetPropertyFromKey(std::string const& key);
+    GenPropertyBase* GetPropertyByKey(std::string const& key);
     std::string GetRepositoryPath();
     std::string getFirstDefinedValueRec(std::string const& rKey, std::string const& rPath, std::string& rFoundPath);
     std::list<std::string> GetDefindedValuesInCwd();
