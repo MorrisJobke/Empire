@@ -27,7 +27,8 @@ class GenPropertyBase
     public:
 
         GenPropertyBase()
-        :   mKey("NoKey"),
+        :   
+            mKey("NoKey"),
             mpData(NULL)
         {
         }
@@ -50,6 +51,13 @@ class GenPropertyBase
          */
         std::string GetKey()
         {
+            //std::cout << "requesting key: ";
+            //if (this == NULL)
+            //{
+            //    bool debug = false;
+            //    std::cout << "Object is NULL\n";
+            //}
+            //std::cout << this->mKey << std::endl;
             return this->mKey;
         }
 
