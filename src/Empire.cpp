@@ -61,6 +61,13 @@ int main(int argc, char* argv[])
             Sp::init(argc, argv);
             return 0;
         }
+        else if (strcmp(argv[0], "create") == 0)
+        {
+            argc--;
+            argv++;
+            Sp::create(argc, argv);
+            return 0;
+        }
         else if (strcmp(argv[0], "add") == 0)
         {
             argc--;

@@ -29,6 +29,41 @@ namespace SyntaxParser
              << "  --help, -h   print this help\n";
     }
 
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+    
+    /** create command
+     *
+     * only creates a property instance, useful for collections
+     *
+     * @param argc count of arguments
+     * @param argv arguments
+     */
+    void create(int argc, char* argv[])
+    {
+        Repository working_repo;
+        if (!working_repo.IsExistent())
+        {
+            std::cout << "There isn't any repository in this or it's parent directories." << std::endl;
+            return;
+        }
+        if (argc != 2)
+        {
+            std::cout << "You need to specify a key and a value.\n"
+                      << "Synopsis: emp create <key> <type>\n\n";
+            return;
+        }
+
+        try
+        {
+            working_repo.CreatePropertyClass(argv[0], argv[1]);
+        }
+        catch(PropExistentError &exc)
+        {
+            std::cout << "Property exists." << std::endl;
+            return;
+        }
+    }
+
     /** add command
      *
      * @param argc count of arguments
@@ -69,6 +104,8 @@ namespace SyntaxParser
         }
     }
 
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+    
     /** add command
      *
      * @param argc count of arguments
@@ -112,6 +149,7 @@ namespace SyntaxParser
                 std::cout << "[SKIPPED]" << std::endl;
         } 
     }
+
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
     
     /** modify command

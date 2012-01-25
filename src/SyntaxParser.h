@@ -25,6 +25,9 @@ DEFINE_FAST_EXCEPTION(NotEnoughArgs, "Not enough arguments.")
 namespace SyntaxParser
 {
     void usage();
+    void create(int argc, char* argv[]);
+    void coll_add(int argc, char* argv[]);
+    void coll_fill(int argc, char* argv[]);
     void add(int argc, char* argv[]);
     void addi(int argc, char* argv[]);
     void modify(int argc, char* argv[]);
