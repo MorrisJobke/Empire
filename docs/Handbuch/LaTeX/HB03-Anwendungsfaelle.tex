@@ -2,3 +2,38 @@
 
 \section{Erklärung der wesentlichen Anwendungsfälle}
 
+\subsection{Initialisieren eines Repositorys}
+Das initialisieren eines Repositorys geschieht mit dem folgenden Befehl:
+\begin{verbatim}
+emp init
+\end{verbatim}
+Zu beachten ist, dass ein Repository nicht erzeugt werden kann, wenn im vorhandenen oder einem übergeordnerten Verzeichnis bereits ein Repository existiert.
+
+\subsection{Hinzufügen von Werten zu einem Repository}
+Werte können mit diesem Befehl hinzugefügt werden:
+\begin{verbatim}
+emp add <Schlüssel> [<Typ>] <Wert>
+\end{verbatim}
+Die Angabe von einem type ist optional. Wenn keiner angegeben wird erfolgt eine automatische Typ-Bestimmung.
+Hier einige Beispiele für die Typ-Erkennung:
+
+\begin{tabular}{| l | l |}
+	\hline
+	int & 1234, 123 \\
+	\hline
+	float & 1234.0, .123, -.123, +0.123 \\
+	\hline
+	string & s1234, 12s3, \"Text mit Leerzeichen\", Adresse \\
+	\hline
+\end{tabular} 
+
+Wenn eine solche Erkennung nicht gewünscht ist, dann muss ein Typ angegeben werden. Im folgenden dazu ein Beispiel:
+\begin{verbatim}
+emp add floatString string 1.2314
+\end{verbatim}
+
+\subsection{Löschen von bereits hinzugefügten Werten}
+\subsection{Modifizieren von bereits hinzugefügten Werten}
+\subsection{Erstellen eines Templates}
+\subsection{Rendern eines Templates}
+\subsection{Anzeigen von bereits hinzugefügten Werten}
