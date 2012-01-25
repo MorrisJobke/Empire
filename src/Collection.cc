@@ -193,6 +193,14 @@ void Coll::Load(std::string const& rPath)
  */
 void Coll::Declare(std::list<GenPropertyBase*> const& pPropList)
 {
+    //std::list<GenPropertyBase*>::const_iterator print_it;
+    //
+    //std::cout << "declared properties\n" << std::endl;
+    //for (print_it = pPropList.begin(); print_it != pPropList.end(); print_it++)
+    //{
+    //    std::cout << *(*print_it) << std::endl;
+    //}
+    
     if (!mPropList.empty())
         throw ErrorColl("COLL_ALREADY_DECLARED");
 
