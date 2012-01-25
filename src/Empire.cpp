@@ -82,6 +82,13 @@ int main(int argc, char* argv[])
             Sp::addi(argc, argv);
             return 0;
         }
+        else if (strcmp(argv[0], "cadd") == 0)
+        {
+            argc--;
+            argv++;
+            Sp::coll_add(argc, argv);
+            return 0;
+        }
         else if (strcmp(argv[0], "modify") == 0)
         {
             argc--;

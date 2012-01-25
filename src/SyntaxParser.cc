@@ -64,6 +64,87 @@ namespace SyntaxParser
         }
     }
 
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+    
+    /** collection add command
+     *
+     * create a collection in the current dir
+     *
+     * @param argc count of arguments
+     * @param argv arguments
+     */
+    void coll_add(int argc, char* argv[])
+    {
+        Repository working_repo;
+        if (!working_repo.IsExistent())
+        {
+            std::cout << "There isn't any repository in this or it's parent directories." << std::endl;
+            return;
+        }
+        if (argc < 2)
+        {
+            std::cout << "You need to specify a collection name and at least one key\n"
+                      << "Synopsis: emp cadd <coll-name> <key1> [<key2> <key3> ...]\n\n";
+            return;
+        }
+
+        /* load repo */
+        working_repo.Load();
+
+        /* check presence of the collection in the current dir */
+        std::string coll_name = argv[0];
+
+        if (Fs::DirectoryExists(coll_name))
+        {
+            if (working_repo.ContainsProperty(coll_name) == false)
+                std::cout << "Collection dir already exists, but you have no collection property\n"
+                          << "with the given name.\n";
+            else
+                std::cout << "Collection dir already.exists\n";
+
+            return;
+        }
+
+        /* skip col name */
+        argc--;
+        argv++;
+
+        /* iterate over keys, check existance and add them to list */
+        std::list<GenPropertyBase*> props_to_declare;
+
+        while (argc > 0)
+        {
+            std::string new_key = argv[0];
+            
+            if (working_repo.ContainsProperty(new_key) == false)
+            {
+                std::cout << "The following key is not declared in repository: " << new_key << std::endl;
+                return;
+            };
+
+            GenPropertyBase* ext_prop = working_repo.GetPropertyFromKey(new_key);
+            GenPropertyBase* new_prop = PropertyHelpers::CreatePropertyFromTypeString(ext_prop->GetTypeN());
+            new_prop->SetKey(new_key);
+
+            props_to_declare.push_back(new_prop);
+
+            argc--;
+            argv++;
+        }
+
+        /* declare collection in repo, if not present */
+        if (working_repo.ContainsProperty(coll_name) == false)
+        {
+            working_repo.CreatePropertyClass(coll_name, GetTypeName<Coll>());
+        }
+
+        
+        Coll c(coll_name);
+        c.Declare(props_to_declare);
+    }
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+    
     /** add command
      *
      * @param argc count of arguments

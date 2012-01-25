@@ -12,6 +12,7 @@
 #include "Repository.h"
 #include "Template.h"
 #include "Filesystem.h"
+#include "Collection.h"
 
 DEFINE_FAST_EXCEPTION(NotEnoughArgs, "Not enough arguments.")
 
