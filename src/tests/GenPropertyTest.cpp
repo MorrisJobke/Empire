@@ -168,13 +168,19 @@ BOOST_AUTO_TEST_CASE(GenPropertyCopyConstructorTest)
 BOOST_AUTO_TEST_CASE(GenPropertySetValueFromString)
 {
     GenProperty<float> myprop_float;
+    GenProperty<double> myprop_double;
     GenProperty<int> myprop_int;
     GenProperty<string> myprop_string;
     GenProperty<string> myprop_string2;
+    GenProperty<FunctionType> myprop_func;
 
     myprop_float.SetValueFromString("1.2345");
-    BOOST_CHECK(myprop_float.GetValue() == 1.2345);
-    std::cout << "value = " << myprop_float.GetValue() << std::endl;
+    BOOST_CHECK(myprop_float.GetValue() == (float)1.2345);
+    BOOST_CHECK_CLOSE(myprop_float.GetValue(), 1.2345, 0.0001);
+
+    myprop_double.SetValueFromString("1.2345");
+    BOOST_CHECK(myprop_double.GetValue() == 1.2345);
+    BOOST_CHECK_CLOSE(myprop_double.GetValue(), 1.2345, 0.00000001);
 
     myprop_int.SetValueFromString("12345");
     BOOST_CHECK(myprop_int.GetValue() == 12345);
@@ -184,6 +190,10 @@ BOOST_AUTO_TEST_CASE(GenPropertySetValueFromString)
 
     myprop_string2.SetValueFromString("Test");
     BOOST_CHECK(myprop_string2.GetValue() == "Test");
+
+    myprop_func.SetValueFromString("return 2;\nreturn 5;");
+    BOOST_CHECK(myprop_func.GetValue().GetMapFunction() == "return 2;");
+    BOOST_CHECK(myprop_func.GetValue().GetReduceFunction() == "return 5;");
 
 }
 
