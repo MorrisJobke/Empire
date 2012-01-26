@@ -34,6 +34,11 @@ endif()
 ######################
 add_library(Filesystem Filesystem)
 
+######################
+# ListHelper library #
+######################
+add_library(ListHelper ListHelper)
+
 ########################
 # SyntaxParser library #
 ########################
@@ -87,7 +92,8 @@ add_library(Template Template)
 target_link_libraries(Template
     GenProperty
     LuaHelper
-    FunctionType)
+    FunctionType
+    ListHelper)
 
 ######################
 # Collection library #

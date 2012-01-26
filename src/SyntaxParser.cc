@@ -190,7 +190,7 @@ namespace SyntaxParser
         }
         catch(...)
         {
-            std::cout << "An error occured :(" << std::endl;   
+            std::cout << "An unexpected error occured." << std::endl;   
         }
     }
 
@@ -290,6 +290,7 @@ namespace SyntaxParser
             used = tmpl->GetAvailableProperties(argv[0], working_repo.GetDefindedValuesInCwd());
             unused = tmpl->GetMissingProperties(argv[0], working_repo.GetUnDefindedValuesInCwd());
             created = tmpl->GetAvailableProperties(argv[0], working_repo.GetUnDefindedValuesInCwd());
+            //unused_colls = 
 
             /* print unused */
             if(unused.size() > 0)
@@ -316,6 +317,9 @@ namespace SyntaxParser
 
                 Ch::printValueList(used, ADDED, true, true, working_repo);
             }
+
+            /* print unused colls */
+
         }
         else //normal mode
         {
@@ -590,5 +594,4 @@ namespace ConsoleHelper{
     {
         std::cout << COLOR_BOLD << header << count << "):" << COLOR_CLEAR << std::endl;
     }
-    
 }
