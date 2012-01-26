@@ -145,7 +145,7 @@ class GenProperty : public GenPropertyBase
             if (this->HasValue())
                 return *((typ*)this->mpData);
             else
-                throw ErrorGenProperty("NO_PROP_VALUE");
+                throw ErrorGenProperty("NO_PROP_VALUE ("+this->GetKey()+")");
         };
 
         /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
