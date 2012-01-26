@@ -44,7 +44,7 @@ $ mkdir Kunde1 Kunde2
 $ cd Kunde1
 $ emp add to_name "Muster Co."
 $ emp add to_street "Musterallee 42"
-$ emp add to_city "Musterhausen"
+$ emp add to_city "56346 Musterhausen"
 \end{lstlisting}
 
 Die Bennenung der Ordner spielt hier keine Rolle (solange keine Collection mit dem gewünschten Namen existiert), sollte aber zur Förderung der Übersichtlichkeit sinnvoll bennant werden.
@@ -69,6 +69,7 @@ Nun erstellen wir eine Rechnung für Kunde 1. Dazu erstellen wir im Verzeichnis 
 \begin{lstlisting}[style=Bash]
 $ cd ../Kunde1
 $ mkdir Auftrag1
+$ cd Auftrag1
 $ emp iadd ../../invoice.htm
 \end{lstlisting}
 
@@ -77,13 +78,12 @@ TODO: Collection adden
 
 Das Template kann nun zur fertigen Rechnung gerendert werden, da wir alle benötigten Werte hinzugefügt haben:
 \begin{lstlisting}[style=Bash]
-$ cd ../../Kunde1
-$ emp render invoice.htm Kunde1/Auftrag1/invoice.htm
+$ emp render ../../invoice.htm .
 \end{lstlisting}
 
 Im folgenden definieren wir die Variablen welche die Grundlage für die im Template enthaltene Collection benötigt werden. Um herauszufinden welche das sind bemühen wir den show-Befehl und übergeben das Template als Paramter:
 \begin{lstlisting}[style=Bash]
-$ emp show ../../invoice.htm 
+$ emp show ../../invoice.htm
 \end{lstlisting}
 
 Besonders interessant ist dabei der Abschnitt der vom Template genutzen, aber im Repository nicht enthaltenen Collections. Dort wird uns die Collection \grqq item\grqq mit den folgenden Werten angezeigt:
@@ -93,7 +93,7 @@ Collections:
 ============
 Used by template and not defined(1):
 	items, containing elements (got from Template):
-		description  price        quantity     
+		description  price        quantity
 		total        unit
 \end{lstlisting}
 
@@ -121,11 +121,11 @@ $ emp cfill items  description:Datenrettung price:250.00 quantity:1
 
 Vor dem rendern überprüfen wir nochmals unseren aktuellen Status:
 \begin{lstlisting}[style=Bash]
-$ emp show ../../invoice.htm 
+$ emp show ../../invoice.htm
 \end{lstlisting}
 Alle Werte sollten nun grün oder türkis dargestellt werden. Grün symbolisiert das die Variablen im aktuellen Ordner erstellt wurden, türkise Variablen befinden sich hingegen in einem übergeordneten Verzeichnis.
 
 Das Rendern erfolgt mit dem render-Befehl:
 \begin{lstlisting}[style=Bash]
-$ emp render ../../invoice.htm ./invoice.htm 
+$ emp render ../../invoice.htm ./invoice.htm
 \end{lstlisting}
