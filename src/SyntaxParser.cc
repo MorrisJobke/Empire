@@ -23,6 +23,7 @@ namespace SyntaxParser
              << "  add          adds a given property to the repository in working directory\n"
              << "  create       creates a property definition\n"
              << "  cadd         adds a collection property to the repository in working directory\n"
+             << "  cfill        adds a collection row\n"
              << "  create       adds only the property type to the repository in working directory\n"
              << "  iadd         interactive adding of all properties in a given template\n"
              << "  remove       removes a given property from repository in working directory\n"
@@ -145,6 +146,106 @@ namespace SyntaxParser
 
         Coll c(coll_name);
         c.Declare(props_to_declare);
+    }
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+    
+    void coll_fill(int argc, char* argv[])
+    {
+        using namespace std;
+
+        Repository working_repo;
+        if (!working_repo.IsExistent())
+        {
+            std::cout << "There isn't any repository in this or it's parent directories." << std::endl;
+            return;
+        }
+        if (argc < 2)
+        {
+            std::cout << "You need to specify a collection name and at least one key\n"
+                      << "Synopsis: emp cadd <coll-name> <key1> [<key2> <key3> ...]\n\n";
+            return;
+        }
+
+        /* load repo */
+        working_repo.Load();
+
+        /* check presence of the collection in the current dir */
+        std::string coll_name = argv[0];
+
+        if (working_repo.ContainsProperty(coll_name) == false)
+        {
+                std::cout << "The Repository does not hold a collection called: " << coll_name << "\n";
+                return;
+        }
+
+        GenPropertyBase* col_prop = working_repo.GetPropertyByKey(coll_name);
+        
+        if (col_prop->GetTypeN() != GetTypeName<Coll>())
+        {
+                std::cout << "The Repository does not hold a collection called: " << coll_name << "\n";
+                return;
+        }
+
+        if (Fs::DirectoryExists(coll_name) == false)
+        {
+            std::cout << "You have no collection declared here called: " << coll_name << "\n";
+            return;
+        }
+
+        /* skip col name */
+        argc--;
+        argv++;
+
+        /* read entries */
+
+        list<GenPropertyBase*> new_entries;
+        while (argc > 0)
+        {
+            std::string new_pair = argv[0];
+            
+            //cout << "new pair-> " << new_pair << endl;
+
+            /* split tthe pair */
+            size_t found = new_pair.find_first_of(":");
+            
+            if (found == string::npos)
+            {
+                cout << "You have forgotten the splitting character : " << endl;
+                return;
+            }
+            //cout << ": found at " << found << endl;
+            
+            string new_key = new_pair.substr(0,found);
+            string new_value = new_pair.substr(found + 1, new_pair.length() - found);
+            
+            //cout << "new key-> " << new_key << endl;
+            //cout << "new value-> " << new_value << endl;
+
+            /* check presence of property */
+            if (working_repo.ContainsProperty(new_key) == false)
+            {
+                cout << "Property not found in repository: " << new_key << endl;
+                return;
+            }
+            
+            GenPropertyBase* contained_prop = working_repo.GetPropertyByKey(new_key);
+            GenPropertyBase* new_prop = PropertyHelpers::CreatePropertyFromTypeString(contained_prop->GetTypeN());
+            new_prop->SetKey(new_key);
+            new_prop->SetValueFromString(new_value);
+
+            new_entries.push_back(new_prop);
+        
+            argc--;
+            argv++;
+        }
+        
+        /* Load collection */
+
+        Coll c(coll_name);
+        c.Load(coll_name);
+
+        c.AddRow(new_entries);
     }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/

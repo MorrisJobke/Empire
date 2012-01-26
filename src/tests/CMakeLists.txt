@@ -9,6 +9,7 @@ if(ENABLE_TESTING)
         CommandTests
         GenPropertyTest
         CollectionTests
+        SyntaxParserTests
         TemplateTests)
 
     # used libraries
@@ -20,5 +21,6 @@ if(ENABLE_TESTING)
         Repository
         Template
         Collection
+        SyntaxParser
         FunctionType)
 endif()
