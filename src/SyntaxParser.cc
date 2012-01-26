@@ -479,7 +479,7 @@ namespace SyntaxParser
                 if (needless.size() > 0)
                 {
                     Ch::printHeaderWithCount("Not used by template, but created/added(", needless.size());
-                    Ch::printValueList(needless, NEEDLESS, true, true, working_repo, 1);
+                    Ch::printTripleList(needless, NEEDLESS, 1);
                 }
             }
 
@@ -492,14 +492,14 @@ namespace SyntaxParser
                 if(used_colls.size() > 0)
                 {
                     Ch::printHeaderWithCount("Used by template and defined(", used_colls.size());
-                    Ch::printValueList(used_colls, ADDED, false, true, working_repo, 1);
+                    Ch::printCollectionList(used_colls, ADDED, working_repo, 1, REPO, argv[0]);
                 }
                 
                 /* print unused */
                 if(unused_colls.size() > 0)
                 {
-                    Ch::printHeaderWithCount("Used by template and defined(", unused_colls.size());
-                    Ch::printValueList(unused_colls, MISSING, false, false, working_repo, 1);
+                    Ch::printHeaderWithCount("Used by template and not defined(", unused_colls.size());
+                    Ch::printCollectionList(unused_colls, MISSING, working_repo, 1, TEMPLATE, argv[0]);
                 }
 
                 /* print needless */
@@ -507,7 +507,7 @@ namespace SyntaxParser
                 {
                     Ch::printHeaderWithCount("Not used by template, but defined(", needless_colls.size());
                     Ch::printTripleList(needless_colls, NEEDLESS, 1);
-                }                
+                }
             }
         }
         else //normal mode
@@ -535,7 +535,7 @@ namespace SyntaxParser
             if (used_colls.size() > 0)
             {
                 Ch::printHeaderWithCount("Created Collections(", used_colls.size());
-                Ch::printCollectionList(used_colls, ADDED, working_repo, 1);
+                Ch::printCollectionList(used_colls, ADDED, working_repo, 1, REPO, NULL);
             }
         }
     }
@@ -850,7 +850,8 @@ namespace ConsoleHelper{
         std::cout << std::endl;
     }
 
-    void printCollectionList(std::list<std::string> rList, PrintMode rMode, Repository working_repo, int rTabSpace)
+    void printCollectionList(std::list<std::string> rList, PrintMode rMode, Repository working_repo, 
+                            int rTabSpace, WorkingMode rWorkMode, std::string rTemplPath)
     {
         std::list<std::string> tmpList = rList;
         std::list<std::string>::const_iterator it;
@@ -861,10 +862,21 @@ namespace ConsoleHelper{
         for (it = tmpList.begin(); it != tmpList.end(); ++it)
         {
             std::string key = *it;
-            Coll coll;
-            coll.Load(key);
-            printCollElem(key, rTabSpace, coll.GetRowCount());
-            printTripleList(Lh::PropertyList2KeyList(coll.GetPropertyList()), NEEDLESS, rTabSpace + 1);
+            if (rWorkMode == REPO)
+            {
+                Coll coll;
+                coll.Load(key);
+                printCollElem(key, rTabSpace, coll.GetRowCount());
+                printTripleList(Lh::PropertyList2KeyList(coll.GetPropertyList()), NEEDLESS, rTabSpace + 1);
+            }
+            else
+            {
+                for(int i = 0; i < rTabSpace; ++i)
+                    std::cout << "\t";
+                std::cout << key << ", containing elements (got from Template):" << std::endl;
+                SimpleTemplate templ;
+                printTripleList(templ.GetCollectionItemList(rTemplPath, key), MISSING, rTabSpace + 1);
+            }
             std::cout << COLOR_CLEAR;
         }
     }

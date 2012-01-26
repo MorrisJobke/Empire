@@ -27,6 +27,7 @@ DEFINE_FAST_EXCEPTION(NotEnoughArgs, "Not enough arguments.")
 #define COLOR_PURPLE "\033[35m"
 
 enum PrintMode { CREATED, MISSING, ADDED, NEEDLESS };
+enum WorkingMode { REPO, TEMPLATE };
 
 namespace SyntaxParser
 {
@@ -52,8 +53,8 @@ namespace ConsoleHelper
     void printTripleList(std::list<std::string> const& rList, PrintMode color, int rTabSpace);
     void printValueList(std::list<std::string> rList, PrintMode mode, bool rValues, 
                         bool rTypes, Repository working_repo, int rTabSpace);
-    void printCollectionList(std::list<std::string> rList, PrintMode rMode, 
-                             Repository working_repo, int rTabSpace);
+        void printCollectionList(std::list<std::string> rList, PrintMode rMode, Repository working_repo, 
+                            int rTabSpace, WorkingMode rWorkMode, std::string rTemplPath);
     void printHeaderWithCount(std::string header, int count);
     void printHeader(std::string header);
     void printUnderlinedHeader(std::string header);
