@@ -8,19 +8,19 @@
 \section{Erklärung der wesentlichen Anwendungsfälle}
 
 \subsection{Initialisieren eines Repositorys}
-Das initialisieren eines Repositorys geschieht mit dem folgenden Befehl:
+Das Initialisieren eines Repositories geschieht mit dem folgenden Befehl:
 \begin{lstlisting}[style=Bash]
 $ emp init
 \end{lstlisting}
-Zu beachten ist, dass ein Repository nicht erzeugt werden kann, wenn im vorhandenen oder einem übergeordnerten Verzeichnis bereits ein Repository existiert.
+Zu beachten ist, dass ein Repository nicht erzeugt werden kann, wenn im vorhandenen oder einem übergeordneten Verzeichnis bereits ein Repository existiert.
 
 \subsection{Hinzufügen von Werten zu einem Repository}
 Werte können mit diesem Befehl hinzugefügt werden:
 \begin{lstlisting}[style=Bash]
 $ emp add <Schlüssel> [<Typ>] <Wert>
 \end{lstlisting}
-Die Angabe von einem type ist optional. Wenn keiner angegeben wird erfolgt eine automatische Typ-Bestimmung.
-Hier einige Beispiele für die Typ-Erkennung:
+Die Angabe von einem Datentyp ist optional. Wenn keiner angegeben wird, erfolgt eine automatische Typ-Bestimmung.
+Es folgen einige Beispiele für die Typ-Erkennung:
 
 \begin{tabular}{| l | l |}
 	\hline
@@ -32,7 +32,7 @@ Hier einige Beispiele für die Typ-Erkennung:
 	\hline
 \end{tabular} 
 
-Wenn eine solche Erkennung nicht gewünscht ist, dann muss ein Typ angegeben werden. Im folgenden dazu ein Beispiel:
+Wenn eine automatische Erkennung nicht gewünscht ist, muss ein Typ angegeben werden. Im folgenden dazu ein Beispiel:
 \begin{lstlisting}[style=Bash]
 $ emp add floatString string 1.2314
 \end{lstlisting}
@@ -45,7 +45,7 @@ $ emp remove [Optionen] <Schlüssel>
 
 Dabei wird jedoch lediglich ein Wert gelöscht (der des aktuellen Verzeichnisses). Die Werte in anderen Verzeichnissen und auch die Typ-Definition bleiben erhalten.
 
-Um auch die Typ-Definition zu entfernen können Sie die Option --all nutzen:
+Um auch die Typ-Definition entfernen zu können nutzen Sie die Option --all:
 \begin{lstlisting}[style=Bash]
 $ emp remove --all <Schlüssel>
 \end{lstlisting}
@@ -64,5 +64,5 @@ Um einen Überblick über den aktuellen Status zu erhalten kann das show-Kommand
 \begin{lstlisting}[style=Bash]
 $ emp show [<Template-Datei>]
 \end{lstlisting}
-Wenn hierbei kein Parameter übergeben wird erhalten Sie eine Auflistung ihrer bereits verwendeten Werte und verfügbare Wert-Definitionen.
-Bei Übergabe einer Template-Datei als Parameter werden die im Template vorhandenen, und noch nicht definierten, Werte aufgelistet. Ebenso erhalten Sie natürlich eine Übersicht über die bereits definierten und auch im Template benötigten Werte.
+Wenn hierbei kein Parameter übergeben wird, erhalten Sie eine Auflistung Ihrer bereits verwendeten Werte und verfügbaren Wert-Definitionen.
+Bei Übergabe einer Template-Datei als Parameter werden die im Template vorhandenen und noch nicht definierten Werte aufgelistet. Außerdem erhalten Sie eine Übersicht über die bereits definierten und im Template benötigten Werte.
