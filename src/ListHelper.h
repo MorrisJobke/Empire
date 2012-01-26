@@ -11,10 +11,13 @@
 
 #include <list>
 #include <string>
+#include <iostream>
 
 namespace ListHelper
 {
     std::list<std::string> ListCompare(std::list<std::string> const& rList1, std::list<std::string> const& rList2, bool rNotFound);
+    std::list<std::string> ListMerge(std::list<std::string> const& rList1, std::list<std::string> const& rList2);
+    void ListDebugPrint(std::list<std::string> rList);
 }
 
 #endif

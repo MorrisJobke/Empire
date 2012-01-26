@@ -47,7 +47,8 @@ target_link_libraries(SyntaxParser
     Repository
     Template
     Filesystem
-    Collection)
+    Collection
+    ListHelper)
 
 #######################
 # RegexHelper library #

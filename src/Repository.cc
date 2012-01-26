@@ -570,10 +570,12 @@ std::list<std::string> Repository::GetAddedPropertiesInCwd()
     std::string found_path;
     for (it = this->mPropertyList.begin(); it != this->mPropertyList.end(); it++)
     {
-        std::string value = this->GetFirstDefinedValueRec((*it)->GetKey(), path, found_path);
-
-        if(value != "")
-            result.push_back((*it)->GetKey());
+        if ((*it)->GetTypeN() != GetTypeName<Coll>())
+        {
+            std::string value = this->GetFirstDefinedValueRec((*it)->GetKey(), path, found_path);
+            if(value != "")
+                result.push_back((*it)->GetKey());
+        }
     }
 
     return result;
@@ -602,10 +604,12 @@ std::list<std::string> Repository::GetCreatedPropertiesInCwd()
     std::string found_path;
     for (it = this->mPropertyList.begin(); it != this->mPropertyList.end(); it++)
     {
-        std::string value = this->GetFirstDefinedValueRec((*it)->GetKey(), path, found_path);
-
-        if(value == "")
-            result.push_back((*it)->GetKey());
+        if ((*it)->GetTypeN() != GetTypeName<Coll>())
+        {
+            std::string value = this->GetFirstDefinedValueRec((*it)->GetKey(), path, found_path);
+            if(value == "")
+               result.push_back((*it)->GetKey());
+        }
     }
 
     return result;

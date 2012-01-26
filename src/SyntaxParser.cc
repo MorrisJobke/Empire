@@ -312,81 +312,106 @@ namespace SyntaxParser
             std::cout << "There isn't any repository in this or it's parent directories." << std::endl;
             return;
         }
-        if (argc > 1 || (strcmp(argv[0],"-h") == 0) || (strcmp(argv[0], "--help") == 0))
-        {
-            std::cout << "This command runs without any parameters.\n"
-                      << "Specifying a template is optional and gives you\n"
-                      << "some template specific information.\n"
-                      << "Synopsis: emp show [<path-to-template>]\n\n";
-            return;
-        }
+        if (argc > 0)
+            if (argc > 1 || (strcmp(argv[0],"-h") == 0) || (strcmp(argv[0], "--help") == 0))
+            {
+                std::cout << "This command runs without any parameters.\n"
+                          << "Specifying a template is optional and gives you\n"
+                          << "some template specific information.\n"
+                          << "Synopsis: emp show [<path-to-template>]\n\n";
+                return;
+            }
 
         working_repo.Load();
-        std::list <GenPropertyBase*> propList = working_repo.GetPropertyList();
 
         if (argc != 0) //template mode
         {
             //TODO: replace by SimpleTemplate::GetMissingProperties
             SimpleTemplate* tmpl = new SimpleTemplate();
-            std::list<std::string> unused, used, created, used_colls, unused_colls;
+            std::list<std::string> unused, used, created, used_colls, unused_colls, needless, needless_colls;
             std::list<std::string>::const_iterator it;
 
             /*properties:*/
             used = tmpl->GetAvailableProperties(argv[0], working_repo.GetAddedPropertiesInCwd());
             unused = tmpl->GetMissingProperties(argv[0], working_repo.GetAddedPropertiesInCwd());
             created = tmpl->GetAvailableProperties(argv[0], working_repo.GetCreatedPropertiesInCwd());
-
+            needless = tmpl->GetNeedLessProperties(argv[0],
+                            ListHelper::ListMerge(working_repo.GetCreatedPropertiesInCwd(), 
+                                                  working_repo.GetAddedPropertiesInCwd())
+                                                  );
             /*collections:*/
             used_colls = tmpl->GetAvailableCollections(argv[0], working_repo.GetAddedCollectionsInCwd());
             unused_colls = tmpl->GetMissingCollections(argv[0], working_repo.GetAddedCollectionsInCwd());
+            needless_colls =  tmpl->GetNeedLessCollections(argv[0], working_repo.GetAddedCollectionsInCwd());
 
-            Ch::printUnderlinedHeader("Properties:");
-
-            /* print unused */
-            if(unused.size() > 0)
+            /**** PROPERTIES ****/
+            if (unused.size() + used.size() + created.size() + needless.size() > 0)
             {
-                Ch::printHeaderWithCount("Used by template, but not added or defined(", unused.size());
-                Ch::printTripleList(unused, MISSING);
+                Ch::printUnderlinedHeader("Properties:");
+                /* print unused */
+                if(unused.size() > 0)
+                {
+                    Ch::printHeaderWithCount("Used by template, but not added or defined(", unused.size());
+                    Ch::printTripleList(unused, MISSING);
+                }
+
+                /* print created */
+                if(created.size() > 0)
+                {
+                    Ch::printHeaderWithCount("Used by template, but only defined(", created.size());
+                    Ch::printValueList(created, CREATED, false, true, working_repo);
+                }
+
+                /* print used */
+                if (used.size() > 0)
+                {
+                    if(unused.size() == 0)
+                        Ch::printHeaderWithCount("All values for your given template are available(", used.size());
+                    else
+                        Ch::printHeaderWithCount("Used by template and already added(", used.size());
+
+                    Ch::printValueList(used, ADDED, true, true, working_repo);
+                }
+
+                /* print needless */
+                if (needless.size() > 0)
+                {
+                    Ch::printHeaderWithCount("Not used by template, but created/added(", needless.size());
+                    Ch::printValueList(needless, NEEDLESS, true, true, working_repo);
+                }
             }
 
-            /* print created */
-            if(created.size() > 0)
+            /**** Collections ****/
+            if (unused_colls.size() + used_colls.size() +  needless.size() > 0)
             {
-                Ch::printHeaderWithCount("Used by template, but only defined(", created.size());
-                Ch::printValueList(created, CREATED, false, true, working_repo);
-            }
+                Ch::printUnderlinedHeader("Collections:");
+                
+                /* print used */
+                if(used_colls.size() > 0)
+                {
+                    Ch::printHeaderWithCount("Used by template and defined(", used_colls.size());
+                    Ch::printValueList(used_colls, ADDED, false, true, working_repo);
+                }
+                
+                /* print unused */
+                if(unused_colls.size() > 0)
+                {
+                    Ch::printHeaderWithCount("Used by template, but defined(", unused_colls.size());
+                    Ch::printValueList(unused_colls, MISSING, false, false, working_repo);
+                }
 
-            /* print used */
-            if (used.size() > 0)
-            {
-                if(unused.size() == 0)
-                    Ch::printHeaderWithCount("All values for your given template are available(", used.size());
-                else
-                    Ch::printHeaderWithCount("Used by template and already added(", used.size());
-
-                Ch::printValueList(used, ADDED, true, true, working_repo);
+                /* print needless */
+                if(needless_colls.size() > 0)
+                {
+                    Ch::printHeaderWithCount("Not used by template, but defined(", needless_colls.size());
+                    Ch::printTripleList(needless_colls, NEEDLESS);
+                }                
             }
-
-            Ch::printUnderlinedHeader("Collections:");
-            /* print used*/
-            if(used_colls.size() > 0)
-            {
-                Ch::printHeaderWithCount("Used by template and defined(", used_colls.size());
-                Ch::printValueList(used_colls, ADDED, false, true, working_repo);
-            }
-            /* print unused*/
-            if(unused_colls.size() > 0)
-            {
-                Ch::printHeaderWithCount("Used by template, but undefined(", unused_colls.size());
-                Ch::printValueList(unused_colls, MISSING, false, false, working_repo);
-            }
-
         }
         else //normal mode
         {
             std::list<std::string>::const_iterator it;
-            std::list<std::string> used;
-            std::list<std::string> unused;
+            std::list<std::string> used, unused;
 
             used = working_repo.GetAddedPropertiesInCwd();
             unused = working_repo.GetCreatedPropertiesInCwd();
@@ -399,11 +424,10 @@ namespace SyntaxParser
 
                 Ch::printValueList(used, ADDED, true, true, working_repo);
             }
-
             if (unused.size() > 0)
             {
                 Ch::printHeaderWithCount("Created Properties(", unused.size());
-                Ch::printValueList(unused, ADDED, false, true, working_repo);
+                Ch::printTripleList(unused, NEEDLESS);
             }
         }
     }
@@ -626,6 +650,7 @@ namespace ConsoleHelper{
             case CREATED:   return COLOR_CLEAR;
             case MISSING:   return COLOR_RED;
             case ADDED:     return COLOR_GREEN;
+            case NEEDLESS:  return COLOR_PURPLE;
         }
         return "";
     }

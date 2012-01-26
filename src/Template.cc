@@ -471,6 +471,19 @@ std::list<std::string> SimpleTemplate::GetAvailableProperties(std::string const&
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
 
+/** get a list of properties that are not used by the template, but defined
+ *
+ * @param rPath the path to the file of the template
+ * @param rAvailable already defined properties
+ * @return list of property-keys
+ */
+std::list<std::string> SimpleTemplate::GetNeedLessProperties(std::string const& rPath, std::list<std::string> const& rAvailable)
+{
+    return ListHelper::ListCompare(rAvailable, this->GetKeyList(rPath), true);
+}
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+
 /** get a list of collections that are used by the template and also defined
  *
  * @param rPath the path to the file of the template
@@ -495,6 +508,18 @@ std::list<std::string> SimpleTemplate::GetMissingCollections(std::string const& 
     return ListHelper::ListCompare(this->GetCollectionList(rPath), rAvailableColls, true);
 }
 
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+
+/** get a list of collections that are not by the template, but available
+ *
+ * @param rPath the path to the file of the template
+ * @param rAvailableColl list of already defined collections
+ * @return list of collection keys
+ */
+std::list<std::string> SimpleTemplate::GetNeedLessCollections(std::string const& rPath, std::list<std::string> const& rAvailableColls)
+{
+    return ListHelper::ListCompare(rAvailableColls, this->GetCollectionList(rPath), true);   
+}
 /*============================= ACCESS     =================================*/
 /*============================= INQUIRY    =================================*/
 

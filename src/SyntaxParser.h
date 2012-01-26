@@ -13,6 +13,7 @@
 #include "Template.h"
 #include "Filesystem.h"
 #include "Collection.h"
+#include "ListHelper.h"
 
 DEFINE_FAST_EXCEPTION(NotEnoughArgs, "Not enough arguments.")
 
@@ -23,8 +24,9 @@ DEFINE_FAST_EXCEPTION(NotEnoughArgs, "Not enough arguments.")
 #define COLOR_CYAN "\033[36m"
 #define COLOR_CLEAR "\033[0m"
 #define COLOR_BOLD "\033[1m"
+#define COLOR_PURPLE "\033[35m"
 
-enum PrintMode { CREATED, MISSING, ADDED };
+enum PrintMode { CREATED, MISSING, ADDED, NEEDLESS };
 
 namespace SyntaxParser
 {

@@ -40,5 +40,39 @@ namespace ListHelper
                 result.push_back(*it);
         }
         return result;
-    }    
+    }
+
+    /** merges to lists of strings, removing redundant entrys
+     *
+     * @param rList1 first list
+     * @param rList1 secound list
+     * @return result list
+     */
+    std::list<std::string> ListMerge(std::list<std::string> const& rList1, std::list<std::string> const& rList2)
+    {
+        std::list<std::string> tList1, tList2;
+        tList1 = rList1;
+        tList2 = rList2;
+        tList1.sort();
+        tList2.sort();
+        tList1.merge(tList2);
+        tList1.unique();
+        return tList1;
+    }
+
+
+    /** prints a list to std::out, for debug only
+     *
+     * @param rList1 given list
+     */
+    void ListDebugPrint(std::list<std::string> rList)
+    {
+        std::list<std::string>::const_iterator it;
+        std::cout << "###### DEBUG LIST PRINT #######" << std::endl;      
+        for (it = rList.begin(); it != rList.end(); it++)
+        {
+            std::cout << *it << std::endl;
+        }
+        std::cout << "###### DEBUG LIST PRINT END #######" << std::endl;
+    }
 }
