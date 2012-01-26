@@ -40,8 +40,7 @@ Dasselbe Ergebnis kann man auch mit dem iadd-Befehl erreichen. Auf diesen werden
 
 Im Anschluss erstellen wir für jeden Kunden einen Ordner und hinterlegen in diesem die Daten des Kunden:
 \begin{lstlisting}[style=Bash]
-$ mkdir Kunde1
-$ mkdir Kunde2
+$ mkdir Kunde1 Kunde2
 $ cd Kunde1
 $ emp add to_name "Muster Co."
 $ emp add to_street "Musterallee 42"
@@ -53,7 +52,7 @@ Die Bennenung der Ordner spielt hier keine Rolle (solange keine Collection mit d
 Für den 2. Kunden nutzen wir nun den addi-Befehl:
 \begin{lstlisting}[style=Bash]
 $ cd ../Kunde2
-$ emp ddia ../invoice.htm
+$ emp iadd ../invoice.htm
 \end{lstlisting}
 
 Es erfolgt eine interaktive Abfrage der im Template genutzten, aber im Repository noch nicht gesetzten Werte. Wir wollen nur die Kundendaten eintragen und überspringen die restlichen Abfragen mit der Enter-Taste.
@@ -73,10 +72,60 @@ $ mkdir Auftrag1
 $ emp iadd ../../invoice.htm
 \end{lstlisting}
 
+Die Collection wird nun folgendermaßen ge
 TODO: Collection adden
 
 Das Template kann nun zur fertigen Rechnung gerendert werden, da wir alle benötigten Werte hinzugefügt haben:
 \begin{lstlisting}[style=Bash]
-$ cd ../../
+$ cd ../../Kunde1
 $ emp render invoice.htm Kunde1/Auftrag1/invoice.htm
+\end{lstlisting}
+
+Im folgenden definieren wir die Variablen welche die Grundlage für die im Template enthaltene Collection benötigt werden. Um herauszufinden welche das sind bemühen wir den show-Befehl und übergeben das Template als Paramter:
+\begin{lstlisting}[style=Bash]
+$ emp show ../../invoice.htm 
+\end{lstlisting}
+
+Besonders interessant ist dabei der Abschnitt der vom Template genutzen, aber im Repository nicht enthaltenen Collections. Dort wird uns die Collection \grqq item\grqq mit den folgenden Werten angezeigt:
+
+\begin{lstlisting}[style=Bash]
+Collections:
+============
+Used by template and not defined(1):
+	items, containing elements (got from Template):
+		description  price        quantity     
+		total        unit
+\end{lstlisting}
+
+Wir definieren nun also die 5 Variablen:
+\begin{lstlisting}[style=Bash]
+$ emp create description string
+$ emp create price float
+$ emp create quantity int
+$ emp create total function
+$ emp create unit string
+\end{lstlisting}
+
+Aus diesen Definitionen kann nun eine Collection erstellt werden:
+\begin{lstlisting}[style=Bash]
+$ emp cadd items  description price quantity total unit
+\end{lstlisting}
+
+Danach sollten noch ein paar Zeilen zu der eben erstellten Collection hinzugefügt werden:
+\begin{lstlisting}[style=Bash]
+$ emp cfill items  description:Webseite price:99.99 quantity:1
+$ emp cfill items  description:Softwareentwicklung price:25.00 unit:Stunden quantity:5
+$ emp cfill items  description:Datenrettung price:250.00 quantity:1
+\end{lstlisting}
+//TODO: Wie muss man die Function deklariern?
+
+Vor dem rendern überprüfen wir nochmals unseren aktuellen Status:
+\begin{lstlisting}[style=Bash]
+$ emp show ../../invoice.htm 
+\end{lstlisting}
+Alle Werte sollten nun grün oder türkis dargestellt werden. Grün symbolisiert das die Variablen im aktuellen Ordner erstellt wurden, türkise Variablen befinden sich hingegen in einem übergeordneten Verzeichnis.
+
+Das Rendern erfolgt mit dem render-Befehl:
+\begin{lstlisting}[style=Bash]
+$ emp render ../../invoice.htm ./invoice.htm 
 \end{lstlisting}
