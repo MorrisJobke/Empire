@@ -200,7 +200,7 @@ void Coll::Declare(std::list<GenPropertyBase*> const& pPropList)
     //{
     //    std::cout << *(*print_it) << std::endl;
     //}
-    
+
     if (!mPropList.empty())
         throw ErrorColl("COLL_ALREADY_DECLARED");
 
@@ -380,10 +380,3 @@ int Coll::GetRowCount()
 /////////////////////////////// PROTECTED  ///////////////////////////////////
 
 /////////////////////////////// PRIVATE    ///////////////////////////////////
-
-void Coll::WriteToDir(std::string const& rPath)
-{
-}
-
-
-
