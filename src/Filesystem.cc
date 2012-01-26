@@ -109,7 +109,17 @@ namespace Filesystem
         delete[] cstr;
 
         if (ret != 0)
+        {
+            //if (errno == EACCES)
+            //    std::cout << "errno: EACCES" << std::endl;
+            //if (errno == EEXIST)
+            //    std::cout << "errno: EEXIST" << std::endl;
+            //if (errno == EMLINK)
+            //    std::cout << "errno: ENOSPC" << std::endl;
+            //if (errno == EROFS)
+            //    std::cout << "errno: EROFS" << std::endl;
             throw CannotCreateDirError();
+        }
 
     }
 
@@ -148,8 +158,18 @@ namespace Filesystem
         char* cstr = new char[rDirPath.size() + 1];
         strcpy(cstr, rDirPath.c_str());
 
+        int ret;
+
+        //std::cout << "checking dir: " << rDirPath << std::endl;
+
         struct stat sb;
-        stat(cstr, &sb);
+        ret = stat(cstr, &sb);
+        if (ret != 0)
+        {
+            if (errno == ENOENT)
+                return false;
+        }
+            
 
         delete[] cstr;
 
@@ -333,6 +353,7 @@ namespace Filesystem
         /* create char array */
         char* cstr = new char[rPath.size() + 1];
         strcpy(cstr, rPath.c_str());
+
 
         struct stat sb;
         stat(cstr, &sb);
