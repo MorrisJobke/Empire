@@ -22,6 +22,7 @@ namespace SyntaxParser
              << "  init         initialize a repository in the working directory\n"
              << "  add          adds a given property to the repository in working directory\n"
              << "  cadd         adds a collection property to the repository in working directory\n"
+             << "  create       adds only the property type to the repository in working directory\n"
              << "  iadd         interactive adding of all properties in a given template\n"
              << "  remove       removes a given property from repository in working directory\n"
              << "  modify       modifies a given property from repository in working directory\n"
