@@ -47,7 +47,7 @@ class Coll
 
     std::list< std::list<GenPropertyBase*> > GetList() const;
     std::list< GenPropertyBase* > GetPropertyList();
-    int GetNumberOfInstances();
+    int GetRowCount();
     void ToOutStream(std::ostream& rOut);
 
     void DebugPrint();

@@ -363,7 +363,7 @@ std::list< GenPropertyBase* > Coll::GetPropertyList()
     return result;
 }
 
-int Coll::GetNumberOfInstances()
+int Coll::GetRowCount()
 {
     return GetList().size() - 1;
 }

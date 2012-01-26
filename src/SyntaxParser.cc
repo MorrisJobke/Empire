@@ -797,9 +797,9 @@ namespace ConsoleHelper{
         }
         std::cout << COLOR_CLEAR << std::endl;
     }
-    void printCollElem(std::string rElem, int rTabSpace, int instances)
+    void printCollElem(std::string rElem, int rTabSpace, int rows)
     {
-        if(instances > 0)
+        if(rows > 0)
             std::cout << COLOR_GREEN;
         else
             std::cout << COLOR_CLEAR;
@@ -807,7 +807,7 @@ namespace ConsoleHelper{
         for(int i = 0; i < rTabSpace; ++i)
             std::cout << "\t";
 
-        std::cout << rElem << " (" << instances << " instances), containing properties:"<< std::endl;
+        std::cout << rElem << " (" << rows << " rows), containing properties:"<< std::endl;
     }
 
     void printValueList(std::list<std::string> rList, PrintMode mode, bool rValues, bool rTypes, 
@@ -863,7 +863,7 @@ namespace ConsoleHelper{
             std::string key = *it;
             Coll coll;
             coll.Load(key);
-            printCollElem(key, rTabSpace, coll.GetNumberOfInstances());
+            printCollElem(key, rTabSpace, coll.GetRowCount());
             printTripleList(Lh::PropertyList2KeyList(coll.GetPropertyList()), NEEDLESS, rTabSpace + 1);
             std::cout << COLOR_CLEAR;
         }
