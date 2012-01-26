@@ -412,16 +412,59 @@ namespace SyntaxParser
             std::cout << "There isn't any repository in this or it's parent directories." << std::endl;
             return;
         }
-        if (argc != 2)
+        if (!(argc == 2 || argc == 3))
         {
-            std::cout << "You need to specify a template and an output path.\n"
-                      << "Synopsis: emp render <path-to-template> <path-to-output>\n\n";
+            dryHelpers::printRenderSynopsis();
             return;
         }
-        working_repo.Load();
-        std::string file = *argv;
+
+        /** variables */
+        std::string file;       // template file
+        std::string path;       // output file/dir
+        bool force = false;     // force toggle
+
+        /** parse input */
+        if (argc == 3) // somewhere is a "-f"
+        {
+            if (strcmp(argv[0], "-f") == 0)
+            {
+                force = true;
+                argc--;
+                argv++;
+            }
+        }
+        // template file
+        file = *argv;
         argc--;
         argv++;
+        if (argc == 2) // somewhere is a "-f"
+        {
+            if (strcmp(argv[0], "-f") == 0)
+            {
+                force = true;
+                argc--;
+                argv++;
+            }
+        }
+        // getting output path
+        path = *argv;
+        argc--;
+        argv++;
+        if (argc == 1) // somewhere is a "-f"
+        {
+            if (strcmp(argv[0], "-f") == 0)
+            {
+                force = true;
+                argc--;
+                argv++;
+            }
+        }
+        if (argc != 0)
+        {
+            std::cout << *argv << std::endl;
+            dryHelpers::printRenderSynopsis();
+            return;
+        }
 
         if (!Fs::FileExists(file))
         {
@@ -429,6 +472,7 @@ namespace SyntaxParser
             return;
         }
 
+        working_repo.Load();
         // create template object
         SimpleTemplate* tmpl = new SimpleTemplate();
         // load all properties
@@ -445,11 +489,6 @@ namespace SyntaxParser
 
         if (found != std::string::npos)
             filename.replace(0, found + 1,"");
-
-        // getting output path
-        std::string path = *argv;
-        argc--;
-        argv++;
 
         // directory OR file
         if (Fs::DirectoryExists(path))
@@ -472,8 +511,15 @@ namespace SyntaxParser
             // check if it's a file
             if (Fs::FileExists(path))
             {
-                std::cout << path << " The specified output directory contains already a file named like the tmeplate file." << std::endl;
-                return;
+                if (force)
+                {
+                    Fs::FileDelete(path);
+                }
+                else
+                {
+                    std::cout << path << " The specified output directory contains already a file named like the tmeplate file." << std::endl;
+                    return;
+                }
             }
             // extract directory
             std::string dir = path;
@@ -623,5 +669,15 @@ namespace ConsoleHelper{
         for(unsigned int i = 0; i < header.size(); i++)
             std::cout << "=";
         std::cout << std::endl;
+    }
+}
+
+
+namespace dryHelpers {
+    void printRenderSynopsis()
+    {
+        std::cout << "You need to specify a template and an output path.\n"
+                  << "Synopsis: emp render [-f] <path-to-template> <path-to-output>\n"
+                  << "                      -f   force to overwrite output\n\n";
     }
 }

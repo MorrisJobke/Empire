@@ -43,7 +43,7 @@ namespace SyntaxParser
 
 namespace ConsoleHelper
 {
-    
+
     void printColor(PrintMode mode);
     std::string getColor(PrintMode mode);
     void printTripleList(std::list<std::string> const& rList, PrintMode color);
@@ -51,6 +51,11 @@ namespace ConsoleHelper
     void printHeaderWithCount(std::string header, int count);
     void printHeader(std::string header);
     void printUnderlinedHeader(std::string header);
+}
+
+namespace dryHelpers
+{
+    void printRenderSynopsis();
 }
 
 
