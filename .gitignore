@@ -35,3 +35,6 @@ bin
 
 # sublime project files
 Empire.sublime-*
+
+#test env
+test
