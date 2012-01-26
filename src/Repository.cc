@@ -190,7 +190,7 @@ void Repository::Load()
                 std::string entry = ep->d_name;
 
                 /* skip standard links */
-                if (entry == "." || entry == ".." || REPO_NAME)
+                if (entry == "." || entry == ".." || entry == REPO_NAME)
                     continue;
 
                 /* search entry in the member property list */
@@ -202,7 +202,10 @@ void Repository::Load()
                     {
                         //std::cout << "Try to load: " << entry << std::endl;
                         if (!(*it)->HasValue())
+                        {
                             PropertyIo::ReadDataFromFile(entry, *it);
+                            break;
+                        }
                     }
                 }
 
