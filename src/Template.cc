@@ -464,6 +464,32 @@ std::list<std::string> SimpleTemplate::GetAvailableProperties(std::string const&
     return ListHelper::ListCompare(this->GetKeyList(rPath), rAvailable, false);
 }
 
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+
+/** get a list of collections that are used by the template and also defined
+ *
+ * @param rPath the path to the file of the template
+ * @param rAvailableColl list of already defined collections
+ * @return list of collection keys
+ */
+std::list<std::string> SimpleTemplate::GetAvailableCollections(std::string const& rPath, std::list<std::string> const& rAvailableColls)
+{
+    return ListHelper::ListCompare(this->GetCollectionList(rPath), rAvailableColls, false);
+}
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+
+/** get a list of collections that are used by the template and undefined
+ *
+ * @param rPath the path to the file of the template
+ * @param rAvailableColl list of already defined collections
+ * @return list of collection keys
+ */
+std::list<std::string> SimpleTemplate::GetMissingCollections(std::string const& rPath, std::list<std::string> const& rAvailableColls)
+{
+    return ListHelper::ListCompare(this->GetCollectionList(rPath), rAvailableColls, true);
+}
+
 /*============================= ACCESS     =================================*/
 /*============================= INQUIRY    =================================*/
 

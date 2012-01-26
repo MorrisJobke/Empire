@@ -218,7 +218,7 @@ namespace SyntaxParser
         working_repo.Load();
 
         SimpleTemplate* tmpl = new SimpleTemplate();
-        std::list<std::string> missing = tmpl->GetMissingProperties(argv[0], working_repo.GetDefindedValuesInCwd());
+        std::list<std::string> missing = tmpl->GetMissingProperties(argv[0], working_repo.GetAddedPropertiesInCwd());
         if (missing.size() == 0)
         {
             std::cout << "There are no properties missing. You are ready to render." << std::endl;
@@ -284,26 +284,31 @@ namespace SyntaxParser
         {
             //TODO: replace by SimpleTemplate::GetMissingProperties
             SimpleTemplate* tmpl = new SimpleTemplate();
-            std::list<std::string> unused, used, created;
+            std::list<std::string> unused, used, created, used_colls, unused_colls;
             std::list<std::string>::const_iterator it;
 
-            used = tmpl->GetAvailableProperties(argv[0], working_repo.GetDefindedValuesInCwd());
-            unused = tmpl->GetMissingProperties(argv[0], working_repo.GetUnDefindedValuesInCwd());
-            created = tmpl->GetAvailableProperties(argv[0], working_repo.GetUnDefindedValuesInCwd());
-            //unused_colls = 
+            /*properties:*/
+            used = tmpl->GetAvailableProperties(argv[0], working_repo.GetAddedPropertiesInCwd());
+            unused = tmpl->GetMissingProperties(argv[0], working_repo.GetAddedPropertiesInCwd());
+            created = tmpl->GetAvailableProperties(argv[0], working_repo.GetCreatedPropertiesInCwd());
+            
+            /*collections:*/
+            used_colls = tmpl->GetAvailableCollections(argv[0], working_repo.GetAddedCollectionsInCwd());
+            unused_colls = tmpl->GetMissingCollections(argv[0], working_repo.GetAddedCollectionsInCwd());
+
+            Ch::printUnderlinedHeader("Properties:");
 
             /* print unused */
             if(unused.size() > 0)
             {
-                Ch::printHeader("Used by template, but not added or defined(", unused.size());
+                Ch::printHeaderWithCount("Used by template, but not added or defined(", unused.size());
                 Ch::printTripleList(unused, MISSING);
             }
 
-            
             /* print created */
             if(created.size() > 0)
             {
-                Ch::printHeader("Used by template, but only defined(", created.size());
+                Ch::printHeaderWithCount("Used by template, but only defined(", created.size());
                 Ch::printValueList(created, CREATED, false, true, working_repo);
             }
 
@@ -311,14 +316,26 @@ namespace SyntaxParser
             if (used.size() > 0)
             {
                 if(unused.size() == 0)
-                    Ch::printHeader("All values for your given template are available(", used.size());
+                    Ch::printHeaderWithCount("All values for your given template are available(", used.size());
                 else
-                    Ch::printHeader("Used by template and already added(", used.size());
+                    Ch::printHeaderWithCount("Used by template and already added(", used.size());
 
                 Ch::printValueList(used, ADDED, true, true, working_repo);
             }
 
-            /* print unused colls */
+            Ch::printUnderlinedHeader("Collections:");
+            /* print used*/
+            if(used_colls.size() > 0)
+            {
+                Ch::printHeaderWithCount("Used by template and defined(", used_colls.size());
+                Ch::printValueList(used_colls, ADDED, false, true, working_repo);
+            }
+            /* print unused*/
+            if(unused_colls.size() > 0)
+            {
+                Ch::printHeaderWithCount("Used by template, but undefined(", unused_colls.size());
+                Ch::printValueList(unused_colls, MISSING, false, false, working_repo);
+            }
 
         }
         else //normal mode
@@ -327,21 +344,21 @@ namespace SyntaxParser
             std::list<std::string> used;
             std::list<std::string> unused;
 
-            used = working_repo.GetDefindedValuesInCwd();
-            unused = working_repo.GetUnDefindedValuesInCwd();
+            used = working_repo.GetAddedPropertiesInCwd();
+            unused = working_repo.GetCreatedPropertiesInCwd();
 
             std::cout << "Repository root path: " << working_repo.GetRepositoryPath() << std::endl << std::endl;
 
             if (used.size() > 0)
             {
-                Ch::printHeader("Added Properties(", used.size());
+                Ch::printHeaderWithCount("Added Properties(", used.size());
 
                 Ch::printValueList(used, ADDED, true, true, working_repo);   
             }
 
             if (unused.size() > 0)
             {
-                Ch::printHeader("Created Properties(", unused.size());
+                Ch::printHeaderWithCount("Created Properties(", unused.size());
                 Ch::printValueList(unused, ADDED, false, true, working_repo);
             }
         }
@@ -590,8 +607,21 @@ namespace ConsoleHelper{
         std::cout << std::endl;
     }
 
-    void printHeader(std::string header, int count)
+    void printHeaderWithCount(std::string header, int count)
     {
         std::cout << COLOR_BOLD << header << count << "):" << COLOR_CLEAR << std::endl;
+    }
+
+    void printHeader(std::string header)
+    {
+        std::cout << COLOR_BOLD << header << COLOR_CLEAR << std::endl;
+    }
+
+    void printUnderlinedHeader(std::string header)
+    {
+        std::cout << COLOR_BOLD << header << COLOR_CLEAR << std::endl;
+        for(unsigned int i = 0; i < header.size(); i++)
+            std::cout << "=";
+        std::cout << std::endl;
     }
 }

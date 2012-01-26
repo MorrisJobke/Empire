@@ -52,8 +52,9 @@ class Repository
     GenPropertyBase* GetPropertyByKey(std::string const& key);
     std::string GetRepositoryPath();
     std::string GetFirstDefinedValueRec(std::string const& rKey, std::string const& rPath, std::string& rFoundPath);
-    std::list<std::string> GetDefindedValuesInCwd();
-    std::list<std::string> GetUnDefindedValuesInCwd();
+    std::list<std::string> GetCreatedPropertiesInCwd();
+    std::list<std::string> GetAddedCollectionsInCwd();
+    std::list<std::string> GetAddedPropertiesInCwd();
 
     //static PropertyTypes GetPropTypeFromStr(std::string const& str);
 

@@ -562,7 +562,7 @@ std::string Repository::GetFirstDefinedValueRec(std::string const& rKey, std::st
     return "";
 }
 
-std::list<std::string> Repository::GetDefindedValuesInCwd()
+std::list<std::string> Repository::GetAddedPropertiesInCwd()
 {
     std::list<std::string> result;
     std::list<GenPropertyBase*>::const_iterator it;
@@ -579,7 +579,22 @@ std::list<std::string> Repository::GetDefindedValuesInCwd()
     return result;
 }
 
-std::list<std::string> Repository::GetUnDefindedValuesInCwd()
+std::list<std::string> Repository::GetAddedCollectionsInCwd()
+{
+    std::list<std::string> result;
+    std::list<GenPropertyBase*>::const_iterator it;
+    std::string path = Fs::GetCwd();
+    std::string found_path;
+    for (it = this->mPropertyList.begin(); it != this->mPropertyList.end(); it++)
+    {
+        if((*it)->GetTypeN() == GetTypeName<Coll>())
+            result.push_back((*it)->GetKey());
+    }
+
+    return result;
+}
+
+std::list<std::string> Repository::GetCreatedPropertiesInCwd()
 {
     std::list<std::string> result;
     std::list<GenPropertyBase*>::const_iterator it;

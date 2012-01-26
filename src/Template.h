@@ -70,6 +70,8 @@ public:
     std::list<std::string> GetCollectionItemList(std::string const& rPath, std::string const& rName);
     std::list<std::string> GetAvailableProperties(std::string const& rPath, std::list<std::string> const& rAvailable);
     std::list<std::string> GetMissingProperties(std::string const& rPath, std::list<std::string> const& rAvailable);
+    std::list<std::string> GetAvailableCollections(std::string const& rPath, std::list<std::string> const& rAvailableColls);
+    std::list<std::string> GetMissingCollections(std::string const& rPath, std::list<std::string> const& rAvailableColls);
 };
 
 #endif

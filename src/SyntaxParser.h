@@ -48,7 +48,9 @@ namespace ConsoleHelper
     std::string getColor(PrintMode mode);
     void printTripleList(std::list<std::string> const& rList, PrintMode color);
     void printValueList(std::list<std::string> rList, PrintMode mode, bool rValues, bool rTypes, Repository working_repo);
-    void printHeader(std::string header, int count);
+    void printHeaderWithCount(std::string header, int count);
+    void printHeader(std::string header);
+    void printUnderlinedHeader(std::string header);
 }
 
 
