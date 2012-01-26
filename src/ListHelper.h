@@ -15,6 +15,8 @@
 
 #include "GenPropertyBase.h"
 
+/** some functions for interacting with lists
+ */
 namespace ListHelper
 {
     std::list<std::string> ListCompare(std::list<std::string> const& rList1, std::list<std::string> const& rList2, bool rNotFound);

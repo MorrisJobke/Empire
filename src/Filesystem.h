@@ -25,6 +25,8 @@
 
 #include "DefineException.h"
 
+/** some functions for interacting with the file system
+ */
 namespace Filesystem
 {
     /** exceptions

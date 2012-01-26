@@ -746,10 +746,22 @@ namespace SyntaxParser
 
 namespace ConsoleHelper{
 
+    /** prints a color for given mode
+     *
+     * @param given mode
+     */
     void printColor(PrintMode mode)
     {
         std::cout << getColor(mode);
     }
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+
+    /** returns a color for given mode
+     *
+     * @param given mode
+     * @return a color
+     */
 
     std::string getColor(PrintMode mode)
     {
@@ -763,6 +775,13 @@ namespace ConsoleHelper{
         return "";
     }
 
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+
+    /** prints a list with 3 colls
+     *
+     * @param rList list of the strings, that should be printed
+     * @param rTabSpace count of tab spaces the output should have at begin of the lines
+     */
     void printTripleList(std::list<std::string> const& rList, PrintMode mode, int rTabSpace)
     {
         std::list<std::string> tmpList = rList;
@@ -797,6 +816,15 @@ namespace ConsoleHelper{
         }
         std::cout << COLOR_CLEAR << std::endl;
     }
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+
+    /** prints a line with the collection key
+     *
+     * @param rElem key of the collection
+     * @param rTabSpace count of tab spaces the output should have at begin of the lines
+     * @param rows count of data-rows of the collection
+     */
     void printCollElem(std::string rElem, int rTabSpace, int rows)
     {
         if(rows > 0)
@@ -809,6 +837,18 @@ namespace ConsoleHelper{
 
         std::cout << rElem << " (" << rows << " rows), containing properties:"<< std::endl;
     }
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+
+    /** prints a list of values (with different options)
+     *
+     * @param rList list of property keys
+     * @param mode the mode for printing
+     * @param rValues should it print values?
+     * @param rTypes should it print types?
+     * @param working_repo the repository
+     * @param rTabSpace count of tab spaces the output should have at begin of the lines
+     */
 
     void printValueList(std::list<std::string> rList, PrintMode mode, bool rValues, bool rTypes, 
                         Repository working_repo, int rTabSpace)
@@ -850,6 +890,16 @@ namespace ConsoleHelper{
         std::cout << std::endl;
     }
 
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+
+    /** prints a list of collections
+     *
+     * @param rList list of class keys
+     * @param rMode the mode for printing
+     * @param rTabSpace count of tab spaces the output should have at begin of the lines
+     * @param working_repo the repository
+     * @param rTemplPath the path of the template
+     */
     void printCollectionList(std::list<std::string> rList, PrintMode rMode, Repository working_repo, 
                             int rTabSpace, WorkingMode rWorkMode, std::string rTemplPath)
     {
@@ -881,16 +931,35 @@ namespace ConsoleHelper{
         }
     }
 
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+
+    /** prints a header for a list with count
+     *
+     * @param header the title of the header
+     * @param count count of the elements in the following list
+     */
     void printHeaderWithCount(std::string header, int count)
     {
         std::cout << COLOR_BOLD << header << count << "):" << COLOR_CLEAR << std::endl;
     }
 
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+
+    /** prints a header for a list without count
+     *
+     * @param header the title of the header
+     */
     void printHeader(std::string header)
     {
         std::cout << COLOR_BOLD << header << COLOR_CLEAR << std::endl;
     }
 
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+
+    /** prints a underlinde header
+     *
+     * @param header the title of the header
+     */
     void printUnderlinedHeader(std::string header)
     {
         std::cout << COLOR_BOLD << header << COLOR_CLEAR << std::endl;

@@ -17,6 +17,8 @@
 #include <pcre.h>
 #include <cstring>
 
+/** some functions for auto recognition of types
+ */
 namespace RegexHelper
 {
     bool MatchesRegex(std::string rTargetString, std::string rPattern);

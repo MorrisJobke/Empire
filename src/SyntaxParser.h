@@ -29,6 +29,8 @@ DEFINE_FAST_EXCEPTION(NotEnoughArgs, "Not enough arguments.")
 enum PrintMode { CREATED, MISSING, ADDED, NEEDLESS };
 enum WorkingMode { REPO, TEMPLATE };
 
+/** functions for command execution
+ */
 namespace SyntaxParser
 {
     void usage();
@@ -44,6 +46,8 @@ namespace SyntaxParser
     void remove(int argc, char* argv[]);
 }
 
+/** some functions for console printing
+ */
 namespace ConsoleHelper
 {
 
@@ -60,6 +64,8 @@ namespace ConsoleHelper
     void printUnderlinedHeader(std::string header);
 }
 
+/** some help functions for SyntaxParser
+ */
 namespace dryHelpers
 {
     void printRenderSynopsis();
