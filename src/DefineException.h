@@ -42,6 +42,9 @@ class className : public BaseException\
     public: \
         className() \
             : BaseException(Message) \
+        { }; \
+        className(std::string const message) \
+            : BaseException(Message + message) \
         { } \
 };
 
