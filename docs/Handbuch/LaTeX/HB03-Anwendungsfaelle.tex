@@ -1,5 +1,10 @@
 %!TEX root = Handbuch.tex
 
+\lstset{
+  literate= {Ö}{{\"O}}1 {Ä}{{\"A}}1 {Ü}{{\"U}}1 {ß}{{\ss}}2 {ü}{{\"u}}1
+ {ä}{{\"a}}1 {ö}{{\"o}}1
+ }
+
 \section{Erklärung der wesentlichen Anwendungsfälle}
 
 \subsection{Initialisieren eines Repositorys}
@@ -12,7 +17,7 @@ Zu beachten ist, dass ein Repository nicht erzeugt werden kann, wenn im vorhande
 \subsection{Hinzufügen von Werten zu einem Repository}
 Werte können mit diesem Befehl hinzugefügt werden:
 \begin{lstlisting}[style=Bash]
-$ emp add <Schluessel> [<Typ>] <Wert>
+$ emp add <Schlüssel> [<Typ>] <Wert>
 \end{lstlisting}
 Die Angabe von einem type ist optional. Wenn keiner angegeben wird erfolgt eine automatische Typ-Bestimmung.
 Hier einige Beispiele für die Typ-Erkennung:
@@ -23,7 +28,7 @@ Hier einige Beispiele für die Typ-Erkennung:
 	\hline
 	float & 1234.0, .123, -.123, +0.123 \\
 	\hline
-	string & s1234, 12s3, \"Text mit Leerzeichen\", Adresse \\
+	string & s1234, 12s3, \grqq Text mit Leerzeichen\grqq , Adresse \\
 	\hline
 \end{tabular} 
 
@@ -35,14 +40,14 @@ $ emp add floatString string 1.2314
 \subsection{Löschen von bereits hinzugefügten Werten}
 Das Löschen von in einem Repository enthaltenen Werten erfolgt mit dem Befehl remove:
 \begin{lstlisting}[style=Bash]
-$ emp remove [Optionen] <Schluessel>
+$ emp remove [Optionen] <Schlüssel>
 \end{lstlisting}
 
 Dabei wird jedoch lediglich ein Wert gelöscht (der des aktuellen Verzeichnisses). Die Werte in anderen Verzeichnissen und auch die Typ-Definition bleiben erhalten.
 
 Um auch die Typ-Definition zu entfernen können Sie die Option --all nutzen:
 \begin{lstlisting}[style=Bash]
-$ emp remove --all <Schluessel>
+$ emp remove --all <Schlüssel>
 \end{lstlisting}
 Zu beachten ist allerdings, dass mit diesem Befehl alle vorhandenen Werte mit diesem Schlüssel und auch deren Definition unwiederuflich entfernt werden.
 
