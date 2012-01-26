@@ -201,5 +201,66 @@ namespace PropertyHelpers
 
         return p_new;
     }
+
+    void SetValueFromString(GenPropertyBase* pProp, std::string const& rValue)
+    {
+        if (pProp->GetTypeN() == GetTypeName<int>())
+        {
+            GenProperty<int>* p_new = (GenProperty<int>*) pProp;
+
+            int buffer;
+            std::stringstream str(rValue);
+            str >> buffer;
+            p_new->SetValue(buffer);
+        }
+        else if (pProp->GetTypeN() == GetTypeName<double>())
+        {
+            GenProperty<double>* p_new = (GenProperty<double>*) pProp;
+
+            double buffer;
+            std::stringstream str(rValue);
+            str >> buffer;
+            p_new->SetValue(buffer);
+
+        }
+        else if (pProp->GetTypeN() == GetTypeName<float>())
+        {
+            GenProperty<float>* p_new = (GenProperty<float>*) pProp;
+
+            double buffer;
+            std::stringstream str(rValue);
+            str >> buffer;
+            float f = (float) buffer;
+            p_new->SetValue(f);
+
+        }
+        else if (pProp->GetTypeN() == GetTypeName<std::string>() || pProp->GetTypeN() == "string")
+        {
+            GenProperty<std::string>* p_new = (GenProperty<std::string>*) pProp;
+            p_new->SetValue(rValue);
+
+        }
+        else if (pProp->GetTypeN() == GetTypeName<FunctionType>())
+        {
+            GenProperty<FunctionType>* p_new = (GenProperty<FunctionType>*) pProp;
+
+            std::list<std::string> list;
+            std::istringstream stream(rValue);
+            std::string line;
+            while (std::getline(stream, line))
+            {
+                list.push_back(line);
+            }
+            p_new->SetValue(list);
+
+        }
+        else if (pProp->GetTypeN() == GetTypeName<Coll>())
+        {
+            // GenProperty<Coll>* p_new = (GenProperty<Coll>*) pProp;
+            // TODO ?
+        }
+        else
+            throw ErrorGenProperty("Not a supported type");
+    }
 }
 

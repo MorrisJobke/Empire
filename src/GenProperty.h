@@ -36,6 +36,13 @@ std::string GetTypeName<type>() {return "" #type ""; }; \
  */
 DEFINE_VAR_EXCEPTION(ErrorGenProperty)
 
+/** some helpers for Property related things
+ */
+namespace PropertyHelpers
+{
+    GenPropertyBase* CreatePropertyFromTypeString(std::string const& rType);
+    void SetValueFromString(GenPropertyBase* prop, std::string const& rType);
+}
 
 /* define a template for basic types
  */
@@ -124,13 +131,7 @@ class GenProperty : public GenPropertyBase
          */
         void SetValueFromString(std::string const& rValue)
         {
-            typ buffer;
-
-            std::stringstream str(rValue);
-
-            str >> buffer;
-
-            this->SetValue(buffer);
+            PropertyHelpers::SetValueFromString(this, rValue);
         }
 
         /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
@@ -272,10 +273,4 @@ namespace PropertyIo
 
     void ReadDataFromFile(std::string const& rPath, GenPropertyBase* pProp);
 }
-
-namespace PropertyHelpers
-{
-    GenPropertyBase* CreatePropertyFromTypeString(std::string const& rType);
-}
-
 #endif
