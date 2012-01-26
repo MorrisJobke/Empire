@@ -11,6 +11,7 @@
 
 #include <string>
 #include <sstream>
+#include "DefineException.h"
 
 extern "C"
 {

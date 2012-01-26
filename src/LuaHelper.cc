@@ -8,6 +8,8 @@
 
 #include "LuaHelper.h"
 
+DEFINE_VAR_EXCEPTION(LuaException)
+
 /////////////////////////////// PUBLIC ///////////////////////////////////////
 
 /*============================= LIFECYCLE ==================================*/
@@ -95,7 +97,50 @@ void LuaContext::AddVariable(std::string const& name, double value)
  */
 void LuaContext::Execute(std::string const& lua, std::string& result)
 {
-    luaL_dostring(mState, (mVariables + lua).c_str());
+    std::string tmp = lua;
+    std::size_t found;
+
+    // LUA cause a SEGFAULT if the execution string is only "return ;"
+    found = tmp.find("return");
+    if (found != std::string::npos)
+    {
+        tmp.replace(found, found+6, "");
+        found = tmp.find(";");
+        while (found != std::string::npos)
+        {
+            tmp.replace(found, found+1, "");
+            found = tmp.find(";");
+        }
+
+        bool alnum_found = false;
+        std::string::iterator it;
+        for (it=tmp.begin(); it < tmp.end(); it++)
+        {
+            if (isalnum(*it))
+            {
+                alnum_found = true;
+                break;
+            }
+        }
+
+        if (!alnum_found)
+        {
+            // throw LuaException("LUA string isn't valid");
+            result = "0";
+            return;
+        }
+    }
+
+    // execution
+    int ret = luaL_dostring(mState, (mVariables + lua).c_str());
+
+    // raise exception if something fails
+    if (ret != 0)
+    {
+        // throw LuaException("dostring error");
+        result = "0";
+        return;
+    }
 
     result = lua_tostring(mState, -1);
 }
