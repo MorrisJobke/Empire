@@ -20,7 +20,8 @@
 #include "ListHelper.h"
 #include "Filesystem.h"
 
-
+/** interface of template
+ */
 class ITemplate
 {
 public:
@@ -52,6 +53,8 @@ public:
 
 };
 
+/** simple implementation of template
+ */
 class SimpleTemplate : public ITemplate
 {
 private:
