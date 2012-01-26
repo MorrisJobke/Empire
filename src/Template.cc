@@ -106,21 +106,24 @@ void SimpleTemplate::ParseString(string const& input, string& output)
                                     GenPropertyBase* prop;
                                     for (mapit = mProperties.begin(); mapit != mProperties.end(); mapit++) {
                                         prop = mapit->second;
-                                        std::string type = prop->GetTypeN();
-                                        if (type == GetTypeName<int>())
+                                        if (prop != NULL)
                                         {
-                                            GenProperty<int>* cast_prop = (GenProperty<int>*) prop;
-                                            context->AddVariable(cast_prop->GetKey(), cast_prop->GetValue());
-                                        }
-                                        if (type == GetTypeName<float>())
-                                        {
-                                            GenProperty<float>* cast_prop = (GenProperty<float>*) prop;
-                                            context->AddVariable(cast_prop->GetKey(), cast_prop->GetValue());
-                                        }
-                                        if (type == GetTypeName<double>())
-                                        {
-                                            GenProperty<double>* cast_prop = (GenProperty<double>*) prop;
-                                            context->AddVariable(cast_prop->GetKey(), cast_prop->GetValue());
+                                            std::string type = prop->GetTypeN();
+                                            if (type == GetTypeName<int>())
+                                            {
+                                                GenProperty<int>* cast_prop = (GenProperty<int>*) prop;
+                                                context->AddVariable(cast_prop->GetKey(), cast_prop->GetValue());
+                                            }
+                                            if (type == GetTypeName<float>())
+                                            {
+                                                GenProperty<float>* cast_prop = (GenProperty<float>*) prop;
+                                                context->AddVariable(cast_prop->GetKey(), cast_prop->GetValue());
+                                            }
+                                            if (type == GetTypeName<double>())
+                                            {
+                                                GenProperty<double>* cast_prop = (GenProperty<double>*) prop;
+                                                context->AddVariable(cast_prop->GetKey(), cast_prop->GetValue());
+                                            }
                                         }
                                     }
 
@@ -138,59 +141,62 @@ void SimpleTemplate::ParseString(string const& input, string& output)
                                         GenPropertyBase* prop;
                                         for (mapit = mProperties.begin(); mapit != mProperties.end(); mapit++) {
                                             prop = mapit->second;
-                                            if (prop->GetTypeN() == GetTypeName<Coll>())
+                                            if (prop != NULL)
                                             {
-                                                // list with map results to reduce
-                                                std::list<double> results;
-                                                // collection found - try to calculate function
-                                                std::list< std::list<GenPropertyBase*> > list = ((GenProperty<Coll>*)prop)->GetValue().GetList();
-                                                std::list< std::list<GenPropertyBase*> >::iterator properties;
-                                                for (properties = list.begin(); properties != list.end(); ++properties) {
-                                                    // context for map function
-                                                    LuaContext* context_map = helper->CreateContext();
-                                                    // assign properties to it
-                                                    std::list<GenPropertyBase*>::iterator property;
-                                                    for (property = properties->begin(); property != properties->end(); property++) {
-                                                        std::string type = (*property)->GetTypeN();
-                                                        if (type == GetTypeName<int>())
-                                                        {
-                                                            GenProperty<int>* cast_prop = (GenProperty<int>*) (*property);
-                                                            context_map->AddVariable(cast_prop->GetKey(), cast_prop->GetValue());
-                                                        }
-                                                        if (type == GetTypeName<float>())
-                                                        {
-                                                            GenProperty<float>* cast_prop = (GenProperty<float>*) (*property);
-                                                            context_map->AddVariable(cast_prop->GetKey(), cast_prop->GetValue());
-                                                        }
-                                                        if (type == GetTypeName<double>())
-                                                        {
-                                                            GenProperty<double>* cast_prop = (GenProperty<double>*) (*property);
-                                                            context_map->AddVariable(cast_prop->GetKey(), cast_prop->GetValue());
-                                                        }
-                                                    }
-                                                    double value;
-                                                    context_map->Execute(funcProperty->GetValue().GetMapFunction(), value);
-                                                    delete context_map;
-                                                    results.push_back(value);
-                                                }
-
-                                                // reduce results
-                                                std::list<double>::iterator it;
-                                                double value = 0;
-                                                for(it = results.begin(); it != results.end(); ++it) {
-                                                    // context for reduce function
-                                                    LuaContext* context = helper->CreateContext();
-                                                    context->AddVariable("lhs", value);
-                                                    context->AddVariable("rhs", *it);
-                                                    context->Execute(funcProperty->GetValue().GetReduceFunction(), value);
-                                                    delete context;
-                                                }
-
-                                                if (value != 0)
+                                                if (prop->GetTypeN() == GetTypeName<Coll>())
                                                 {
-                                                    result << value;
-                                                    successfull_reduced = true;
-                                                    break;
+                                                    // list with map results to reduce
+                                                    std::list<double> results;
+                                                    // collection found - try to calculate function
+                                                    std::list< std::list<GenPropertyBase*> > list = ((GenProperty<Coll>*)prop)->GetValue().GetList();
+                                                    std::list< std::list<GenPropertyBase*> >::iterator properties;
+                                                    for (properties = list.begin(); properties != list.end(); ++properties) {
+                                                        // context for map function
+                                                        LuaContext* context_map = helper->CreateContext();
+                                                        // assign properties to it
+                                                        std::list<GenPropertyBase*>::iterator property;
+                                                        for (property = properties->begin(); property != properties->end(); property++) {
+                                                            std::string type = (*property)->GetTypeN();
+                                                            if (type == GetTypeName<int>())
+                                                            {
+                                                                GenProperty<int>* cast_prop = (GenProperty<int>*) (*property);
+                                                                context_map->AddVariable(cast_prop->GetKey(), cast_prop->GetValue());
+                                                            }
+                                                            if (type == GetTypeName<float>())
+                                                            {
+                                                                GenProperty<float>* cast_prop = (GenProperty<float>*) (*property);
+                                                                context_map->AddVariable(cast_prop->GetKey(), cast_prop->GetValue());
+                                                            }
+                                                            if (type == GetTypeName<double>())
+                                                            {
+                                                                GenProperty<double>* cast_prop = (GenProperty<double>*) (*property);
+                                                                context_map->AddVariable(cast_prop->GetKey(), cast_prop->GetValue());
+                                                            }
+                                                        }
+                                                        double value;
+                                                        context_map->Execute(funcProperty->GetValue().GetMapFunction(), value);
+                                                        delete context_map;
+                                                        results.push_back(value);
+                                                    }
+
+                                                    // reduce results
+                                                    std::list<double>::iterator it;
+                                                    double value = 0;
+                                                    for(it = results.begin(); it != results.end(); ++it) {
+                                                        // context for reduce function
+                                                        LuaContext* context = helper->CreateContext();
+                                                        context->AddVariable("lhs", value);
+                                                        context->AddVariable("rhs", *it);
+                                                        context->Execute(funcProperty->GetValue().GetReduceFunction(), value);
+                                                        delete context;
+                                                    }
+
+                                                    if (value != 0)
+                                                    {
+                                                        result << value;
+                                                        successfull_reduced = true;
+                                                        break;
+                                                    }
                                                 }
                                             }
                                         }
@@ -406,7 +412,7 @@ std::list<std::string> SimpleTemplate::GetCollectionItemList(std::string const& 
                     collNameBuffer += *it;
                     it++;
                 }
-                if (*it == '{') 
+                if (*it == '{')
                     if (collNameBuffer == rName)    /* begin of collection found */
                         while (*it != '}' && it < input.end())
                         {
