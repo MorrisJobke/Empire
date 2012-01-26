@@ -202,7 +202,7 @@ void SimpleTemplate::ParseString(string const& input, string& output)
                                         if (!successfull_reduced)
                                         {
                                             //TODO
-                                            std::cout << "MapReduce failed" << std::endl;
+                                            std::cout << "function (" << gathered << "): calculating function failed\n\tMay there a some missing properties to calculate it." << std::endl;
                                         }
                                     }
                                 }
