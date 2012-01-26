@@ -187,7 +187,7 @@ namespace PropertyHelpers
         else if (rType == GetTypeName<float>())
             p_new = new GenProperty<float>();
 
-        else if (rType == GetTypeName<std::string>())
+        else if (rType == GetTypeName<std::string>() || rType == "string")
             p_new = new GenProperty<std::string>();
 
         else if (rType == GetTypeName<FunctionType>())
@@ -195,9 +195,6 @@ namespace PropertyHelpers
 
         else if (rType == GetTypeName<Coll>())
             p_new = new GenProperty<Coll>();
-
-        else if (rType == "string")
-            p_new = new GenProperty<std::string>();
 
         else
             throw ErrorGenProperty("Not a supported type");
