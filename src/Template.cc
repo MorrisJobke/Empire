@@ -448,26 +448,7 @@ std::list<std::string> SimpleTemplate::GetCollectionItemList(std::string const& 
  */
 std::list<std::string> SimpleTemplate::GetMissingProperties(std::string const& rPath, std::list<std::string> const& rAvailable)
 {
-    std::list<std::string> needed = this->GetKeyList(rPath);
-    std::list<std::string> missing;
-    std::list<std::string>::const_iterator it, it2;
-    bool found;
-
-    for (it = needed.begin(); it != needed.end(); it++)
-    {
-        found = false;
-        for (it2 = rAvailable.begin(); it2 != rAvailable.end(); it2++)
-        {
-            if (*it2 == *it)
-            {
-                found = true;
-                break;
-            }
-        }
-        if (!found)
-            missing.push_back(*it);
-    }
-    return missing;
+    return ListHelper::ListCompare(this->GetKeyList(rPath), rAvailable, true);
 }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
@@ -480,26 +461,7 @@ std::list<std::string> SimpleTemplate::GetMissingProperties(std::string const& r
  */
 std::list<std::string> SimpleTemplate::GetAvailableProperties(std::string const& rPath, std::list<std::string> const& rAvailable)
 {
-    std::list<std::string> needed = this->GetKeyList(rPath);
-    std::list<std::string> available;
-    std::list<std::string>::const_iterator it, it2;
-    bool found;
-
-    for (it = needed.begin(); it != needed.end(); it++)
-    {
-        found = false;
-        for (it2 = rAvailable.begin(); it2 != rAvailable.end(); it2++)
-        {
-            if (*it2 == *it)
-            {
-                found = true;
-                break;
-            }
-        }
-        if (found)
-            available.push_back(*it);
-    }
-    return available;
+    return ListHelper::ListCompare(this->GetKeyList(rPath), rAvailable, false);
 }
 
 /*============================= ACCESS     =================================*/

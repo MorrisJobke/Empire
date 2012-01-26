@@ -17,6 +17,7 @@
 #include "GenProperty.h"
 #include "FunctionType.h"
 #include "LuaHelper.h"
+#include "ListHelper.h"
 
 
 class ITemplate
