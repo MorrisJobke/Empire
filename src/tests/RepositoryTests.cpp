@@ -27,22 +27,61 @@
 using namespace std;
 namespace Fs = Filesystem;
 
-BOOST_AUTO_TEST_SUITE(RepositoryTests_Suite)
+/* test fixture */
+class Fixture
+{
+    public:
+        std::string mBaseDir;
+        std::string mTestRepoDir;
+
+        Fixture()
+        {
+            BOOST_TEST_MESSAGE("Basedir:" << Fs::GetCwd());
+            this->mBaseDir =  Fs::GetCwd();
+
+            /* create test repo dir */
+            this->mTestRepoDir = "test_repo";
+
+            try
+            {
+                Fs::CreateDirectory(this->mTestRepoDir);
+            }
+            catch(Fs::CannotCreateDirError &exc)
+            {
+                BOOST_FAIL( "Cannot create testing repo dir!" );
+            }
+
+            /* change the dir path */
+            Fs::ChangeCwd(this->mTestRepoDir);
+        }
+        
+        ~Fixture()
+        {
+            BOOST_TEST_MESSAGE("Go back from:" << Fs::GetCwd());
+            Fs::ChangeCwd(this->mBaseDir);
+            
+            /* delete repo dir */
+            BOOST_TEST_MESSAGE("deleting test repo");
+            Fs::RemoveDirRec(this->mTestRepoDir);
+
+            BOOST_REQUIRE(Fs::DirectoryExists(this->mTestRepoDir) == false);
+            
+            if (Fs::DirectoryExists(this->mTestRepoDir) == false)
+            {
+                BOOST_TEST_MESSAGE("deleting test repo successfull");
+            }
+
+        }
+};
+
+BOOST_FIXTURE_TEST_SUITE(RepositoryTests_Suite, Fixture)
+
 
 BOOST_AUTO_TEST_CASE(testRepositoryCreation)
 {
     /* if not existent create a folder for testing a repo */
 
-    string repo_dir = "test_repo";
-
-    if (Fs::DirectoryExists(repo_dir) == false)
-        Fs::CreateDirectory(repo_dir);
-
-
-    /* change dir, create repo and check */
-
-    Fs::ChangeCwd(repo_dir);
-
+    /* create repo and check */
     Repository repo;
 
     try
@@ -62,9 +101,6 @@ BOOST_AUTO_TEST_CASE(testRepositoryCreation)
 
     remove(meta_data_folder.c_str());
 
-    /* change dir back */
-    string parent = "..";
-    Fs::ChangeCwd(parent);
 }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
@@ -78,9 +114,7 @@ BOOST_AUTO_TEST_CASE(CreatePropertyFromTypeStringTest)
     p_new_prop->SetKey("test_property");
     ((GenProperty<int>*) p_new_prop)->SetValue(42);
 
-    // cout << *p_new_prop << endl;
-
-    // cout << "String representation: " << p_new_prop->ToString() << endl;
+    BOOST_CHECK(p_new_prop->GetTypeN() == "int");
 
     delete p_new_prop;
 }
@@ -89,10 +123,7 @@ BOOST_AUTO_TEST_CASE(CreatePropertyFromTypeStringTest)
 
 BOOST_AUTO_TEST_CASE(testRepoCreateProperty)
 {
-    Fs::ChangeCwd("test_repo");
-
     Repository repo;
-
     try
     {
         repo.Init();
@@ -123,16 +154,12 @@ BOOST_AUTO_TEST_CASE(testRepoCreateProperty)
     remove(".emp/RechnungsNehmer");
     remove(".emp/MeineZahl");
     remove(".emp");
-
-    Fs::ChangeCwd("..");
-
 }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
 
 BOOST_AUTO_TEST_CASE(ReadMetaDataFromFile)
 {
-    Fs::ChangeCwd("test_repo");
 
     Repository repo;
 
@@ -171,15 +198,12 @@ BOOST_AUTO_TEST_CASE(ReadMetaDataFromFile)
 
     remove(".emp/double_prop");
     remove(".emp");
-
-    Fs::ChangeCwd("..");
 }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
 
 BOOST_AUTO_TEST_CASE(testRepoPropDataIO)
 {
-    Fs::ChangeCwd("test_repo");
 
     Repository repo;
 
@@ -226,7 +250,6 @@ BOOST_AUTO_TEST_CASE(testRepoPropDataIO)
     remove("out_prop");
     remove(".emp");
 
-    Fs::ChangeCwd("..");
 }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
@@ -234,8 +257,6 @@ BOOST_AUTO_TEST_CASE(testRepoPropDataIO)
 BOOST_AUTO_TEST_CASE(testRepoLoad)
 {
 
-    /* create env */
-    Fs::ChangeCwd("test_repo");
 
     Repository repo;
 
@@ -301,7 +322,6 @@ BOOST_AUTO_TEST_CASE(testRepoLoad)
 
     remove(".emp");
 
-    Fs::ChangeCwd("..");
 
 }
 
@@ -309,7 +329,6 @@ BOOST_AUTO_TEST_CASE(testRepoLoad)
 
 BOOST_AUTO_TEST_CASE(testRepoRemovePropertyClass)
 {
-    Fs::ChangeCwd("test_repo");
 
     Repository repo;
 
@@ -351,7 +370,6 @@ BOOST_AUTO_TEST_CASE(testRepoRemovePropertyClass)
 
     remove(".emp");
 
-    Fs::ChangeCwd("..");
 
 }
 
@@ -392,8 +410,6 @@ BOOST_AUTO_TEST_CASE(testRegexMatch)
 
 BOOST_AUTO_TEST_CASE(AddPropertyTest)
 {
-    /* create env */
-    Fs::ChangeCwd("test_repo");
 
     Repository repo;
 
@@ -424,22 +440,12 @@ BOOST_AUTO_TEST_CASE(AddPropertyTest)
     remove(".emp/stringAuto");
     remove(".emp");
 
-    Fs::ChangeCwd("..");
 }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
 
 BOOST_AUTO_TEST_CASE(GetFirstDefinedValueRecTest)
 {
-    string repo_dir = "test_repo";
-
-    if (Fs::DirectoryExists(repo_dir) == false)
-        Fs::CreateDirectory(repo_dir);
-    else
-    {
-        Fs::RemoveDirRec(repo_dir);
-        Fs::CreateDirectory(repo_dir);
-    }
 
     Repository repo;
 
@@ -467,20 +473,9 @@ BOOST_AUTO_TEST_CASE(GetFirstDefinedValueRecTest)
     BOOST_CHECK(value == "892");
     value = repo.GetFirstDefinedValueRec("int2", Fs::GetCwd(), pos);
     BOOST_CHECK(value == "123");
+
 }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
-
-BOOST_AUTO_TEST_CASE(testRepoDeleteEnv)
-{
-    /** this test should always be the last one */
-    if (Fs::DirectoryExists("test_repo") == true)
-        Fs::RemoveDirRec("test_repo");
-    BOOST_CHECK(Fs::FileExists("test_repo") == false);
-
-    if (Fs::DirectoryExists(".emp") == true)
-        Fs::RemoveDirRec(".emp");
-    BOOST_CHECK(Fs::FileExists(".emp") == false);
-}
 
 BOOST_AUTO_TEST_SUITE_END()
