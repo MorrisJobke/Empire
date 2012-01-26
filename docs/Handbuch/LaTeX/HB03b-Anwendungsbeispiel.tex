@@ -48,20 +48,28 @@ Die Bennenung der Ordner spielt hier keine Rolle (solange keine Collection mit d
 Für den 2. Kunden nutzen wir nun den addi-Befehl:
 \begin{lstlisting}[style=Bash]
 $ cd ../Kunde2
-$ emp addi ../invoice.htm"
+$ emp ddia ../invoice.htm
 \end{lstlisting}
 
 Es erfolgt nun eine interaktive Abfrage der im Template genutzten, aber im Repository noch nicht gesetzten Werte. Wir wollen nur die Kundendaten eintragen und überspringen die restlichen Abfragen mit der Enter-Taste.
 
 Jetzt können wir unseren Zwischenstand mit dem show-Befehl überprüfen. Dazu nutzen wir folgendes Kommando:
 \begin{lstlisting}[style=Bash]
-$ cd ../Kunde2
-$ emp show ../invoice.htm"
+$ emp show ../invoice.htm
 \end{lstlisting}
 
 Wir erhalten eine Auflistung aller bereits gesetzter Variablen und Collections. Außerdem aber auch die weiteren benötigen Variablen. Falls weitere Werte existieren die nicht im Template benötigt werden, werden diese ebenfalls in einer gesonderten Kategorie angezeigt.
 
-TODO:weitermachen...
+Nun erstellen wir eine Rechnung für Kunde1. Dazu erstellen wir im Verzeichnis von Kunde1 einen Ordner und füllen ihn mit den restlichen Informationen:
+
+\begin{lstlisting}[style=Bash]
+$ cd ../Kunde1
+$ mkdir Auftrag1
+$ emp iadd ../../invoice.htm
+\end{lstlisting}
+
+TODO: weitermachen
+
 
 
 
