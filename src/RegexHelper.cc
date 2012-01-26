@@ -69,4 +69,13 @@ namespace RegexHelper
     {
         return MatchesRegex(value, FLOAT_PATTERN);
     }
+
+    /**
+     * @brief function wich checks if a given string contains a float value
+     * @param value given string to check
+     */
+    bool isFunction(std::string value)
+    {
+        return MatchesRegex(value, FUNCTION_PATTERN);
+    }
 }
