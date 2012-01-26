@@ -251,7 +251,49 @@ namespace SyntaxParser
      */
     void modify(int argc, char* argv[])
     {
+        Repository working_repo;
+        if (!working_repo.IsExistent())
+        {
+            std::cout << "There isn't any repository in this or it's parent directories." << std::endl;
+            return;
+        }
+        if (argc < 2 || argc > 3)
+        {
+            std::cout << "You need to specify a key and a value at least.\n"
+                      << "Synopsis: emp modify <key> <value>\n";
+            return;
+        }
+        try
+        {
+            working_repo.RemoveProperty(Fs::GetCwd() + "/" + argv[0]);
+        }
+        catch(PropNotExists)
+        {
+            std::cout << "Cannot find file ..." << std::endl;
 
+            std::cout << "Property does not exists. Create instead? [Yn]:" << std::endl;
+            std::string tmpValue;
+            std::getline(std::cin, tmpValue);
+            if (tmpValue == "n" || tmpValue == "N")
+                return;
+        }
+        catch(...)
+        {
+            std::cout << "An unexpected error occured." << std::endl;
+        }
+
+        try
+        {
+            working_repo.AddProperty(argv[0], "", argv[1]);
+        }
+        catch(PropClassCreateError)
+        {
+            std::cout << "An error occured on creation of the property class." << std::endl;
+        }
+        catch(...)
+        {
+            std::cout << "An unexpected error occured." << std::endl;
+        }
     }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
