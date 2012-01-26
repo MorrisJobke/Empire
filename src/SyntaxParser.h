@@ -55,10 +55,10 @@ namespace ConsoleHelper
     std::string getColor(PrintMode mode);
     void printCollElem(std::string rElem, int rTabSpace, int rows);
     void printTripleList(std::list<std::string> const& rList, PrintMode color, int rTabSpace);
-    void printValueList(std::list<std::string> rList, PrintMode mode, bool rValues, 
+    void printValueList(std::list<std::string> rList, PrintMode mode, bool rValues,
                         bool rTypes, Repository working_repo, int rTabSpace);
-        void printCollectionList(std::list<std::string> rList, PrintMode rMode, Repository working_repo, 
-                            int rTabSpace, WorkingMode rWorkMode, std::string rTemplPath);
+    void printCollectionList(std::list<std::string> rList, PrintMode rMode, Repository working_repo,
+                        int rTabSpace, WorkingMode rWorkMode, std::string rTemplPath);
     void printHeaderWithCount(std::string header, int count);
     void printHeader(std::string header);
     void printUnderlinedHeader(std::string header);
@@ -66,7 +66,7 @@ namespace ConsoleHelper
 
 /** some help functions for SyntaxParser
  */
-namespace dryHelpers
+namespace DryHelpers
 {
     void printRenderSynopsis();
 }
