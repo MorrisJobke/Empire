@@ -331,6 +331,115 @@ std::list<std::string> SimpleTemplate::GetKeyList(std::string const& path)
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
 
+/** get a list of collections in a given template
+ *
+ * @param rPath the path to the file of the template
+ * @return list of collection keys
+ */
+std::list<std::string> SimpleTemplate::GetCollectionList(std::string const& rPath)
+{
+    std::string collNameBuffer;
+    std::list<std::string> collList;
+    std::string input = Filesystem::FileReadString(rPath);
+
+    string::const_iterator it;
+    it = input.begin();
+    // TODO: parse variable at end of string fails
+    while (it < input.end())
+    {
+        if (*it == '@')
+        {
+            if (*(it + 1) == '@') //ignoring @@
+            {
+                it++;
+            }
+            else
+            {
+                it++;
+                collNameBuffer = "";
+                while(isalnum(*it) || *it == '_')
+                {
+                    collNameBuffer += *it;
+                    it++;
+                }
+                if (*it == '{')
+                    collList.push_back(collNameBuffer);
+            }
+        }
+        it++;
+    }
+
+    collList.sort();
+    collList.unique();
+    return collList;
+}
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+
+/** get a list of properties that the given collection contains
+ *
+ * @param rPath the path to the file of the template
+ * @param rName name of the collection
+ * @return list of property-keys
+ */
+std::list<std::string> SimpleTemplate::GetCollectionItemList(std::string const& rPath, std::string const& rName)
+{
+    std::string collNameBuffer, propNameBuffer;
+    std::list<std::string> propList;
+    std::string input = Filesystem::FileReadString(rPath);
+
+    string::const_iterator it;
+    it = input.begin();
+    // TODO: parse variable at end of string fails
+    while (it < input.end())
+    {
+        if (*it == '@')
+        {
+            if (*(it + 1) == '@') //ignoring @@
+                it++;
+            else
+            {
+                it++;
+                collNameBuffer = "";
+                while(isalnum(*it) || *it == '_')
+                {
+                    collNameBuffer += *it;
+                    it++;
+                }
+                if (*it == '{') 
+                    if (collNameBuffer == rName)    /* begin of collection found */
+                        while (*it != '}' && it < input.end())
+                        {
+                            if (*it == '@')
+                            {
+                                if (*(it + 1) == '@') //ignoring @@
+                                    it++;
+                                else
+                                {
+                                    it++;
+                                    propNameBuffer = "";
+                                    while(isalnum(*it) || *it == '_')
+                                    {
+                                        propNameBuffer += *it;
+                                        it++;
+                                    }
+                                    propList.push_back(propNameBuffer);
+                                }
+                            }
+                            it++;
+                        }
+            }
+        }
+        it++;
+    }
+
+    propList.sort();
+    propList.unique();
+    return propList;
+}
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+
 /** get a list of properties that are used by the template, but not defined
  *
  * @param rPath the path to the file of the template

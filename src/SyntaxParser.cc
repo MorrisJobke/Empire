@@ -22,7 +22,7 @@ namespace SyntaxParser
              << "  init         initialize a repository in the working directory\n"
              << "  add          adds a given property to the repository in working directory\n"
              << "  cadd         adds a collection property to the repository in working directory\n"
-             << "  addi         interactive adding of all properties in a given template\n"
+             << "  iadd         interactive adding of all properties in a given template\n"
              << "  remove       removes a given property from repository in working directory\n"
              << "  modify       modifies a given property from repository in working directory\n"
              << "  render       renders a file to ouput/ using repository in working directory\n"
@@ -166,16 +166,32 @@ namespace SyntaxParser
                       << "Specifying a type is optional.\n"
                       << "Synopsis: emp add <key> [<type>] <value>\n"
                       << "For an interactive add use:\n"
-                      << "emp addi <template>\n\n";
+                      << "emp iadd <template>\n\n";
             return;
         }
-
-        if (argc == 3)
-            working_repo.AddProperty(argv[0], argv[1], argv[2]);
-        else if (argc == 2)
-            working_repo.AddProperty(argv[0], "", argv[1]);
-        else
-            throw NotEnoughArgs();
+        try
+        {
+            if (argc == 3)
+                working_repo.AddProperty(argv[0], argv[1], argv[2]);
+            else if (argc == 2)
+                working_repo.AddProperty(argv[0], "", argv[1]);    
+        }
+        catch(PropClassExistsWithOtherKey)
+        {
+            std::cout << "This property is already defined with another type." << std::endl;
+        }
+        catch(PropExistentError)
+        {
+            std::cout << "This property exists already in this directory." << std::endl;
+        }
+        catch(PropClassCreateError)
+        {
+            std::cout << "An error occured on creation of the property class." << std::endl;
+        }
+        catch(...)
+        {
+            std::cout << "An error occured :(" << std::endl;   
+        }
     }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
@@ -196,7 +212,7 @@ namespace SyntaxParser
         if (argc != 1)
         {
             std::cout << "You need to specify a template.\n"
-                      << "Synopsis: emp addi <path-to-template>\n\n";
+                      << "Synopsis: emp iadd <path-to-template>\n\n";
             return;
         }
         working_repo.Load();
