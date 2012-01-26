@@ -174,7 +174,7 @@ namespace SyntaxParser
             if (argc == 3)
                 working_repo.AddProperty(argv[0], argv[1], argv[2]);
             else if (argc == 2)
-                working_repo.AddProperty(argv[0], "", argv[1]);    
+                working_repo.AddProperty(argv[0], "", argv[1]);
         }
         catch(PropClassExistsWithOtherKey)
         {
@@ -190,7 +190,7 @@ namespace SyntaxParser
         }
         catch(...)
         {
-            std::cout << "An unexpected error occured." << std::endl;   
+            std::cout << "An unexpected error occured." << std::endl;
         }
     }
 
@@ -291,7 +291,7 @@ namespace SyntaxParser
             used = tmpl->GetAvailableProperties(argv[0], working_repo.GetAddedPropertiesInCwd());
             unused = tmpl->GetMissingProperties(argv[0], working_repo.GetAddedPropertiesInCwd());
             created = tmpl->GetAvailableProperties(argv[0], working_repo.GetCreatedPropertiesInCwd());
-            
+
             /*collections:*/
             used_colls = tmpl->GetAvailableCollections(argv[0], working_repo.GetAddedCollectionsInCwd());
             unused_colls = tmpl->GetMissingCollections(argv[0], working_repo.GetAddedCollectionsInCwd());
@@ -353,7 +353,7 @@ namespace SyntaxParser
             {
                 Ch::printHeaderWithCount("Added Properties(", used.size());
 
-                Ch::printValueList(used, ADDED, true, true, working_repo);   
+                Ch::printValueList(used, ADDED, true, true, working_repo);
             }
 
             if (unused.size() > 0)
@@ -537,7 +537,7 @@ namespace ConsoleHelper{
             case MISSING:   return COLOR_RED;
             case ADDED:     return COLOR_GREEN;
         }
-        return ""; 
+        return "";
     }
 
     void printTripleList(std::list<std::string> const& rList, PrintMode mode)
@@ -547,7 +547,7 @@ namespace ConsoleHelper{
 
         tmpList.sort();
         tmpList.unique();
-                
+
         unsigned int maxLength = 0;
         for (it = tmpList.begin(); it != tmpList.end(); it++)
             if ((*it).length() > maxLength)
@@ -583,12 +583,12 @@ namespace ConsoleHelper{
         {
             std::string key = *it;
             std::string path, color, value, type;
-            
+
             if (rValues)
                 value = working_repo.GetFirstDefinedValueRec(key, Fs::GetCwd(), path);
             if (rTypes)
-                type = working_repo.GetPropertyByKey(key)->GetTypeN();    
-            
+                type = working_repo.GetPropertyByKey(key)->GetTypeN();
+
 
             if (path == Fs::GetCwd() || !rValues)
                 color = getColor(mode);
@@ -596,7 +596,7 @@ namespace ConsoleHelper{
                 color = COLOR_CYAN;
 
             std::cout   << "\t" << color << key;
-            
+
             if (rTypes)
                 std::cout << COLOR_BLUE << "<" << type << ">";
             if (rValues)
