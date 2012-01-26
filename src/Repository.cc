@@ -389,6 +389,8 @@ void Repository::AddProperty(std::string const& key, std::string const& type, st
                 tmp_type = GetTypeName<int>();
             else if(RegexHelper::isFloat(value))
                 tmp_type = GetTypeName<float>();
+            else if(RegexHelper::isFunction(value))
+                tmp_type = GetTypeName<FunctionType>();
             else
                 tmp_type = GetTypeName<std::string>();
         }
@@ -440,7 +442,7 @@ void Repository::RemoveProperty(std::string const& rKey)
             Fs::FileDelete(rKey);
         }
         catch(Fs::CannotFindFileError const& e){
-            throw PropNotExists();   
+            throw PropNotExists();
         }
     }
     else
