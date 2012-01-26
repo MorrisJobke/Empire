@@ -348,6 +348,26 @@ std::list< std::list<GenPropertyBase*> > Coll::GetList() const
     return this->mPropList;
 }
 
+std::list< GenPropertyBase* > Coll::GetPropertyList()
+{
+    std::list<GenPropertyBase*>::const_iterator it_meta;
+    std::list<GenPropertyBase*> meta_list = this->mPropList.front();
+    std::list<GenPropertyBase*> result;
+
+    /* go through the 0th list entry and check types and existens */
+    for (it_meta = meta_list.begin(); it_meta != meta_list.end(); it_meta++)
+    {
+        result.push_back(*it_meta);
+    }
+
+    return result;
+}
+
+int Coll::GetNumberOfInstances()
+{
+    return GetList().size() - 1;
+}
+
 /*============================= INQUIRY    =================================*/
 /////////////////////////////// PROTECTED  ///////////////////////////////////
 

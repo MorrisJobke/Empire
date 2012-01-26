@@ -437,7 +437,6 @@ std::list<std::string> SimpleTemplate::GetCollectionItemList(std::string const& 
         }
         it++;
     }
-
     propList.sort();
     propList.unique();
     return propList;

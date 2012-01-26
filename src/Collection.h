@@ -46,10 +46,13 @@ class Coll
     void AddRow(std::list<GenPropertyBase*> const&);
 
     std::list< std::list<GenPropertyBase*> > GetList() const;
-
+    std::list< GenPropertyBase* > GetPropertyList();
+    int GetNumberOfInstances();
     void ToOutStream(std::ostream& rOut);
 
     void DebugPrint();
+
+
 
     /* NOTES:
      *

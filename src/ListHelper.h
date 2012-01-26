@@ -13,11 +13,14 @@
 #include <string>
 #include <iostream>
 
+#include "GenPropertyBase.h"
+
 namespace ListHelper
 {
     std::list<std::string> ListCompare(std::list<std::string> const& rList1, std::list<std::string> const& rList2, bool rNotFound);
     std::list<std::string> ListMerge(std::list<std::string> const& rList1, std::list<std::string> const& rList2);
     void ListDebugPrint(std::list<std::string> rList);
+    std::list<std::string> PropertyList2KeyList(std::list<GenPropertyBase*> rPropList);
 }
 
 #endif

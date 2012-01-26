@@ -10,6 +10,7 @@
 
 namespace Fs = Filesystem;
 namespace Ch = ConsoleHelper;
+namespace Lh = ListHelper;
 
 //////////////////////////////////////////////////////////////////////////////
 namespace SyntaxParser
@@ -437,7 +438,7 @@ namespace SyntaxParser
             unused = tmpl->GetMissingProperties(argv[0], working_repo.GetAddedPropertiesInCwd());
             created = tmpl->GetAvailableProperties(argv[0], working_repo.GetCreatedPropertiesInCwd());
             needless = tmpl->GetNeedLessProperties(argv[0],
-                            ListHelper::ListMerge(working_repo.GetCreatedPropertiesInCwd(), 
+                            Lh::ListMerge(working_repo.GetCreatedPropertiesInCwd(), 
                                                   working_repo.GetAddedPropertiesInCwd())
                                                   );
             /*collections:*/
@@ -453,14 +454,14 @@ namespace SyntaxParser
                 if(unused.size() > 0)
                 {
                     Ch::printHeaderWithCount("Used by template, but not added or defined(", unused.size());
-                    Ch::printTripleList(unused, MISSING);
+                    Ch::printTripleList(unused, MISSING, 1);
                 }
 
                 /* print created */
                 if(created.size() > 0)
                 {
                     Ch::printHeaderWithCount("Used by template, but only defined(", created.size());
-                    Ch::printValueList(created, CREATED, false, true, working_repo);
+                    Ch::printValueList(created, CREATED, false, true, working_repo, 1);
                 }
 
                 /* print used */
@@ -471,14 +472,14 @@ namespace SyntaxParser
                     else
                         Ch::printHeaderWithCount("Used by template and already added(", used.size());
 
-                    Ch::printValueList(used, ADDED, true, true, working_repo);
+                    Ch::printValueList(used, ADDED, true, true, working_repo, 1);
                 }
 
                 /* print needless */
                 if (needless.size() > 0)
                 {
                     Ch::printHeaderWithCount("Not used by template, but created/added(", needless.size());
-                    Ch::printValueList(needless, NEEDLESS, true, true, working_repo);
+                    Ch::printValueList(needless, NEEDLESS, true, true, working_repo, 1);
                 }
             }
 
@@ -491,31 +492,32 @@ namespace SyntaxParser
                 if(used_colls.size() > 0)
                 {
                     Ch::printHeaderWithCount("Used by template and defined(", used_colls.size());
-                    Ch::printValueList(used_colls, ADDED, false, true, working_repo);
+                    Ch::printValueList(used_colls, ADDED, false, true, working_repo, 1);
                 }
                 
                 /* print unused */
                 if(unused_colls.size() > 0)
                 {
-                    Ch::printHeaderWithCount("Used by template, but defined(", unused_colls.size());
-                    Ch::printValueList(unused_colls, MISSING, false, false, working_repo);
+                    Ch::printHeaderWithCount("Used by template and defined(", unused_colls.size());
+                    Ch::printValueList(unused_colls, MISSING, false, false, working_repo, 1);
                 }
 
                 /* print needless */
                 if(needless_colls.size() > 0)
                 {
                     Ch::printHeaderWithCount("Not used by template, but defined(", needless_colls.size());
-                    Ch::printTripleList(needless_colls, NEEDLESS);
+                    Ch::printTripleList(needless_colls, NEEDLESS, 1);
                 }                
             }
         }
         else //normal mode
         {
             std::list<std::string>::const_iterator it;
-            std::list<std::string> used, unused;
+            std::list<std::string> used, unused, used_colls;
 
             used = working_repo.GetAddedPropertiesInCwd();
             unused = working_repo.GetCreatedPropertiesInCwd();
+            used_colls = working_repo.GetAddedCollectionsInCwd();
 
             std::cout << "Repository root path: " << working_repo.GetRepositoryPath() << std::endl << std::endl;
 
@@ -523,12 +525,17 @@ namespace SyntaxParser
             {
                 Ch::printHeaderWithCount("Added Properties(", used.size());
 
-                Ch::printValueList(used, ADDED, true, true, working_repo);
+                Ch::printValueList(used, ADDED, true, true, working_repo, 1);
             }
             if (unused.size() > 0)
             {
                 Ch::printHeaderWithCount("Created Properties(", unused.size());
-                Ch::printTripleList(unused, NEEDLESS);
+                Ch::printTripleList(unused, CREATED, 1);
+            }
+            if (used_colls.size() > 0)
+            {
+                Ch::printHeaderWithCount("Created Collections(", used_colls.size());
+                Ch::printCollectionList(used_colls, ADDED, working_repo, 1);
             }
         }
     }
@@ -756,7 +763,7 @@ namespace ConsoleHelper{
         return "";
     }
 
-    void printTripleList(std::list<std::string> const& rList, PrintMode mode)
+    void printTripleList(std::list<std::string> const& rList, PrintMode mode, int rTabSpace)
     {
         std::list<std::string> tmpList = rList;
         std::list<std::string>::const_iterator it;
@@ -765,18 +772,22 @@ namespace ConsoleHelper{
         tmpList.unique();
 
         unsigned int maxLength = 0;
-        for (it = tmpList.begin(); it != tmpList.end(); it++)
+        for (it = tmpList.begin(); it != tmpList.end(); ++it)
             if ((*it).length() > maxLength)
                 maxLength = (*it).length();
+
+        maxLength += 2;
 
         printColor(mode);
         for (it = tmpList.begin(); it != tmpList.end();)
         {
-            for(int i = 0; i < 3; i++)
+            for(int i = 0; i < rTabSpace; ++i)
+                std::cout << "\t";
+            for(int i = 0; i < 3; ++i)
             {
                 if (it == tmpList.end())
                     break;
-                std::cout << "\t" << *it;
+                std::cout << *it;
                 for (int j = maxLength - (*it).length(); j > 0; j--)
                     std::cout << " ";
 
@@ -786,8 +797,21 @@ namespace ConsoleHelper{
         }
         std::cout << COLOR_CLEAR << std::endl;
     }
+    void printCollElem(std::string rElem, int rTabSpace, int instances)
+    {
+        if(instances > 0)
+            std::cout << COLOR_GREEN;
+        else
+            std::cout << COLOR_CLEAR;
 
-    void printValueList(std::list<std::string> rList, PrintMode mode, bool rValues, bool rTypes, Repository working_repo)
+        for(int i = 0; i < rTabSpace; ++i)
+            std::cout << "\t";
+
+        std::cout << rElem << " (" << instances << " instances), containing properties:"<< std::endl;
+    }
+
+    void printValueList(std::list<std::string> rList, PrintMode mode, bool rValues, bool rTypes, 
+                        Repository working_repo, int rTabSpace)
     {
         std::list<std::string> tmpList = rList;
         std::list<std::string>::const_iterator it;
@@ -795,7 +819,7 @@ namespace ConsoleHelper{
         tmpList.sort();
         tmpList.unique();
 
-        for (it = tmpList.begin(); it != tmpList.end(); it++)
+        for (it = tmpList.begin(); it != tmpList.end(); ++it)
         {
             std::string key = *it;
             std::string path, color, value, type;
@@ -811,7 +835,10 @@ namespace ConsoleHelper{
             else
                 color = COLOR_CYAN;
 
-            std::cout   << "\t" << color << key;
+            for(int i = 0; i < rTabSpace; ++i)
+                std::cout << "\t";
+
+            std::cout << color << key;
 
             if (rTypes)
                 std::cout << COLOR_BLUE << "<" << type << ">";
@@ -821,6 +848,25 @@ namespace ConsoleHelper{
             std::cout << COLOR_CLEAR << std::endl;
         }
         std::cout << std::endl;
+    }
+
+    void printCollectionList(std::list<std::string> rList, PrintMode rMode, Repository working_repo, int rTabSpace)
+    {
+        std::list<std::string> tmpList = rList;
+        std::list<std::string>::const_iterator it;
+
+        tmpList.sort();
+        tmpList.unique();
+
+        for (it = tmpList.begin(); it != tmpList.end(); ++it)
+        {
+            std::string key = *it;
+            Coll coll;
+            coll.Load(key);
+            printCollElem(key, rTabSpace, coll.GetNumberOfInstances());
+            printTripleList(Lh::PropertyList2KeyList(coll.GetPropertyList()), NEEDLESS, rTabSpace + 1);
+            std::cout << COLOR_CLEAR;
+        }
     }
 
     void printHeaderWithCount(std::string header, int count)

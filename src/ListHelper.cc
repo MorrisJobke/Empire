@@ -63,7 +63,7 @@ namespace ListHelper
 
     /** prints a list to std::out, for debug only
      *
-     * @param rList1 given list
+     * @param rList given list
      */
     void ListDebugPrint(std::list<std::string> rList)
     {
@@ -74,5 +74,23 @@ namespace ListHelper
             std::cout << *it << std::endl;
         }
         std::cout << "###### DEBUG LIST PRINT END #######" << std::endl;
+    }
+
+    /** extracts a key list from a list of properties
+     *
+     * @param rpropList given property list
+     * @return list of keys as string
+     */
+    std::list<std::string> PropertyList2KeyList(std::list<GenPropertyBase*> rPropList)
+    {
+        std::list<std::string> result;
+        std::list<GenPropertyBase*>::const_iterator it;
+
+        for (it = rPropList.begin(); it != rPropList.end(); it++)
+        {
+            result.push_back((*it)->GetKey());
+        }
+
+        return result;
     }
 }
