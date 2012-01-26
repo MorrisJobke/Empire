@@ -169,7 +169,7 @@ namespace Filesystem
             if (errno == ENOENT)
                 return false;
         }
-            
+
 
         delete[] cstr;
 
@@ -300,7 +300,7 @@ namespace Filesystem
             file.close();
         }
         else
-            throw CannotOpenFileError();
+            throw CannotOpenFileError(" " + rFilePath + " FileWriteString");
     }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
@@ -322,7 +322,7 @@ namespace Filesystem
             file.close();
         }
         else
-            throw CannotOpenFileError();
+            throw CannotOpenFileError(" " + rFilePath + " FileAppendString");
     }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
@@ -391,7 +391,7 @@ namespace Filesystem
             myfile.close();
         }
         else
-            throw CannotOpenFileError();
+            throw CannotOpenFileError(" " + rFilePath + " FileReadString");
 
         return result;
     }
