@@ -163,8 +163,8 @@ namespace SyntaxParser
         }
         if (argc < 2)
         {
-            std::cout << "You need to specify a collection name and at least one key\n"
-                      << "Synopsis: emp cadd <coll-name> <key1> [<key2> <key3> ...]\n\n";
+            std::cout << "You need to specify a collection name and at least one key with value\n"
+                      << "Synopsis: emp cfill <coll-name> <key1>:<value1> [<key2>:<value2> ...]\n\n";
             return;
         }
 
