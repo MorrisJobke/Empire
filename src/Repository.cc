@@ -433,12 +433,15 @@ void Repository::AddProperty(std::string const& key, std::string const& type, st
  */
 void Repository::RemoveProperty(std::string const& rKey)
 {
-    if(Fs::FileExists(this->mAbsoluteRepoPath + "/" + REPO_NAME + "/" + rKey))
+    this->Load();
+    if(this->ContainsProperty(rKey))
     {
-        try
-            Fs::FileDelete(rPath);
-        catch(Fs::CannotFindFileError const& e)
-            throw PropNotExists();
+        try{
+            Fs::FileDelete(rKey);
+        }
+        catch(Fs::CannotFindFileError const& e){
+            throw PropNotExists();   
+        }
     }
     else
         throw PropNotExists();
