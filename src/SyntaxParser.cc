@@ -150,7 +150,7 @@ namespace SyntaxParser
     }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
-    
+
     void coll_fill(int argc, char* argv[])
     {
         using namespace std;
@@ -181,7 +181,7 @@ namespace SyntaxParser
         }
 
         GenPropertyBase* col_prop = working_repo.GetPropertyByKey(coll_name);
-        
+
         if (col_prop->GetTypeN() != GetTypeName<Coll>())
         {
                 std::cout << "The Repository does not hold a collection called: " << coll_name << "\n";
@@ -204,22 +204,22 @@ namespace SyntaxParser
         while (argc > 0)
         {
             std::string new_pair = argv[0];
-            
+
             //cout << "new pair-> " << new_pair << endl;
 
             /* split tthe pair */
             size_t found = new_pair.find_first_of(":");
-            
+
             if (found == string::npos)
             {
                 cout << "You have forgotten the splitting character : " << endl;
                 return;
             }
             //cout << ": found at " << found << endl;
-            
+
             string new_key = new_pair.substr(0,found);
             string new_value = new_pair.substr(found + 1, new_pair.length() - found);
-            
+
             //cout << "new key-> " << new_key << endl;
             //cout << "new value-> " << new_value << endl;
 
@@ -229,18 +229,18 @@ namespace SyntaxParser
                 cout << "Property not found in repository: " << new_key << endl;
                 return;
             }
-            
+
             GenPropertyBase* contained_prop = working_repo.GetPropertyByKey(new_key);
             GenPropertyBase* new_prop = PropertyHelpers::CreatePropertyFromTypeString(contained_prop->GetTypeN());
             new_prop->SetKey(new_key);
             new_prop->SetValueFromString(new_value);
 
             new_entries.push_back(new_prop);
-        
+
             argc--;
             argv++;
         }
-        
+
         /* Load collection */
 
         Coll c(coll_name);
@@ -438,7 +438,7 @@ namespace SyntaxParser
             unused = tmpl->GetMissingProperties(argv[0], working_repo.GetAddedPropertiesInCwd());
             created = tmpl->GetAvailableProperties(argv[0], working_repo.GetCreatedPropertiesInCwd());
             needless = tmpl->GetNeedLessProperties(argv[0],
-                            Lh::ListMerge(working_repo.GetCreatedPropertiesInCwd(), 
+                            Lh::ListMerge(working_repo.GetCreatedPropertiesInCwd(),
                                                   working_repo.GetAddedPropertiesInCwd())
                                                   );
             /*collections:*/
@@ -487,14 +487,14 @@ namespace SyntaxParser
             if (unused_colls.size() + used_colls.size() +  needless.size() > 0)
             {
                 Ch::printUnderlinedHeader("Collections:");
-                
+
                 /* print used */
                 if(used_colls.size() > 0)
                 {
                     Ch::printHeaderWithCount("Used by template and defined(", used_colls.size());
                     Ch::printCollectionList(used_colls, ADDED, working_repo, 1, REPO, argv[0]);
                 }
-                
+
                 /* print unused */
                 if(unused_colls.size() > 0)
                 {
@@ -590,7 +590,7 @@ namespace SyntaxParser
         }
         if (!(argc == 2 || argc == 3))
         {
-            dryHelpers::printRenderSynopsis();
+            DryHelpers::printRenderSynopsis();
             return;
         }
 
@@ -638,7 +638,7 @@ namespace SyntaxParser
         if (argc != 0)
         {
             std::cout << *argv << std::endl;
-            dryHelpers::printRenderSynopsis();
+            DryHelpers::printRenderSynopsis();
             return;
         }
 
@@ -850,7 +850,7 @@ namespace ConsoleHelper{
      * @param rTabSpace count of tab spaces the output should have at begin of the lines
      */
 
-    void printValueList(std::list<std::string> rList, PrintMode mode, bool rValues, bool rTypes, 
+    void printValueList(std::list<std::string> rList, PrintMode mode, bool rValues, bool rTypes,
                         Repository working_repo, int rTabSpace)
     {
         std::list<std::string> tmpList = rList;
@@ -900,7 +900,7 @@ namespace ConsoleHelper{
      * @param working_repo the repository
      * @param rTemplPath the path of the template
      */
-    void printCollectionList(std::list<std::string> rList, PrintMode rMode, Repository working_repo, 
+    void printCollectionList(std::list<std::string> rList, PrintMode rMode, Repository working_repo,
                             int rTabSpace, WorkingMode rWorkMode, std::string rTemplPath)
     {
         std::list<std::string> tmpList = rList;
@@ -970,7 +970,7 @@ namespace ConsoleHelper{
 }
 
 
-namespace dryHelpers {
+namespace DryHelpers {
     void printRenderSynopsis()
     {
         std::cout << "You need to specify a template and an output path.\n"
