@@ -159,7 +159,7 @@ void Repository::Load()
 
             GenPropertyBase* p_new_prop = PropertyHelpers::CreatePropertyFromTypeString(new_type);
             p_new_prop->SetKey(new_key);
-            
+
             //std::cout << "loaded metadata: " << *p_new_prop << std::endl;
 
             this->mPropertyList.push_back(p_new_prop);
@@ -221,18 +221,18 @@ void Repository::Load()
     Fs::ChangeCwd(start_dir);
 
     /* print out loaded properties */
-    //std::list<GenPropertyBase*>::iterator it;
-    //
-    //std::cout << "Loaded properties\n" << std::endl;
-    //for (it = this->mPropertyList.begin(); it != this->mPropertyList.end(); it++)
-    //{
+    // std::list<GenPropertyBase*>::iterator it;
+
+    // std::cout << "Loaded properties\n" << std::endl;
+    // for (it = this->mPropertyList.begin(); it != this->mPropertyList.end(); it++)
+    // {
     //    if ((*it) == NULL)
     //    {
     //        std::cout << "NULL\n" << std::endl;
     //        continue;
     //    }
     //    std::cout << *(*it) << std::endl;
-    //}
+    // }
 
 }
 
@@ -407,7 +407,7 @@ void Repository::AddProperty(std::string const& key, std::string const& type, st
             this->Load();
 
             std::string fileType = this->GetPropertyByKey(key)->GetTypeN();
- 
+
             if(fileType != tmp_type)
                 throw PropClassExistsWithOtherKey();
         }
