@@ -73,8 +73,10 @@ $ mkdir Auftrag1
 $ emp iadd ../../invoice.htm
 \end{lstlisting}
 
-TODO: weitermachen
+TODO: Collection adden
 
-
-
-
+Jezt haben wir alle benötigten Werte hinzugefügt und können das Template zu der fertigen Rechnung rendern:
+\begin{lstlisting}[style=Bash]
+$ cd ../../
+$ emp render invoice.htm Kunde1/Auftrag1/invoice.htm
+\end{lstlisting}

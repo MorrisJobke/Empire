@@ -21,6 +21,7 @@ namespace SyntaxParser
         std::cout << "Synopsis: emp <actions> [<action-arguments>] [<action-options>]\n\n"
              << "  init         initialize a repository in the working directory\n"
              << "  add          adds a given property to the repository in working directory\n"
+             << "  create       creates a property definition\n"
              << "  cadd         adds a collection property to the repository in working directory\n"
              << "  create       adds only the property type to the repository in working directory\n"
              << "  iadd         interactive adding of all properties in a given template\n"
@@ -269,7 +270,7 @@ namespace SyntaxParser
             std::cout << "There isn't any repository in this or it's parent directories." << std::endl;
             return;
         }
-        if (argc > 1)
+        if (argc > 1 || (strcmp(argv[0],"-h") == 0) || (strcmp(argv[0], "--help") == 0))
         {
             std::cout << "This command runs without any parameters.\n"
                       << "Specifying a template is optional and gives you\n"
