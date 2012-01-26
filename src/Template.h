@@ -18,6 +18,7 @@
 #include "FunctionType.h"
 #include "LuaHelper.h"
 #include "ListHelper.h"
+#include "Filesystem.h"
 
 
 class ITemplate
