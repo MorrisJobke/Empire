@@ -4,16 +4,16 @@
 
 \subsection{Initialisieren eines Repositorys}
 Das initialisieren eines Repositorys geschieht mit dem folgenden Befehl:
-\begin{verbatim}
-emp init
-\end{verbatim}
+\begin{lstlisting}[style=Bash]
+$ emp init
+\end{lstlisting}
 Zu beachten ist, dass ein Repository nicht erzeugt werden kann, wenn im vorhandenen oder einem übergeordnerten Verzeichnis bereits ein Repository existiert.
 
 \subsection{Hinzufügen von Werten zu einem Repository}
 Werte können mit diesem Befehl hinzugefügt werden:
-\begin{verbatim}
-emp add <Schlüssel> [<Typ>] <Wert>
-\end{verbatim}
+\begin{lstlisting}[style=Bash]
+$ emp add <Schluessel> [<Typ>] <Wert>
+\end{lstlisting}
 Die Angabe von einem type ist optional. Wenn keiner angegeben wird erfolgt eine automatische Typ-Bestimmung.
 Hier einige Beispiele für die Typ-Erkennung:
 
@@ -28,36 +28,36 @@ Hier einige Beispiele für die Typ-Erkennung:
 \end{tabular} 
 
 Wenn eine solche Erkennung nicht gewünscht ist, dann muss ein Typ angegeben werden. Im folgenden dazu ein Beispiel:
-\begin{verbatim}
-emp add floatString string 1.2314
-\end{verbatim}
+\begin{lstlisting}[style=Bash]
+$ emp add floatString string 1.2314
+\end{lstlisting}
 
 \subsection{Löschen von bereits hinzugefügten Werten}
 Das Löschen von in einem Repository enthaltenen Werten erfolgt mit dem Befehl remove:
-\begin{verbatim}
-emp remove [Optionen] <Schlüssel>
-\end{verbatim}
+\begin{lstlisting}[style=Bash]
+$ emp remove [Optionen] <Schluessel>
+\end{lstlisting}
 
 Dabei wird jedoch lediglich ein Wert gelöscht (der des aktuellen Verzeichnisses). Die Werte in anderen Verzeichnissen und auch die Typ-Definition bleiben erhalten.
 
-Um auch die Typ-Definition zu entfernen können sie die Option --all nutzen:
-\begin{verbatim}
-emp remove --all <Schlüssel>
-\end{verbatim}
+Um auch die Typ-Definition zu entfernen können Sie die Option --all nutzen:
+\begin{lstlisting}[style=Bash]
+$ emp remove --all <Schluessel>
+\end{lstlisting}
 Zu beachten ist allerdings, dass mit diesem Befehl alle vorhandenen Werte mit diesem Schlüssel und auch deren Definition unwiederuflich entfernt werden.
 
 \subsection{Modifizieren von bereits hinzugefügten Werten}
 \subsection{Erstellen eines Templates}
 \subsection{Rendern eines Templates}
 Mit dem folgenden Befehl wird ein Template gerendert:
-\begin{verbatim}
-emp render <Template-Datei> <Ausgabe-Datei>
-\end{verbatim}
+\begin{lstlisting}[style=Bash]
+$ emp render <Template-Datei> <Ausgabe-Datei>
+\end{lstlisting}
 
 \subsection{Anzeigen von bereits hinzugefügten Werten}
 Um einen Überblick über den aktuellen Status zu erhalten kann das show-Kommando genutzt werden:
-\begin{verbatim}
-emp show [<Template-Datei>]
-\end{verbatim}
+\begin{lstlisting}[style=Bash]
+$ emp show [<Template-Datei>]
+\end{lstlisting}
 Wenn hierbei kein Parameter übergeben wird erhalten Sie eine Auflistung ihrer bereits verwendeten Werte und verfügbare Wert-Definitionen.
 Bei Übergabe einer Template-Datei als Parameter werden die im Template vorhandenen, und noch nicht definierten, Werte aufgelistet. Ebenso erhalten Sie natürlich eine Übersicht über die bereits definierten und auch im Template benötigten Werte.

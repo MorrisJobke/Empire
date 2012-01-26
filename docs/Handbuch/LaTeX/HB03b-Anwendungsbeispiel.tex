@@ -1,0 +1,67 @@
+%!TEX root = Handbuch.tex
+
+\section{Ausführliches Anwendungsbeispiel}
+Im folgenden soll ein Überblick über die Möglichkeiten dieses Programmes gegeben werden. Dazu nutzen wir das als Vorlage enthaltene Template und erstellen 3 Rechnungen an 2 Kunden mit jeweils unterschiedlichen Posten.
+
+Zu Begin wechseln wir ins Verzeichnis unserer Wahl und erstellen dort ein Repository:
+\begin{lstlisting}[style=Bash]
+$ mkdir Rechnungen
+$ cd Rechnungen
+$ emp init
+\end{lstlisting}
+
+Um in diesem Beispiel eine bessere Übersicht zu gewährleisten kopieren wir außerdem das Template in den Ordner des Repositorys. Im allgemeinen Fall ist es aber gleichgültig wo sich das Template befindet.
+\begin{lstlisting}[style=Bash]
+$ cp <Pfad des Templates> ./invoice.htm
+\end{lstlisting}
+
+
+Wir definieren nun im Wurzelverzeichnis des Repositorys unsere persönlichen Daten, da diese in allen Rechnungen gleich sein sollen. Dazu zählen beim vordefinierten Template die Anschrift, die Bankverbindung und unsere Kontaktdaten:
+
+\begin{lstlisting}[style=Bash]
+$ emp add from_name "Max Mustermann"
+$ emp add from_street Musterstraße
+$ emp add from_city Musterstadt
+$ emp add from_mobile 0111/1234567
+$ emp add from_email "max.mustermann@example.org"
+$ emp add from_ustidnr "DE999999999"
+$ emp add acct_name "Musterbank"
+$ emp add acct_nr 123456
+$ emp add acct_blz 65432100
+\end{lstlisting}
+
+Das selbe Ergebnis kann man auch mit dem iadd-Befehl erreichen, auf diesen werden wir aber später erst zurückgreifen.
+
+
+Nun erstellen wir für jeden Kunden einen Ordner und hinterlegen in diesem die Daten des Kunden:
+\begin{lstlisting}[style=Bash]
+$ mkdir Kunde1
+$ mkdir Kunde2
+$ cd Kunde1
+$ emp add to_name "Muster Co."
+$ emp add to_street "Musterallee 42"
+$ emp add to_city "Musterhausen"
+\end{lstlisting}
+
+Die Bennenung der Ordner spielt hier keine Rolle (solange keine Collection mit dem gewünschten Namen existiert), sollte aber zur Förderung der Übersichtlichkeit sinnvoll bennant werden.
+
+Für den 2. Kunden nutzen wir nun den addi-Befehl:
+\begin{lstlisting}[style=Bash]
+$ cd ../Kunde2
+$ emp addi ../invoice.htm"
+\end{lstlisting}
+
+Es erfolgt nun eine interaktive Abfrage der im Template genutzten, aber im Repository noch nicht gesetzten Werte. Wir wollen nur die Kundendaten eintragen und überspringen die restlichen Abfragen mit der Enter-Taste.
+
+Jetzt können wir unseren Zwischenstand mit dem show-Befehl überprüfen. Dazu nutzen wir folgendes Kommando:
+\begin{lstlisting}[style=Bash]
+$ cd ../Kunde2
+$ emp show ../invoice.htm"
+\end{lstlisting}
+
+Wir erhalten eine Auflistung aller bereits gesetzter Variablen und Collections. Außerdem aber auch die weiteren benötigen Variablen. Falls weitere Werte existieren die nicht im Template benötigt werden, werden diese ebenfalls in einer gesonderten Kategorie angezeigt.
+
+TODO:weitermachen...
+
+
+

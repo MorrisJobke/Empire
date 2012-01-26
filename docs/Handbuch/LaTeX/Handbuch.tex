@@ -7,12 +7,30 @@
 \usepackage{german,fancyhdr}
 \usepackage{hyperref}
 \usepackage{texdraw}
+\usepackage{listings}
 \input{txdtools}
 
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{hyperref}
 \definecolor{darkblue}{rgb}{0,0,.6}
+\definecolor{grey}{rgb}{0.7,0.7,0.7}
+\definecolor{darkGrey}{rgb}{0.1,0.1,0.1}
 \hypersetup{pdftex=false, colorlinks=true, breaklinks=true, linkcolor=darkblue, menucolor=darkblue, pagecolor=darkblue, urlcolor=darkblue, citecolor=darkblue}
+
+\lstdefinestyle{Bash}
+{	
+	language=Bash,
+	backgroundcolor=\color{darkGrey},
+	keywordstyle=\color{blue}\bfseries,
+	commentstyle=\color{grey},
+	stringstyle=\color{red},
+	showstringspaces=false,
+	basicstyle=\small\color{white},
+	numbers=none,
+	captionpos=b,
+	tabsize=4,
+	breaklines=true
+}
 
 \pagestyle{fancy}
 
@@ -24,6 +42,7 @@
 	\input{HB01-Kurzbeschreibung} \newpage
 	\input{HB02-Zielgruppe} \newpage
 	\input{HB03-Anwendungsfaelle} \newpage
+	\input{HB03b-Anwendungsbeispiel} \newpage
 	\input{HB04-Installationsanleitung} \newpage
 	\input{HB05-Backup} \newpage
 	\input{HB06-Deinstallieren} \newpage
