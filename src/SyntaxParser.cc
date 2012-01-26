@@ -359,7 +359,7 @@ namespace SyntaxParser
             std::cout << "There isn't any repository in this or it's parent directories." << std::endl;
             return;
         }
-        if (argc < 2 || argc > 3)
+        if (argc != 2)
         {
             std::cout << "You need to specify a key and a value at least.\n"
                       << "Synopsis: emp modify <key> <value>\n";
