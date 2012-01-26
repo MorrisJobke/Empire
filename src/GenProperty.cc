@@ -169,6 +169,8 @@ namespace PropertyIo
 namespace PropertyHelpers
 {
     /** create a property from type-string
+    * @param rType string containing a type
+    * @return returns created property
     */
     GenPropertyBase* CreatePropertyFromTypeString(std::string const& rType)
     {
@@ -198,6 +200,10 @@ namespace PropertyHelpers
         return p_new;
     }
 
+    /** create a property from type-string
+    * @param pProp property where value should be set
+    * @param rValue the value, that should be set
+    */
     void SetValueFromString(GenPropertyBase* pProp, std::string const& rValue)
     {
         if (pProp->GetTypeN() == GetTypeName<int>())

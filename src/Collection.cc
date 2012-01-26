@@ -348,6 +348,10 @@ std::list< std::list<GenPropertyBase*> > Coll::GetList() const
     return this->mPropList;
 }
 
+/** getter for the meta-data of the propertys
+ *
+ * @return returns a list of property keys
+ */
 std::list< GenPropertyBase* > Coll::GetPropertyList()
 {
     std::list<GenPropertyBase*>::const_iterator it_meta;
@@ -363,6 +367,10 @@ std::list< GenPropertyBase* > Coll::GetPropertyList()
     return result;
 }
 
+/** get the count of data-rows in this collection
+ *
+ * @return returns a the count of rows
+ */
 int Coll::GetRowCount()
 {
     return GetList().size() - 1;

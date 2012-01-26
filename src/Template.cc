@@ -486,7 +486,7 @@ std::list<std::string> SimpleTemplate::GetNeedLessProperties(std::string const& 
 /** get a list of collections that are used by the template and also defined
  *
  * @param rPath the path to the file of the template
- * @param rAvailableColl list of already defined collections
+ * @param rAvailableColls list of already defined collections
  * @return list of collection keys
  */
 std::list<std::string> SimpleTemplate::GetAvailableCollections(std::string const& rPath, std::list<std::string> const& rAvailableColls)
@@ -499,7 +499,7 @@ std::list<std::string> SimpleTemplate::GetAvailableCollections(std::string const
 /** get a list of collections that are used by the template and undefined
  *
  * @param rPath the path to the file of the template
- * @param rAvailableColl list of already defined collections
+ * @param rAvailableColls list of already defined collections
  * @return list of collection keys
  */
 std::list<std::string> SimpleTemplate::GetMissingCollections(std::string const& rPath, std::list<std::string> const& rAvailableColls)
@@ -512,7 +512,7 @@ std::list<std::string> SimpleTemplate::GetMissingCollections(std::string const& 
 /** get a list of collections that are not by the template, but available
  *
  * @param rPath the path to the file of the template
- * @param rAvailableColl list of already defined collections
+ * @param rAvailableColls list of already defined collections
  * @return list of collection keys
  */
 std::list<std::string> SimpleTemplate::GetNeedLessCollections(std::string const& rPath, std::list<std::string> const& rAvailableColls)

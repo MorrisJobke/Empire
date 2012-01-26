@@ -429,7 +429,7 @@ void Repository::AddProperty(std::string const& key, std::string const& type, st
 
 /** delete property from Filesystem
  *
- * @param rPath complete file path
+ * @param rKey complete file path
  */
 void Repository::RemoveProperty(std::string const& rKey)
 {
@@ -540,10 +540,11 @@ std::string Repository::GetRepositoryPath()
     return this->mAbsoluteRepoPath;
 }
 
-/** iterates throug parent folders recursively and returns first matching value
+/** iterates trough parent folders recursively and returns first matching value
  *
  * @param rKey key of the property
  * @param rPath working directory to start from
+ * @param rFoundPath string reference for the path of the value
  * @return value as std::string, NULL if no value is defined
  */
 std::string Repository::GetFirstDefinedValueRec(std::string const& rKey, std::string const& rPath, std::string& rFoundPath)
@@ -563,6 +564,10 @@ std::string Repository::GetFirstDefinedValueRec(std::string const& rKey, std::st
     return "";
 }
 
+/** get a list of propertys in the current working dir
+ *
+ * @return list of property keys
+ */
 std::list<std::string> Repository::GetAddedPropertiesInCwd()
 {
     std::list<std::string> result;
@@ -582,6 +587,10 @@ std::list<std::string> Repository::GetAddedPropertiesInCwd()
     return result;
 }
 
+/** get a list of collections in the current working dir
+ *
+ * @return list of collection keys
+ */
 std::list<std::string> Repository::GetAddedCollectionsInCwd()
 {
     std::list<std::string> result;
@@ -597,6 +606,10 @@ std::list<std::string> Repository::GetAddedCollectionsInCwd()
     return result;
 }
 
+/** get a list of propertys in the current working dir that have no value
+ *
+ * @return list of property keys
+ */
 std::list<std::string> Repository::GetCreatedPropertiesInCwd()
 {
     std::list<std::string> result;
