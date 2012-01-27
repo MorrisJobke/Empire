@@ -521,6 +521,11 @@ bool Repository::ContainsProperty(std::string const& key)
     return false;
 }
 
+/** checks if the given property key is from a property with value in current working dir
+ *
+ * @param key the key of the property wanted
+ * @return boolean
+ */
 bool Repository::IsPropertyInCwd(std::string const& rKey)
 {
     std::list<GenPropertyBase*>::const_iterator it;
@@ -529,6 +534,35 @@ bool Repository::IsPropertyInCwd(std::string const& rKey)
             return true;
     return false;
 }
+
+/** checks if the given property key is from a Property
+ *
+ * @param key the key of the property wanted
+ * @return boolean
+ */
+bool Repository::IsProperty(std::string const& rKey)
+{
+    std::list<GenPropertyBase*>::const_iterator it;
+    for (it = this->mCwdPropertyList.begin(); it != this->mCwdPropertyList.end(); it++)
+        if((*it)->GetKey() == rKey)
+            return (*it)->GetTypeN() != GetTypeName<Coll>();
+    return false;
+}
+
+/** checks if the given property key is from a Collection
+ *
+ * @param key the key of the property wanted
+ * @return boolean
+ */
+bool Repository::IsCollection(std::string const& rKey)
+{
+    std::list<GenPropertyBase*>::const_iterator it;
+    for (it = this->mCwdPropertyList.begin(); it != this->mCwdPropertyList.end(); it++)
+        if((*it)->GetKey() == rKey)
+            return (*it)->GetTypeN() == GetTypeName<Coll>();
+    return false;
+}
+
 /** returns the property containing the given key
  *
  * @param key the key of the property wanted
@@ -653,6 +687,8 @@ std::list<GenPropertyBase*> Repository::GetCreatedProperties()
 
     return result;
 }
+
+
 
 /*============================= INQUIRY    =================================*/
 /////////////////////////////// PROTECTED  ///////////////////////////////////
