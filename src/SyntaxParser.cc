@@ -151,6 +151,11 @@ namespace SyntaxParser
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
 
+    /** cfill command
+     *
+     * @param argc count of arguments
+     * @param argv arguments
+     */
     void coll_fill(int argc, char* argv[])
     {
         using namespace std;
@@ -1041,6 +1046,8 @@ namespace ConsoleHelper{
 
 
 namespace DryHelpers {
+    /** prints synopsis of emp render subfunction
+     */
     void printRenderSynopsis()
     {
         std::cout << "You need to specify a template.\n"
