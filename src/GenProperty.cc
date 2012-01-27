@@ -253,10 +253,8 @@ namespace PropertyHelpers
             found = value.find(";");
             while (found != std::string::npos)
             {
-                std::string f = value.substr(0,found+1);
-                list.push_back(f);
+                list.push_back(value.substr(0,found+1));
                 value.replace(0, found+1, "");
-                std::cout << value << "#\t#" << f << std::endl;
                 found = value.find(";");
             }
             p_new->SetValue(list);
