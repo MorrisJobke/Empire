@@ -271,7 +271,7 @@ void Coll::AddRow(std::list<GenPropertyBase*> const& pPropList)
         if (found_entry == true)
         {
             /* calculate the row idx */
-            int idx = this->mPropList.size() - 1;
+            int idx = this->mPropList.size();
             std::stringstream str;
             str << idx;
 
