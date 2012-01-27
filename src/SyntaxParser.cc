@@ -544,14 +544,14 @@ namespace SyntaxParser
                 if(used_colls.size() > 0)
                 {
                     Ch::printHeaderWithCount("Used by template and defined(", used_colls.size());
-                    Ch::printCollectionList(used_colls, ADDED, working_repo, 1, REPO, argv[0]);
+                    Ch::printCollectionList(used_colls, CREATED, working_repo, 1, REPO, argv[0]);
                 }
 
                 /* print unused */
                 if(unused_colls.size() > 0)
                 {
                     Ch::printHeaderWithCount("Used by template and not defined(", unused_colls.size());
-                    Ch::printCollectionList(unused_colls, MISSING, working_repo, 1, TEMPLATE, argv[0]);
+                    Ch::printCollectionList(unused_colls, CREATED, working_repo, 1, TEMPLATE, argv[0]);
                 }
 
                 /* print needless */
@@ -580,7 +580,7 @@ namespace SyntaxParser
             if (definedColls.size() > 0)
             {
                 Ch::printHeaderWithCount("Defined Collections(", definedColls.size());
-                Ch::printCollectionList(definedColls, ADDED, working_repo, 1, REPO, "");
+                Ch::printCollectionList(definedColls, CREATED, working_repo, 1, REPO, "");
             }
         }
     }
