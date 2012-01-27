@@ -821,7 +821,7 @@ namespace ConsoleHelper{
 
     /** prints a color for given mode
      *
-     * @param given mode
+     * @param mode given mode
      */
     void printColor(PrintMode mode)
     {
@@ -832,7 +832,7 @@ namespace ConsoleHelper{
 
     /** returns a color for given mode
      *
-     * @param given mode
+     * @param mode given mode
      * @return a color
      */
 
@@ -854,6 +854,7 @@ namespace ConsoleHelper{
      *
      * @param rList list of the strings, that should be printed
      * @param rTabSpace count of tab spaces the output should have at begin of the lines
+     * @param mode the mode for printing
      */
     void printTripleList(std::list<std::string> const& rList, PrintMode mode, int rTabSpace)
     {
@@ -972,6 +973,7 @@ namespace ConsoleHelper{
      * @param rList list of class keys
      * @param rMode the mode for printing
      * @param rTabSpace count of tab spaces the output should have at begin of the lines
+     * @param rWorkMode the WorkingMode
      * @param working_repo the repository
      * @param rTemplPath the path of the template
      */
