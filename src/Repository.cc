@@ -293,7 +293,7 @@ void Repository::CreatePropertyClass(std::string const& key, std::string const& 
  */
 void Repository::ReadMetaDataFromFile(std::string const& rPath, std::string& rKey, std::string& rType)
 {
-    PropertyIo::ReadMetaDataFromFile(rPath, pProp);
+    PropertyIo::ReadMetaDataFromFile(rPath, rKey, rType);
 }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
@@ -305,7 +305,7 @@ void Repository::ReadMetaDataFromFile(std::string const& rPath, std::string& rKe
  * @param rPath the directory path the file is written
  * @param pProp pointer to a base property
  */
-void Repository::WriteDataToDir(std::string const& rPath, GenPropertyBase* pProp)
+void Repository::WritePropDataToFile(std::string const& rPath, GenPropertyBase* pProp)
 {
     PropertyIo::WriteDataToDir(rPath, pProp);
 }
@@ -371,10 +371,10 @@ void Repository::AddProperty(std::string const& key, std::string const& type, st
             this->Load();
 
             std::string fileType = this->GetPropertyByKey(key)->GetTypeN();
-            
+
             //remove existing property from list:
             this->RemovePropertyInList(key);
-            
+
             if(fileType != tmp_type)
                 throw PropClassExistsWithOtherKey();
         }
@@ -383,7 +383,7 @@ void Repository::AddProperty(std::string const& key, std::string const& type, st
         p_new_prop->SetKey(key);
         p_new_prop->SetValueFromString(value);
         this->mPropertyList.push_back(p_new_prop);
-        this->WriteDataToDir(Fs::GetCwd(), p_new_prop);
+        this->WritePropDataToFile(Fs::GetCwd(), p_new_prop);
     }
     else
         throw PropExistentError();
