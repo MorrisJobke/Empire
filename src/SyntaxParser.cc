@@ -100,6 +100,12 @@ namespace SyntaxParser
         /* check presence of the collection in the current dir */
         std::string coll_name = argv[0];
 
+        if (working_repo.ContainsProperty(coll_name) && !working_repo.IsCollection(coll_name))
+        {
+            std::cout << "The following key is already declared in repository, but not a repository: " << coll_name << std::endl;
+            return;
+        };
+
         if (Fs::DirectoryExists(coll_name))
         {
             if (working_repo.ContainsProperty(coll_name) == false)
