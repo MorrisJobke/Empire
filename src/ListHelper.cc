@@ -14,7 +14,7 @@ namespace ListHelper
     /** compares to lists of strings
      *
      * @param rList1 first list
-     * @param rList1 secound list
+     * @param rList2 secound list
      * @param rNotFound if true: returns all elements contained by rList1, but not by rList2,
      *                  if false: returns all elements contained by rList1 and rList2
      * @return result list
@@ -45,7 +45,7 @@ namespace ListHelper
     /** merges to lists of strings, removing redundant entrys
      *
      * @param rList1 first list
-     * @param rList1 secound list
+     * @param rList2 secound list
      * @return result list
      */
     std::list<std::string> ListMerge(std::list<std::string> const& rList1, std::list<std::string> const& rList2)
@@ -78,7 +78,7 @@ namespace ListHelper
 
     /** extracts a key list from a list of properties
      *
-     * @param rpropList given property list
+     * @param rPropList given property list
      * @return list of keys as string
      */
     std::list<std::string> PropertyList2KeyList(std::list<GenPropertyBase*> rPropList)
