@@ -25,18 +25,26 @@ Wir definieren im Wurzelverzeichnis des Repositories unsere persönlichen Daten,
 
 \begin{lstlisting}[style=Bash]
 $ emp add from_name "Max Mustermann"
-$ emp add from_street Musterstraße
-$ emp add from_city Musterstadt
+$ emp add from_street "Musterstraße 42"
+$ emp add from_city "94837 Musterstadt"
 $ emp add from_mobile 0111/1234567
 $ emp add from_email "max.mustermann@example.org"
 $ emp add from_ustidnr "DE999999999"
 $ emp add acct_name "Musterbank"
 $ emp add acct_nr 123456
 $ emp add acct_blz 65432100
+$ emp add total "return price * quantity; return lhs + rhs;"
 \end{lstlisting}
+
+Die letzte Zeile in obrigen Listing definiert einen Funktions-Wert. Die erste Funktion berechnet später den Preis pro Posten und die zweite die Summe dieser - somit den Gesamtbetrag.
 
 Dasselbe Ergebnis kann man auch mit dem iadd-Befehl erreichen. Auf diesen werden wir aber erst später zurückgreifen.
 
+Wir deklarieren noch einige Eigenschaften, die wir in der Collection verwenden wollen:
+
+\begin{lstlisting}[style=Bash]
+...
+\end{lstlisting}
 
 Im Anschluss erstellen wir für jeden Kunden einen Ordner und hinterlegen in diesem die Daten des Kunden:
 \begin{lstlisting}[style=Bash]
@@ -57,6 +65,18 @@ $ emp iadd ../invoice.htm
 
 Es erfolgt eine interaktive Abfrage der im Template genutzten, aber im Repository noch nicht gesetzten Werte. Wir wollen nur die Kundendaten eintragen und überspringen die restlichen Abfragen mit der Enter-Taste.
 
+\begin{tabular}{| l | l |}
+	\hline
+	to_city & 85423 Weißlauf \\
+	\hline
+	to_name & Peter Schlegel \\
+	\hline
+	to_street & Münchener Straße 133 \\
+	\hline
+	FunctionType & \grqq return price * quantity; return lhs + rhs; \grqq\\
+	\hline
+\end{tabular}
+
 Jetzt können wir unseren Zwischenstand mit dem \textbf{show}-Befehl überprüfen. Dazu nutzen wir folgendes Kommando:
 \begin{lstlisting}[style=Bash]
 $ emp show ../invoice.htm
@@ -73,12 +93,22 @@ $ cd Auftrag1
 $ emp iadd ../../invoice.htm
 \end{lstlisting}
 
+\begin{tabular}{| l | l |}
+	\hline
+	accomplishment & 05.01.2012 \\
+	\hline
+	date & 09.01.2012 \\
+	\hline
+	nr & 2012-13 \\
+	\hline
+\end{tabular}
+
 Die Collection wird nun folgendermaßen ge\\
 TODO: Collection adden
 
 Das Template kann nun zur fertigen Rechnung gerendert werden, da wir alle benötigten Werte hinzugefügt haben:
 \begin{lstlisting}[style=Bash]
-$ emp render ../../invoice.htm .
+$ emp render ../../invoice.htm
 \end{lstlisting}
 
 Im Folgenden definieren wir die Variablen, welche die Grundlage für die im Template enthaltene Collection bilden. Um herauszufinden welche das sind bemühen wir den \textbf{show}-Befehl und übergeben das Template als Parameter:
