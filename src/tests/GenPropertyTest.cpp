@@ -191,9 +191,9 @@ BOOST_AUTO_TEST_CASE(GenPropertySetValueFromString)
     myprop_string2.SetValueFromString("Test");
     BOOST_CHECK(myprop_string2.GetValue() == "Test");
 
-    myprop_func.SetValueFromString("return 2;\nreturn 5;");
+    myprop_func.SetValueFromString("return 2; return 5;");
     BOOST_CHECK(myprop_func.GetValue().GetMapFunction() == "return 2;");
-    BOOST_CHECK(myprop_func.GetValue().GetReduceFunction() == "return 5;");
+    BOOST_CHECK(myprop_func.GetValue().GetReduceFunction() == " return 5;");
 
 }
 
