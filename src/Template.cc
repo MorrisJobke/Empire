@@ -135,7 +135,11 @@ void SimpleTemplate::ParseString(string const& input, string& output)
                                     delete context;
 
                                     if (value != 0)
-                                        result << value;
+                                    {
+                                        char r[100];
+                                        sprintf(r, "%.2f", value);
+                                        result << r;
+                                    }
                                     else
                                     {
                                         bool successfull_reduced = false;
@@ -195,7 +199,9 @@ void SimpleTemplate::ParseString(string const& input, string& output)
 
                                                     if (value != 0)
                                                     {
-                                                        result << value;
+                                                        char r[100];
+                                                        sprintf(r, "%.2f", value);
+                                                        result << r;
                                                         successfull_reduced = true;
                                                         break;
                                                     }
