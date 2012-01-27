@@ -102,7 +102,7 @@ namespace SyntaxParser
 
         if (working_repo.ContainsProperty(coll_name) && !working_repo.IsCollection(coll_name))
         {
-            std::cout << "The following key is already declared in repository, but not a repository: " << coll_name << std::endl;
+            std::cout << "The following key is already declared in repository, but not a collection: " << coll_name << std::endl;
             return;
         };
 
