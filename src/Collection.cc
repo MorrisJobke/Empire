@@ -283,7 +283,7 @@ void Coll::AddRow(std::list<GenPropertyBase*> const& pPropList)
             }
 
             /* write prop data */
-            PropertyIo::WritePropDataToDir(this->mPath + "/" + str.str(), (*it));
+            PropertyIo::WriteDataToDir(this->mPath + "/" + str.str(), (*it));
 
             /* append prop to row structure */
             new_row.push_back((*it));

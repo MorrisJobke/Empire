@@ -293,27 +293,7 @@ void Repository::CreatePropertyClass(std::string const& key, std::string const& 
  */
 void Repository::ReadMetaDataFromFile(std::string const& rPath, std::string& rKey, std::string& rType)
 {
-    std::ifstream meta_file(rPath.c_str());
-
-    if (meta_file.is_open())
-    {
-        if (meta_file.good())
-        {
-            std::getline(meta_file, rType);
-        }
-    }
-
-    /* extract key */
-    std::string key = rPath;
-    std::string search_for = "/";
-
-    std::size_t found;
-    found = key.rfind(search_for);
-
-    if ( found != std::string::npos)
-        key.replace(0, found + 1,"");
-
-    rKey = key;
+    PropertyIo::ReadMetaDataFromFile(rPath, pProp);
 }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
@@ -325,18 +305,9 @@ void Repository::ReadMetaDataFromFile(std::string const& rPath, std::string& rKe
  * @param rPath the directory path the file is written
  * @param pProp pointer to a base property
  */
-void Repository::WritePropDataToFile(std::string const& rPath, GenPropertyBase* pProp)
+void Repository::WriteDataToDir(std::string const& rPath, GenPropertyBase* pProp)
 {
-    std::string file_path(rPath + "/" + pProp->GetKey());
-
-    std::ofstream file(file_path.c_str());
-
-    if (file.is_open())
-    {
-        file << pProp->ToString();
-    }
-
-    file.close();
+    PropertyIo::WriteDataToDir(rPath, pProp);
 }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
@@ -348,21 +319,7 @@ void Repository::WritePropDataToFile(std::string const& rPath, GenPropertyBase* 
  */
 void Repository::ReadPropDataFromFile(std::string const& rPath, GenPropertyBase* pProp)
 {
-    std::ifstream file(rPath.c_str());
-
-    std::string buffer;
-
-    if (file.is_open())
-    {
-        if (file.good())
-        {
-            std::getline(file, buffer);
-        }
-    }
-
-    //std::cout << "Try to set from string: " << buffer << std::endl;
-
-    pProp->SetValueFromString(buffer);
+    PropertyIo::ReadDataFromFile(rPath, pProp);
 }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
@@ -426,7 +383,7 @@ void Repository::AddProperty(std::string const& key, std::string const& type, st
         p_new_prop->SetKey(key);
         p_new_prop->SetValueFromString(value);
         this->mPropertyList.push_back(p_new_prop);
-        this->WritePropDataToFile(Fs::GetCwd(), p_new_prop);
+        this->WriteDataToDir(Fs::GetCwd(), p_new_prop);
     }
     else
         throw PropExistentError();
