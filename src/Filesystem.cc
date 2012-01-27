@@ -98,6 +98,7 @@ namespace Filesystem
      */
     void CreateDirectory (std::string const& rDirPath)
     {
+        std::cout << "mkdir " << rDirPath << std::endl;
         /* create char array */
         char* cstr = new char[rDirPath.size() + 1];
         strcpy(cstr, rDirPath.c_str());
@@ -110,14 +111,14 @@ namespace Filesystem
 
         if (ret != 0)
         {
-            //if (errno == EACCES)
-            //    std::cout << "errno: EACCES" << std::endl;
-            //if (errno == EEXIST)
-            //    std::cout << "errno: EEXIST" << std::endl;
-            //if (errno == EMLINK)
-            //    std::cout << "errno: ENOSPC" << std::endl;
-            //if (errno == EROFS)
-            //    std::cout << "errno: EROFS" << std::endl;
+            if (errno == EACCES)
+                std::cout << "errno: EACCES" << std::endl;
+            if (errno == EEXIST)
+                std::cout << "errno: EEXIST" << std::endl;
+            if (errno == EMLINK)
+                std::cout << "errno: ENOSPC" << std::endl;
+            if (errno == EROFS)
+                std::cout << "errno: EROFS" << std::endl;
             throw CannotCreateDirError();
         }
 
@@ -131,18 +132,14 @@ namespace Filesystem
      */
     void CreateDirectoryRec (std::string const& rDirPath)
     {
-        // extract filename
-        std::string dir = rDirPath;
-        std::size_t found;
-        found = rDirPath.rfind("/");
+        // extract base
+        std::string base = GetParentFolderPath(rDirPath);
 
-        if (found != std::string::npos)
-        {
-            std::string base = rDirPath.substr(0, found);
-            if (!DirectoryExists(base))
-                CreateDirectoryRec(base);
+        if (base != "")
+            CreateDirectoryRec(base);
+
+        if (!DirectoryExists(rDirPath))
             CreateDirectory(rDirPath);
-        }
     }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
@@ -219,7 +216,7 @@ namespace Filesystem
      * @param sb pointer to the stat-struct with the file-informations of fpath
      * @param typeflag type of file, which should deleted
      * @param ftwbuf pointer to the ftw-struct with information about relative depth to starting point
-     * @return returns 0, if the file is succesfully deleted 
+     * @return returns 0, if the file is succesfully deleted
      */
     int RemoveFile(const char *fpath, const struct stat *sb, int typeflag, struct FTW *ftwbuf)
     {
@@ -408,9 +405,56 @@ namespace Filesystem
     std::string GetParentFolderPath(std::string const& rPath)
     {
          int found = rPath.find_last_of("/");
+         if (found == std::string::npos)
+            return "";
+
          std::string result = rPath.substr(0, found);
 
         return result;
+    }
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+
+    /**
+     * @brief function to get the parent dir from a given string
+     * @param rPath path from the given dir
+     * @return parent dir as std::string
+     */
+    std::string GetFileNameFromPath(std::string const& rPath)
+    {
+         int found = rPath.find_last_of("/");
+         std::string result = rPath.substr(found + 1, rPath.length());
+
+        return result;
+    }
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+
+    /**
+     * @brief function to get the parent dir from a given string
+     * @param rPath path from the given dir
+     * @return parent dir as std::string
+     */
+    int GetFileType(std::string const& rPath)
+    {
+         std::string  path = GetParentFolderPath(rPath);
+         std::string file = GetFileNameFromPath(rPath);
+
+         DIR *dp;
+        struct dirent *ep;
+
+
+        dp = opendir (path.c_str());
+        if (dp != NULL)
+        {
+            while ((ep = readdir (dp)))
+            {
+                if(ep->d_name == file)
+                    return ep->d_type;
+            }
+        }
+
+        return -1;
     }
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
 }

@@ -68,13 +68,30 @@ namespace ListHelper
     void ListDebugPrint(std::list<std::string> rList)
     {
         std::list<std::string>::const_iterator it;
-        std::cout << "###### DEBUG LIST PRINT #######" << std::endl;      
+        std::cout << "###### DEBUG LIST PRINT #######" << std::endl;
         for (it = rList.begin(); it != rList.end(); it++)
         {
             std::cout << *it << std::endl;
         }
         std::cout << "###### DEBUG LIST PRINT END #######" << std::endl;
     }
+
+
+    /** prints a list to std::out, for debug only
+     *
+     * @param rList given list
+     */
+    void ListDebugPrint(std::list<GenPropertyBase*> rList)
+    {
+        std::list<GenPropertyBase*>::const_iterator it;
+        std::cout << "###### DEBUG LIST PRINT #######" << std::endl;
+        for (it = rList.begin(); it != rList.end(); it++)
+        {
+            (*it)->ToOutStream(std::cout);
+        }
+        std::cout << "###### DEBUG LIST PRINT END #######" << std::endl;
+    }
+
 
     /** extracts a key list from a list of properties
      *

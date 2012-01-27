@@ -113,16 +113,21 @@ namespace PropertyIo
      */
     void ReadMetaDataFromFile(std::string const& rPath, std::string& rKey, std::string& rType)
     {
-        std::ifstream meta_file(rPath.c_str());
-
-        if (meta_file.is_open())
+        if(Filesystem::GetFileType(rPath) == DT_DIR)
+            rType = GetTypeName<Coll>();
+        else
         {
-            if (meta_file.good())
+            std::ifstream meta_file(rPath.c_str());
+
+            if (meta_file.is_open())
             {
-                std::getline(meta_file, rType);
+                if (meta_file.good())
+                {
+                    std::getline(meta_file, rType);
+                }
             }
+            meta_file.close();
         }
-        meta_file.close();
 
         /* extract key */
         std::string key = rPath;

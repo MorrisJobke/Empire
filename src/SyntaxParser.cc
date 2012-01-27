@@ -138,13 +138,6 @@ namespace SyntaxParser
             argv++;
         }
 
-        /* declare collection in repo, if not present */
-        if (working_repo.ContainsProperty(coll_name) == false)
-        {
-            working_repo.CreatePropertyClass(coll_name, GetTypeName<Coll>());
-        }
-
-
         Coll c(coll_name);
         c.Declare(props_to_declare);
     }
@@ -194,7 +187,7 @@ namespace SyntaxParser
                 return;
         }
 
-        if (Fs::DirectoryExists(coll_name) == false)
+        if (Fs::DirectoryExists(working_repo.GetMetaPath() + "/" + coll_name) == false)
         {
             std::cout << "You have no collection declared here called: " << coll_name << "\n";
             return;

@@ -54,6 +54,9 @@ namespace Filesystem
 
     std::string FileReadString(std::string const& rFilePath);
     std::string GetParentFolderPath(std::string const& rPath);
+    std::string GetFileNameFromPath(std::string const& rPath);
+    int GetFileType(std::string const& rPath);
+
 }
 
 

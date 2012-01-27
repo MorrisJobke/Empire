@@ -54,6 +54,7 @@ class Repository
     bool IsProperty(std::string const& rKey);
     GenPropertyBase* GetPropertyByKey(std::string const& key);
     std::string GetRepositoryPath();
+    std::string GetMetaPath();
     std::string GetPropertyValue(std::string const& rKey);
     std::list<GenPropertyBase*> GetCreatedProperties();
     std::list<GenPropertyBase*> GetCollections();

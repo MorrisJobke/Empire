@@ -25,8 +25,8 @@ Coll::Coll()
  *
  * @param rPath the directory where the directory should be read from
  */
-Coll::Coll(std::string const& rPath)
-:   mPath(rPath)
+Coll::Coll(std::string const& rKey)
+:   mKey(rKey)
 {
 }
 
@@ -58,12 +58,15 @@ std::istream& operator>>(std::istream& rIn, Coll rColl)
  *
  * @param rPath path of the collection
  */
-void Coll::Load(std::string const& rPath)
+void Coll::Load(std::string const& rKey)
 {
-    this->mPath = rPath;
+    this->mKey = rKey;
 
-    if (Fs::DirectoryExists(rPath) == false)
-        throw ErrorColl("COLL_NO_COLL_FOUND");
+    Repository working_repo;
+    std::string meta_path = working_repo.GetMetaPath() + "/" + rKey;
+
+    if (Fs::DirectoryExists(meta_path) == false)
+        throw ErrorColl("COLL_NO_DEC_FOUND");
 
     /* load Collection from directory */
 
@@ -73,8 +76,8 @@ void Coll::Load(std::string const& rPath)
     DIR *dp;
     struct dirent *ep;
 
-    std::string dir_path = this->mPath + "/" + "0";
-    dp = opendir (dir_path.c_str());
+
+    dp = opendir (meta_path.c_str());
     if (dp != NULL)
     {
         while ((ep = readdir (dp)))
@@ -89,13 +92,11 @@ void Coll::Load(std::string const& rPath)
             std::string new_type;
             std::string new_key;
 
-            PropertyIo::ReadMetaDataFromFile(this->mPath + "/" + "0" + "/" + entry,
+            PropertyIo::ReadMetaDataFromFile(meta_path + "/" + entry,
                     new_key, new_type);
 
             GenPropertyBase* p_new_prop = PropertyHelpers::CreatePropertyFromTypeString(new_type);
             p_new_prop->SetKey(new_key);
-
-            // std::cout << "read prop data: " << *p_new_prop << std::endl;
 
             dec_list.push_back(p_new_prop);
         }
@@ -104,7 +105,8 @@ void Coll::Load(std::string const& rPath)
     else
         throw ErrorColl("COLL_NO_DEC_FOUND");
 
-    this->mPropList.push_back(dec_list);
+    //std::cout << "dec_list count = " << dec_list.size() << std::endl;
+    this->mMetaList  = dec_list;
 
 
     /* if nessecary load other dirs */
@@ -112,8 +114,9 @@ void Coll::Load(std::string const& rPath)
     /* count dir entries */
     int dir_count = 0;
 
-    dp = opendir (this->mPath.c_str());
-    if (dp != NULL)
+    dp = opendir (rKey.c_str());
+
+    if (dp != NULL) //collection data exists:
     {
         while ((ep = readdir (dp)))
         {
@@ -127,60 +130,52 @@ void Coll::Load(std::string const& rPath)
 
         }
         (void) closedir (dp);
-    }
-    else
-        throw ErrorColl("COLL_NO_COLL_FOUND");
 
-    /* scan data dirs */
+        /* scan data dirs */
 
-    // std::cout << "Dir count " << dir_count << std::endl;
-
-    for (int dir_idx = 1; dir_idx < dir_count; dir_idx++)
-    {
-        std::stringstream str;
-        str << dir_idx;
-
-        std::list<GenPropertyBase*> new_list;
-
-        std::string dir_path = this->mPath + "/" + str.str();
-        dp = opendir (dir_path.c_str());
-        if (dp != NULL)
+        for (int dir_idx = 0; dir_idx < dir_count; dir_idx++)
         {
-            while ((ep = readdir (dp)))
+            std::stringstream str;
+            str << dir_idx;
+
+            std::list<GenPropertyBase*> new_list;
+
+            std::string dir_path = this->mKey + "/" + str.str();
+            dp = opendir (dir_path.c_str());
+            if (dp != NULL)
             {
-                std::string entry = ep->d_name;
+                while ((ep = readdir (dp)))
+                {
+                    std::string entry = ep->d_name;
 
-                /* skip standard links */
-                if (entry == "." || entry == "..")
-                    continue;
+                    /* skip standard links */
+                    if (entry == "." || entry == "..")
+                        continue;
 
-                /* create new property read it and append it to list */
-                std::string new_type;
-                std::string new_key;
+                    /* create new property read it and append it to list */
+                    std::string new_type;
+                    std::string new_key;
 
-                /* load matching prop */
-                PropertyIo::ReadMetaDataFromFile(this->mPath + "/" + "0" + "/" + entry,
-                        new_key, new_type);
+                    /* load matching prop */
+                    PropertyIo::ReadMetaDataFromFile(meta_path + "/" + entry,
+                            new_key, new_type);
+                    GenPropertyBase* p_new_prop = PropertyHelpers::CreatePropertyFromTypeString(new_type);
+                    p_new_prop->SetKey(new_key);
 
-                GenPropertyBase* p_new_prop = PropertyHelpers::CreatePropertyFromTypeString(new_type);
-                p_new_prop->SetKey(new_key);
+                    PropertyIo::ReadDataFromFile(dir_path + "/" + entry, p_new_prop);
 
-                PropertyIo::ReadDataFromFile(this->mPath + "/" + str.str() + "/" + entry, p_new_prop);
-
-
-                // std::cout << "read prop data: " << *p_new_prop << std::endl;
-
-                new_list.push_back(p_new_prop);
+                    new_list.push_back(p_new_prop);
+                }
+                (void) closedir (dp);
             }
-            (void) closedir (dp);
-        }
-        else
-            throw ErrorColl("COLL_NO_DEC_FOUND");
+            else
+                throw ErrorColl("COLL_NO_DEC_FOUND");
 
-        if (new_list.empty() == false)
-        {
-            // std::cout << "pushing data: " << std::endl;
-            this->mPropList.push_back(new_list);
+            if (new_list.empty() == false)
+            {
+                // std::cout << "pushing data: " << std::endl;
+                this->mPropList.push_back(new_list);
+            }
         }
     }
 }
@@ -201,22 +196,26 @@ void Coll::Declare(std::list<GenPropertyBase*> const& pPropList)
     //    std::cout << *(*print_it) << std::endl;
     //}
 
+
+    Repository working_repo;
+    std::string meta_path = working_repo.GetMetaPath();
+    std::string coll_meta_path = meta_path + "/" + this->mKey;
+
     if (!mPropList.empty())
         throw ErrorColl("COLL_ALREADY_DECLARED");
 
-    if (Fs::DirectoryExists(this->mPath + "/" + "0"))
+    if (Fs::DirectoryExists(coll_meta_path.c_str()))
         throw ErrorColl("COLL_DECLARE_DIR_EXISTS");
 
     /* create the declare dir */
-    Fs::CreateDirectory(this->mPath);
-    Fs::CreateDirectory(this->mPath + "/" + "0");
+    Fs::CreateDirectory(coll_meta_path.c_str());
 
     /* create meta files */
     std::list<GenPropertyBase*>::const_iterator it;
 
     for (it = pPropList.begin(); it != pPropList.end(); it++)
     {
-        PropertyIo::WriteMetaDataToDir(this->mPath + "/" + "0", (*it));
+        PropertyIo::WriteMetaDataToDir(coll_meta_path, (*it));
     }
 
     /* append to the front of the member list */
@@ -241,7 +240,7 @@ void Coll::AddRow(std::list<GenPropertyBase*> const& pPropList)
     for (it = pPropList.begin(); it != pPropList.end(); it++)
     {
         std::list<GenPropertyBase*>::const_iterator it_meta;
-        std::list<GenPropertyBase*> meta_list = this->mPropList.front();
+        std::list<GenPropertyBase*> meta_list = this->mMetaList;
 
         //std::cout << meta_list.size() << std::endl;
 
@@ -272,22 +271,23 @@ void Coll::AddRow(std::list<GenPropertyBase*> const& pPropList)
         if (found_entry == true)
         {
             /* calculate the row idx */
-            int idx = this->mPropList.size();
+            int idx = this->mPropList.size() - 1;
             std::stringstream str;
             str << idx;
 
             /* create the row-dir if neccesary */
-            if (Fs::DirectoryExists(this->mPath + "/" + str.str()) == false)
+            if (Fs::DirectoryExists(this->mKey + "/" + str.str()) == false)
             {
-                Fs::CreateDirectory(this->mPath + "/" + str.str());
+                Fs::CreateDirectoryRec(this->mKey + "/" + str.str());
             }
 
             /* write prop data */
-            PropertyIo::WriteDataToDir(this->mPath + "/" + str.str(), (*it));
+            PropertyIo::WriteDataToDir(this->mKey + "/" + str.str(), (*it));
 
             /* append prop to row structure */
             new_row.push_back((*it));
         }
+
 
 
     }
@@ -354,17 +354,7 @@ std::list< std::list<GenPropertyBase*> > Coll::GetList() const
  */
 std::list< GenPropertyBase* > Coll::GetPropertyList()
 {
-    std::list<GenPropertyBase*>::const_iterator it_meta;
-    std::list<GenPropertyBase*> meta_list = this->mPropList.front();
-    std::list<GenPropertyBase*> result;
-
-    /* go through the 0th list entry and check types and existens */
-    for (it_meta = meta_list.begin(); it_meta != meta_list.end(); it_meta++)
-    {
-        result.push_back(*it_meta);
-    }
-
-    return result;
+    return this->mMetaList;
 }
 
 /** get the count of data-rows in this collection
@@ -373,7 +363,7 @@ std::list< GenPropertyBase* > Coll::GetPropertyList()
  */
 int Coll::GetRowCount()
 {
-    return GetList().size() - 1;
+    return GetList().size();
 }
 
 /*============================= INQUIRY    =================================*/

@@ -20,6 +20,7 @@
 #include "Filesystem.h"
 #include "GenPropertyBase.h"
 #include "GenProperty.h"
+#include "Repository.h"
 
 DEFINE_VAR_EXCEPTION(ErrorColl)
 
@@ -29,8 +30,8 @@ class Coll
 {
     private:
     std::list< std::list<GenPropertyBase*> > mPropList;
-
-    std::string mPath;
+    std::list<GenPropertyBase*> mMetaList;
+    std::string mKey;
 
     public:
 

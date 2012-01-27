@@ -22,6 +22,7 @@ namespace ListHelper
     std::list<std::string> ListCompare(std::list<std::string> const& rList1, std::list<std::string> const& rList2, bool rNotFound);
     std::list<std::string> ListMerge(std::list<std::string> const& rList1, std::list<std::string> const& rList2);
     void ListDebugPrint(std::list<std::string> rList);
+    void ListDebugPrint(std::list<GenPropertyBase*> rList);
     std::list<std::string> PropertyList2KeyList(std::list<GenPropertyBase*> rPropList);
 }
 

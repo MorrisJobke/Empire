@@ -154,8 +154,8 @@ void Repository::Load()
             std::string new_type;
             std::string new_key;
 
-            PropertyIo::ReadMetaDataFromFile(this->mAbsoluteRepoPath + "/" + REPO_NAME + "/" + entry,
-                    new_key, new_type);
+            this->ReadMetaDataFromFile(this->mAbsoluteRepoPath + "/" + REPO_NAME + "/" + entry,
+                        new_key, new_type);
 
             GenPropertyBase* p_new_prop = PropertyHelpers::CreatePropertyFromTypeString(new_type);
             p_new_prop->SetKey(new_key);
@@ -267,12 +267,11 @@ void Repository::CreatePropertyClass(std::string const& key, std::string const& 
     if (this->mAbsoluteRepoPath == "")
         throw ExcRepository("REPO_NOT_EXISTS");
 
-
     /* check if property exists */
 
     //std::cout << "check for prop: " << this->mAbsoluteRepoPath + "/" + REPO_NAME + "/" + key << std::endl;
 
-    if (Fs::FileExists(this->mAbsoluteRepoPath + "/" + REPO_NAME + "/" + key))
+    if (this->ContainsProperty(key))
         throw PropExistentError();
 
     /* correct type conversion */
@@ -561,6 +560,15 @@ GenPropertyBase* Repository::GetPropertyByKey(std::string const& key)
 std::string Repository::GetRepositoryPath()
 {
     return this->mAbsoluteRepoPath;
+}
+
+/** returns the absolute meta path
+ *
+ * @return meta path as std::string
+ */
+std::string Repository::GetMetaPath()
+{
+    return this->mAbsoluteRepoPath + "/" + REPO_NAME;
 }
 
 /** iterates trough parent folders recursively and returns first matching value
