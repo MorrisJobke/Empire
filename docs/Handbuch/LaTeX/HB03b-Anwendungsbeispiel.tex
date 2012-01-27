@@ -129,3 +129,38 @@ Das Rendern erfolgt mit dem render-Befehl:
 \begin{lstlisting}[style=Bash]
 $ emp render ../../invoice.htm ./invoice.htm
 \end{lstlisting}
+
+Die erste Rechnung ist damit fertig. Die Erstellung der restlichen zwei Rechnungen sollte größtenteils analog ablaufen, um aber ein paar weitere Möglichkeiten aufzuzeigen werden diese trotzdem erläutert.
+Wir erstellen also ein Verzeichnis für die zweite Rechnung.
+
+\begin{lstlisting}[style=Bash]
+$ cd ..
+$ mkdir Auftrag2
+$ cd Auftrag2
+\end{lstlisting}
+
+Nun soll demonstriert werden wie man einen übergeordneten Wert(in einem Elternverzeichnis) überschreiben kann. Hierzu wird angenommen, dass die Rechnung an eine andere Adresse geschickt werden soll. Wir erstellen dazu die Werte im aktuellen Verzeichnis neu:
+
+\begin{lstlisting}[style=Bash]
+$ emp add to_street "Musterweg 3"
+$ emp add to_city "52246 Musterdorf"
+\end{lstlisting}
+
+Mit dem show-Befehl lässt sich nun leicht erkennen, dass sich to_street und to_city im aktuellen Verzeichnis befinden und unsere gerade zugewiesenen Werte enthalten. to_name befindet sich zwar in einem übergeordneten Ordner, hat aber seinen Wert beibehalten. //TODO: klingt doof
+
+Im folgenden müssen wir wieder die Collection mit Daten füllen, die Definition ist bereits von der ersten Rechnung vorhanden(TODO?). Wir erstellen also mit dem cadd-Kommando erneut eine Collection:
+\begin{lstlisting}[style=Bash]
+$ emp cadd items
+\end{lstlisting}
+
+Für das hinzufügen nutzen wir aber dieses mal die interaktive Variante von cfill:
+\begin{lstlisting}[style=Bash]
+$ emp cfill items
+\end{lstlisting}
+Wenn man genug Zeilen eingegeben hat bestätigt man einfach mit der Enter-Taste.
+
+Das rendern erfolgt wieder mit dem bereits bekannten Aufruf:
+
+\begin{lstlisting}[style=Bash]
+$ emp render ../../invoice.htm ./invoice.htm
+\end{lstlisting}
