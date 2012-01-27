@@ -98,11 +98,9 @@ std::istream& operator>>(std::istream& rIn, FunctionType rFunctionType)
  */
 void FunctionType::ToOutStream(std::ostream& rOut)
 {
-    rOut << "\nFunctionType";
-
     std::list<std::string>::iterator it;
     for (it = mList.begin(); it != mList.end(); it++) {
-        rOut << "\t{" << *it << "}";
+        rOut << *it << " ";
     }
 }
 
