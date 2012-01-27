@@ -6,7 +6,7 @@
  }
 
 \section{Ausführliches Anwendungsbeispiel}
-Im Folgenden soll ein Überblick über die Möglichkeiten dieses Programmes gegeben werden. Dazu nutzen wir das als Vorlage enthaltene Template und erstellen 3 Rechnungen an 2 Kunden mit jeweils unterschiedlichen Posten.
+Im Folgenden soll ein Überblick über die Möglichkeiten dieses Programmes gegeben werden. Dazu nutzen wir das als Vorlage enthaltene Template und erstellen drei Rechnungen an zwei Kunden mit jeweils unterschiedlichen Posten.
 
 Zu Beginn wechseln wir in das Verzeichnis unserer Wahl und erstellen dort ein Repository:
 \begin{lstlisting}[style=Bash]
@@ -21,7 +21,7 @@ $ cp <Pfad des Templates> ./invoice.htm
 \end{lstlisting}
 
 
-Wir definieren im Wurzelverzeichnis des Repositorys unsere persönlichen Daten, da diese in allen Rechnungen gleich sein sollen. Dazu zählen beim vordefinierten Template die Anschrift, die Bankverbindung und unsere Kontaktdaten:
+Wir definieren im Wurzelverzeichnis des Repositories unsere persönlichen Daten, da diese in allen Rechnungen gleich sein sollen. Dazu zählen beim vordefinierten Template die Anschrift, die Bankverbindung und unsere Kontaktdaten:
 
 \begin{lstlisting}[style=Bash]
 $ emp add from_name "Max Mustermann"
@@ -47,7 +47,7 @@ $ emp add to_street "Musterallee 42"
 $ emp add to_city "56346 Musterhausen"
 \end{lstlisting}
 
-Die Bennenung der Ordner spielt hier keine Rolle (solange keine Collection mit dem gewünschten Namen existiert), sollte aber zur Förderung der Übersichtlichkeit sinnvoll bennant werden.
+Die Bennenung der Ordner spielt hier keine Rolle (solange keine Collection mit dem gewünschten Namen existiert), sollte aber zur Förderung der Übersichtlichkeit sinnvoll gewählt werden.
 
 Für den 2. Kunden nutzen wir nun den addi-Befehl:
 \begin{lstlisting}[style=Bash]
@@ -62,7 +62,7 @@ Jetzt können wir unseren Zwischenstand mit dem \textbf{show}-Befehl überprüfe
 $ emp show ../invoice.htm
 \end{lstlisting}
 
-Wir erhalten eine Auflistung aller bereits gesetzter Variablen und Collections. Zusätzlich werden die weiteren benötigen Variablen angezeigt. Falls weitere Werte existieren die nicht im Template benötigt werden, werden diese ebenfalls in einer gesonderten Kategorie angezeigt.
+Wir erhalten eine Auflistung aller bereits gesetzten Variablen und Collections. Zusätzlich werden die weiteren benötigen Variablen angezeigt. Falls weitere Werte existieren die nicht im Template benötigt werden, werden diese ebenfalls in einer gesonderten Kategorie angezeigt.
 
 Nun erstellen wir eine Rechnung für Kunde 1. Dazu erstellen wir im Verzeichnis von Kunde 1 einen Ordner und füllen ihn mit den restlichen Informationen:
 
@@ -73,7 +73,7 @@ $ cd Auftrag1
 $ emp iadd ../../invoice.htm
 \end{lstlisting}
 
-Die Collection wird nun folgendermaßen ge
+Die Collection wird nun folgendermaßen ge\\
 TODO: Collection adden
 
 Das Template kann nun zur fertigen Rechnung gerendert werden, da wir alle benötigten Werte hinzugefügt haben:
@@ -81,12 +81,12 @@ Das Template kann nun zur fertigen Rechnung gerendert werden, da wir alle benöt
 $ emp render ../../invoice.htm .
 \end{lstlisting}
 
-Im folgenden definieren wir die Variablen welche die Grundlage für die im Template enthaltene Collection benötigt werden. Um herauszufinden welche das sind bemühen wir den \textbf{show}-Befehl und übergeben das Template als Paramter:
+Im Folgenden definieren wir die Variablen, welche die Grundlage für die im Template enthaltene Collection bilden. Um herauszufinden welche das sind bemühen wir den \textbf{show}-Befehl und übergeben das Template als Parameter:
 \begin{lstlisting}[style=Bash]
 $ emp show ../../invoice.htm
 \end{lstlisting}
 
-Besonders interessant ist dabei der Abschnitt der vom Template genutzen, aber im Repository nicht enthaltenen Collections. Dort wird uns die Collection \grqq item\grqq mit den folgenden Werten angezeigt:
+Besonders interessant ist dabei der Abschnitt der vom Template genutzten, aber im Repository nicht enthaltenen Collections. Dort wird uns die Collection \grqq item\grqq mit den folgenden Werten angezeigt:
 
 \begin{lstlisting}[style=Bash]
 Collections:
@@ -97,7 +97,7 @@ Used by template and not defined(1):
 		total        unit
 \end{lstlisting}
 
-Wir definieren nun also die 5 Variablen:
+Im Anschluss definieren wir die fünf Variablen:
 \begin{lstlisting}[style=Bash]
 $ emp create description string
 $ emp create price float
@@ -106,7 +106,7 @@ $ emp create total function
 $ emp create unit string
 \end{lstlisting}
 
-Aus diesen Definitionen kann nun eine Collection erstellt werden:
+Aus diesen Definitionen kann eine Collection erstellt werden:
 \begin{lstlisting}[style=Bash]
 $ emp cadd items  description price quantity total unit
 \end{lstlisting}
@@ -119,7 +119,7 @@ $ emp cfill items  description:Datenrettung price:250.00 quantity:1
 \end{lstlisting}
 //TODO: Wie muss man die Function deklariern?
 
-Vor dem rendern überprüfen wir nochmals unseren aktuellen Status:
+Vor dem Rendern überprüfen wir nochmals unseren aktuellen Status:
 \begin{lstlisting}[style=Bash]
 $ emp show ../../invoice.htm
 \end{lstlisting}
@@ -130,8 +130,8 @@ Das Rendern erfolgt mit dem \textbf{render}-Befehl:
 $ emp render ../../invoice.htm ./invoice.htm
 \end{lstlisting}
 
-Die erste Rechnung ist damit fertig. Die Erstellung der restlichen zwei Rechnungen sollte größtenteils analog ablaufen, um aber ein paar weitere Möglichkeiten aufzuzeigen werden diese trotzdem erläutert.
-Wir erstellen also ein Verzeichnis für die zweite Rechnung.
+Die erste Rechnung ist damit fertig. Die Erstellung der restlichen zwei Rechnungen erfolgt größtenteils analog zur Ersten. Um aber ein paar weitere Möglichkeiten aufzuzeigen werden diese trotzdem erläutert.
+Zunächst erstellen wir ein Verzeichnis für die zweite Rechnung.
 
 \begin{lstlisting}[style=Bash]
 $ cd ..
@@ -139,28 +139,28 @@ $ mkdir Auftrag2
 $ cd Auftrag2
 \end{lstlisting}
 
-Nun soll demonstriert werden wie man einen übergeordneten Wert(in einem Elternverzeichnis) überschreiben kann. Hierzu wird angenommen, dass die Rechnung an eine andere Adresse geschickt werden soll. Wir erstellen dazu die Werte im aktuellen Verzeichnis neu:
+Es folgt eine Demonstration, wie man einen übergeordneten Wert(in einem Elternverzeichnis) überschreiben kann. Hierzu wird angenommen, dass die Rechnung an eine andere Adresse geschickt werden soll. Wir erstellen dazu die Werte im aktuellen Verzeichnis neu:
 
 \begin{lstlisting}[style=Bash]
 $ emp add to_street "Musterweg 3"
 $ emp add to_city "52246 Musterdorf"
 \end{lstlisting}
 
-Mit dem \textbf{show}-Befehl lässt sich nun leicht erkennen, dass sich \textbf{to\_street} und \textbf{to\_city} im aktuellen Verzeichnis befinden und unsere gerade zugewiesenen Werte enthalten.
-\textbf{to\_name} befindet sich zwar in einem übergeordneten Ordner, hat aber seinen Wert beibehalten. TODO: klingt doof  
+Mit dem \textbf{show}-Befehl lässt sich leicht erkennen, dass sich \textbf{to\_street} und \textbf{to\_city} im aktuellen Verzeichnis befinden und unsere gerade zugewiesenen Werte enthalten.
+Das Property \textbf{to\_name} hat hingegen seinen Wert beibehalten, obwohl es sich in einem übergeordneten Ordner befindet. TODO: klingt doof?
 
-Im folgenden müssen wir wieder die Collection mit Daten füllen, die Definition ist bereits von der ersten Rechnung vorhanden(TODO?). Wir erstellen also mit dem \textbf{cadd}-Kommando erneut eine Collection:
+Im Folgenden müssen wir wieder die Collection mit Daten füllen. Die Definition dafür ist bereits von der ersten Rechnung vorhanden(TODO?). Zunächst erstellen wir mit dem \textbf{cadd}-Kommando erneut eine Collection:
 \begin{lstlisting}[style=Bash]
 $ emp cadd items
 \end{lstlisting}
 
-Für das hinzufügen nutzen wir aber dieses mal die interaktive Variante von \textbf{cfill}:
+Für das Hinzufügen nutzen wir aber diesmal die interaktive Variante von \textbf{cfill}:
 \begin{lstlisting}[style=Bash]
 $ emp cfill items
 \end{lstlisting}
-Wenn man genug Zeilen eingegeben hat bestätigt man einfach mit der Enter-Taste.
+Wenn genug Zeilen eingegeben wurden, bestätigt man einfach mit der Enter-Taste.
 
-Das rendern erfolgt wieder mit dem bereits bekannten Aufruf:
+Das Rendern erfolgt wieder mit dem bereits bekannten Aufruf:
 
 \begin{lstlisting}[style=Bash]
 $ emp render ../../invoice.htm ./invoice.htm

@@ -7,7 +7,7 @@
 
 \section{Erklärung der wesentlichen Anwendungsfälle}
 
-\subsection{Initialisieren eines Repositorys}
+\subsection{Initialisieren eines Repositories}
 Das Initialisieren eines Repositories geschieht mit dem folgenden Befehl:
 \begin{lstlisting}[style=Bash]
 $ emp init
@@ -15,7 +15,7 @@ $ emp init
 Zu beachten ist, dass ein Repository nicht erzeugt werden kann, wenn im vorhandenen oder einem übergeordneten Verzeichnis bereits ein Repository existiert.
 
 \subsection{Hinzufügen von Werten zu einem Repository}
-Werte können mit diesem Befehl hinzugefügt werden:
+Werte können mit dem add-Befehl hinzugefügt werden:
 \begin{lstlisting}[style=Bash]
 $ emp add <Schlüssel> [<Typ>] <Wert>
 \end{lstlisting}
@@ -32,7 +32,7 @@ Es folgen einige Beispiele für die Typ-Erkennung:
 	\hline
 \end{tabular} 
 
-Wenn eine automatische Erkennung nicht gewünscht ist, muss ein Typ angegeben werden. Im folgenden dazu ein Beispiel:
+Wenn eine automatische Erkennung nicht gewünscht ist, muss ein Typ angegeben werden. Im Folgenden dazu ein Beispiel:
 \begin{lstlisting}[style=Bash]
 $ emp add floatString string 1.2314
 \end{lstlisting}
@@ -60,7 +60,7 @@ $ emp render <Template-Datei> <Ausgabe-Datei>
 \end{lstlisting}
 
 \subsection{Anzeigen von bereits hinzugefügten Werten}
-Um einen Überblick über den aktuellen Status zu erhalten kann das show-Kommando genutzt werden:
+Um einen Überblick über den aktuellen Status zu erhalten, kann das show-Kommando genutzt werden:
 \begin{lstlisting}[style=Bash]
 $ emp show [<Template-Datei>]
 \end{lstlisting}
