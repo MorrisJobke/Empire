@@ -17,7 +17,6 @@
 #include "GenPropertyBase.h"
 #include "DefineException.h"
 #include "FunctionType.h"
-
 #include "Collection.h"
 
 /** typename templates

@@ -18,7 +18,6 @@
 //#include <dirent.h>
 
 #include "Filesystem.h"
-#include "GenPropertyBase.h"
 #include "GenProperty.h"
 
 DEFINE_VAR_EXCEPTION(ErrorColl)

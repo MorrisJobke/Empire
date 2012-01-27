@@ -94,7 +94,8 @@ target_link_libraries(Template
     GenProperty
     LuaHelper
     FunctionType
-    ListHelper)
+    ListHelper
+    Filesystem)
 
 ######################
 # Collection library #
