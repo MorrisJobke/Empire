@@ -411,6 +411,11 @@ void Repository::RemoveProperty(std::string const& rKey)
         throw PropNotExists();
 }
 
+/** delete the given property from the list
+ *
+ * @param rKey key of the property which should deleted
+ */
+
 void Repository::RemovePropertyInList(std::string const& rKey)
 {
     if(this->ContainsProperty(rKey))
@@ -488,7 +493,7 @@ bool Repository::ContainsProperty(std::string const& key)
 
 /** checks if the given property key is from a property with value in current working dir
  *
- * @param key the key of the property wanted
+ * @param rKey the key of the property wanted
  * @return boolean
  */
 bool Repository::IsPropertyInCwd(std::string const& rKey)
@@ -502,7 +507,7 @@ bool Repository::IsPropertyInCwd(std::string const& rKey)
 
 /** checks if the given property key is from a Property
  *
- * @param key the key of the property wanted
+ * @param rKey the key of the property wanted
  * @return boolean
  */
 bool Repository::IsProperty(std::string const& rKey)
@@ -516,7 +521,7 @@ bool Repository::IsProperty(std::string const& rKey)
 
 /** checks if the given property key is from a Collection
  *
- * @param key the key of the property wanted
+ * @param rKey the key of the property wanted
  * @return boolean
  */
 bool Repository::IsCollection(std::string const& rKey)
