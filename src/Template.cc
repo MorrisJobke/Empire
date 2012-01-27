@@ -476,7 +476,7 @@ std::list<std::string> SimpleTemplate::GetAvailableProperties(std::string const&
  * @param rAvailable already defined properties
  * @return list of property-keys
  */
-std::list<std::string> SimpleTemplate::GetNeedLessProperties(std::string const& rPath, std::list<std::string> const& rAvailable)
+std::list<std::string> SimpleTemplate::GetUnusedProperties(std::string const& rPath, std::list<std::string> const& rAvailable)
 {
     return ListHelper::ListCompare(rAvailable, this->GetKeyList(rPath), true);
 }
@@ -515,7 +515,7 @@ std::list<std::string> SimpleTemplate::GetMissingCollections(std::string const& 
  * @param rAvailableColls list of already defined collections
  * @return list of collection keys
  */
-std::list<std::string> SimpleTemplate::GetNeedLessCollections(std::string const& rPath, std::list<std::string> const& rAvailableColls)
+std::list<std::string> SimpleTemplate::GetUnusedCollections(std::string const& rPath, std::list<std::string> const& rAvailableColls)
 {
     return ListHelper::ListCompare(rAvailableColls, this->GetCollectionList(rPath), true);   
 }

@@ -41,20 +41,21 @@ class Repository
     std::string mRepoName;
     std::string mAbsoluteRepoPath;
     std::list<GenPropertyBase*> mPropertyList;
-
+    std::list<GenPropertyBase*> mCwdPropertyList;
 
     public:
     Repository();
     ~Repository();
 
     bool IsExistent();
+    bool IsPropertyInCwd(std::string const& rKey);
     bool ContainsProperty(std::string const& key);
     GenPropertyBase* GetPropertyByKey(std::string const& key);
     std::string GetRepositoryPath();
-    std::string GetFirstDefinedValueRec(std::string const& rKey, std::string const& rPath, std::string& rFoundPath);
-    std::list<std::string> GetCreatedPropertiesInCwd();
-    std::list<std::string> GetAddedCollectionsInCwd();
-    std::list<std::string> GetAddedPropertiesInCwd();
+    std::string GetPropertyValue(std::string const& rKey);
+    std::list<GenPropertyBase*> GetCreatedProperties();
+    std::list<GenPropertyBase*> GetCollections();
+    std::list<GenPropertyBase*> GetAddedProperties();
 
     //static PropertyTypes GetPropTypeFromStr(std::string const& str);
 

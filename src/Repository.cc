@@ -173,7 +173,7 @@ void Repository::Load()
     /*
      * now collect propery instances
      */
-
+    bool startDir = true;
     Fs::ChangeCwd(start_dir);
 
     while(true)
@@ -198,8 +198,11 @@ void Repository::Load()
 
                 for (it = this->mPropertyList.begin(); it != this->mPropertyList.end(); it++)
                 {
+                    //std::cout << "reading: " << (*it)->GetKey() << std::endl;
                     if ((*it)->GetKey() == entry)
                     {
+                        if(startDir)
+                            this->mCwdPropertyList.push_back(*it);
                         //std::cout << "Try to load: " << entry << std::endl;
                         if (!(*it)->HasValue())
                         {
@@ -208,7 +211,6 @@ void Repository::Load()
                         }
                     }
                 }
-
             }
             (void) closedir (dp);
         }
@@ -218,7 +220,11 @@ void Repository::Load()
         if (this->mAbsoluteRepoPath == Fs::GetCwd())
             break;
         else
+        {
+            startDir = false;
             Fs::ChangeCwd("..");
+        }
+            
     }
 
     Fs::ChangeCwd(start_dir);
@@ -513,6 +519,14 @@ bool Repository::ContainsProperty(std::string const& key)
     return false;
 }
 
+bool Repository::IsPropertyInCwd(std::string const& rKey)
+{
+    std::list<GenPropertyBase*>::const_iterator it;
+    for (it = this->mCwdPropertyList.begin(); it != this->mCwdPropertyList.end(); it++)
+        if((*it)->GetKey() == rKey)
+            return true;
+    return false;
+}
 /** returns the property containing the given key
  *
  * @param key the key of the property wanted
@@ -546,23 +560,38 @@ std::string Repository::GetRepositoryPath()
 /** iterates trough parent folders recursively and returns first matching value
  *
  * @param rKey key of the property
- * @param rPath working directory to start from
- * @param rFoundPath string reference for the path of the value
- * @return value as std::string, NULL if no value is defined
+ * @return value as std::string
  */
-std::string Repository::GetFirstDefinedValueRec(std::string const& rKey, std::string const& rPath, std::string& rFoundPath)
+std::string Repository::GetPropertyValue(std::string const& rKey)
 {
-    std::string currDir = rPath;
+    GenPropertyBase* prop = this->GetPropertyByKey(rKey);
 
-    while(currDir != Fs::GetParentFolderPath(this->mAbsoluteRepoPath))
+    std::string type = prop->GetTypeN();
+    if (type == GetTypeName<int>())
     {
-        if (Fs::FileExists(currDir + "/" + rKey))
-        {
-            rFoundPath = currDir;
-            return Fs::FileReadString(currDir + "/" + rKey);
-        }
-        else
-            currDir = Fs::GetParentFolderPath(currDir);
+        GenProperty<int>* cast_prop = (GenProperty<int>*) prop;
+        std::stringstream str;
+        str << (cast_prop->GetValue());
+        return str.str();
+    }
+    else if (type == GetTypeName<float>())
+    {
+        GenProperty<float>* cast_prop = (GenProperty<float>*) prop;
+        std::stringstream str;
+        str << (cast_prop->GetValue());
+        return str.str();
+    }
+    else if (type == GetTypeName<double>())
+    {
+        GenProperty<double>* cast_prop = (GenProperty<double>*) prop;
+        std::stringstream str;
+        str << (cast_prop->GetValue());
+        return str.str();
+    }
+    else if (type == GetTypeName<std::string>())
+    {
+        GenProperty<std::string>* cast_prop = (GenProperty<std::string>*) prop;
+        return cast_prop->GetValue();
     }
     return "";
 }
@@ -571,22 +600,18 @@ std::string Repository::GetFirstDefinedValueRec(std::string const& rKey, std::st
  *
  * @return list of property keys
  */
-std::list<std::string> Repository::GetAddedPropertiesInCwd()
+std::list<GenPropertyBase*> Repository::GetAddedProperties()
 {
-    std::list<std::string> result;
+    std::list<GenPropertyBase*> result;
     std::list<GenPropertyBase*>::const_iterator it;
-    std::string path = Fs::GetCwd();
-    std::string found_path;
     for (it = this->mPropertyList.begin(); it != this->mPropertyList.end(); it++)
     {
         if ((*it)->GetTypeN() != GetTypeName<Coll>())
         {
-            std::string value = this->GetFirstDefinedValueRec((*it)->GetKey(), path, found_path);
-            if(value != "")
-                result.push_back((*it)->GetKey());
+            if((*it)->HasValue())
+                result.push_back(*it);
         }
     }
-
     return result;
 }
 
@@ -594,16 +619,14 @@ std::list<std::string> Repository::GetAddedPropertiesInCwd()
  *
  * @return list of collection keys
  */
-std::list<std::string> Repository::GetAddedCollectionsInCwd()
+std::list<GenPropertyBase*> Repository::GetCollections()
 {
-    std::list<std::string> result;
+    std::list<GenPropertyBase*> result;
     std::list<GenPropertyBase*>::const_iterator it;
-    std::string path = Fs::GetCwd();
-    std::string found_path;
     for (it = this->mPropertyList.begin(); it != this->mPropertyList.end(); it++)
     {
         if((*it)->GetTypeN() == GetTypeName<Coll>())
-            result.push_back((*it)->GetKey());
+            result.push_back(*it);
     }
 
     return result;
@@ -613,19 +636,16 @@ std::list<std::string> Repository::GetAddedCollectionsInCwd()
  *
  * @return list of property keys
  */
-std::list<std::string> Repository::GetCreatedPropertiesInCwd()
+std::list<GenPropertyBase*> Repository::GetCreatedProperties()
 {
-    std::list<std::string> result;
+    std::list<GenPropertyBase*> result;
     std::list<GenPropertyBase*>::const_iterator it;
-    std::string path = Fs::GetCwd();
-    std::string found_path;
     for (it = this->mPropertyList.begin(); it != this->mPropertyList.end(); it++)
     {
         if ((*it)->GetTypeN() != GetTypeName<Coll>())
         {
-            std::string value = this->GetFirstDefinedValueRec((*it)->GetKey(), path, found_path);
-            if(value == "")
-               result.push_back((*it)->GetKey());
+            if(!(*it)->HasValue())
+               result.push_back(*it);
         }
     }
 

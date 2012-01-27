@@ -322,7 +322,8 @@ namespace SyntaxParser
         working_repo.Load();
 
         SimpleTemplate* tmpl = new SimpleTemplate();
-        std::list<std::string> missing = tmpl->GetMissingProperties(argv[0], working_repo.GetAddedPropertiesInCwd());
+        std::list<std::string> stringList = Lh::PropertyList2KeyList(working_repo.GetAddedProperties());
+        std::list<std::string> missing = tmpl->GetMissingProperties(argv[0], stringList);
         if (missing.size() == 0)
         {
             std::cout << "There are no properties missing. You are ready to render." << std::endl;
@@ -425,7 +426,11 @@ namespace SyntaxParser
             }
 
         working_repo.Load();
-
+        std::list <std::string> addedProps = Lh::PropertyList2KeyList(working_repo.GetAddedProperties());
+        std::list <std::string> createdProps = Lh::PropertyList2KeyList(working_repo.GetCreatedProperties());
+        std::list <std::string> allProps = Lh::ListMerge(createdProps, addedProps);
+        std::list <std::string> definedColls = Lh::PropertyList2KeyList(working_repo.GetCollections());
+        
         if (argc != 0) //template mode
         {
             //TODO: replace by SimpleTemplate::GetMissingProperties
@@ -434,17 +439,15 @@ namespace SyntaxParser
             std::list<std::string>::const_iterator it;
 
             /*properties:*/
-            used = tmpl->GetAvailableProperties(argv[0], working_repo.GetAddedPropertiesInCwd());
-            unused = tmpl->GetMissingProperties(argv[0], working_repo.GetAddedPropertiesInCwd());
-            created = tmpl->GetAvailableProperties(argv[0], working_repo.GetCreatedPropertiesInCwd());
-            needless = tmpl->GetNeedLessProperties(argv[0],
-                            Lh::ListMerge(working_repo.GetCreatedPropertiesInCwd(),
-                                                  working_repo.GetAddedPropertiesInCwd())
-                                                  );
+            used = tmpl->GetAvailableProperties(argv[0], addedProps);
+            unused = tmpl->GetMissingProperties(argv[0], addedProps);
+            created = tmpl->GetAvailableProperties(argv[0], createdProps);
+            needless = tmpl->GetUnusedProperties(argv[0], allProps);
+                            
             /*collections:*/
-            used_colls = tmpl->GetAvailableCollections(argv[0], working_repo.GetAddedCollectionsInCwd());
-            unused_colls = tmpl->GetMissingCollections(argv[0], working_repo.GetAddedCollectionsInCwd());
-            needless_colls =  tmpl->GetNeedLessCollections(argv[0], working_repo.GetAddedCollectionsInCwd());
+            used_colls = tmpl->GetAvailableCollections(argv[0], definedColls);
+            unused_colls = tmpl->GetMissingCollections(argv[0], definedColls);
+            needless_colls =  tmpl->GetUnusedCollections(argv[0], definedColls);
 
             /**** PROPERTIES ****/
             if (unused.size() + used.size() + created.size() + needless.size() > 0)
@@ -512,30 +515,23 @@ namespace SyntaxParser
         }
         else //normal mode
         {
-            std::list<std::string>::const_iterator it;
-            std::list<std::string> used, unused, used_colls;
-
-            used = working_repo.GetAddedPropertiesInCwd();
-            unused = working_repo.GetCreatedPropertiesInCwd();
-            used_colls = working_repo.GetAddedCollectionsInCwd();
-
             std::cout << "Repository root path: " << working_repo.GetRepositoryPath() << std::endl << std::endl;
 
-            if (used.size() > 0)
+            if (addedProps.size() > 0)
             {
-                Ch::printHeaderWithCount("Added Properties(", used.size());
+                Ch::printHeaderWithCount("Added Properties(", addedProps.size());
 
-                Ch::printValueList(used, ADDED, true, true, working_repo, 1);
+                Ch::printValueList(addedProps, ADDED, true, true, working_repo, 1);
             }
-            if (unused.size() > 0)
+            if (createdProps.size() > 0)
             {
-                Ch::printHeaderWithCount("Created Properties(", unused.size());
-                Ch::printTripleList(unused, CREATED, 1);
+                Ch::printHeaderWithCount("Created Properties(", createdProps.size());
+                Ch::printTripleList(createdProps, CREATED, 1);
             }
-            if (used_colls.size() > 0)
+            if (definedColls.size() > 0)
             {
-                Ch::printHeaderWithCount("Created Collections(", used_colls.size());
-                Ch::printCollectionList(used_colls, ADDED, working_repo, 1, REPO, NULL);
+                Ch::printHeaderWithCount("Defined Collections(", definedColls.size());
+                Ch::printCollectionList(definedColls, ADDED, working_repo, 1, REPO, "");
             }
         }
     }
@@ -772,7 +768,7 @@ namespace ConsoleHelper{
             case ADDED:     return COLOR_GREEN;
             case NEEDLESS:  return COLOR_PURPLE;
         }
-        return "";
+        return COLOR_CLEAR;
     }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
@@ -796,7 +792,6 @@ namespace ConsoleHelper{
                 maxLength = (*it).length();
 
         maxLength += 2;
-
         printColor(mode);
         for (it = tmpList.begin(); it != tmpList.end();)
         {
@@ -862,15 +857,15 @@ namespace ConsoleHelper{
         for (it = tmpList.begin(); it != tmpList.end(); ++it)
         {
             std::string key = *it;
-            std::string path, color, value, type;
+            std::string color, value, type;
 
+            bool path = working_repo.IsPropertyInCwd(key);
             if (rValues)
-                value = working_repo.GetFirstDefinedValueRec(key, Fs::GetCwd(), path);
+                value = working_repo.GetPropertyValue(key);
             if (rTypes)
                 type = working_repo.GetPropertyByKey(key)->GetTypeN();
 
-
-            if (path == Fs::GetCwd() || !rValues)
+            if (path == true)
                 color = getColor(mode);
             else
                 color = COLOR_CYAN;
@@ -881,7 +876,10 @@ namespace ConsoleHelper{
             std::cout << color << key;
 
             if (rTypes)
+            {
+                if(type == "std::string"){ type = "string"; }
                 std::cout << COLOR_BLUE << "<" << type << ">";
+            }
             if (rValues)
                 std::cout << color << " = " << value;
 
@@ -917,7 +915,7 @@ namespace ConsoleHelper{
                 Coll coll;
                 coll.Load(key);
                 printCollElem(key, rTabSpace, coll.GetRowCount());
-                printTripleList(Lh::PropertyList2KeyList(coll.GetPropertyList()), NEEDLESS, rTabSpace + 1);
+                printTripleList(Lh::PropertyList2KeyList(coll.GetPropertyList()), rMode, rTabSpace + 1);
             }
             else
             {
@@ -925,7 +923,7 @@ namespace ConsoleHelper{
                     std::cout << "\t";
                 std::cout << key << ", containing elements (got from Template):" << std::endl;
                 SimpleTemplate templ;
-                printTripleList(templ.GetCollectionItemList(rTemplPath, key), MISSING, rTabSpace + 1);
+                printTripleList(templ.GetCollectionItemList(rTemplPath, key), rMode, rTabSpace + 1);
             }
             std::cout << COLOR_CLEAR;
         }
