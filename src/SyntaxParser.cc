@@ -584,7 +584,7 @@ namespace SyntaxParser
             std::cout << "There isn't any repository in this or it's parent directories." << std::endl;
             return;
         }
-        if (!(argc == 2 || argc == 3))
+        if (argc < 1 || argc > 3)
         {
             DryHelpers::printRenderSynopsis();
             return;
@@ -592,24 +592,26 @@ namespace SyntaxParser
 
         /** variables */
         std::string file;       // template file
-        std::string path;       // output file/dir
+        std::string path = ".";       // output file/dir
         bool force = false;     // force toggle
 
         /** parse input */
-        if (argc == 3) // somewhere is a "-f"
+        if (strcmp(argv[0], "-f") == 0)
         {
-            if (strcmp(argv[0], "-f") == 0)
-            {
-                force = true;
-                argc--;
-                argv++;
-            }
+            force = true;
+            argc--;
+            argv++;
+        }
+        if (argc == 0)
+        {
+            DryHelpers::printRenderSynopsis();
+            return;
         }
         // template file
         file = *argv;
         argc--;
         argv++;
-        if (argc == 2) // somewhere is a "-f"
+        if (argc != 0) // somewhere is a "-f"
         {
             if (strcmp(argv[0], "-f") == 0)
             {
@@ -617,12 +619,16 @@ namespace SyntaxParser
                 argc--;
                 argv++;
             }
+            if (argc != 0)
+            {
+                // getting output path
+                path = *argv;
+                argc--;
+                argv++;
+            }
         }
-        // getting output path
-        path = *argv;
-        argc--;
-        argv++;
-        if (argc == 1) // somewhere is a "-f"
+
+        if (argc != 0) // somewhere is a "-f"
         {
             if (strcmp(argv[0], "-f") == 0)
             {
@@ -633,14 +639,13 @@ namespace SyntaxParser
         }
         if (argc != 0)
         {
-            std::cout << *argv << std::endl;
             DryHelpers::printRenderSynopsis();
             return;
         }
 
         if (!Fs::FileExists(file))
         {
-            std::cout << file << " The specified template file could not be found." << std::endl;
+            std::cout << file << ": The specified template file could not be found." << std::endl;
             return;
         }
 
@@ -669,8 +674,15 @@ namespace SyntaxParser
             if (Fs::FileExists(path + "/" + filename))
             {
                 // contains already the file
-                std::cout << path + "/" + filename << " The specified output file exists." << std::endl;
-                return;
+                if (force)
+                {
+                    Fs::FileDelete(path + "/" + filename);
+                }
+                else
+                {
+                    std::cout << path + "/" + filename << ": The specified output file exists." << std::endl;
+                    return;
+                }
             }
             if (path.substr(path.size() - 1, 1) == "/")
                 path += filename;
@@ -689,7 +701,7 @@ namespace SyntaxParser
                 }
                 else
                 {
-                    std::cout << path << " The specified output directory contains already a file named like the tmeplate file." << std::endl;
+                    std::cout << path << ": The specified output directory contains already a file named like the tmeplate file." << std::endl;
                     return;
                 }
             }
@@ -971,8 +983,8 @@ namespace ConsoleHelper{
 namespace DryHelpers {
     void printRenderSynopsis()
     {
-        std::cout << "You need to specify a template and an output path.\n"
-                  << "Synopsis: emp render [-f] <path-to-template> <path-to-output>\n"
+        std::cout << "You need to specify a template.\n"
+                  << "Synopsis: emp render [-f] <path-to-template> [<path-to-output>]\n"
                   << "                      -f   force to overwrite output\n\n";
     }
 }
