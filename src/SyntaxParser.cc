@@ -161,7 +161,7 @@ namespace SyntaxParser
             std::cout << "There isn't any repository in this or it's parent directories." << std::endl;
             return;
         }
-        if (argc < 2)
+        if (argc < 1)
         {
             std::cout << "You need to specify a collection name and at least one key with value\n"
                       << "Synopsis: emp cfill <coll-name> <key1>:<value1> [<key2>:<value2> ...]\n\n";
@@ -198,53 +198,95 @@ namespace SyntaxParser
         argc--;
         argv++;
 
-        /* read entries */
-
-        list<GenPropertyBase*> new_entries;
-        while (argc > 0)
-        {
-            std::string new_pair = argv[0];
-
-            //cout << "new pair-> " << new_pair << endl;
-
-            /* split tthe pair */
-            size_t found = new_pair.find_first_of(":");
-
-            if (found == string::npos)
-            {
-                cout << "You have forgotten the splitting character : " << endl;
-                return;
-            }
-            //cout << ": found at " << found << endl;
-
-            string new_key = new_pair.substr(0,found);
-            string new_value = new_pair.substr(found + 1, new_pair.length() - found);
-
-            //cout << "new key-> " << new_key << endl;
-            //cout << "new value-> " << new_value << endl;
-
-            /* check presence of property */
-            if (working_repo.ContainsProperty(new_key) == false)
-            {
-                cout << "Property not found in repository: " << new_key << endl;
-                return;
-            }
-
-            GenPropertyBase* contained_prop = working_repo.GetPropertyByKey(new_key);
-            GenPropertyBase* new_prop = PropertyHelpers::CreatePropertyFromTypeString(contained_prop->GetTypeN());
-            new_prop->SetKey(new_key);
-            new_prop->SetValueFromString(new_value);
-
-            new_entries.push_back(new_prop);
-
-            argc--;
-            argv++;
-        }
-
         /* Load collection */
-
         Coll c(coll_name);
         c.Load(coll_name);
+
+        /* read entries */
+        list<GenPropertyBase*> new_entries;
+        
+        if (argc != 0) //manual mode
+        {
+            while (argc > 0)
+            {
+                std::string new_pair = argv[0];
+
+                //cout << "new pair-> " << new_pair << endl;
+
+                /* split tthe pair */
+                size_t found = new_pair.find_first_of(":");
+
+                if (found == string::npos)
+                {
+                    cout << "You have forgotten the splitting character : " << endl;
+                    return;
+                }
+                //cout << ": found at " << found << endl;
+
+                string new_key = new_pair.substr(0,found);
+                string new_value = new_pair.substr(found + 1, new_pair.length() - found);
+
+                //cout << "new key-> " << new_key << endl;
+                //cout << "new value-> " << new_value << endl;
+
+                /* check presence of property */
+                if (working_repo.ContainsProperty(new_key) == false)
+                {
+                    cout << "Property not found in repository: " << new_key << endl;
+                    return;
+                }
+
+                GenPropertyBase* contained_prop = working_repo.GetPropertyByKey(new_key);
+                GenPropertyBase* new_prop = PropertyHelpers::CreatePropertyFromTypeString(contained_prop->GetTypeN());
+                new_prop->SetKey(new_key);
+                new_prop->SetValueFromString(new_value);
+
+                new_entries.push_back(new_prop);
+
+                argc--;
+                argv++;    
+            }
+        }
+        else //interactive mode
+        {
+            //get needed propertys
+            std::list<GenPropertyBase*> needed = c.GetPropertyList();
+            std::list<GenPropertyBase*>::const_iterator it;
+
+            std::string tmpValue;
+            
+            while(true)
+            {
+                std::cout << COLOR_BOLD << "Creating a new row. Press [Enter] to abort." 
+                          << COLOR_CLEAR << std::endl;
+                for(it = needed.begin(); it != needed.end(); it++)
+                {
+                    std::string key = (*it)->GetKey();
+                    std::string type = (*it)->GetTypeN();
+                    if(!working_repo.ContainsProperty(key))
+                    {
+                        std::cout << "NOT DEFINED" << std::endl;
+                    }
+                    else
+                    {
+                        std::cout << "Please enter an value for " << key  << COLOR_BLUE
+                                  << "<" << type << ">"
+                                  << COLOR_CLEAR << std::endl;
+                        std::getline(std::cin, tmpValue);
+                        if(tmpValue == "")
+                            return;
+                        else
+                        {
+                            GenPropertyBase* new_prop = PropertyHelpers::CreatePropertyFromTypeString(type);
+                            new_prop->SetKey(key);
+                            new_prop->SetValueFromString(tmpValue);
+                            new_entries.push_back(new_prop);
+                        }
+                            
+                    }
+                }
+            }
+        }
 
         c.AddRow(new_entries);
     }
