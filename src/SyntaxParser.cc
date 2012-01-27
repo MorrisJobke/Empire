@@ -256,7 +256,7 @@ namespace SyntaxParser
 
             std::string tmpValue;
             bool stop = false;
-
+            int count = 0;
             while(!stop)
             {
                 std::cout << COLOR_BOLD << "Creating a new row. Press [Enter] to abort." 
@@ -267,35 +267,45 @@ namespace SyntaxParser
                     std::string type = (*it)->GetTypeN();
                     if(!working_repo.ContainsProperty(key))
                     {
-                        std::cout << "NOT DEFINED" << std::endl;
+                        try
+                        {
+                            working_repo.CreatePropertyClass(key, type);
+                        }
+                        catch(PropExistentError &exc)
+                        {
+                            std::cout << "PropertyClass exists." << std::endl;
+                        }
+                        std::cout << COLOR_RED << "[WARNING]"<< COLOR_CLEAR
+                                  << "Property " << key << " automatically redefined!" << std::endl;
+                    }
+                    
+                    std::cout << "Please enter an value for " << key  << COLOR_BLUE
+                              << "<" << type << ">"
+                              << COLOR_CLEAR << std::endl;
+                    std::getline(std::cin, tmpValue);
+                    if(tmpValue == "")
+                    {
+                        stop = true;
+                        break;
                     }
                     else
                     {
-                        std::cout << "Please enter an value for " << key  << COLOR_BLUE
-                                  << "<" << type << ">"
-                                  << COLOR_CLEAR << std::endl;
-                        std::getline(std::cin, tmpValue);
-                        if(tmpValue == "")
-                        {
-                            stop = true;
-                            break;
-                        }
-                        else
-                        {
-                            GenPropertyBase* new_prop = PropertyHelpers::CreatePropertyFromTypeString(type);
-                            new_prop->SetKey(key);
-                            new_prop->SetValueFromString(tmpValue);
-                            new_entries.push_back(new_prop);
-                        }
-                            
+                        GenPropertyBase* new_prop = PropertyHelpers::CreatePropertyFromTypeString(type);
+                        new_prop->SetKey(key);
+                        new_prop->SetValueFromString(tmpValue);
+                        new_entries.push_back(new_prop);
                     }
                 }
                 if (!stop)
+                {
+                    count ++;
                     c.AddRow(new_entries);
+                }
+                    
             }
+            std::cout << COLOR_BOLD << count << " rows added." << COLOR_CLEAR << std::endl;
         }
 
-        
     }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
