@@ -32,8 +32,6 @@ class Coll
 
     std::string mPath;
 
-    void WriteToDir(std::string const& rPath);
-
     public:
 
     Coll();

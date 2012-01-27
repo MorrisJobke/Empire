@@ -32,7 +32,7 @@ namespace Filesystem
     /** exceptions
      */
     DEFINE_FAST_EXCEPTION(CannotCreateDirError, "Cannot create directory.")
-    DEFINE_FAST_EXCEPTION(CannotOpenFileError, "Cannot create file.")
+    DEFINE_FAST_EXCEPTION(CannotOpenFileError, "Cannot open file.")
     DEFINE_FAST_EXCEPTION(CannotFindFileError, "File not exists.")
 
     void PrintCwd();

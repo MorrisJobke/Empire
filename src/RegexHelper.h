@@ -11,6 +11,7 @@
 
 #define INT_PATTERN "^[+-]?\\d+$"
 #define FLOAT_PATTERN "^[+-]?((\\d+\\.\\d+)|\\.\\d+)$"
+#define FUNCTION_PATTERN "^return.*;$"
 
 #include <string>
 #include <fstream>
@@ -24,6 +25,7 @@ namespace RegexHelper
     bool MatchesRegex(std::string rTargetString, std::string rPattern);
     bool isInt(std::string value);
     bool isFloat(std::string value);
+    bool isFunction(std::string value);
 }
 
 #endif
