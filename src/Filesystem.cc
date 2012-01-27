@@ -182,6 +182,7 @@ namespace Filesystem
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
 
     /** print out all dir entries
+     * @param rDirPath path of the dir of which the entries should printed
      */
     void PrintDirEntries(std::string const& rDirPath)
     {
@@ -218,6 +219,7 @@ namespace Filesystem
      * @param sb pointer to the stat-struct with the file-informations of fpath
      * @param typeflag type of file, which should deleted
      * @param ftwbuf pointer to the ftw-struct with information about relative depth to starting point
+     * @return returns 0, if the file is succesfully deleted 
      */
     int RemoveFile(const char *fpath, const struct stat *sb, int typeflag, struct FTW *ftwbuf)
     {
@@ -400,7 +402,7 @@ namespace Filesystem
 
     /**
      * @brief function to get the parent dir from a given string
-     * @param rFile path from the given dir
+     * @param rPath path from the given dir
      * @return parent dir as std::string
      */
     std::string GetParentFolderPath(std::string const& rPath)
