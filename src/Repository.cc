@@ -224,7 +224,7 @@ void Repository::Load()
             startDir = false;
             Fs::ChangeCwd("..");
         }
-            
+
     }
 
     Fs::ChangeCwd(start_dir);
@@ -362,11 +362,7 @@ void Repository::ReadPropDataFromFile(std::string const& rPath, GenPropertyBase*
 
     //std::cout << "Try to set from string: " << buffer << std::endl;
 
-    /* string exception */
-    if (pProp->GetTypeN() == GetTypeName<std::string>())
-        ((GenProperty<std::string>*)pProp)->SetValue(buffer);
-    else
-        pProp->SetValueFromString(buffer);
+    pProp->SetValueFromString(buffer);
 }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
