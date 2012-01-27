@@ -99,8 +99,13 @@ std::istream& operator>>(std::istream& rIn, FunctionType rFunctionType)
 void FunctionType::ToOutStream(std::ostream& rOut)
 {
     std::list<std::string>::iterator it;
+    int stop = 2; // stops after 2 items - more aren't needed
     for (it = mList.begin(); it != mList.end(); it++) {
-        rOut << *it << " ";
+        if (stop)
+            rOut << *it;
+        else
+            break;
+        stop--;
     }
 }
 
