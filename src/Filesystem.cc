@@ -423,6 +423,9 @@ namespace Filesystem
     std::string GetFileNameFromPath(std::string const& rPath)
     {
          int found = rPath.find_last_of("/");
+         if (found == std::string::npos)
+            return rPath;
+
          std::string result = rPath.substr(found + 1, rPath.length());
 
         return result;
