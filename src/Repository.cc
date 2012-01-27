@@ -229,6 +229,21 @@ void Repository::Load()
 
     Fs::ChangeCwd(start_dir);
 
+    /* load collections */
+    std::list<GenPropertyBase*>::iterator it;
+
+    for (it = this->mPropertyList.begin(); it != this->mPropertyList.end(); it++)
+    {
+       if (!(*it)->HasValue() && (*it)->GetTypeN() == GetTypeName<Coll>())
+       {
+            GenProperty<Coll>* c_prop = (GenProperty<Coll>*)(*it);
+            std::string key = c_prop->GetKey();
+            Coll c(key);
+            c.Load(key, this->GetMetaPath());
+            c_prop->SetValue(c);
+       }
+    }
+
     /* print out loaded properties */
     // std::list<GenPropertyBase*>::iterator it;
 
