@@ -275,8 +275,8 @@ namespace SyntaxParser
                         {
                             std::cout << "PropertyClass exists." << std::endl;
                         }
-                        std::cout << COLOR_RED << "[WARNING]"<< COLOR_CLEAR
-                                  << "Property " << key << " automatically redefined!" << std::endl;
+                        std::cout << COLOR_RED << "[WARNING] Property " << key 
+                                  << " automatically redefined!" << COLOR_CLEAR << std::endl;
                     }
                     
                     std::cout << "Please enter an value for " << key  << COLOR_BLUE
