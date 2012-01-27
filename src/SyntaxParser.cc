@@ -163,8 +163,9 @@ namespace SyntaxParser
         }
         if (argc < 1)
         {
-            std::cout << "You need to specify a collection name and at least one key with value\n"
-                      << "Synopsis: emp cfill <coll-name> <key1>:<value1> [<key2>:<value2> ...]\n\n";
+            std::cout << "You need to specify a collection name and  optional at least one key with value\n"
+                      << "If only the collection name is given you will get an interactive mode.\n"
+                      << "Synopsis: emp cfill <coll-name> [<key1>:<value1> [<key2>:<value2> ...]]\n\n";
             return;
         }
 
