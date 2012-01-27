@@ -145,7 +145,7 @@ namespace SyntaxParser
         }
 
         Coll c(coll_name);
-        c.Declare(props_to_declare);
+        c.Declare(props_to_declare, working_repo.GetMetaPath());
     }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
@@ -205,7 +205,7 @@ namespace SyntaxParser
 
         /* Load collection */
         Coll c(coll_name);
-        c.Load(coll_name);
+        c.Load(coll_name, working_repo.GetMetaPath());
 
         /* read entries */
         list<GenPropertyBase*> new_entries;
@@ -991,7 +991,7 @@ namespace ConsoleHelper{
             if (rWorkMode == REPO)
             {
                 Coll coll;
-                coll.Load(key);
+                coll.Load(key, working_repo.GetMetaPath());
                 printCollElem(key, rTabSpace, coll.GetRowCount());
                 printTripleList(Lh::PropertyList2KeyList(coll.GetPropertyList()), rMode, rTabSpace + 1);
             }

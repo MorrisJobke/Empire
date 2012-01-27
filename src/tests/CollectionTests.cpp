@@ -21,6 +21,7 @@
 
 #include "../Collection.h"
 #include "../Filesystem.h"
+#include "../Repository.h"
 
 using namespace std;
 namespace Fs = Filesystem;
@@ -46,7 +47,10 @@ BOOST_AUTO_TEST_CASE(CollectionDeclareTest)
 
         Coll mycol("coll_test");
 
-        mycol.Declare(prop_list);
+        Repository working_repo;
+        std::string meta_path = working_repo.GetMetaPath();
+
+        mycol.Declare(prop_list, meta_path);
     }
     catch(ErrorColl &exc)
     {
@@ -100,7 +104,10 @@ BOOST_AUTO_TEST_CASE(CollectionAddRowTest)
 
         Coll mycol("coll_test");
 
-        mycol.Declare(prop_list);
+        Repository working_repo;
+        std::string meta_path = working_repo.GetMetaPath();
+
+        mycol.Declare(prop_list, meta_path);
 
         mycol.AddRow(entry_list);
         mycol.AddRow(entry_list);
@@ -169,18 +176,20 @@ BOOST_AUTO_TEST_CASE(CollectionPropTest)
     entry_list.push_back(&price);
 
 
+    Repository working_repo;
+    std::string meta_path = working_repo.GetMetaPath();
     try
     {
 
-       Coll mycol("coll_test");
+        Coll mycol("coll_test");
 
-       mycol.Declare(prop_list);
+        mycol.Declare(prop_list, meta_path);
 
-       mycol.AddRow(entry_list);
+        mycol.AddRow(entry_list);
     }
     catch(ErrorColl &exc)
     {
-       cout << exc.what() << endl;
+        cout << exc.what() << endl;
     }
 
 
@@ -203,7 +212,7 @@ BOOST_AUTO_TEST_CASE(CollectionPropTest)
 
     try
     {
-       mycol.Load("coll_test");
+       mycol.Load("coll_test", meta_path);
        // mycol.DebugPrint();
     }
     catch(ErrorColl &exc)

@@ -20,6 +20,7 @@
 
 #include "../Template.h"
 #include "../Filesystem.h"
+#include "../Repository.h"
 
 using namespace std;
 
@@ -111,7 +112,11 @@ BOOST_AUTO_TEST_CASE(TemplateCollectionTest)
     ingredient3.push_back(&ingredient3_oz);
 
     Coll ingredients_coll("ingredients");
-    ingredients_coll.Declare(ingredient1);
+
+    Repository working_repo;
+    std::string meta_path = working_repo.GetMetaPath();
+
+    ingredients_coll.Declare(ingredient1, meta_path);
     ingredients_coll.AddRow(ingredient2);
     ingredients_coll.AddRow(ingredient3);
 
@@ -181,7 +186,11 @@ BOOST_AUTO_TEST_CASE(TemplateCollectionAndFunctionTest)
     ingredient3.push_back(&ingredient3_priceperoz);
 
     Coll ingredients_coll("ingredients");
-    ingredients_coll.Declare(ingredient1);
+
+    Repository working_repo;
+    std::string meta_path = working_repo.GetMetaPath();
+
+    ingredients_coll.Declare(ingredient1, meta_path);
     ingredients_coll.AddRow(ingredient2);
     ingredients_coll.AddRow(ingredient3);
 
