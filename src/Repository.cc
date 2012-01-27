@@ -198,7 +198,6 @@ void Repository::Load()
 
                 for (it = this->mPropertyList.begin(); it != this->mPropertyList.end(); it++)
                 {
-                    //std::cout << "reading: " << (*it)->GetKey() << std::endl;
                     if ((*it)->GetKey() == entry)
                     {
                         if(startDir)
@@ -223,6 +222,7 @@ void Repository::Load()
         {
             startDir = false;
             Fs::ChangeCwd("..");
+            //std::cout << "moving to .." << std::endl;
         }
 
     }
@@ -414,7 +414,10 @@ void Repository::AddProperty(std::string const& key, std::string const& type, st
             this->Load();
 
             std::string fileType = this->GetPropertyByKey(key)->GetTypeN();
-
+            
+            //remove existing property from list:
+            this->RemovePropertyInList(key);
+            
             if(fileType != tmp_type)
                 throw PropClassExistsWithOtherKey();
         }
@@ -451,6 +454,25 @@ void Repository::RemoveProperty(std::string const& rKey)
         throw PropNotExists();
 }
 
+void Repository::RemovePropertyInList(std::string const& rKey)
+{
+    if(this->ContainsProperty(rKey))
+    {
+        std::list<GenPropertyBase*>::iterator it;
+
+        for (it = this->mPropertyList.begin(); it != this->mPropertyList.end(); it++)
+        {
+            if ((*it)->GetKey() == rKey)
+            {
+                it = this->mPropertyList.erase(it);
+                --it;
+            }
+        }
+    }
+    else
+        throw PropNotExists();
+}
+
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
 
 /** delete metadata from Filesystem
@@ -481,17 +503,7 @@ void Repository::RemovePropertyClassAndInstances(std::string const& key)
     Fs::RemoveFilesInDirRec(key, this->mAbsoluteRepoPath);
 
     //remove from property list
-    std::list<GenPropertyBase*>::iterator it;
-
-    for (it = this->mPropertyList.begin(); it != this->mPropertyList.end(); it++)
-    {
-        if ((*it)->GetKey() == key)
-        {
-            it = this->mPropertyList.erase(it);
-            --it;
-        }
-    }
-
+    this->RemovePropertyInList(key);
 }
 
 /*============================= ACCESS      =================================*/

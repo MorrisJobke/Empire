@@ -468,7 +468,7 @@ BOOST_AUTO_TEST_CASE(GetFirstDefinedValueRecTest)
     Fs::CreateDirectory("test");
     Fs::ChangeCwd("test");
     repo.AddProperty("intAuto", "", "892");
-    std::string pos;
+    
     std::string value = repo.GetPropertyValue("intAuto");
     BOOST_CHECK(value == "892");
     value = repo.GetPropertyValue("int2");
