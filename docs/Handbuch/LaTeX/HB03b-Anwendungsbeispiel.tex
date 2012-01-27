@@ -57,7 +57,7 @@ $ emp iadd ../invoice.htm
 
 Es erfolgt eine interaktive Abfrage der im Template genutzten, aber im Repository noch nicht gesetzten Werte. Wir wollen nur die Kundendaten eintragen und überspringen die restlichen Abfragen mit der Enter-Taste.
 
-Jetzt können wir unseren Zwischenstand mit dem show-Befehl überprüfen. Dazu nutzen wir folgendes Kommando:
+Jetzt können wir unseren Zwischenstand mit dem \textbf{show}-Befehl überprüfen. Dazu nutzen wir folgendes Kommando:
 \begin{lstlisting}[style=Bash]
 $ emp show ../invoice.htm
 \end{lstlisting}
@@ -81,7 +81,7 @@ Das Template kann nun zur fertigen Rechnung gerendert werden, da wir alle benöt
 $ emp render ../../invoice.htm .
 \end{lstlisting}
 
-Im folgenden definieren wir die Variablen welche die Grundlage für die im Template enthaltene Collection benötigt werden. Um herauszufinden welche das sind bemühen wir den show-Befehl und übergeben das Template als Paramter:
+Im folgenden definieren wir die Variablen welche die Grundlage für die im Template enthaltene Collection benötigt werden. Um herauszufinden welche das sind bemühen wir den \textbf{show}-Befehl und übergeben das Template als Paramter:
 \begin{lstlisting}[style=Bash]
 $ emp show ../../invoice.htm
 \end{lstlisting}
@@ -125,7 +125,7 @@ $ emp show ../../invoice.htm
 \end{lstlisting}
 Alle Werte sollten nun grün oder türkis dargestellt werden. Grün symbolisiert das die Variablen im aktuellen Ordner erstellt wurden, türkise Variablen befinden sich hingegen in einem übergeordneten Verzeichnis.
 
-Das Rendern erfolgt mit dem render-Befehl:
+Das Rendern erfolgt mit dem \textbf{render}-Befehl:
 \begin{lstlisting}[style=Bash]
 $ emp render ../../invoice.htm ./invoice.htm
 \end{lstlisting}
@@ -146,14 +146,15 @@ $ emp add to_street "Musterweg 3"
 $ emp add to_city "52246 Musterdorf"
 \end{lstlisting}
 
-Mit dem show-Befehl lässt sich nun leicht erkennen, dass sich to_street und to_city im aktuellen Verzeichnis befinden und unsere gerade zugewiesenen Werte enthalten. to_name befindet sich zwar in einem übergeordneten Ordner, hat aber seinen Wert beibehalten. //TODO: klingt doof
+Mit dem \textbf{show}-Befehl lässt sich nun leicht erkennen, dass sich \textbf{to_street} und \textbf{to_city} im aktuellen Verzeichnis befinden und unsere gerade zugewiesenen Werte enthalten.
+\textbf{to_name} befindet sich zwar in einem übergeordneten Ordner, hat aber seinen Wert beibehalten. TODO: klingt doof  
 
-Im folgenden müssen wir wieder die Collection mit Daten füllen, die Definition ist bereits von der ersten Rechnung vorhanden(TODO?). Wir erstellen also mit dem cadd-Kommando erneut eine Collection:
+Im folgenden müssen wir wieder die Collection mit Daten füllen, die Definition ist bereits von der ersten Rechnung vorhanden(TODO?). Wir erstellen also mit dem \textbf{cadd}-Kommando erneut eine Collection:
 \begin{lstlisting}[style=Bash]
 $ emp cadd items
 \end{lstlisting}
 
-Für das hinzufügen nutzen wir aber dieses mal die interaktive Variante von cfill:
+Für das hinzufügen nutzen wir aber dieses mal die interaktive Variante von \textbf{cfill}:
 \begin{lstlisting}[style=Bash]
 $ emp cfill items
 \end{lstlisting}
