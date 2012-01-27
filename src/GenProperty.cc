@@ -86,7 +86,7 @@ namespace PropertyIo
      * @param rPath the dir path
      * @param pProp property to read key and data from
      */
-    void WritePropDataToDir(std::string const& rPath, GenPropertyBase* pProp)
+    void WriteDataToDir(std::string const& rPath, GenPropertyBase* pProp)
     {
         std::string file_path(rPath + "/" + pProp->GetKey());
 

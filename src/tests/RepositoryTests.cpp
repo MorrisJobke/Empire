@@ -54,18 +54,18 @@ class Fixture
             /* change the dir path */
             Fs::ChangeCwd(this->mTestRepoDir);
         }
-        
+
         ~Fixture()
         {
             BOOST_TEST_MESSAGE("Go back from:" << Fs::GetCwd());
             Fs::ChangeCwd(this->mBaseDir);
-            
+
             /* delete repo dir */
             BOOST_TEST_MESSAGE("deleting test repo");
             Fs::RemoveDirRec(this->mTestRepoDir);
 
             BOOST_REQUIRE(Fs::DirectoryExists(this->mTestRepoDir) == false);
-            
+
             if (Fs::DirectoryExists(this->mTestRepoDir) == false)
             {
                 BOOST_TEST_MESSAGE("deleting test repo successfull");
@@ -226,7 +226,7 @@ BOOST_AUTO_TEST_CASE(testRepoPropDataIO)
 
     try
     {
-        PropertyIo::WritePropDataToDir(".", p_out_prop);
+        PropertyIo::WriteDataToDir(".", p_out_prop);
     }
     catch(ExcRepository &exc)
     {
@@ -280,7 +280,7 @@ BOOST_AUTO_TEST_CASE(testRepoLoad)
     repo.CreatePropertyClass(rechst.GetKey(), rechst.GetTypeN());
     repo.CreatePropertyClass(firmn.GetKey(), firmn.GetTypeN());
 
-    PropertyIo::WritePropDataToDir(".", p_rechst);
+    PropertyIo::WriteDataToDir(".", p_rechst);
 
 
     Fs::CreateDirectory("FirmaA");
@@ -288,7 +288,7 @@ BOOST_AUTO_TEST_CASE(testRepoLoad)
     Fs::ChangeCwd("FirmaA");
 
     GenProperty<string> firmn_a("die Firma", "firmen_name");
-    PropertyIo::WritePropDataToDir(".", &firmn_a);
+    PropertyIo::WriteDataToDir(".", &firmn_a);
 
 
     BOOST_CHECK(Fs::FileExists("firmen_name") == true);
@@ -496,7 +496,7 @@ BOOST_AUTO_TEST_CASE(AddPropertyStressTest)
 
     for (int i = 0; i < 100; i++)
     {
-        repo.AddProperty("stressTest", "", "example");    
+        repo.AddProperty("stressTest", "", "example");
         BOOST_CHECK(repo.ContainsProperty("stressTest"));
         remove(".emp/stressTest");
         remove("stressTest");
