@@ -258,7 +258,7 @@ void SimpleTemplate::ParseString(string const& input, string& output)
                                 GenPropertyBase* prop;
                                 for (mapit = mProperties.begin(); mapit != mProperties.end(); mapit++) {
                                     prop = mapit->second;
-                                    if (prop->GetTypeN() == GetTypeName<FunctionType>())
+                                    if (prop != NULL && prop->GetTypeN() == GetTypeName<FunctionType>())
                                     {
                                         tmpl->AddProperty(prop);
                                     }
