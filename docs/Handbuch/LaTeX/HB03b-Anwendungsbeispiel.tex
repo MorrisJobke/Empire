@@ -43,7 +43,16 @@ Dasselbe Ergebnis kann man auch mit dem iadd-Befehl erreichen. Auf diesen werden
 Wir deklarieren noch einige Eigenschaften, die wir in der Collection verwenden wollen:
 
 \begin{lstlisting}[style=Bash]
-...
+$ emp create description string
+$ emp create price double
+$ emp create quantity double
+$ emp create unit string
+\end{lstlisting}
+
+Nun kann die Collection deklariert werden:
+
+\begin{lstlisting}[style=Bash]
+$ emp cadd items description price quantity unit
 \end{lstlisting}
 
 Im Anschluss erstellen wir für jeden Kunden einen Ordner und hinterlegen in diesem die Daten des Kunden:
@@ -103,8 +112,27 @@ $ emp iadd ../../invoice.htm
 	\hline
 \end{tabular}
 
-Die Collection wird nun folgendermaßen ge\\
-TODO: Collection adden
+Die Collection wird nun folgendermaßen gefüllt:
+\begin{lstlisting}[style=Bash]
+$ emp cfill items description:Montage unit:h price:20.00 quantity:0.5
+\end{lstlisting}
+
+Man kann ebenfalls eine interaktive Form des Eintragens der Werte benutzen:
+\begin{lstlisting}[style=Bash]
+$ emp cfill items
+\end{lstlisting}
+
+\begin{tabular}{| l | l |}
+	\hline
+	unit & Stück \\
+	\hline
+	price & 25 \\
+	\hline
+	quantity & 3 \\
+	\hline
+	description & Wandhalterung \\
+	\hline
+\end{tabular}
 
 Das Template kann nun zur fertigen Rechnung gerendert werden, da wir alle benötigten Werte hinzugefügt haben:
 \begin{lstlisting}[style=Bash]
