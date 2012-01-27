@@ -247,11 +247,17 @@ namespace PropertyHelpers
             GenProperty<FunctionType>* p_new = (GenProperty<FunctionType>*) pProp;
 
             std::list<std::string> list;
-            std::istringstream stream(rValue);
-            std::string line;
-            while (std::getline(stream, line))
+            std::string value = rValue;
+            std::size_t found;
+
+            found = value.find(";");
+            while (found != std::string::npos)
             {
-                list.push_back(line);
+                std::string f = value.substr(0,found+1);
+                list.push_back(f);
+                value.replace(0, found+1, "");
+                std::cout << value << "#\t#" << f << std::endl;
+                found = value.find(";");
             }
             p_new->SetValue(list);
 
