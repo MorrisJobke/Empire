@@ -36,7 +36,10 @@ void SimpleTemplate::AddProperties(list<GenPropertyBase*> properties)
 {
     list<GenPropertyBase*>::iterator it;
     for (it = properties.begin(); it != properties.end(); it++) {
-        AddProperty(*it);
+        if ((*it)->HasValue())
+        {
+            this->AddProperty(*it);
+        }
     }
 }
 
@@ -206,9 +209,14 @@ void SimpleTemplate::ParseString(string const& input, string& output)
                                         }
                                     }
                                 }
+                                else if (property->GetTypeN() == GetTypeName<Coll>())
+                                {
+                                    // eat it :)
+                                    std::cout << "[WARNING] property " << gathered << "is a collection, but the template contains a wrong syntax for this collection." << std::endl;
+                                }
                                 else
                                 {
-                                    string propertyValue = property->ToString();
+                                    std::string propertyValue = property->ToString();
                                     result << propertyValue;
                                 }
                             }
@@ -517,7 +525,7 @@ std::list<std::string> SimpleTemplate::GetMissingCollections(std::string const& 
  */
 std::list<std::string> SimpleTemplate::GetUnusedCollections(std::string const& rPath, std::list<std::string> const& rAvailableColls)
 {
-    return ListHelper::ListCompare(rAvailableColls, this->GetCollectionList(rPath), true);   
+    return ListHelper::ListCompare(rAvailableColls, this->GetCollectionList(rPath), true);
 }
 /*============================= ACCESS     =================================*/
 /*============================= INQUIRY    =================================*/
