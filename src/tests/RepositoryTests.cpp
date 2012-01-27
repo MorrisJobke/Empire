@@ -478,4 +478,29 @@ BOOST_AUTO_TEST_CASE(GetFirstDefinedValueRecTest)
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
 
+BOOST_AUTO_TEST_CASE(AddPropertyStressTest)
+{
+
+    Repository repo;
+
+    try
+    {
+        repo.Init();
+    }
+    catch(ExcRepository &exc)
+    {
+        string err = exc.what();
+        if(err != "Err: Repo Exists")
+            cout << exc.what() << endl;
+    }
+
+    for (int i = 0; i < 100; i++)
+    {
+        repo.AddProperty("stressTest", "", "example");    
+        BOOST_CHECK(repo.ContainsProperty("stressTest"));
+        remove(".emp/stressTest");
+        remove("stressTest");
+    }
+}
+
 BOOST_AUTO_TEST_SUITE_END()
