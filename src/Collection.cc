@@ -57,13 +57,13 @@ std::istream& operator>>(std::istream& rIn, Coll rColl)
 /** this method loads a collection from a DirectoryExists
  *
  * @param rKey key of the collection
+ * @param rMetaPath path to .emp folder
  */
-void Coll::Load(std::string const& rKey)
+void Coll::Load(std::string const& rKey, std::string const& rMetaPath)
 {
     this->mKey = rKey;
 
-    Repository working_repo;
-    std::string meta_path = working_repo.GetMetaPath() + "/" + rKey;
+    std::string meta_path = rMetaPath + "/" + rKey;
 
     if (Fs::DirectoryExists(meta_path) == false)
         throw ErrorColl("COLL_NO_DEC_FOUND");
@@ -185,8 +185,9 @@ void Coll::Load(std::string const& rKey)
 /** this creates the folder 0 with property types
  *
  * @param pPropList list with property members
+ * @param rMetaPath path to .emp folder
  */
-void Coll::Declare(std::list<GenPropertyBase*> const& pPropList)
+void Coll::Declare(std::list<GenPropertyBase*> const& pPropList, std::string const& rMetaPath)
 {
     //std::list<GenPropertyBase*>::const_iterator print_it;
     //
@@ -197,9 +198,7 @@ void Coll::Declare(std::list<GenPropertyBase*> const& pPropList)
     //}
 
 
-    Repository working_repo;
-    std::string meta_path = working_repo.GetMetaPath();
-    std::string coll_meta_path = meta_path + "/" + this->mKey;
+    std::string coll_meta_path = rMetaPath + "/" + this->mKey;
 
     if (!mPropList.empty())
         throw ErrorColl("COLL_ALREADY_DECLARED");

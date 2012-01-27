@@ -20,7 +20,6 @@
 #include "Filesystem.h"
 #include "GenPropertyBase.h"
 #include "GenProperty.h"
-#include "Repository.h"
 
 DEFINE_VAR_EXCEPTION(ErrorColl)
 
@@ -40,8 +39,8 @@ class Coll
 
     ~Coll();
 
-    void Load(std::string const& rPath);
-    void Declare(std::list<GenPropertyBase*> const&);
+    void Load(std::string const& rPath, std::string const& rMetaPath);
+    void Declare(std::list<GenPropertyBase*> const&, std::string const& rMetaPath);
     void AddRow(std::list<GenPropertyBase*> const&);
 
     std::list< std::list<GenPropertyBase*> > GetList() const;
