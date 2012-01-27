@@ -23,7 +23,7 @@ Coll::Coll()
 
 /** constructor
  *
- * @param rPath the directory where the directory should be read from
+ * @param rKey the key of the collection
  */
 Coll::Coll(std::string const& rKey)
 :   mKey(rKey)
@@ -56,7 +56,7 @@ std::istream& operator>>(std::istream& rIn, Coll rColl)
 
 /** this method loads a collection from a DirectoryExists
  *
- * @param rPath path of the collection
+ * @param rKey key of the collection
  */
 void Coll::Load(std::string const& rKey)
 {
