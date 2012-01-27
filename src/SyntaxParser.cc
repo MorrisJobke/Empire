@@ -106,7 +106,7 @@ namespace SyntaxParser
                 std::cout << "Collection dir already exists, but you have no collection property\n"
                           << "with the given name.\n";
             else
-                std::cout << "Collection dir already.exists\n";
+                std::cout << "Collection dir already exists\n";
 
             return;
         }

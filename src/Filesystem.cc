@@ -98,7 +98,6 @@ namespace Filesystem
      */
     void CreateDirectory (std::string const& rDirPath)
     {
-        std::cout << "mkdir " << rDirPath << std::endl;
         /* create char array */
         char* cstr = new char[rDirPath.size() + 1];
         strcpy(cstr, rDirPath.c_str());
