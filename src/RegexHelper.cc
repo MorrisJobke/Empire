@@ -12,9 +12,10 @@
 namespace RegexHelper
 {
      /**
-     * @brief function wich checks if a given string is matching to a given regex-pattern
+     * @brief function which checks if a given string is matching to a given regex-pattern
      * @param rTargetString given String to check against the pattern
      * @param rPattern given regex pattern to check
+     * @return returns true, if the given string is matching to the given regex-pattern, else false
      */
     bool MatchesRegex(std::string rTargetString, std::string rPattern)
     {
@@ -53,8 +54,9 @@ namespace RegexHelper
     }
 
     /**
-     * @brief function wich checks if a given string contains an int value
+     * @brief function wich checks if a given string contains an int-value
      * @param value given string to check
+     * @return returns true, if the given string contains an int-value, else false
      */
     bool isInt(std::string value)
     {
@@ -62,8 +64,9 @@ namespace RegexHelper
     }
 
     /**
-     * @brief function wich checks if a given string contains a float value
+     * @brief function wich checks if a given string contains a float-value
      * @param value given string to check
+     * @return returns true, if the given string contains a float-value, else false
      */
     bool isFloat(std::string value)
     {
@@ -71,8 +74,9 @@ namespace RegexHelper
     }
 
     /**
-     * @brief function wich checks if a given string contains a float value
+     * @brief function wich checks if a given string contains a function
      * @param value given string to check
+     * @return returns true, if the given string contains a function, else false
      */
     bool isFunction(std::string value)
     {
