@@ -204,7 +204,7 @@ namespace SyntaxParser
 
         /* read entries */
         list<GenPropertyBase*> new_entries;
-        
+
         if (argc != 0) //manual mode
         {
             while (argc > 0)
@@ -213,7 +213,7 @@ namespace SyntaxParser
 
                 //cout << "new pair-> " << new_pair << endl;
 
-                /* split tthe pair */
+                /* split the pair */
                 size_t found = new_pair.find_first_of(":");
 
                 if (found == string::npos)
@@ -259,7 +259,7 @@ namespace SyntaxParser
             int count = 0;
             while(!stop)
             {
-                std::cout << COLOR_BOLD << "Creating a new row. Press [Enter] to abort." 
+                std::cout << COLOR_BOLD << "Creating a new row. Press [Enter] to abort."
                           << COLOR_CLEAR << std::endl;
                 for(it = needed.begin(); it != needed.end(); it++)
                 {
@@ -275,10 +275,10 @@ namespace SyntaxParser
                         {
                             std::cout << "PropertyClass exists." << std::endl;
                         }
-                        std::cout << COLOR_RED << "[WARNING] Property " << key 
+                        std::cout << COLOR_RED << "[WARNING] Property " << key
                                   << " automatically redefined!" << COLOR_CLEAR << std::endl;
                     }
-                    
+
                     std::cout << "Please enter an value for " << key  << COLOR_BLUE
                               << "<" << type << ">"
                               << COLOR_CLEAR << std::endl;
@@ -301,7 +301,7 @@ namespace SyntaxParser
                     count ++;
                     c.AddRow(new_entries);
                 }
-                    
+
             }
             std::cout << COLOR_BOLD << count << " rows added." << COLOR_CLEAR << std::endl;
         }
@@ -489,7 +489,7 @@ namespace SyntaxParser
         std::list <std::string> createdProps = Lh::PropertyList2KeyList(working_repo.GetCreatedProperties());
         std::list <std::string> allProps = Lh::ListMerge(createdProps, addedProps);
         std::list <std::string> definedColls = Lh::PropertyList2KeyList(working_repo.GetCollections());
-        
+
         if (argc != 0) //template mode
         {
             //TODO: replace by SimpleTemplate::GetMissingProperties
@@ -502,7 +502,7 @@ namespace SyntaxParser
             unused = tmpl->GetMissingProperties(argv[0], addedProps);
             created = tmpl->GetAvailableProperties(argv[0], createdProps);
             needless = tmpl->GetUnusedProperties(argv[0], allProps);
-                            
+
             /*collections:*/
             used_colls = tmpl->GetAvailableCollections(argv[0], definedColls);
             unused_colls = tmpl->GetMissingCollections(argv[0], definedColls);
