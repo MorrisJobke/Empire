@@ -402,7 +402,7 @@ void Repository::AddProperty(std::string const& key, std::string const& type, st
         }
 
         /* check if Propertyclass exists already, otherwise create it*/
-        if(!Fs::FileExists(this->mAbsoluteRepoPath + "/" + REPO_NAME + "/" + key))
+        if(!this->ContainsProperty(key))
         {
             try
             {
