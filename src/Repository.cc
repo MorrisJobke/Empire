@@ -594,6 +594,13 @@ std::string Repository::GetPropertyValue(std::string const& rKey)
         GenProperty<std::string>* cast_prop = (GenProperty<std::string>*) prop;
         return cast_prop->GetValue();
     }
+    else if (type == GetTypeName<FunctionType>())
+    {
+        GenProperty<FunctionType>* cast_prop = (GenProperty<FunctionType>*) prop;
+        std::stringstream str;
+        str << cast_prop->GetValue();
+        return str.str();
+    }
     return "";
 }
 
