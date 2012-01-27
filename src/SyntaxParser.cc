@@ -244,8 +244,9 @@ namespace SyntaxParser
                 new_entries.push_back(new_prop);
 
                 argc--;
-                argv++;    
+                argv++;
             }
+            c.AddRow(new_entries);
         }
         else //interactive mode
         {
@@ -254,8 +255,9 @@ namespace SyntaxParser
             std::list<GenPropertyBase*>::const_iterator it;
 
             std::string tmpValue;
-            
-            while(true)
+            bool stop = false;
+
+            while(!stop)
             {
                 std::cout << COLOR_BOLD << "Creating a new row. Press [Enter] to abort." 
                           << COLOR_CLEAR << std::endl;
@@ -274,7 +276,10 @@ namespace SyntaxParser
                                   << COLOR_CLEAR << std::endl;
                         std::getline(std::cin, tmpValue);
                         if(tmpValue == "")
-                            return;
+                        {
+                            stop = true;
+                            break;
+                        }
                         else
                         {
                             GenPropertyBase* new_prop = PropertyHelpers::CreatePropertyFromTypeString(type);
@@ -285,10 +290,12 @@ namespace SyntaxParser
                             
                     }
                 }
+                if (!stop)
+                    c.AddRow(new_entries);
             }
         }
 
-        c.AddRow(new_entries);
+        
     }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
