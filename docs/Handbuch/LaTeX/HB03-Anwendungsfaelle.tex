@@ -30,12 +30,22 @@ Es folgen einige Beispiele für die Typ-Erkennung:
 	\hline
 	string & s1234, 12s3, \grqq Text mit Leerzeichen\grqq , Adresse \\
 	\hline
-\end{tabular} 
+	FunctionType & \grqq return price * quantity; return lhs + rhs; \grqq\\
+	\hline
+\end{tabular}
 
 Wenn eine automatische Erkennung nicht gewünscht ist, muss ein Typ angegeben werden. Im Folgenden dazu ein Beispiel:
 \begin{lstlisting}[style=Bash]
 $ emp add floatString string 1.2314
 \end{lstlisting}
+
+\subsection{Besonderheit: FunctionType Eigenschaft}
+Um sich wiederholende Berechnungen zu vereinfachen, gibt es einen speziellen Funktions-Typ, der einfache Lua-Anweisungen auswerten kann. Er nimmt genau 2 solcher Anweisungen auf, eine um z.B. einzelne Posten einer Rechnung zusammen zu rechnen (vgl. \grqq Map-Funktion\grqq) und eine, die wiederrum Berechnungen mit diesen Werten vornimmt(vgl. \grqq Reduce-Funktion\grqq).
+
+Die Variablen innerhalb der ersten dieser beiden Funktionen können Namen von allen verfügbaren Properties (auch in Collections enthaltenen) annehmen. Die zweite Funktion benutzt nur die beiden Variablen \grqq lhs \grqq und \grqq rhs \grqq , welche für den linken und die rechten Operanden des Ausdrucks stehen.
+
+Unterstützt werden zur Zeit jedoch nur einfachste Ausdrücke der Form \grqq return \emph{ausdruck}; return \emph{ausdruck}; \grqq. (Siehe obere Tabelle)
+
 
 \subsection{Löschen von bereits hinzugefügten Werten}
 Das Löschen von in einem Repository enthaltenen Werten erfolgt mit dem Befehl remove:
@@ -56,8 +66,10 @@ Zu beachten ist allerdings, dass mit diesem Befehl alle vorhandenen Werte mit di
 \subsection{Rendern eines Templates}
 Mit dem folgenden Befehl wird ein Template gerendert:
 \begin{lstlisting}[style=Bash]
-$ emp render <Template-Datei> <Ausgabe-Datei>
+$ emp render <Template-Datei> [<Ausgabe-Datei>] [-f]
 \end{lstlisting}
+
+Die beiden letzteren Parameter sind optional. Falls der Parameter für die Ausgabe-Datei nicht gesetzt ist, wird der Dateiname des Templates benutzt und die Datei im aktuellen Verzeichnis abgelegt. Mit der Option -f kann man das Überschreiben erzwingen, falls die Ausgabe-Datei bereits vorhanden ist. Diese Option wird an jeder Stelle in der Parameter-Liste erkannt.
 
 \subsection{Anzeigen von bereits hinzugefügten Werten}
 Um einen Überblick über den aktuellen Status zu erhalten, kann das show-Kommando genutzt werden:
