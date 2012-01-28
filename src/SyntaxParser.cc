@@ -665,16 +665,29 @@ namespace SyntaxParser
         }
 
         GenPropertyBase* prop = working_repo.GetPropertyByKey(key);
+        bool isCollection = prop->GetTypeN() == GetTypeName<Coll>();
+
         std::cout << "Key           = " << prop->GetKey() << std::endl;
         std::cout << "Type          = " << prop->GetTypeN() << std::endl;
-        if (prop->HasValue())
+
+        if (prop->HasValue() && !isCollection)
         {
             std::cout << "Value         = " << working_repo.GetPropertyValue(key) << std::endl;
             std::cout << "value path    = " << prop->GetPath() << std::endl;
             std::cout << "Creation time = " << Ch::TimeToString(Fs::GetFileCreationDate(prop->GetPath())) << std::endl;
         }
+        else if (isCollection)
+        {
+            /*
+            GenProperty<Coll> collProp = (GenProperty<Coll>) prop;
+            Coll collection = collProp.getValue();
+            std::cout << "Containin Propertys:" << std::endl;
+            Ch::printTripleList(collection.GetPropertyList(), CREATED, 1);
+            */
+        }
         else
             std::cout << "Value         = " << "NO VALUE SET" << std::endl;
+
     }
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
 
@@ -1052,7 +1065,7 @@ namespace ConsoleHelper{
                 std::cout << COLOR_BLUE << "<" << type << ">";
             }
             if (rDirDiff && !path)
-                std::cout << color << COLOR_BOLD << " ^" << dirDiff << " ";
+                std::cout << color << "(" << '^' << dirDiff << ") ";
             if (rValues)
                 std::cout << COLOR_CLEAR << " = " << value;
 
