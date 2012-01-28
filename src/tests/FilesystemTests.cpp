@@ -25,7 +25,53 @@ using namespace std;
 
 namespace Fs = Filesystem;
 
-BOOST_AUTO_TEST_SUITE(FilesystemTests_Suite)
+/* test fixture */
+class Fixture
+{
+    public:
+        std::string mBaseDir;
+        std::string mTestRepoDir;
+
+        Fixture()
+        {
+            BOOST_TEST_MESSAGE("Basedir:" << Fs::GetCwd());
+            this->mBaseDir =  Fs::GetCwd();
+
+            /* create test repo dir */
+            this->mTestRepoDir = "test_filesystem";
+
+            try
+            {
+                Fs::CreateDirectory(this->mTestRepoDir);
+            }
+            catch(Fs::CannotCreateDirError &exc)
+            {
+                BOOST_FAIL( "Cannot create testing dir for filesystem module!" );
+            }
+
+            /* change the dir path */
+            Fs::ChangeCwd(this->mTestRepoDir);
+        }
+
+        ~Fixture()
+        {
+            BOOST_TEST_MESSAGE("Go back from:" << Fs::GetCwd());
+            Fs::ChangeCwd(this->mBaseDir);
+
+            /* delete repo dir */
+            BOOST_TEST_MESSAGE("deleting test repo");
+            Fs::RemoveDirRec(this->mTestRepoDir);
+
+            BOOST_REQUIRE(Fs::DirectoryExists(this->mTestRepoDir) == false);
+
+            if (Fs::DirectoryExists(this->mTestRepoDir) == false)
+            {
+                BOOST_TEST_MESSAGE("deleting test repo successfull");
+            }
+        }
+};
+
+BOOST_FIXTURE_TEST_SUITE(FilesystemTests_Suite, Fixture)
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
 
