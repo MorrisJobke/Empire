@@ -46,6 +46,7 @@ namespace Filesystem
     void RemoveDirRec(std::string const& rPath);
     int RemoveFile(const char *fpath, const struct stat *sb, int typeflag, struct FTW *ftwbuf);
     void RemoveFilesInDirRec(std::string const& rName, std::string const& rDirPath);
+    void RemoveDirsInDirRec(std::string const& rName, std::string const& rDirPath);
 
     void FileWriteString(std::string const& rFilePath, std::string const& rContent);
     void FileAppendString(std::string const& rFilePath, std::string const& rContent);
