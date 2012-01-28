@@ -20,6 +20,9 @@
 #include "Filesystem.h"
 #include "GenProperty.h"
 
+DEFINE_FAST_EXCEPTION(CollExists,"Collection exists already")
+DEFINE_FAST_EXCEPTION(CollDecExists,"Collection defined already")
+
 DEFINE_VAR_EXCEPTION(ErrorColl)
 
 /** collection class

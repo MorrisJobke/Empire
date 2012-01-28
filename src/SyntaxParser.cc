@@ -156,7 +156,18 @@ namespace SyntaxParser
         }
 
         Coll c(coll_name);
-        c.Declare(props_to_declare, working_repo.GetMetaPath());
+        try
+        {
+            c.Declare(props_to_declare, working_repo.GetMetaPath());
+        }
+        catch (CollExists)
+        {
+            std::cout << "A collection with this key is alredy defined." << std::endl;
+        }
+        catch (CollDecExists)
+        {
+            std::cout << "A collection with this key is alredy defined." << std::endl;
+        }
 
         //remove created properties:
         std::list<GenPropertyBase*>::const_iterator it;

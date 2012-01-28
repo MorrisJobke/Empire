@@ -201,10 +201,10 @@ void Coll::Declare(std::list<GenPropertyBase*> const& pPropList, std::string con
     std::string coll_meta_path = rMetaPath + "/" + this->mKey;
 
     if (!mPropList.empty() || !mMetaList.empty())
-        throw ErrorColl("COLL_ALREADY_DECLARED");
+        throw CollExists();
 
     if (Fs::DirectoryExists(coll_meta_path.c_str()))
-        throw ErrorColl("COLL_DECLARE_DIR_EXISTS");
+        throw CollDecExists();
 
     /* create the declare dir */
     Fs::CreateDirectoryRec(coll_meta_path.c_str());
