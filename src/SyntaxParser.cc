@@ -874,6 +874,15 @@ namespace SyntaxParser
                 path += "/" + filename;
         }
         Fs::FileWriteString(path, output);
+        bool isTexFile = RegexHelper::MatchesRegex(path,".*\\.tex");
+
+        if(isTexFile && Fs::FileExists("/usr/bin/pdflatex"))
+        {
+            std::cout << "pdflatex found, creating pdf from rendered .tex file..." << std::endl;
+            std::string executeLine = "pdflatex -interaction scrollmode -no-shell-escape " + path
+                                    + ">" + path + ".log";
+            system(executeLine.c_str());
+        }
     }
 
     /** remove command

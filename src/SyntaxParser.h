@@ -14,6 +14,7 @@
 #include "Filesystem.h"
 #include "Collection.h"
 #include "ListHelper.h"
+#include "RegexHelper.h"
 
 DEFINE_FAST_EXCEPTION(NotEnoughArgs, "Not enough arguments.")
 

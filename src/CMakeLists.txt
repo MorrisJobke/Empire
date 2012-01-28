@@ -48,7 +48,8 @@ target_link_libraries(SyntaxParser
     Template
     Filesystem
     Collection
-    ListHelper)
+    ListHelper
+    RegexHelper)
 
 #######################
 # RegexHelper library #
