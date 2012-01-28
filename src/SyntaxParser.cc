@@ -1021,6 +1021,7 @@ namespace ConsoleHelper{
      * @param mode the mode for printing
      * @param rValues should it print values?
      * @param rTypes should it print types?
+     * @param rTypes should it print the count of dirs to value definition?
      * @param working_repo the repository
      * @param rTabSpace count of tab spaces the output should have at begin of the lines
      */
