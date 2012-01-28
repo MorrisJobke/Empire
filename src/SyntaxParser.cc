@@ -1027,7 +1027,7 @@ namespace ConsoleHelper{
                     if(working_repo.ContainsProperty(*it2))
                     {
                         GenPropertyBase* prop = working_repo.GetPropertyByKey(*it2);
-                        if(!prop->HasValue() || prop->GetTypeN() != GetTypeName<FunctionType>())
+                        if(prop->GetTypeN() != GetTypeName<FunctionType>())
                             out.push_back(*it2);
                     }
                     else
