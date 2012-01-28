@@ -525,6 +525,12 @@ namespace SyntaxParser
 
         if (argc != 0) //template mode
         {
+            if(!Fs::FileExists(argv[0]))
+            {
+                std::cout << "The given paramater is not a file. Aborting." << std::endl;
+                return;
+            }
+
             SimpleTemplate* tmpl = new SimpleTemplate();
             std::list<std::string> unused, used, created, used_colls, unused_colls, needless, needless_colls;
             std::list<std::string>::const_iterator it;
