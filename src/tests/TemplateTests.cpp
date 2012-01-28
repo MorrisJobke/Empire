@@ -133,9 +133,10 @@ BOOST_AUTO_TEST_CASE(TemplateCollectionTest)
 
     BOOST_CHECK(output == "Nerds Recipe\n\n1 oz Midori Melon Liqueur\n1 oz Blue Curacao\n0.5 oz Lemonade\n");
 
-    remove("ingredients/0/ingredient");
-    remove("ingredients/0/oz");
-    remove("ingredients/0");
+    remove(".emp/ingredients/ingredient");
+    remove(".emp/ingredients/oz");
+    remove(".emp/ingredients");
+    remove(".emp");
     remove("ingredients/1/ingredient");
     remove("ingredients/1/oz");
     remove("ingredients/1");
@@ -215,10 +216,11 @@ BOOST_AUTO_TEST_CASE(TemplateCollectionAndFunctionTest)
 
     BOOST_CHECK(output == "Nerds Recipe Vol.2\n\n1 oz Midori Melon Liqueur\n3 oz Blue Curacao\n0.5 oz Lemonade\n\nTotal:\t11.68 €");
 
-    remove("ingredients/0/ingredient");
-    remove("ingredients/0/oz");
-    remove("ingredients/0/priceperoz");
-    remove("ingredients/0");
+    remove(".emp/ingredients/ingredient");
+    remove(".emp/ingredients/oz");
+    remove(".emp/ingredients/priceperoz");
+    remove(".emp/ingredients");
+    remove(".emp");
     remove("ingredients/1/ingredient");
     remove("ingredients/1/oz");
     remove("ingredients/1/priceperoz");

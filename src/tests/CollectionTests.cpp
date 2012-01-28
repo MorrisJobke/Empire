@@ -230,6 +230,7 @@ BOOST_AUTO_TEST_CASE(CollectionPropTest)
     remove("coll_test/1/price");
     remove(".emp/coll_test");
     remove("coll_test/1");
+    remove("coll_test");
     remove(".emp");
 
 }

@@ -55,18 +55,18 @@ class Fixture
             /* change the dir path */
             Fs::ChangeCwd(this->mTestRepoDir);
         }
-        
+
         ~Fixture()
         {
             BOOST_TEST_MESSAGE("Go back from:" << Fs::GetCwd());
             Fs::ChangeCwd(this->mBaseDir);
-            
+
             /* delete repo dir */
             BOOST_TEST_MESSAGE("deleting test repo");
             Fs::RemoveDirRec(this->mTestRepoDir);
 
             BOOST_REQUIRE(Fs::DirectoryExists(this->mTestRepoDir) == false);
-            
+
             if (Fs::DirectoryExists(this->mTestRepoDir) == false)
             {
                 BOOST_TEST_MESSAGE("deleting test repo successfull");
@@ -107,10 +107,10 @@ BOOST_AUTO_TEST_CASE(CollAddAndFill)
         char *iargs[] = { "co", "stckzahl", "postenname", NULL };
         int iargsc = 3;
         SyntaxParser::coll_add(iargsc, iargs);
-        BOOST_CHECK(Fs::DirectoryExists("co") == true);
-        BOOST_CHECK(Fs::DirectoryExists("co/0") == true);
-        BOOST_CHECK(Fs::FileExists("co/0/stckzahl") == true);
-        BOOST_CHECK(Fs::FileExists("co/0/postenname") == true);
+        BOOST_CHECK(Fs::DirectoryExists(".emp") == true);
+        BOOST_CHECK(Fs::DirectoryExists(".emp/co") == true);
+        BOOST_CHECK(Fs::FileExists(".emp/co/stckzahl") == true);
+        BOOST_CHECK(Fs::FileExists(".emp/co/postenname") == true);
     }
     {
         /* fill collection */
@@ -118,9 +118,9 @@ BOOST_AUTO_TEST_CASE(CollAddAndFill)
         int iargsc = 3;
         SyntaxParser::coll_fill(iargsc, iargs);
         BOOST_CHECK(Fs::DirectoryExists("co") == true);
-        BOOST_CHECK_MESSAGE(Fs::DirectoryExists("co/1") == true, "Could not find collection entry 1");
-        BOOST_CHECK(Fs::FileExists("co/1/stckzahl") == true);
-        BOOST_CHECK(Fs::FileExists("co/1/postenname") == true);
+        BOOST_CHECK_MESSAGE(Fs::DirectoryExists("co/0") == true, "Could not find collection entry 1");
+        BOOST_CHECK(Fs::FileExists("co/0/stckzahl") == true);
+        BOOST_CHECK(Fs::FileExists("co/0/postenname") == true);
     }
 }
 
