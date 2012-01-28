@@ -315,7 +315,7 @@ void Coll::DebugPrint()
     int outer_count = 0;
     std::list< std::list<GenPropertyBase*> >::const_iterator outer;
 
-    for (outer = this->mPropList.begin(); outer != this->mPropList.end(); outer++);
+    for (outer = this->mPropList.begin(); outer != this->mPropList.end(); outer++)
     {
         std::cout << outer_count << "{" << std::endl;
 
