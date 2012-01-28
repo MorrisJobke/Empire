@@ -479,7 +479,8 @@ void Repository::RemovePropertyClassAndInstances(std::string const& key)
     Fs::RemoveFilesInDirRec(key, this->mAbsoluteRepoPath);
 
     //remove from property list
-    this->RemovePropertyInList(key);
+    if(this->ContainsProperty(key))
+        this->RemovePropertyInList(key);
 }
 
 /*============================= ACCESS      =================================*/
