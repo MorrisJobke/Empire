@@ -351,8 +351,11 @@ namespace Filesystem
      */
     bool FileExists(std::string const& rPath)
     {
+        bool result;
         ifstream ifile(rPath.c_str());
-        return ifile;
+        result = ifile.good();
+        ifile.close();
+        return result;
     }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
