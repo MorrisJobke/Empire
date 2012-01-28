@@ -134,8 +134,15 @@ namespace SyntaxParser
                           << "Please enter a type for this value:" << std::endl;
                 std::string tmpType;
                 std::getline(std::cin, tmpType);
-                working_repo.CreatePropertyClass(new_key, tmpType);
-                return;
+                try
+                {
+                    working_repo.CreatePropertyClass(new_key, tmpType);
+                }
+                catch (ErrorGenProperty& e)
+                {
+                    std::cout << COLOR_RED << "[WARNING] The following type is not supported: " << tmpType << COLOR_CLEAR << std::endl;
+                    continue;
+                }
             };
 
             GenPropertyBase* ext_prop = working_repo.GetPropertyByKey(new_key);
