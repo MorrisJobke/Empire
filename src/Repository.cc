@@ -615,7 +615,7 @@ GenPropertyBase* Repository::GetPropertyByKey(std::string const& rKey)
         }
     }
 
-    return NULL;
+    throw PropNotExists();
 }
 
 /** returns the absolute repo path
