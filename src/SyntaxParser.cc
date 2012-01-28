@@ -131,16 +131,18 @@ namespace SyntaxParser
             if (working_repo.ContainsProperty(new_key) == false)
             {
                 std::cout << "The following key is not declared in repository: " << new_key << std::endl
-                          << "Please enter a type for this value:" << std::endl;
+                          << "Please enter a type for this value or press [Enter] to abort:" << std::endl;
                 std::string tmpType;
                 std::getline(std::cin, tmpType);
+                if (tmpType == "")
+                    return;
                 try
                 {
                     working_repo.CreatePropertyClass(new_key, tmpType);
                 }
                 catch (ErrorGenProperty& e)
                 {
-                    std::cout << COLOR_RED << "[WARNING] The following type is not supported: " << tmpType << COLOR_CLEAR << std::endl;
+                    std::cout << COLOR_RED << "[WARNING] You entered an invalid type: " << tmpType << COLOR_CLEAR << std::endl << std::endl;
                     continue;
                 }
             };

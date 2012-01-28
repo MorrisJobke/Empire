@@ -294,6 +294,10 @@ void Repository::CreatePropertyClass(std::string const& key, std::string const& 
 
     PropertyIo::WriteMetaDataToDir(this->mAbsoluteRepoPath + "/" + REPO_NAME, key, new_prop->GetTypeN());
 
+    //add property to list...
+    new_prop->SetKey(key);
+    this->mPropertyList.push_back(new_prop);
+
     delete new_prop;
 }
 
