@@ -40,7 +40,7 @@ $ emp add floatString string 1.2314
 \end{lstlisting}
 
 \subsection{Besonderheit: FunctionType Eigenschaft}
-Um sich wiederholende Berechnungen zu vereinfachen, gibt es einen speziellen Funktions-Typ, der einfache Lua-Anweisungen auswerten kann. Er nimmt genau 2 solcher Anweisungen auf, eine um z.B. einzelne Posten einer Rechnung zusammen zu rechnen (vgl. \grqq Map-Funktion\grqq) und eine, die wiederrum Berechnungen mit diesen Werten vornimmt(vgl. \grqq Reduce-Funktion\grqq).
+Um sich wiederholende Berechnungen zu vereinfachen, gibt es einen speziellen Funktions-Typ, der einfache Lua-Anweisungen auswerten kann. Er nimmt genau 2 solcher Anweisungen auf, eine um z.B. einzelne Posten einer Rechnung zusammen zu rechnen (vgl. \grqq Map-Funktion\grqq) und eine, die wiederrum diese berechneten Werte zu einem einzelnen Endergebnis zusammenführt (vgl. \grqq Reduce-Funktion\grqq).
 
 Die Variablen innerhalb der ersten dieser beiden Funktionen können Namen von allen verfügbaren Properties (auch in Collections enthaltenen) annehmen. Die zweite Funktion benutzt nur die beiden Variablen \grqq lhs \grqq und \grqq rhs \grqq , welche für den linken und die rechten Operanden des Ausdrucks stehen.
 

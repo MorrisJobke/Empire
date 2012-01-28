@@ -285,7 +285,7 @@ void Repository::CreatePropertyClass(std::string const& key, std::string const& 
     new_prop->SetKey(key);
     this->mPropertyList.push_back(new_prop);
 
-    delete new_prop;
+    //delete new_prop;
 }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
@@ -520,6 +520,8 @@ bool Repository::ContainsProperty(std::string const& rKey)
 
     for (it = this->mPropertyList.begin(); it != this->mPropertyList.end(); it++)
     {
+        if ((*it) == NULL)
+            std::cout << "Null object" << std::endl;
         if ((*it)->GetKey() == rKey)
         {
             return true;
