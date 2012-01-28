@@ -583,7 +583,9 @@ std::string Repository::GetRepositoryPath()
  */
 std::string Repository::GetMetaPath()
 {
-    return this->mAbsoluteRepoPath + "/" + REPO_NAME;
+    if (this->mAbsoluteRepoPath != "")
+        return this->mAbsoluteRepoPath + "/" + REPO_NAME;
+    return REPO_NAME;
 }
 
 /** iterates trough parent folders recursively and returns first matching value
