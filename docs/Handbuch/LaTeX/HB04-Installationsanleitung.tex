@@ -7,7 +7,7 @@ Bevor Empire kompiliert werden kann, müssen folgende Pakete installiert werden:
 
 \begin{itemize}
 	\item cmake
-	\item Boost-Bibliothek
+	\item Boost-Bibliothek \emph{(Boost wird lediglich für die automatisierten Tests verwendet)}
 	\item Lua-Bindings für C++
 	\item PCRE-Bibliothek
 \end{itemize}
@@ -28,7 +28,7 @@ $ sudo pacman -S boost cmake lua pcre
 \begin{lstlisting}[style=Bash]
 $ brew install boost cmake lua
 \end{lstlisting}
-Voraussetzung für diese Installationsmethode: Packet Verwaltung \textbf{Homebrew}\footnote[1]{http://mxcl.github.com/homebrew/}
+Voraussetzung für diese Installationsmethode: Paket Verwaltung \textbf{Homebrew}\footnote[1]{http://mxcl.github.com/homebrew/}
 
 \subsection{Kompilieren des Programmes}
 
@@ -43,7 +43,7 @@ $ make
 
 \subsection{Installieren des Programmes}
 
-Zum installieren wird dann folgender Befehl benutzt.
+Zum Installieren wird dann folgender Befehl benutzt.
 
 \begin{lstlisting}[style=Bash]
 $ sudo make install

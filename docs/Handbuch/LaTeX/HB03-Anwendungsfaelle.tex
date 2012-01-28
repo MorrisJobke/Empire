@@ -19,8 +19,10 @@ Werte können mit dem add-Befehl hinzugefügt werden:
 \begin{lstlisting}[style=Bash]
 $ emp add <Schlüssel> [<Typ>] <Wert>
 \end{lstlisting}
-Die Angabe von einem Datentyp ist optional. Wenn keiner angegeben wird, erfolgt eine automatische Typ-Bestimmung.
+Die Angabe eines Datentyps ist optional. Wenn keiner angegeben wird, erfolgt eine automatische Typ-Bestimmung.
 Es folgen einige Beispiele für die Typ-Erkennung:
+
+\vspace{0.5em}
 
 \begin{tabular}{| l | l |}
 	\hline
@@ -30,9 +32,11 @@ Es folgen einige Beispiele für die Typ-Erkennung:
 	\hline
 	string & s1234, 12s3, \grqq Text mit Leerzeichen\grqq , Adresse \\
 	\hline
-	FunctionType & \grqq return price * quantity; return lhs + rhs; \grqq\\
+	FunctionType & \grqq return price * quantity; return lhs + rhs;\grqq\\
 	\hline
 \end{tabular}
+
+\vspace{0.5em}
 
 Wenn eine automatische Erkennung nicht gewünscht ist, muss ein Typ angegeben werden. Im Folgenden dazu ein Beispiel:
 \begin{lstlisting}[style=Bash]
@@ -41,9 +45,9 @@ $ emp add floatString string 1.2314
 
 \subsection{Besonderheit: FunctionType Eigenschaft}
 Um sich wiederholende Berechnungen zu vereinfachen, gibt es einen speziellen Funktions-Typ, der einfache Lua-Anweisungen auswerten kann. Er nimmt genau 2 solcher Anweisungen auf, eine um z.B. einzelne Posten einer Rechnung zusammen zu rechnen (vgl. \grqq Map-Funktion\grqq) und eine, die wiederrum diese berechneten Werte zu einem einzelnen Endergebnis zusammenführt (vgl. \grqq Reduce-Funktion\grqq).
-
-Die Variablen innerhalb der ersten dieser beiden Funktionen können Namen von allen verfügbaren Properties (auch in Collections enthaltenen) annehmen. Die zweite Funktion benutzt nur die beiden Variablen \grqq lhs \grqq und \grqq rhs \grqq , welche für den linken und die rechten Operanden des Ausdrucks stehen.
-
+\\\\
+Die Variablen innerhalb der ersten dieser beiden Funktionen können Namen von allen verfügbaren Werten (auch in Collections enthaltenen) annehmen. Die zweite Funktion benutzt nur die beiden Variablen \grqq lhs \grqq und \grqq rhs \grqq , welche für den linken und den rechten Operanden des Ausdrucks stehen.
+\\\\
 Unterstützt werden zur Zeit jedoch nur einfachste Ausdrücke der Form \grqq return \emph{ausdruck}; return \emph{ausdruck}; \grqq. (Siehe obere Tabelle)
 
 
@@ -70,9 +74,9 @@ Dabei wird der zu dem Schlüssel gehörende Wert durch den im Kommando angegeben
 
 \subsection{Erstellen eines Templates}
 Ein Template kann mit jedem beliebigen Texteditor erstellt werden. Dabei gilt folgender Syntax für die Platzhalter, welche beim Rendern durch die entsprechenden Werte ersetzt werden.
-
-Ein Platzhalter wird mit dem @-Zeichen eingeleitet. Alle darauf folgenden Alphanumerischen Werte und Unterstriche ergeben den Schlüssel eines im Repository enthaltenen Wertes. Zum Beispiel:
-
+\\\\
+Ein Platzhalter wird mit dem @-Zeichen eingeleitet. Alle darauf folgenden alphanumerischen Werte und Unterstriche ergeben den Schlüssel eines im Repository enthaltenen Wertes.
+\vspace{0.5em}
 \begin{lstlisting}[style=Bash]
 Anschrift:
 @Vorname @Nachname
@@ -81,8 +85,8 @@ Anschrift:
 @PLZ @Ort
 \end{lstlisting}
 
-Zusätzlich können Tabellen mit Hilfe von Collections abgebildet werden. Dazu muss auf das @-Zeichen und den darauf folgenden Schlüssel eine geöffnete geschweifte Klammer folgen. Zum Beispiel:
-
+Zusätzlich können Tabellen mit Hilfe von Collections abgebildet werden. Dazu muss auf das @-Zeichen und den darauf folgenden Schlüssel eine geöffnete geschweifte Klammer folgen.
+\vspace{0.5em}
 \begin{lstlisting}[style=Bash]
 | Anzahl  | Posten   |
 @Einkaufsliste{
@@ -107,7 +111,7 @@ $ emp render <Template-Datei> [<Ausgabe-Datei>] [-f]
 Die beiden letzteren Parameter sind optional. Falls der Parameter für die Ausgabe-Datei nicht gesetzt ist, wird der Dateiname des Templates benutzt und die Datei im aktuellen Verzeichnis abgelegt. Mit der Option -f kann man das Überschreiben erzwingen, falls die Ausgabe-Datei bereits vorhanden ist. Diese Option wird an jeder Stelle in der Parameter-Liste erkannt.
 
 \subsection{Anzeigen von bereits hinzugefügten Werten}
-Um einen Überblick über den aktuellen Status zu erhalten, kann das show-Kommando genutzt werden:
+Um einen Überblick über den aktuellen Status zu erhalten, kann das status-Kommando genutzt werden:
 \begin{lstlisting}[style=Bash]
 $ emp status [<Template-Datei>]
 \end{lstlisting}
