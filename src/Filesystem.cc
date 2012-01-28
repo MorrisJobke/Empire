@@ -513,9 +513,10 @@ namespace Filesystem
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
 
     /**
-     * @brief function to get the creation date of a file
-     * @param rPath path from the given dir
-     * @return time
+     * @brief function to get the diffrence between 2 dirs
+     * @param rDir1 first dir
+     * @param rDir1 secound dir
+     * @return difference between the dirs
      */
     int GetDirectoryDifference(std::string const& rDir1, std::string const& rDir2)
     {
