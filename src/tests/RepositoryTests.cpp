@@ -474,7 +474,6 @@ BOOST_AUTO_TEST_CASE(GetFirstDefinedValueRecTest)
     BOOST_CHECK(value == "123892");
     value = repo.GetPropertyValue("val2");
     BOOST_CHECK(value == "its working");
-
 }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/

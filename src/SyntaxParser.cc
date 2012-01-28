@@ -1024,7 +1024,6 @@ namespace ConsoleHelper{
      * @param working_repo the repository
      * @param rTabSpace count of tab spaces the output should have at begin of the lines
      */
-
     void printValueList(std::list<std::string> rList, PrintMode mode, bool rValues, bool rTypes, bool rDirDiff,
                         Repository working_repo, int rTabSpace)
     {
