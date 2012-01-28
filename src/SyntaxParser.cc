@@ -808,10 +808,24 @@ namespace SyntaxParser
         }
         else
         {
-            if(argc == 2)
-                working_repo.RemovePropertyClassAndInstances(argv[1]);
-            else
-                working_repo.RemoveProperty(argv[0]);
+            working_repo.Load();
+            try
+            {
+                if(argc == 2)
+                    working_repo.RemovePropertyClassAndInstances(argv[1]);
+                else
+                    working_repo.RemoveProperty(argv[0]);
+            }
+            catch (PropNotExists& e)
+            {
+                std::cout << "The specified property doesn't exist in this directory.\n";
+                return;
+            }
+            catch (PropClassNotExists& e)
+            {
+                std::cout << "The specified property doesn't exist in this repository.\n";
+                return;
+            }
         }
     }
 }
