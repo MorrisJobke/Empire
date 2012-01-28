@@ -3,8 +3,10 @@
 \section{Entfernen der Anwendung}
 
 Zum Entfernen der Anwendung reicht es, die ausführbare Datei zu löschen.
+Diese befindet sich abhängig davon, wie das Installations-Prefix bei der Installation gesetzt wurde, an
+verschiedenen Orten.
+Wenn kein Prefix gesetzt wurde kann man die Binary-Datei mit folgendem Befehl löschen.
 
-\underline{ArchLinux/Ubuntu/Mac:}
 \begin{lstlisting}[style=Bash]
-$ sudo rm /usr/bin/emp
+$ sudo rm /usr/local/bin/emp
 \end{lstlisting}

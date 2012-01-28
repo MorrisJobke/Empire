@@ -42,9 +42,10 @@ $ make
 
 \subsection{Installieren des Programmes}
 
-Jetzt befindet sich die ausführbare Datei im Verzeichnis \textbf{bin/} des Projektes. Diese kann in das \textbf{bin/}-Verzeichnis des Systems verschoben werden. Danach ist der Befehl \textbf{emp} systemweit aufrufbar.
+Zum installieren wird dann folgender Befehl benutzt.
 
-\underline{ArchLinux/Ubuntu/Mac:}
 \begin{lstlisting}[style=Bash]
-$ sudo mv bin/Empire /usr/bin/emp
+$ sudo make install
 \end{lstlisting}
+
+\emph{Achtung: Bitte beachten sie, dass das Make-Programm bereits bestehende Dateien überschreibt.}
