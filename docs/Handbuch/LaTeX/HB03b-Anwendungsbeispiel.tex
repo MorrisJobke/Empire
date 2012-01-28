@@ -28,9 +28,9 @@ $ emp add from_name "Max Mustermann"
 $ emp add from_street "Musterstraße 42"
 $ emp add from_city "94837 Musterstadt"
 $ emp add from_mobile 0111/1234567
-$ emp add from_email "max.mustermann@example.org"
-$ emp add from_ustidnr "DE999999999"
-$ emp add acct_name "Musterbank"
+$ emp add from_email max.mustermann@example.org
+$ emp add from_ustidnr DE999999999
+$ emp add acct_name Musterbank
 $ emp add acct_nr 123456
 $ emp add acct_blz 65432100
 $ emp add total "return price * quantity; return lhs + rhs;"
@@ -205,21 +205,15 @@ $ emp add to_city "52246 Musterdorf"
 \end{lstlisting}
 
 Mit dem \textbf{show}-Befehl lässt sich leicht erkennen, dass sich \textbf{to\_street} und \textbf{to\_city} im aktuellen Verzeichnis befinden und unsere gerade zugewiesenen Werte enthalten.
-Das Property \textbf{to\_name} hat hingegen seinen Wert beibehalten, obwohl es sich in einem übergeordneten Ordner befindet. TODO: klingt doof?
+Das Property \textbf{to\_name} hat hingegen seinen Wert beibehalten, da es in einem der Elternverzeichnisse vorgefunden wurde. Gleiches gilt für all unsere eigenen Daten im Pfad Rechnungen.
 
-Im Folgenden müssen wir wieder die Collection mit Daten füllen. Die Definition dafür ist bereits von der ersten Rechnung vorhanden(TODO?). Zunächst erstellen wir mit dem \textbf{cadd}-Kommando erneut eine Collection:
-\begin{lstlisting}[style=Bash]
-$ emp cadd items
-\end{lstlisting}
-
-Für das Hinzufügen nutzen wir diesmal die interaktive Variante von \textbf{cfill}:
+Im Folgenden müssen wir wieder die Collection mit Daten füllen. Die Definition dafür ist bereits von der ersten Rechnung vorhanden und wir können direkt mit dem Füllen der Collection beginnen, dazu nutzen wir die interaktive Variante von \textbf{cfill}:
 \begin{lstlisting}[style=Bash]
 $ emp cfill items
 \end{lstlisting}
 Wenn genug Zeilen eingegeben wurden, bestätigt man einfach mit der Enter-Taste.
 
 Das Rendern erfolgt wieder mit dem bereits bekannten Aufruf:
-
 \begin{lstlisting}[style=Bash]
 $ emp render ../../invoice.htm ./invoice.htm
 \end{lstlisting}
