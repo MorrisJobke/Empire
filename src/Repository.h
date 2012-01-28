@@ -71,7 +71,7 @@ class Repository
     void RemoveProperty(std::string const& rKey);
     void RemovePropertyInList(std::string const& rKey);
     void RemovePropertyClass(std::string const& key);
-    void RemovePropertyClassAndInstances(std::string const& key);
+    void RemovePropertyClassAndInstances(std::string const& rKey);
 
 
 

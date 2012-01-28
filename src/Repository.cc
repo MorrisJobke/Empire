@@ -412,17 +412,28 @@ void Repository::AddProperty(std::string const& key, std::string const& type, st
 void Repository::RemoveProperty(std::string const& rKey)
 {
     this->Load();
-    if(this->ContainsProperty(rKey))
+    if(this->IsPropertyInCwd(rKey))
     {
-        try{
-            Fs::FileDelete(rKey);
+        try
+        {
+            if (this->IsCollectionInCwd(rKey))
+            {
+                Fs::RemoveDirRec(rKey);
+            }
+            else
+            {
+                Fs::FileDelete(rKey);
+            }
         }
-        catch(Fs::CannotFindFileError const& e){
+        catch(Fs::CannotFindFileError const& e)
+        {
             throw PropNotExists();
         }
     }
     else
+    {
         throw PropNotExists();
+    }
 }
 
 /** delete the given property from the list
@@ -453,13 +464,20 @@ void Repository::RemovePropertyInList(std::string const& rKey)
 
 /** delete metadata from Filesystem
  *
- * @param key key name
+ * @param rKey key name
  */
-void Repository::RemovePropertyClass(std::string const& key)
+void Repository::RemovePropertyClass(std::string const& rKey)
 {
     try
     {
-        Fs::FileDelete(this->mAbsoluteRepoPath + "/" + REPO_NAME + "/" + key);
+        if (this->IsCollection(rKey))
+        {
+            Fs::RemoveDirRec(this->mAbsoluteRepoPath + "/" + REPO_NAME + "/" + rKey);
+        }
+        else
+        {
+            Fs::FileDelete(this->mAbsoluteRepoPath + "/" + REPO_NAME + "/" + rKey);
+        }
     }
     catch(Fs::CannotFindFileError const& e)
     {
@@ -471,16 +489,30 @@ void Repository::RemovePropertyClass(std::string const& key)
 
 /** delete metadata & all propertys with the given key from filesystem
  *
- * @param key the key of the property to remove
+ * @param rKey the key of the property to remove
  */
-void Repository::RemovePropertyClassAndInstances(std::string const& key)
+void Repository::RemovePropertyClassAndInstances(std::string const& rKey)
 {
-    //remove all instances and property class
-    Fs::RemoveFilesInDirRec(key, this->mAbsoluteRepoPath);
+    if (this->ContainsProperty(rKey))
+    {
+        if (this->IsCollection(rKey))
+        {
+            //remove all instances and property class
+            Fs::RemoveDirsInDirRec(rKey, this->mAbsoluteRepoPath);
+        }
+        else
+        {
+            //remove all instances and property class
+            Fs::RemoveFilesInDirRec(rKey, this->mAbsoluteRepoPath);
+        }
 
-    //remove from property list
-    if(this->ContainsProperty(key))
-        this->RemovePropertyInList(key);
+        //remove from property list
+        this->RemovePropertyInList(rKey);
+    }
+    else
+    {
+        throw PropClassNotExists();
+    }
 }
 
 /*============================= ACCESS      =================================*/
