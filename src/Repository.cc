@@ -519,17 +519,17 @@ void Repository::RemovePropertyClassAndInstances(std::string const& rKey)
 
 /** check existance of property with the given key
  *
- * @param key the key of the property to check for
+ * @param rKey the key of the property to check for
  *
  * @return boolean
  */
-bool Repository::ContainsProperty(std::string const& key)
+bool Repository::ContainsProperty(std::string const& rKey)
 {
     std::list<GenPropertyBase*>::const_iterator it;
 
     for (it = this->mPropertyList.begin(); it != this->mPropertyList.end(); it++)
     {
-        if ((*it)->GetKey() == key)
+        if ((*it)->GetKey() == rKey)
         {
             return true;
         }
@@ -596,17 +596,17 @@ bool Repository::IsCollection(std::string const& rKey)
 
 /** returns the property containing the given key
  *
- * @param key the key of the property wanted
+ * @param rKey the key of the property wanted
  *
  * @return GenPropertyBase*
  */
-GenPropertyBase* Repository::GetPropertyByKey(std::string const& key)
+GenPropertyBase* Repository::GetPropertyByKey(std::string const& rKey)
 {
     std::list<GenPropertyBase*>::const_iterator it;
 
     for (it = this->mPropertyList.begin(); it != this->mPropertyList.end(); it++)
     {
-        if ((*it)->GetKey() == key)
+        if ((*it)->GetKey() == rKey)
         {
             return (*it);
         }

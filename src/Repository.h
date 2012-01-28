@@ -49,11 +49,11 @@ class Repository
 
     bool IsExistent();
     bool IsPropertyInCwd(std::string const& rKey);
-    bool ContainsProperty(std::string const& key);
+    bool ContainsProperty(std::string const& rKey);
     bool IsCollectionInCwd(std::string const& rKey);
     bool IsCollection(std::string const& rKey);
     bool IsProperty(std::string const& rKey);
-    GenPropertyBase* GetPropertyByKey(std::string const& key);
+    GenPropertyBase* GetPropertyByKey(std::string const& rKey);
     std::string GetRepositoryPath();
     std::string GetMetaPath();
     std::string GetPropertyValue(std::string const& rKey);
@@ -70,7 +70,7 @@ class Repository
 
     void RemoveProperty(std::string const& rKey);
     void RemovePropertyInList(std::string const& rKey);
-    void RemovePropertyClass(std::string const& key);
+    void RemovePropertyClass(std::string const& rKey);
     void RemovePropertyClassAndInstances(std::string const& rKey);
 
 
