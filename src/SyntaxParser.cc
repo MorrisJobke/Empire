@@ -313,6 +313,10 @@ namespace SyntaxParser
                                   << " automatically redefined!" << COLOR_CLEAR << std::endl;
                     }
 
+                    //already global defined?
+                    if(working_repo.GetPropertyByKey((*it)->GetKey())->HasValue())
+                        continue;
+
                     std::cout << "Please enter an value for " << key  << COLOR_BLUE
                               << "<" << type << ">"
                               << COLOR_CLEAR << std::endl;
