@@ -560,7 +560,7 @@ bool Repository::IsPropertyInCwd(std::string const& rKey)
 bool Repository::IsProperty(std::string const& rKey)
 {
     std::list<GenPropertyBase*>::const_iterator it;
-    for (it = this->mCwdPropertyList.begin(); it != this->mCwdPropertyList.end(); it++)
+    for (it = this->mPropertyList.begin(); it != this->mPropertyList.end(); it++)
         if((*it)->GetKey() == rKey)
             return (*it)->GetTypeN() != GetTypeName<Coll>();
     return false;

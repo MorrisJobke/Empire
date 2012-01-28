@@ -130,15 +130,17 @@ namespace SyntaxParser
 
             if (working_repo.ContainsProperty(new_key) == false)
             {
-                std::cout << "The following key is not declared in repository: " << new_key << std::endl;
+                std::cout << "The following key is not declared in repository: " << new_key << std::endl
+                          << "Please enter a type for this value:" << std::endl;
+                std::string tmpType;
+                std::getline(std::cin, tmpType);
+                working_repo.CreatePropertyClass(new_key, tmpType);
                 return;
             };
 
             GenPropertyBase* ext_prop = working_repo.GetPropertyByKey(new_key);
-            GenPropertyBase* new_prop = PropertyHelpers::CreatePropertyFromTypeString(ext_prop->GetTypeN());
-            new_prop->SetKey(new_key);
 
-            props_to_declare.push_back(new_prop);
+            props_to_declare.push_back(ext_prop);
 
             argc--;
             argv++;
@@ -146,6 +148,12 @@ namespace SyntaxParser
 
         Coll c(coll_name);
         c.Declare(props_to_declare, working_repo.GetMetaPath());
+
+        //remove created properties:
+        std::list<GenPropertyBase*>::const_iterator it;
+        for (it = props_to_declare.begin(); it != props_to_declare.end(); it++)
+            working_repo.RemovePropertyClass((*it)->GetKey());
+
     }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
