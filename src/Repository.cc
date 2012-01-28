@@ -355,7 +355,7 @@ void Repository::AddProperty(std::string const& key, std::string const& type, st
 {
     std::string tmp_type = type;
     if (tmp_type == "string")
-                    tmp_type = GetTypeName<std::string>();
+        tmp_type = GetTypeName<std::string>();
 
 
     this->Load();
