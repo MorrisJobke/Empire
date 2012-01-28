@@ -150,6 +150,18 @@ void Repository::Load()
             if (entry == "." || entry == "..")
                 continue;
 
+            /* treat collection little bit diffrent */
+            if (Fs::DirectoryExists(this->mAbsoluteRepoPath + "/" + REPO_NAME + "/" + entry))
+            {
+                GenPropertyBase* p_new_prop = PropertyHelpers::CreatePropertyFromTypeString(GetTypeName<Coll>());
+                p_new_prop->SetKey(entry);
+
+                this->mPropertyList.push_back(p_new_prop);
+
+                continue;
+            }
+
+
             /* create new property read it and append it to list */
             std::string new_type;
             std::string new_key;
@@ -192,6 +204,8 @@ void Repository::Load()
                 /* skip standard links */
                 if (entry == "." || entry == ".." || entry == REPO_NAME)
                     continue;
+
+                
 
                 /* search entry in the member property list */
                 std::list<GenPropertyBase*>::const_iterator it;

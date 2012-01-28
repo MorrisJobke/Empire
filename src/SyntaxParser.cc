@@ -171,9 +171,9 @@ namespace SyntaxParser
         }
 
         //remove created properties:
-        std::list<GenPropertyBase*>::const_iterator it;
-        for (it = props_to_declare.begin(); it != props_to_declare.end(); it++)
-            working_repo.RemovePropertyClass((*it)->GetKey());
+        //std::list<GenPropertyBase*>::const_iterator it;
+        //for (it = props_to_declare.begin(); it != props_to_declare.end(); it++)
+        //    working_repo.RemovePropertyClass((*it)->GetKey());
 
     }
 
