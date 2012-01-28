@@ -21,7 +21,7 @@ $ cp <Pfad des Templates> ./invoice.htm
 \end{lstlisting}
 
 
-Wir definieren im Wurzelverzeichnis des Repositories unsere persönlichen Daten, da diese in allen Rechnungen gleich sein sollen. Dazu zählen beim vordefinierten Template die Anschrift, die Bankverbindung und unsere Kontaktdaten:
+Wir definieren im Wurzelverzeichnis des Repositories unsere persönlichen Daten, da diese in allen Rechnungen gleich sein sollen. Dazu zählen beim vordefinierten Template die Anschrift, die Bankverbindung, unsere Kontaktdaten und eine Funktion, die den Preis der Posten sowie den Gesamtbetrag berechnen wird:
 
 \begin{lstlisting}[style=Bash]
 $ emp add from_name "Max Mustermann"
@@ -36,9 +36,10 @@ $ emp add acct_blz 65432100
 $ emp add total "return price * quantity; return lhs + rhs;"
 \end{lstlisting}
 
-Die letzte Zeile in obrigen Listing definiert einen Funktions-Wert. Die erste Funktion berechnet später den Preis pro Posten und die zweite die Summe dieser - somit den Gesamtbetrag.
+Die letzte Zeile in obrigen Listing definiert einen Funktions-Wert. Die erste Funktion berechnet später den Preis pro Posten und die zweite die Summe dieser - somit den Gesamtbetrag.\vspace{0.5em}
 
-Dasselbe Ergebnis kann man auch mit dem iadd-Befehl erreichen. Auf diesen werden wir aber erst später zurückgreifen.
+Dasselbe Ergebnis kann man auch mit dem iadd-Befehl erreichen, auf welchen wir aber erst später zurückgreifen werden.
+\vspace{0.5em}
 
 Wir deklarieren noch einige Eigenschaften, die wir in der Collection verwenden wollen:
 
@@ -66,7 +67,7 @@ $ emp add to_city "56346 Musterhausen"
 
 Die Bennenung der Ordner spielt hier keine Rolle (solange keine Collection mit dem gewünschten Namen existiert), sollte aber zur Förderung der Übersichtlichkeit sinnvoll gewählt werden.
 
-Für den 2. Kunden nutzen wir nun den addi-Befehl:
+Für den 2. Kunden nutzen wir nun den iadd-Befehl:
 \begin{lstlisting}[style=Bash]
 $ cd ../Kunde2
 $ emp iadd ../invoice.htm
@@ -74,6 +75,7 @@ $ emp iadd ../invoice.htm
 
 Es erfolgt eine interaktive Abfrage der im Template genutzten, aber im Repository noch nicht gesetzten Werte. Wir wollen nur die Kundendaten eintragen und überspringen die restlichen Abfragen mit der Enter-Taste.
 
+\vspace{0.5em}
 \begin{tabular}{| l | l |}
 	\hline
 	to\_city & 85423 Weißlauf \\
@@ -82,17 +84,17 @@ Es erfolgt eine interaktive Abfrage der im Template genutzten, aber im Repositor
 	\hline
 	to\_street & Münchener Straße 133 \\
 	\hline
-	FunctionType & \grqq return price * quantity; return lhs + rhs; \grqq\\
-	\hline
 \end{tabular}
+\vspace{0.5em}
 
 Jetzt können wir unseren Zwischenstand mit dem \textbf{status}-Befehl überprüfen. Dazu nutzen wir folgendes Kommando:
 \begin{lstlisting}[style=Bash]
 $ emp status ../invoice.htm
 \end{lstlisting}
 
-Wir erhalten eine Auflistung aller bereits gesetzten Variablen und Collections. Zusätzlich werden die weiteren benötigen Variablen angezeigt. Falls weitere Werte existieren die nicht im Template benötigt werden, werden diese ebenfalls in einer gesonderten Kategorie angezeigt.
+Wir erhalten eine Auflistung aller bereits gesetzten Variablen und Collections. Zusätzlich werden die weiteren benötigen Variablen angezeigt. Falls weitere Werte existieren, die nicht im Template benötigt werden, werden diese ebenfalls in einer gesonderten Kategorie angezeigt.
 
+\vspace{0.5em}
 Nun erstellen wir eine Rechnung für Kunde 1. Dazu erstellen wir im Verzeichnis von Kunde 1 einen Ordner und füllen ihn mit den restlichen Informationen:
 
 \begin{lstlisting}[style=Bash]
@@ -111,33 +113,31 @@ $ emp iadd ../../invoice.htm
 	nr & 2012-13 \\
 	\hline
 \end{tabular}
+\vspace{0.5em}
 
-Die Collection wird nun folgendermaßen gefüllt:
+Der Collection sollten noch ein paar Zeilen hinzugefügt werden:
 \begin{lstlisting}[style=Bash]
-$ emp cfill items description:Montage unit:h price:20.00 quantity:0.5
+$ emp cfill items  description:Webseite price:99.99 quantity:1
+$ emp cfill items  description:Softwareentwicklung price:25.00 unit:Stunden quantity:5
+$ emp cfill items  description:Datenrettung price:250.00 quantity:1
 \end{lstlisting}
 
-Man kann ebenfalls eine interaktive Form des Eintragens der Werte benutzen:
+Vor dem Rendern überprüfen wir nochmals unseren aktuellen Status:
 \begin{lstlisting}[style=Bash]
-$ emp cfill items
+$ emp status ../../invoice.htm
 \end{lstlisting}
+Alle Werte sollten nun grün oder türkis dargestellt werden. Grün symbolisiert, dass die Variablen im aktuellen Ordner erstellt wurden, türkise Variablen befinden sich hingegen in einem übergeordneten Verzeichnis.
 
-\begin{tabular}{| l | l |}
-	\hline
-	unit & Stück \\
-	\hline
-	price & 25 \\
-	\hline
-	quantity & 3 \\
-	\hline
-	description & Wandhalterung \\
-	\hline
-\end{tabular}
-
-Das Template kann nun zur fertigen Rechnung gerendert werden, da wir alle benötigten Werte hinzugefügt haben:
+Das Rendern erfolgt mit dem \textbf{render}-Befehl:
 \begin{lstlisting}[style=Bash]
 $ emp render ../../invoice.htm
 \end{lstlisting}
+
+\textbf{
+!!!!!!!!!!!!!!!!
+BEGINN Doppeltes
+!!!!!!!!!!!!!!!!
+}
 
 Im Folgenden definieren wir die Variablen, welche die Grundlage für die im Template enthaltene Collection bilden. Um herauszufinden welche das sind bemühen wir den \textbf{status}-Befehl und übergeben das Template als Parameter:
 \begin{lstlisting}[style=Bash]
@@ -155,38 +155,12 @@ Used by template and not defined(1):
 		total        unit
 \end{lstlisting}
 
-Im Anschluss definieren wir die fünf Variablen:
-\begin{lstlisting}[style=Bash]
-$ emp create description string
-$ emp create price float
-$ emp create quantity int
-$ emp create total function
-$ emp create unit string
-\end{lstlisting}
 
-Aus diesen Definitionen kann eine Collection erstellt werden:
-\begin{lstlisting}[style=Bash]
-$ emp cadd items  description price quantity total unit
-\end{lstlisting}
-
-Danach sollten noch ein paar Zeilen zu der eben erstellten Collection hinzugefügt werden:
-\begin{lstlisting}[style=Bash]
-$ emp cfill items  description:Webseite price:99.99 quantity:1
-$ emp cfill items  description:Softwareentwicklung price:25.00 unit:Stunden quantity:5
-$ emp cfill items  description:Datenrettung price:250.00 quantity:1
-\end{lstlisting}
-//TODO: Wie muss man die Function deklariern?
-
-Vor dem Rendern überprüfen wir nochmals unseren aktuellen Status:
-\begin{lstlisting}[style=Bash]
-$ emp status ../../invoice.htm
-\end{lstlisting}
-Alle Werte sollten nun grün oder türkis dargestellt werden. Grün symbolisiert das die Variablen im aktuellen Ordner erstellt wurden, türkise Variablen befinden sich hingegen in einem übergeordneten Verzeichnis.
-
-Das Rendern erfolgt mit dem \textbf{render}-Befehl:
-\begin{lstlisting}[style=Bash]
-$ emp render ../../invoice.htm ./invoice.htm
-\end{lstlisting}
+\textbf{
+!!!!!!!!!!!!!!
+ENDE Doppeltes
+!!!!!!!!!!!!!!
+}
 
 Die erste Rechnung ist damit fertig. Die Erstellung der restlichen zwei Rechnungen erfolgt größtenteils analog zur Ersten. Um aber ein paar weitere Möglichkeiten aufzuzeigen werden diese trotzdem erläutert.
 Zunächst erstellen wir ein Verzeichnis für die zweite Rechnung.
@@ -207,6 +181,7 @@ $ emp add to_city "52246 Musterdorf"
 Mit dem \textbf{status}-Befehl lässt sich leicht erkennen, dass sich \textbf{to\_street} und \textbf{to\_city} im aktuellen Verzeichnis befinden und unsere gerade zugewiesenen Werte enthalten.
 Das Property \textbf{to\_name} hat hingegen seinen Wert beibehalten, da es in einem der Elternverzeichnisse vorgefunden wurde. Gleiches gilt für all unsere eigenen Daten im Pfad Rechnungen.
 
+\vspace{0.5em}
 Im Folgenden müssen wir wieder die Collection mit Daten füllen. Die Definition dafür ist bereits von der ersten Rechnung vorhanden und wir können direkt mit dem Füllen der Collection beginnen, dazu nutzen wir die interaktive Variante von \textbf{cfill}:
 \begin{lstlisting}[style=Bash]
 $ emp cfill items
@@ -215,5 +190,5 @@ Wenn genug Zeilen eingegeben wurden, bestätigt man einfach mit der Enter-Taste.
 
 Das Rendern erfolgt wieder mit dem bereits bekannten Aufruf:
 \begin{lstlisting}[style=Bash]
-$ emp render ../../invoice.htm ./invoice.htm
+$ emp render ../../invoice.htm
 \end{lstlisting}
