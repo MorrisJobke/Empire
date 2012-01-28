@@ -504,6 +504,7 @@ BOOST_AUTO_TEST_CASE(AddPropertyStressTest)
         remove("stressTest");
     }
 }
+*/
 
 BOOST_AUTO_TEST_SUITE_END()
-*/
+
