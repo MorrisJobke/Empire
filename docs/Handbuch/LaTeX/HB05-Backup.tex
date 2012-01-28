@@ -2,7 +2,16 @@
 
 \section{Backup}
 
-Für das Backup der Nutzerdaten ist der Benutzer des Programms selbst zuständig. Um eine Sicherung anzulegen müssen lediglich sämtliche erstellte Daten manuell kopiert werden. Dazu kann beispielsweise das copy-Kommando der Unix-Shell benutzt werden:
-\begin{lstlisting}[style=Bash]
-$ cp -pR source/path destination/path
-\end{lstlisting}
+Bei der Behandlung seriöser Datenmengen wie z.B. der von Rechnungen, ist es enorm wichtig eine
+Redundanz mit Hilfe von Backups zu garantieren. Weiterhin müssen Backups systemweit konsistent funktionieren.
+Diesen Anforderungen wird das Speichermodell des Programms dadurch gerecht, indem alle relevanten Daten bei jeder
+Aktion sofort auf die Festplatte geschrieben werden. Dadurch ist es möglich ein Rechnungsrepository einfach auf
+ein anderes Speichermedium zu kopieren.
+
+
+%Für das Backup der Nutzerdaten ist der Benutzer des Programms selbst zuständig.
+%Um eine Sicherung anzulegen müssen lediglich sämtliche erstellte Daten manuell kopiert werden.
+%Dazu kann beispielsweise das copy-Kommando der Unix-Shell benutzt werden:
+%\begin{lstlisting}[style=Bash]
+%$ cp -pR source/path destination/path
+%\end{lstlisting}
