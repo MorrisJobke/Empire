@@ -57,17 +57,17 @@ BOOST_AUTO_TEST_CASE(CollectionDeclareTest)
         cout << exc.what() << endl;
     }
 
-    BOOST_CHECK(Fs::DirectoryExists("coll_test") == true);
-    BOOST_CHECK(Fs::DirectoryExists("coll_test/0") == true);
-    BOOST_CHECK(Fs::FileExists("coll_test/0/product") == true);
-    BOOST_CHECK(Fs::FileExists("coll_test/0/units") == true);
-    BOOST_CHECK(Fs::FileExists("coll_test/0/price") == true);
+    BOOST_CHECK(Fs::DirectoryExists(".emp") == true);
+    BOOST_CHECK(Fs::DirectoryExists(".emp/coll_test") == true);
+    BOOST_CHECK(Fs::FileExists(".emp/coll_test/product") == true);
+    BOOST_CHECK(Fs::FileExists(".emp/coll_test/units") == true);
+    BOOST_CHECK(Fs::FileExists(".emp/coll_test/price") == true);
 
-    remove("coll_test/0/product");
-    remove("coll_test/0/units");
-    remove("coll_test/0/price");
-    remove("coll_test/0");
-    remove("coll_test");
+    remove(".emp/coll_test/product");
+    remove(".emp/coll_test/units");
+    remove(".emp/coll_test/price");
+    remove(".emp/coll_test");
+    remove(".emp");
 
 }
 
@@ -130,16 +130,17 @@ BOOST_AUTO_TEST_CASE(CollectionAddRowTest)
     BOOST_CHECK(Fs::FileExists("coll_test/2/units") == true);
     BOOST_CHECK(Fs::FileExists("coll_test/2/price") == true);
 
-    remove("coll_test/0/product");
-    remove("coll_test/0/units");
-    remove("coll_test/0/price");
+    remove(".emp/coll_test/product");
+    remove(".emp/coll_test/units");
+    remove(".emp/coll_test/price");
+    remove(".emp/coll_test");
+    remove(".emp");
     remove("coll_test/1/product");
     remove("coll_test/1/units");
     remove("coll_test/1/price");
     remove("coll_test/2/product");
     remove("coll_test/2/units");
     remove("coll_test/2/price");
-    remove("coll_test/0");
     remove("coll_test/1");
     remove("coll_test/2");
     remove("coll_test");
@@ -196,15 +197,15 @@ BOOST_AUTO_TEST_CASE(CollectionPropTest)
 
 
 
-    BOOST_CHECK(Fs::DirectoryExists("coll_test") == true);
-    BOOST_CHECK(Fs::DirectoryExists("coll_test/1") == true);
+    BOOST_CHECK(Fs::DirectoryExists(".emp") == true);
+    BOOST_CHECK(Fs::DirectoryExists(".emp/coll_test") == true);
     BOOST_CHECK(Fs::FileExists("coll_test/1/product") == true);
     BOOST_CHECK(Fs::FileExists("coll_test/1/units") == true);
     BOOST_CHECK(Fs::FileExists("coll_test/1/price") == true);
 
 
 
-    ///* try to load the collection */
+    /* try to load the collection */
     GenProperty<Coll> coll("collection");
 
     //Coll mycol = coll.GetValue();
@@ -221,15 +222,15 @@ BOOST_AUTO_TEST_CASE(CollectionPropTest)
     }
 
 
-    remove("coll_test/0/product");
-    remove("coll_test/0/units");
-    remove("coll_test/0/price");
+    remove(".emp/coll_test/product");
+    remove(".emp/coll_test/units");
+    remove(".emp/coll_test/price");
     remove("coll_test/1/product");
     remove("coll_test/1/units");
     remove("coll_test/1/price");
-    remove("coll_test/0");
+    remove(".emp/coll_test");
     remove("coll_test/1");
-    remove("coll_test");
+    remove(".emp");
 
 }
 
