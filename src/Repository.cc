@@ -534,6 +534,20 @@ bool Repository::IsProperty(std::string const& rKey)
     return false;
 }
 
+/** checks if the given property key is from a Collection in Cwd
+ *
+ * @param rKey the key of the property wanted
+ * @return boolean
+ */
+bool Repository::IsCollectionInCwd(std::string const& rKey)
+{
+    std::list<GenPropertyBase*>::const_iterator it;
+    for (it = this->mCwdPropertyList.begin(); it != this->mCwdPropertyList.end(); it++)
+        if((*it)->GetKey() == rKey)
+            return (*it)->GetTypeN() == GetTypeName<Coll>();
+    return false;
+}
+
 /** checks if the given property key is from a Collection
  *
  * @param rKey the key of the property wanted
@@ -542,7 +556,7 @@ bool Repository::IsProperty(std::string const& rKey)
 bool Repository::IsCollection(std::string const& rKey)
 {
     std::list<GenPropertyBase*>::const_iterator it;
-    for (it = this->mCwdPropertyList.begin(); it != this->mCwdPropertyList.end(); it++)
+    for (it = this->mPropertyList.begin(); it != this->mPropertyList.end(); it++)
         if((*it)->GetKey() == rKey)
             return (*it)->GetTypeN() == GetTypeName<Coll>();
     return false;

@@ -50,6 +50,7 @@ class Repository
     bool IsExistent();
     bool IsPropertyInCwd(std::string const& rKey);
     bool ContainsProperty(std::string const& key);
+    bool IsCollectionInCwd(std::string const& rKey);
     bool IsCollection(std::string const& rKey);
     bool IsProperty(std::string const& rKey);
     GenPropertyBase* GetPropertyByKey(std::string const& key);
