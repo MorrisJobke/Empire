@@ -62,7 +62,42 @@ $ emp remove --all <Schlüssel>
 Zu beachten ist allerdings, dass mit diesem Befehl alle vorhandenen Werte mit diesem Schlüssel und auch deren Definition unwiederuflich entfernt werden.
 
 \subsection{Modifizieren von bereits hinzugefügten Werten}
+Das Ändern eines im Repository enthaltenen Wertes erfolgt mit dem Befehl modify:
+\begin{lstlisting}[style=Bash]
+$ emp modify <Schlüssel> <Wert>
+\end{lstlisting}
+Dabei wird der zu dem Schlüssel gehörende Wert durch den im Kommando angegeben Wert ersetzt.
+
 \subsection{Erstellen eines Templates}
+Ein Template kann mit jedem beliebigen Texteditor erstellt werden. Dabei gilt folgender Syntax für die Platzhalter, welche beim Rendern durch die entsprechenden Werte ersetzt werden.
+
+Ein Platzhalter wird mit dem @-Zeichen eingeleitet. Alle darauf folgenden Alphanumerischen Werte und Unterstriche ergeben den Schlüssel eines im Repository enthaltenen Wertes. Zum Beispiel:
+
+\begin{lstlisting}[style=Bash]
+Anschrift:
+@Vorname @Nachname
+@AnschriftZeile1
+@AnschriftZeile2
+@PLZ @Ort
+\end{lstlisting}
+
+Zusätzlich können Tabellen mit Hilfe von Collections abgebildet werden. Dazu muss auf das @-Zeichen und den darauf folgenden Schlüssel eine geöffnete geschweifte Klammer folgen. Zum Beispiel:
+
+\begin{lstlisting}[style=Bash]
+| Anzahl  | Posten   |
+@Einkaufsliste{
+| @Anzahl | @Posten  |
+}
+\end{lstlisting}
+
+Dabei ist darauf zu achten, dass die geöffnete geschweifte Klammer direkt auf den Schlüssel folgt. Mit einer geschloßenen geschweiften Klammer wird daraufhin die Darstellung der Collection abgeschloßen.
+
+Um das @-Zeichen selber darzustellen, kann dieses mit Hilfe eines weiteren @-Zeichens escaped werden.
+
+\begin{lstlisting}[style=Bash]
+Email: name.vorname@@domain.tld
+\end{lstlisting}
+
 \subsection{Rendern eines Templates}
 Mit dem folgenden Befehl wird ein Template gerendert:
 \begin{lstlisting}[style=Bash]
