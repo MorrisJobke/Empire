@@ -125,3 +125,13 @@ if(NOT ONLY_TESTING)
         Repository
         SyntaxParser)
 endif()
+
+
+#
+# installing
+#
+message("prefix: ${CMAKE_INSTALL_PREFIX}")
+message("bindir: ${CMAKE_CURRENT_BINARY_DIR}")
+
+INSTALL(PROGRAMS ../bin/Empire DESTINATION bin)
+
