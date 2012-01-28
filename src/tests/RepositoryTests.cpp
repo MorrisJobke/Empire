@@ -479,6 +479,7 @@ BOOST_AUTO_TEST_CASE(GetFirstDefinedValueRecTest)
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
 
+/* NOT NEEDED FOR NOW
 BOOST_AUTO_TEST_CASE(AddPropertyStressTest)
 {
 
@@ -505,3 +506,4 @@ BOOST_AUTO_TEST_CASE(AddPropertyStressTest)
 }
 
 BOOST_AUTO_TEST_SUITE_END()
+*/
