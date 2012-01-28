@@ -353,30 +353,29 @@ void Repository::ReadPropDataFromFile(std::string const& rPath, GenPropertyBase*
 void Repository::AddProperty(std::string const& key, std::string const& type, std::string const& value)
 {
     std::string tmp_type = type;
-
+    this->Load();
     if(!Fs::FileExists(key))
     {
-
-        if (tmp_type == "string")
-            tmp_type = GetTypeName<std::string>();
-
-        if (tmp_type == "") //recognize type from value
-        {
-            if(RegexHelper::isInt(value))
-                tmp_type = GetTypeName<int>();
-            else if(RegexHelper::isFloat(value))
-                tmp_type = GetTypeName<float>();
-            else if(RegexHelper::isFunction(value))
-                tmp_type = GetTypeName<FunctionType>();
-            else
-                tmp_type = GetTypeName<std::string>();
-        }
-
         /* check if Propertyclass exists already, otherwise create it*/
         if(!this->ContainsProperty(key))
         {
             try
             {
+                if (tmp_type == "string")
+                    tmp_type = GetTypeName<std::string>();
+
+                if (tmp_type == "") //recognize type from value
+                {
+                    if(RegexHelper::isInt(value))
+                        tmp_type = GetTypeName<int>();
+                    else if(RegexHelper::isFloat(value))
+                        tmp_type = GetTypeName<float>();
+                    else if(RegexHelper::isFunction(value))
+                        tmp_type = GetTypeName<FunctionType>();
+                    else
+                        tmp_type = GetTypeName<std::string>();
+                }
+
                 this->CreatePropertyClass(key, tmp_type);
             }
             catch(ExcRepository exc)
@@ -386,8 +385,6 @@ void Repository::AddProperty(std::string const& key, std::string const& type, st
         }
         else //check if existing propertyClass is ok
         {
-            this->Load();
-
             std::string fileType = this->GetPropertyByKey(key)->GetTypeN();
 
             //remove existing property from list:

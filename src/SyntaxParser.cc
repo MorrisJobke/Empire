@@ -128,7 +128,7 @@ namespace SyntaxParser
         {
             std::string new_key = argv[0];
 
-            if (working_repo.ContainsProperty(new_key) == false)
+            while (working_repo.ContainsProperty(new_key) == false)
             {
                 std::cout << "The following key is not declared in repository: " << new_key << std::endl
                           << "Please enter a type for this value or press [Enter] to abort:" << std::endl;
@@ -145,7 +145,7 @@ namespace SyntaxParser
                     std::cout << COLOR_RED << "[WARNING] You entered an invalid type: " << tmpType << COLOR_CLEAR << std::endl << std::endl;
                     continue;
                 }
-            };
+            }
 
             GenPropertyBase* ext_prop = working_repo.GetPropertyByKey(new_key);
 
@@ -363,7 +363,7 @@ namespace SyntaxParser
         }
         catch(PropClassExistsWithOtherKey)
         {
-            std::cout << "This property is already defined with another type." << std::endl;
+            std::cout << "This property is defined with another type." << std::endl;
         }
         catch(PropExistentError)
         {
@@ -514,14 +514,13 @@ namespace SyntaxParser
 
         if (argc != 0) //template mode
         {
-            //TODO: replace by SimpleTemplate::GetMissingProperties
             SimpleTemplate* tmpl = new SimpleTemplate();
             std::list<std::string> unused, used, created, used_colls, unused_colls, needless, needless_colls;
             std::list<std::string>::const_iterator it;
 
             /*properties:*/
             used = tmpl->GetAvailableProperties(argv[0], addedProps);
-            unused = tmpl->GetMissingProperties(argv[0], addedProps);
+            unused = tmpl->GetMissingProperties(argv[0], allProps);
             created = tmpl->GetAvailableProperties(argv[0], createdProps);
             needless = tmpl->GetUnusedProperties(argv[0], allProps);
 
