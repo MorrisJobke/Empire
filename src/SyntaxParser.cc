@@ -30,7 +30,8 @@ namespace SyntaxParser
              << "  remove       removes a given property from repository in working directory\n"
              << "  modify       modifies a given property from repository in working directory\n"
              << "  render       renders a file to ouput/ using repository in working directory\n"
-             << "  show         prints used and unused variables\n"
+             << "  show         gives information about a single property or collection\n"
+             << "  status       gives a summary containing properties and collections\n"
              << std::endl
              << "  --help, -h   print this help\n";
     }
@@ -493,12 +494,12 @@ namespace SyntaxParser
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
 
-    /** show command
+    /** status command
      *
      * @param argc count of arguments
      * @param argv arguments
      */
-    void show(int argc, char* argv[])
+    void status(int argc, char* argv[])
     {
         Repository working_repo;
 
@@ -513,7 +514,7 @@ namespace SyntaxParser
                 std::cout << "This command runs without any parameters.\n"
                           << "Specifying a template is optional and gives you\n"
                           << "some template specific information.\n"
-                          << "Synopsis: emp show [<path-to-template>]\n\n";
+                          << "Synopsis: emp status [<path-to-template>]\n\n";
                 return;
             }
 
@@ -633,6 +634,48 @@ namespace SyntaxParser
         }
     }
 
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+
+    /** show command
+     *
+     * @param argc count of arguments
+     * @param argv arguments
+     */
+    void show(int argc, char* argv[])
+    {
+        Repository working_repo;
+
+        if (!working_repo.IsExistent())
+        {
+            std::cout << "There isn't any repository in this or it's parent directories." << std::endl;
+            return;
+        }
+        if (argc != 1)
+        {
+            std::cout << "This command needs a key as parameter.\n"
+                      << "Synopsis: emp show <key>\n\n";
+            return;
+        }
+        std::string key = argv[0];
+        working_repo.Load();
+        if(!working_repo.ContainsProperty(key))
+        {
+            std::cout << "The given key is not a property or collection." << std::endl;
+            return;
+        }
+
+        GenPropertyBase* prop = working_repo.GetPropertyByKey(key);
+        std::cout << "Key           = " << prop->GetKey() << std::endl;
+        std::cout << "Type          = " << prop->GetTypeN() << std::endl;
+        if (prop->HasValue())
+        {
+            std::cout << "Value         = " << working_repo.GetPropertyValue(key) << std::endl;
+            std::cout << "value path    = " << prop->GetPath() << std::endl;
+            std::cout << "Creation time = " << Ch::TimeToString(Fs::GetFileCreationDate(prop->GetPath())) << std::endl;
+        }
+        else
+            std::cout << "Value         = " << "NO VALUE SET" << std::endl;
+    }
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
 
     /** init command
@@ -1102,6 +1145,32 @@ namespace ConsoleHelper{
         for(unsigned int i = 0; i < header.size(); i++)
             std::cout << "=";
         std::cout << std::endl;
+    }
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+
+    /** converts time to string
+     *
+     * @param time the given time
+     * @return time string
+     */
+
+    std::string TimeToString(struct tm* time)
+    {
+        std::stringstream ss;
+        ss << time->tm_year + 1900 << "-";
+        int month = time->tm_mon;
+        if (month < 10)
+            ss << "0";
+        ss << month << "-";
+
+        int day = time->tm_mday;
+        if (day < 10)
+            ss << "0";
+
+        ss << day;
+
+        return ss.str();
     }
 }
 

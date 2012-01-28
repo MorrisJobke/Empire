@@ -509,5 +509,22 @@ namespace Filesystem
 
         return -1;
     }
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+
+    /**
+     * @brief function to get the creation date of a file
+     * @param rPath path from the given dir
+     * @return time
+     */
+    struct tm* GetFileCreationDate(std::string const& rPath)
+    {
+        if (!FileExists(rPath))
+            throw CannotFindFileError();
+
+        struct stat attrib;
+        stat(rPath.c_str(), &attrib);
+        return gmtime(&(attrib.st_mtime));
+    }
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
 }

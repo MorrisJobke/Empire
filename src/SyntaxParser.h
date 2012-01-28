@@ -41,6 +41,7 @@ namespace SyntaxParser
     void interactive_add(int argc, char* argv[]);
     void modify(int argc, char* argv[]);
     void show(int argc, char* argv[]);
+    void status(int argc, char* argv[]);
     void init(int argc, char* argv[]);
     void render(int argc, char* argv[]);
     void remove(int argc, char* argv[]);
@@ -62,6 +63,7 @@ namespace ConsoleHelper
     void printHeaderWithCount(std::string header, int count);
     void printHeader(std::string header);
     void printUnderlinedHeader(std::string header);
+    std::string TimeToString(struct tm* time);
 }
 
 /** some help functions for SyntaxParser

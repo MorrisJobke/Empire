@@ -202,7 +202,9 @@ void Repository::Load()
                     {
                         if(startDir)
                             this->mCwdPropertyList.push_back(*it);
-                        //std::cout << "Try to load: " << entry << std::endl;
+
+                        (*it)->SetPath(Fs::GetCwd());
+
                         if (!(*it)->HasValue())
                         {
                             PropertyIo::ReadDataFromFile(entry, *it);

@@ -110,6 +110,13 @@ int main(int argc, char* argv[])
             Sp::render(argc, argv);
             return 0;
         }
+        else if (strcmp(argv[0], "status") == 0)
+        {
+            argc--;
+            argv++;
+            Sp::status(argc, argv);
+            return 0;
+        }
         else if (strcmp(argv[0], "show") == 0)
         {
             argc--;

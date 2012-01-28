@@ -11,6 +11,7 @@
 
 #include <unistd.h>
 #include <sys/stat.h>
+#include <time.h>
 #include <dirent.h>
 #include <errno.h>
 #include <cstring>
@@ -58,6 +59,7 @@ namespace Filesystem
     std::string GetFileNameFromPath(std::string const& rPath);
     int GetFileType(std::string const& rPath);
 
+    struct tm* GetFileCreationDate(std::string const& rPath);
 }
 
 

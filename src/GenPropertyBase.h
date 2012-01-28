@@ -21,14 +21,18 @@ class GenPropertyBase
         /** the key of the property */
         std::string mKey;
 
+        /** the path where the property data was found */
+        std::string mPath;
+
         /** the value of the property*/
         void* mpData;
 
     public:
 
         GenPropertyBase()
-        :   
+        :
             mKey("NoKey"),
+            mPath(""),
             mpData(NULL)
         {
         }
@@ -61,6 +65,15 @@ class GenPropertyBase
             return this->mKey;
         }
 
+        /** returns the path of the property
+         *
+         * @return property path
+         */
+        std::string GetPath()
+        {
+            return this->mPath;
+        }
+
         virtual ~GenPropertyBase() {};
 
         /** set the key of the property
@@ -68,6 +81,12 @@ class GenPropertyBase
          * @param rKey the key that should be set
          */
         void SetKey(std::string const& rKey) {this->mKey = rKey; };
+
+        /** set the path of the property
+         *
+         * @param rPath the path that should be set
+         */
+        void SetPath(std::string const& rPath) {this->mPath = rPath; };
 
         /** print function for the value of the property
          *
