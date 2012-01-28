@@ -205,7 +205,7 @@ void Repository::Load()
                 if (entry == "." || entry == ".." || entry == REPO_NAME)
                     continue;
 
-                
+
 
                 /* search entry in the member property list */
                 std::list<GenPropertyBase*>::const_iterator it;
@@ -354,6 +354,10 @@ void Repository::ReadPropDataFromFile(std::string const& rPath, GenPropertyBase*
 void Repository::AddProperty(std::string const& key, std::string const& type, std::string const& value)
 {
     std::string tmp_type = type;
+    if (tmp_type == "string")
+                    tmp_type = GetTypeName<std::string>();
+
+
     this->Load();
     if(!Fs::FileExists(key))
     {
@@ -362,9 +366,6 @@ void Repository::AddProperty(std::string const& key, std::string const& type, st
         {
             try
             {
-                if (tmp_type == "string")
-                    tmp_type = GetTypeName<std::string>();
-
                 if (tmp_type == "") //recognize type from value
                 {
                     if(RegexHelper::isInt(value))
@@ -391,13 +392,17 @@ void Repository::AddProperty(std::string const& key, std::string const& type, st
             //remove existing property from list:
             this->RemovePropertyInList(key);
 
-            if(fileType != tmp_type)
-                throw PropClassExistsWithOtherKey();
+            if(tmp_type == "")
+                tmp_type = fileType;
+            else
+                if(fileType != tmp_type)
+                    throw PropClassExistsWithOtherKey();
         }
 
         GenPropertyBase* p_new_prop = PropertyHelpers::CreatePropertyFromTypeString(tmp_type);
         p_new_prop->SetKey(key);
         p_new_prop->SetValueFromString(value);
+
         this->mPropertyList.push_back(p_new_prop);
         this->WritePropDataToFile(Fs::GetCwd(), p_new_prop);
     }
