@@ -133,5 +133,5 @@ endif()
 message("prefix: ${CMAKE_INSTALL_PREFIX}")
 message("bindir: ${CMAKE_CURRENT_BINARY_DIR}")
 
-INSTALL(PROGRAMS ../bin/Empire DESTINATION bin)
+INSTALL(PROGRAMS ../bin/emp DESTINATION bin)
 
