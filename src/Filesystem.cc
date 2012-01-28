@@ -334,6 +334,9 @@ namespace Filesystem
         if (FileExists(rFilePath))
         {
             remove(rFilePath.c_str());
+            //recheck:
+            if (FileExists(rFilePath))
+                remove(rFilePath.c_str());
         }
         else
             throw CannotFindFileError();
@@ -348,20 +351,8 @@ namespace Filesystem
      */
     bool FileExists(std::string const& rPath)
     {
-        /* create char array */
-        char* cstr = new char[rPath.size() + 1];
-        strcpy(cstr, rPath.c_str());
-
-
-        struct stat sb;
-        stat(cstr, &sb);
-
-        delete[] cstr;
-
-        if (S_ISREG(sb.st_mode) != 0)
-            return true;
-        else
-            return false;
+        ifstream ifile(rPath.c_str());
+        return ifile;
     }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
