@@ -350,6 +350,28 @@ std::list<std::string> SimpleTemplate::GetKeyList(std::string const& path)
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
 
+/** get a list of all keys of collections, properties and collection items
+ *
+ * @param rPath the path to the file of the template
+ * @return list of keys
+ */
+std::list<std::string> SimpleTemplate::GetAllKeys(std::string const& rPath)
+{
+    std::list<std::string> result;
+    std::list<std::string>::const_iterator it;
+    std::list<std::string> colls = this->GetCollectionList(rPath);
+
+    for (it = colls.begin(); it != colls.end(); it++)
+        result = ListHelper::ListMerge(result, this->GetCollectionItemList(rPath, *it));
+
+    result = ListHelper::ListMerge(result, colls);
+    result = ListHelper::ListMerge(result, this->GetKeyList(rPath));
+
+    return result;
+}
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+
 /** get a list of collections in a given template
  *
  * @param rPath the path to the file of the template
@@ -492,7 +514,7 @@ std::list<std::string> SimpleTemplate::GetAvailableProperties(std::string const&
  */
 std::list<std::string> SimpleTemplate::GetUnusedProperties(std::string const& rPath, std::list<std::string> const& rAvailable)
 {
-    return ListHelper::ListCompare(rAvailable, this->GetKeyList(rPath), true);
+    return ListHelper::ListCompare(rAvailable, this->GetAllKeys(rPath), true);
 }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/

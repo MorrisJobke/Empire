@@ -78,6 +78,8 @@ public:
     std::list<std::string> GetAvailableCollections(std::string const& rPath, std::list<std::string> const& rAvailableColls);
     std::list<std::string> GetMissingCollections(std::string const& rPath, std::list<std::string> const& rAvailableColls);
     std::list<std::string> GetUnusedCollections(std::string const& rPath, std::list<std::string> const& rAvailableColls);
+    std::list<std::string> GetAllKeys(std::string const& rPath);
+
 };
 
 #endif
