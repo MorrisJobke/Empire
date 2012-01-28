@@ -200,14 +200,14 @@ void Coll::Declare(std::list<GenPropertyBase*> const& pPropList, std::string con
 
     std::string coll_meta_path = rMetaPath + "/" + this->mKey;
 
-    if (!mPropList.empty())
+    if (!mPropList.empty() || !mMetaList.empty())
         throw ErrorColl("COLL_ALREADY_DECLARED");
 
     if (Fs::DirectoryExists(coll_meta_path.c_str()))
         throw ErrorColl("COLL_DECLARE_DIR_EXISTS");
 
     /* create the declare dir */
-    Fs::CreateDirectory(coll_meta_path.c_str());
+    Fs::CreateDirectoryRec(coll_meta_path.c_str());
 
     /* create meta files */
     std::list<GenPropertyBase*>::const_iterator it;
@@ -217,6 +217,7 @@ void Coll::Declare(std::list<GenPropertyBase*> const& pPropList, std::string con
         PropertyIo::WriteMetaDataToDir(coll_meta_path, (*it));
     }
 
+    this->mMetaList = pPropList;
     /* append to the front of the member list */
     this->mPropList.push_back(pPropList);
 }
