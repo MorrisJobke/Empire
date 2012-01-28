@@ -997,11 +997,24 @@ namespace ConsoleHelper{
             }
             else
             {
+                SimpleTemplate templ;
+                std::list<std::string> tmp = templ.GetCollectionItemList(rTemplPath, key);
+                std::list<std::string> out;
+                std::list<std::string>::const_iterator it2;
+                for (it2 = tmp.begin(); it2 != tmp.end(); it2++)
+                    if(working_repo.ContainsProperty(*it2))
+                    {
+                        GenPropertyBase* prop = working_repo.GetPropertyByKey(*it2);
+                        if(!prop->HasValue()) // && prop->GetTypeN() != GetTypeName<FunctionType>())
+                            out.push_back(*it2);
+                    }
+                    else
+                        out.push_back(*it2);
+
                 for(int i = 0; i < rTabSpace; ++i)
                     std::cout << "\t";
                 std::cout << key << ", containing elements (got from Template):" << std::endl;
-                SimpleTemplate templ;
-                printTripleList(templ.GetCollectionItemList(rTemplPath, key), rMode, rTabSpace + 1);
+                printTripleList(out, rMode, rTabSpace + 1);
             }
             std::cout << COLOR_CLEAR;
         }
