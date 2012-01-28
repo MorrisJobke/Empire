@@ -115,13 +115,13 @@ if(NOT ONLY_TESTING)
     # parameter:
     #   output name
     #   source name
-    add_executable(Empire Empire)
+    add_executable(emp Empire)
 
     # link all together
     # parameter
     #   executable
     #   used libraries
-    target_link_libraries(Empire
+    target_link_libraries(emp
         Repository
         SyntaxParser)
 endif()
