@@ -59,6 +59,7 @@ namespace Filesystem
     std::string GetFileNameFromPath(std::string const& rPath);
     int GetFileType(std::string const& rPath);
 
+    int GetDirectoryDifference(std::string const& rDir1, std::string const& rDir2);
     struct tm* GetFileCreationDate(std::string const& rPath);
 }
 

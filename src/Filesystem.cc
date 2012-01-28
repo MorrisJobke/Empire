@@ -517,6 +517,37 @@ namespace Filesystem
      * @param rPath path from the given dir
      * @return time
      */
+    int GetDirectoryDifference(std::string const& rDir1, std::string const& rDir2)
+    {
+        std::string long_dir, short_dir;
+        if(rDir1.length() > rDir2.length())
+        {
+            long_dir = rDir1;
+            short_dir = rDir2;
+        }
+        else
+        {
+            long_dir = rDir2;
+            short_dir = rDir1;
+        }
+
+        int diff = 0;
+        while(long_dir.length() >= short_dir.length())
+        {
+            long_dir = GetParentFolderPath(long_dir);
+            diff ++;
+        }
+        return diff - 1;
+    }
+
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+
+    /**
+     * @brief function to get the creation date of a file
+     * @param rPath path from the given dir
+     * @return time
+     */
     struct tm* GetFileCreationDate(std::string const& rPath)
     {
         if (!FileExists(rPath))

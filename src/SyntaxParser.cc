@@ -562,7 +562,7 @@ namespace SyntaxParser
                 if(created.size() > 0)
                 {
                     Ch::printHeaderWithCount("Used by template, but only defined(", created.size());
-                    Ch::printValueList(created, CREATED, false, true, working_repo, 1);
+                    Ch::printValueList(created, CREATED, false, true, false, working_repo, 1);
                 }
 
                 /* print used */
@@ -573,7 +573,7 @@ namespace SyntaxParser
                     else
                         Ch::printHeaderWithCount("Used by template and already added(", used.size());
 
-                    Ch::printValueList(used, ADDED, true, true, working_repo, 1);
+                    Ch::printValueList(used, ADDED, true, true, true, working_repo, 1);
                 }
 
                 /* print needless */
@@ -619,7 +619,7 @@ namespace SyntaxParser
             {
                 Ch::printHeaderWithCount("Added Properties(", addedProps.size());
 
-                Ch::printValueList(addedProps, ADDED, true, true, working_repo, 1);
+                Ch::printValueList(addedProps, ADDED, true, true, true, working_repo, 1);
             }
             if (createdProps.size() > 0)
             {
@@ -1012,7 +1012,7 @@ namespace ConsoleHelper{
      * @param rTabSpace count of tab spaces the output should have at begin of the lines
      */
 
-    void printValueList(std::list<std::string> rList, PrintMode mode, bool rValues, bool rTypes,
+    void printValueList(std::list<std::string> rList, PrintMode mode, bool rValues, bool rTypes, bool rDirDiff,
                         Repository working_repo, int rTabSpace)
     {
         std::list<std::string> tmpList = rList;
@@ -1025,13 +1025,17 @@ namespace ConsoleHelper{
         {
             std::string key = *it;
             std::string color, value, type;
+            int dirDiff;
+
+            GenPropertyBase* prop = working_repo.GetPropertyByKey(key);
 
             bool path = working_repo.IsPropertyInCwd(key);
             if (rValues)
                 value = working_repo.GetPropertyValue(key);
             if (rTypes)
-                type = working_repo.GetPropertyByKey(key)->GetTypeN();
-
+                type = prop->GetTypeN();
+            if (rDirDiff)
+                dirDiff = Fs::GetDirectoryDifference(Fs::GetCwd(), prop->GetPath());
             if (path == true)
                 color = getColor(mode);
             else
@@ -1047,8 +1051,10 @@ namespace ConsoleHelper{
                 if(type == "std::string"){ type = "string"; }
                 std::cout << COLOR_BLUE << "<" << type << ">";
             }
+            if (rDirDiff && !path)
+                std::cout << color << COLOR_BOLD << " ^" << dirDiff << " ";
             if (rValues)
-                std::cout << color << " = " << value;
+                std::cout << COLOR_CLEAR << " = " << value;
 
             std::cout << COLOR_CLEAR << std::endl;
         }
