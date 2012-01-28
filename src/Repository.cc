@@ -245,21 +245,6 @@ void Repository::Load()
             c_prop->SetValue(c);
        }
     }
-
-    /* print out loaded properties */
-    // std::list<GenPropertyBase*>::iterator it;
-
-    // std::cout << "Loaded properties\n" << std::endl;
-    // for (it = this->mPropertyList.begin(); it != this->mPropertyList.end(); it++)
-    // {
-    //    if ((*it) == NULL)
-    //    {
-    //        std::cout << "NULL\n" << std::endl;
-    //        continue;
-    //    }
-    //    std::cout << *(*it) << std::endl;
-    // }
-
 }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
@@ -446,6 +431,7 @@ void Repository::RemoveProperty(std::string const& rKey)
 
 void Repository::RemovePropertyInList(std::string const& rKey)
 {
+    this->Load();
     if(this->ContainsProperty(rKey))
     {
         std::list<GenPropertyBase*>::iterator it;
@@ -496,6 +482,7 @@ void Repository::RemovePropertyClass(std::string const& rKey)
  */
 void Repository::RemovePropertyClassAndInstances(std::string const& rKey)
 {
+    this->Load();
     if (this->ContainsProperty(rKey))
     {
         if (this->IsCollection(rKey))
@@ -528,6 +515,7 @@ void Repository::RemovePropertyClassAndInstances(std::string const& rKey)
  */
 bool Repository::ContainsProperty(std::string const& rKey)
 {
+    this->Load();
     std::list<GenPropertyBase*>::const_iterator it;
 
     for (it = this->mPropertyList.begin(); it != this->mPropertyList.end(); it++)
@@ -548,6 +536,7 @@ bool Repository::ContainsProperty(std::string const& rKey)
  */
 bool Repository::IsPropertyInCwd(std::string const& rKey)
 {
+    this->Load();
     std::list<GenPropertyBase*>::const_iterator it;
     for (it = this->mCwdPropertyList.begin(); it != this->mCwdPropertyList.end(); it++)
         if((*it)->GetKey() == rKey)
@@ -562,6 +551,7 @@ bool Repository::IsPropertyInCwd(std::string const& rKey)
  */
 bool Repository::IsProperty(std::string const& rKey)
 {
+    this->Load();
     std::list<GenPropertyBase*>::const_iterator it;
     for (it = this->mPropertyList.begin(); it != this->mPropertyList.end(); it++)
         if((*it)->GetKey() == rKey)
@@ -576,6 +566,7 @@ bool Repository::IsProperty(std::string const& rKey)
  */
 bool Repository::IsCollectionInCwd(std::string const& rKey)
 {
+    this->Load();
     std::list<GenPropertyBase*>::const_iterator it;
     for (it = this->mCwdPropertyList.begin(); it != this->mCwdPropertyList.end(); it++)
         if((*it)->GetKey() == rKey)
@@ -590,6 +581,7 @@ bool Repository::IsCollectionInCwd(std::string const& rKey)
  */
 bool Repository::IsCollection(std::string const& rKey)
 {
+    this->Load();
     std::list<GenPropertyBase*>::const_iterator it;
     for (it = this->mPropertyList.begin(); it != this->mPropertyList.end(); it++)
         if((*it)->GetKey() == rKey)
@@ -605,6 +597,7 @@ bool Repository::IsCollection(std::string const& rKey)
  */
 GenPropertyBase* Repository::GetPropertyByKey(std::string const& rKey)
 {
+    this->Load();
     std::list<GenPropertyBase*>::const_iterator it;
 
     for (it = this->mPropertyList.begin(); it != this->mPropertyList.end(); it++)
