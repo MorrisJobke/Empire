@@ -86,9 +86,9 @@ Es erfolgt eine interaktive Abfrage der im Template genutzten, aber im Repositor
 	\hline
 \end{tabular}
 
-Jetzt können wir unseren Zwischenstand mit dem \textbf{show}-Befehl überprüfen. Dazu nutzen wir folgendes Kommando:
+Jetzt können wir unseren Zwischenstand mit dem \textbf{status}-Befehl überprüfen. Dazu nutzen wir folgendes Kommando:
 \begin{lstlisting}[style=Bash]
-$ emp show ../invoice.htm
+$ emp status ../invoice.htm
 \end{lstlisting}
 
 Wir erhalten eine Auflistung aller bereits gesetzten Variablen und Collections. Zusätzlich werden die weiteren benötigen Variablen angezeigt. Falls weitere Werte existieren die nicht im Template benötigt werden, werden diese ebenfalls in einer gesonderten Kategorie angezeigt.
@@ -139,9 +139,9 @@ Das Template kann nun zur fertigen Rechnung gerendert werden, da wir alle benöt
 $ emp render ../../invoice.htm
 \end{lstlisting}
 
-Im Folgenden definieren wir die Variablen, welche die Grundlage für die im Template enthaltene Collection bilden. Um herauszufinden welche das sind bemühen wir den \textbf{show}-Befehl und übergeben das Template als Parameter:
+Im Folgenden definieren wir die Variablen, welche die Grundlage für die im Template enthaltene Collection bilden. Um herauszufinden welche das sind bemühen wir den \textbf{status}-Befehl und übergeben das Template als Parameter:
 \begin{lstlisting}[style=Bash]
-$ emp show ../../invoice.htm
+$ emp status ../../invoice.htm
 \end{lstlisting}
 
 Besonders interessant ist dabei der Abschnitt der vom Template genutzten, aber im Repository nicht enthaltenen Collections. Dort wird uns die Collection \grqq item\grqq mit den folgenden Werten angezeigt:
@@ -179,7 +179,7 @@ $ emp cfill items  description:Datenrettung price:250.00 quantity:1
 
 Vor dem Rendern überprüfen wir nochmals unseren aktuellen Status:
 \begin{lstlisting}[style=Bash]
-$ emp show ../../invoice.htm
+$ emp status ../../invoice.htm
 \end{lstlisting}
 Alle Werte sollten nun grün oder türkis dargestellt werden. Grün symbolisiert das die Variablen im aktuellen Ordner erstellt wurden, türkise Variablen befinden sich hingegen in einem übergeordneten Verzeichnis.
 
@@ -204,7 +204,7 @@ $ emp add to_street "Musterweg 3"
 $ emp add to_city "52246 Musterdorf"
 \end{lstlisting}
 
-Mit dem \textbf{show}-Befehl lässt sich leicht erkennen, dass sich \textbf{to\_street} und \textbf{to\_city} im aktuellen Verzeichnis befinden und unsere gerade zugewiesenen Werte enthalten.
+Mit dem \textbf{status}-Befehl lässt sich leicht erkennen, dass sich \textbf{to\_street} und \textbf{to\_city} im aktuellen Verzeichnis befinden und unsere gerade zugewiesenen Werte enthalten.
 Das Property \textbf{to\_name} hat hingegen seinen Wert beibehalten, da es in einem der Elternverzeichnisse vorgefunden wurde. Gleiches gilt für all unsere eigenen Daten im Pfad Rechnungen.
 
 Im Folgenden müssen wir wieder die Collection mit Daten füllen. Die Definition dafür ist bereits von der ersten Rechnung vorhanden und wir können direkt mit dem Füllen der Collection beginnen, dazu nutzen wir die interaktive Variante von \textbf{cfill}:
