@@ -38,11 +38,26 @@ $ emp add total "return price * quantity; return lhs + rhs;"
 
 Die letzte Zeile in obrigen Listing definiert einen Funktions-Wert. Die erste Funktion berechnet später den Preis pro Posten und die zweite die Summe dieser - somit den Gesamtbetrag.\vspace{0.5em}
 
-Dasselbe Ergebnis kann man auch mit dem iadd-Befehl erreichen, auf welchen wir aber erst später zurückgreifen werden.
+Dasselbe Ergebnis kann man übrigens auch mit dem \textbf{iadd}-Befehl erreichen, auf welchen wir aber erst später zurückgreifen werden.
 \vspace{0.5em}
 
-Wir deklarieren noch einige Eigenschaften, die wir in der Collection verwenden wollen:
+Im Folgenden definieren wir die Variablen, welche die Grundlage für die im Template enthaltene Collection bilden. Um herauszufinden welche das sind bemühen wir den \textbf{status}-Befehl und übergeben das Template als Parameter:
+\begin{lstlisting}[style=Bash]
+$ emp status ../../invoice.htm
+\end{lstlisting}
 
+Besonders interessant ist dabei der Abschnitt der vom Template genutzten, aber im Repository nicht enthaltenen Collections. Dort wird uns die Collection \grqq item\grqq mit den folgenden Werten angezeigt:
+
+\begin{lstlisting}[style=Bash]
+Collections:
+============
+Used by template and not defined(1):
+	items, containing elements (got from Template):
+		description  price        quantity
+		total        unit
+\end{lstlisting}
+
+Die Deklaration erfolgt mit dem \textbf{create}-Befehl:
 \begin{lstlisting}[style=Bash]
 $ emp create description string
 $ emp create price double
@@ -132,35 +147,6 @@ Das Rendern erfolgt mit dem \textbf{render}-Befehl:
 \begin{lstlisting}[style=Bash]
 $ emp render ../../invoice.htm
 \end{lstlisting}
-
-\textbf{
-!!!!!!!!!!!!!!!!
-BEGINN Doppeltes
-!!!!!!!!!!!!!!!!
-}
-
-Im Folgenden definieren wir die Variablen, welche die Grundlage für die im Template enthaltene Collection bilden. Um herauszufinden welche das sind bemühen wir den \textbf{status}-Befehl und übergeben das Template als Parameter:
-\begin{lstlisting}[style=Bash]
-$ emp status ../../invoice.htm
-\end{lstlisting}
-
-Besonders interessant ist dabei der Abschnitt der vom Template genutzten, aber im Repository nicht enthaltenen Collections. Dort wird uns die Collection \grqq item\grqq mit den folgenden Werten angezeigt:
-
-\begin{lstlisting}[style=Bash]
-Collections:
-============
-Used by template and not defined(1):
-	items, containing elements (got from Template):
-		description  price        quantity
-		total        unit
-\end{lstlisting}
-
-
-\textbf{
-!!!!!!!!!!!!!!
-ENDE Doppeltes
-!!!!!!!!!!!!!!
-}
 
 Die erste Rechnung ist damit fertig. Die Erstellung der restlichen zwei Rechnungen erfolgt größtenteils analog zur Ersten. Um aber ein paar weitere Möglichkeiten aufzuzeigen werden diese trotzdem erläutert.
 Zunächst erstellen wir ein Verzeichnis für die zweite Rechnung.
