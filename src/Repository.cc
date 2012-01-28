@@ -389,22 +389,12 @@ void Repository::AddProperty(std::string const& key, std::string const& type, st
         {
             std::string fileType = this->GetPropertyByKey(key)->GetTypeN();
 
-            //remove existing property from list:
-            this->RemovePropertyInList(key);
-
-            if(tmp_type == "")
-                tmp_type = fileType;
-            else
-                if(fileType != tmp_type)
-                    throw PropClassExistsWithOtherKey();
+            if(tmp_type != "" && (fileType != tmp_type))
+                throw PropClassExistsWithOtherKey();
         }
-
-        GenPropertyBase* p_new_prop = PropertyHelpers::CreatePropertyFromTypeString(tmp_type);
-        p_new_prop->SetKey(key);
-        p_new_prop->SetValueFromString(value);
-
-        this->mPropertyList.push_back(p_new_prop);
-        this->WritePropDataToFile(Fs::GetCwd(), p_new_prop);
+        GenPropertyBase* prop = this->GetPropertyByKey(key);
+        prop->SetValueFromString(value);
+        this->WritePropDataToFile(Fs::GetCwd(), prop);
     }
     else
         throw PropExistentError();
@@ -752,6 +742,14 @@ std::list<GenPropertyBase*> Repository::GetCreatedProperties()
     }
 
     return result;
+}
+
+/** prints a debug list of the propertyList
+ *
+ */
+void Repository::PrintDebugList()
+{
+    ListHelper::ListDebugPrint(this->GetPropertyList());
 }
 
 

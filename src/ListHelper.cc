@@ -88,6 +88,7 @@ namespace ListHelper
         for (it = rList.begin(); it != rList.end(); it++)
         {
             (*it)->ToOutStream(std::cout);
+            std::cout << std::endl;
         }
         std::cout << "###### DEBUG LIST PRINT END #######" << std::endl;
     }

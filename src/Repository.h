@@ -18,6 +18,7 @@
 #include "Filesystem.h"
 #include "GenProperty.h"
 #include "RegexHelper.h"
+#include "ListHelper.h"
 
 #define REPO_NAME ".emp"
 
@@ -61,6 +62,7 @@ class Repository
     std::list<GenPropertyBase*> GetCollections();
     std::list<GenPropertyBase*> GetAddedProperties();
 
+    void PrintDebugList();
     //static PropertyTypes GetPropTypeFromStr(std::string const& str);
 
     /* actions */

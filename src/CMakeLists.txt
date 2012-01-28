@@ -77,7 +77,8 @@ add_library(Repository Repository)
 target_link_libraries(Repository
     Filesystem
     GenProperty
-    RegexHelper)
+    RegexHelper
+    ListHelper)
 
 ######################
 # Lua Helper library #

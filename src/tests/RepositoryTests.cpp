@@ -23,6 +23,7 @@
 
 #include "../Repository.h"
 #include "../Filesystem.h"
+#include "../ListHelper.h"
 
 using namespace std;
 namespace Fs = Filesystem;
@@ -461,19 +462,18 @@ BOOST_AUTO_TEST_CASE(GetFirstDefinedValueRecTest)
             cout << exc.what() << endl;
     }
 
-    repo.AddProperty("intAuto", "", "123892");
-    repo.AddProperty("int2", "", "123");
-    remove(".emp/intAuto");
-    remove("intAuto");
+    repo.AddProperty("val1", "", "123892");
+    repo.AddProperty("val2", "", "Test");
 
     Fs::CreateDirectory("test");
     Fs::ChangeCwd("test");
-    repo.AddProperty("intAuto", "", "892");
 
-    std::string value = repo.GetPropertyValue("intAuto");
-    BOOST_CHECK(value == "892");
-    value = repo.GetPropertyValue("int2");
-    BOOST_CHECK(value == "123");
+    repo.AddProperty("val2", "", "its working");
+
+    std::string value = repo.GetPropertyValue("val1");
+    BOOST_CHECK(value == "123892");
+    value = repo.GetPropertyValue("val2");
+    BOOST_CHECK(value == "its working");
 
 }
 
