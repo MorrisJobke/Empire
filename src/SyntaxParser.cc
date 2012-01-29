@@ -465,7 +465,7 @@ namespace SyntaxParser
         }
         try
         {
-            working_repo.RemoveProperty(Fs::GetCwd() + "/" + argv[0]);
+            working_repo.RemoveProperty(argv[0]);
         }
         catch(PropNotExists)
         {
