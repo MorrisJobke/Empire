@@ -8,8 +8,6 @@
 
 #include "LuaHelper.h"
 
-DEFINE_VAR_EXCEPTION(LuaException)
-
 /////////////////////////////// PUBLIC ///////////////////////////////////////
 
 /*============================= LIFECYCLE ==================================*/
@@ -139,9 +137,7 @@ void LuaContext::Execute(std::string const& lua, std::string& result)
     // raise exception if something fails
     if (ret != 0)
     {
-        //throw LuaException("Error in dostring:\nVariables are: " + mVariables +"\n" + "dostring: " + lua);
-        result = "0";
-        return;
+        throw LuaException("Error in dostring:\nVariables are: " + mVariables +"\n" + "dostring: " + lua);
     }
 
     result = lua_tostring(mState, -1);

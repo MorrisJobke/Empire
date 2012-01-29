@@ -63,6 +63,9 @@ private:
 
     std::map<std::string, GenPropertyBase*> mProperties;
 
+    void InjectPropertiesIntoLuaContext(std::map<std::string, GenPropertyBase*> properties, LuaContext* context);
+    void InjectPropertiesIntoLuaContext(std::list<GenPropertyBase*> properties, LuaContext* context);
+
 public:
     virtual void AddProperty(GenPropertyBase* property);
     virtual void AddProperties(std::list<GenPropertyBase*> properties);

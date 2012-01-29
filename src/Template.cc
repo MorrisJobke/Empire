@@ -23,6 +23,11 @@ using namespace std;
  */
 void SimpleTemplate::AddProperty(GenPropertyBase* property)
 {
+    if (mProperties.count(property->GetKey()) > 0)
+    {
+        mProperties.erase(property->GetKey());
+    }
+
     mProperties.insert(pair<string, GenPropertyBase*>(property->GetKey(), property));
 }
 
@@ -104,47 +109,28 @@ void SimpleTemplate::ParseString(string const& input, string& output)
                                     LuaContext* context = helper->CreateContext();
 
                                     // adding Properties to context - white list
-                                    std::map<std::string, GenPropertyBase*>::iterator mapit;
-                                    GenPropertyBase* prop;
-                                    for (mapit = mProperties.begin(); mapit != mProperties.end(); mapit++) {
-                                        prop = mapit->second;
-                                        if (prop != NULL)
-                                        {
-                                            std::string type = prop->GetTypeN();
-                                            if (type == GetTypeName<int>())
-                                            {
-                                                GenProperty<int>* cast_prop = (GenProperty<int>*) prop;
-                                                context->AddVariable(cast_prop->GetKey(), cast_prop->GetValue());
-                                            }
-                                            if (type == GetTypeName<float>())
-                                            {
-                                                GenProperty<float>* cast_prop = (GenProperty<float>*) prop;
-                                                context->AddVariable(cast_prop->GetKey(), cast_prop->GetValue());
-                                            }
-                                            if (type == GetTypeName<double>())
-                                            {
-                                                GenProperty<double>* cast_prop = (GenProperty<double>*) prop;
-                                                context->AddVariable(cast_prop->GetKey(), cast_prop->GetValue());
-                                            }
-                                        }
-                                    }
+                                    InjectPropertiesIntoLuaContext(mProperties, context);
 
                                     // execute function
-                                    double value = 0;
-                                    context->Execute(funcProperty->GetValue().GetMapFunction(), value);
-                                    delete context;
-
-                                    if (value != 0)
+                                    try
                                     {
+                                        double value = 0;
+                                        context->Execute(funcProperty->GetValue().GetMapFunction(), value);
+                                        delete context;
+                                        
                                         char r[100];
                                         sprintf(r, "%.2f", value);
                                         result << r;
                                     }
-                                    else
+                                    catch (LuaException)
                                     {
-                                        bool successfull_reduced = false;
+                                        delete context;
+
+                                        bool successfull_map = true;
                                         // search for collections
                                         GenPropertyBase* prop;
+                                        std::map<std::string, GenPropertyBase*>::iterator mapit;
+
                                         for (mapit = mProperties.begin(); mapit != mProperties.end(); mapit++) {
                                             prop = mapit->second;
                                             if (prop != NULL)
@@ -160,55 +146,50 @@ void SimpleTemplate::ParseString(string const& input, string& output)
                                                         // context for map function
                                                         LuaContext* context_map = helper->CreateContext();
                                                         // assign properties to it
-                                                        std::list<GenPropertyBase*>::iterator property;
-                                                        for (property = properties->begin(); property != properties->end(); property++) {
-                                                            std::string type = (*property)->GetTypeN();
-                                                            if (type == GetTypeName<int>())
-                                                            {
-                                                                GenProperty<int>* cast_prop = (GenProperty<int>*) (*property);
-                                                                context_map->AddVariable(cast_prop->GetKey(), cast_prop->GetValue());
-                                                            }
-                                                            if (type == GetTypeName<float>())
-                                                            {
-                                                                GenProperty<float>* cast_prop = (GenProperty<float>*) (*property);
-                                                                context_map->AddVariable(cast_prop->GetKey(), cast_prop->GetValue());
-                                                            }
-                                                            if (type == GetTypeName<double>())
-                                                            {
-                                                                GenProperty<double>* cast_prop = (GenProperty<double>*) (*property);
-                                                                context_map->AddVariable(cast_prop->GetKey(), cast_prop->GetValue());
-                                                            }
+                                                        InjectPropertiesIntoLuaContext(mProperties, context_map);
+                                                        InjectPropertiesIntoLuaContext(*properties, context_map);
+
+                                                        try
+                                                        {
+                                                            double value;
+                                                            context_map->Execute(funcProperty->GetValue().GetMapFunction(), value);
+                                                            results.push_back(value);
                                                         }
-                                                        double value;
-                                                        context_map->Execute(funcProperty->GetValue().GetMapFunction(), value);
+                                                        catch (LuaException)
+                                                        {
+                                                            successfull_map = false;
+                                                            break;
+                                                        }
+                                                        
                                                         delete context_map;
-                                                        results.push_back(value);
                                                     }
-
-                                                    // reduce results
-                                                    std::list<double>::iterator it;
-                                                    double value = 0;
-                                                    for(it = results.begin(); it != results.end(); ++it) {
-                                                        // context for reduce function
-                                                        LuaContext* context = helper->CreateContext();
-                                                        context->AddVariable("lhs", value);
-                                                        context->AddVariable("rhs", *it);
-                                                        context->Execute(funcProperty->GetValue().GetReduceFunction(), value);
-                                                        delete context;
-                                                    }
-
-                                                    if (value != 0)
+                                                    
+                                                    if (successfull_map)
                                                     {
-                                                        char r[100];
-                                                        sprintf(r, "%.2f", value);
-                                                        result << r;
-                                                        successfull_reduced = true;
-                                                        break;
+                                                        // reduce results
+                                                        std::list<double>::iterator it;
+                                                        double value = 0;
+                                                        for(it = results.begin(); it != results.end(); ++it) {
+                                                            // context for reduce function
+                                                            LuaContext* context = helper->CreateContext();
+                                                            context->AddVariable("lhs", value);
+                                                            context->AddVariable("rhs", *it);
+                                                            context->Execute(funcProperty->GetValue().GetReduceFunction(), value);
+                                                            delete context;
+                                                        }
+
+                                                        if (value != 0)
+                                                        {
+                                                            char r[100];
+                                                            sprintf(r, "%.2f", value);
+                                                            result << r;
+                                                            break;
+                                                        }
                                                     }
                                                 }
                                             }
                                         }
-                                        if (!successfull_reduced)
+                                        if (!successfull_map)
                                         {
                                             //TODO
                                             std::cout << "function (" << gathered << "): calculating function failed\n\tMay there a some missing properties to calculate it." << std::endl;
@@ -248,14 +229,24 @@ void SimpleTemplate::ParseString(string const& input, string& output)
                                 // create new SimpleTemplate instance,
                                 SimpleTemplate* tmpl = new SimpleTemplate();
 
-                                // assign properties to it
+                                // assign base properties to it
+                                std::map<std::string, GenPropertyBase*>::iterator mapit;
+                                GenPropertyBase* prop;
+                                for (mapit = mProperties.begin(); mapit != mProperties.end(); mapit++) {
+                                    prop = mapit->second;
+                                    if (prop != NULL)
+                                    {
+                                        tmpl->AddProperty(prop);
+                                    }
+                                }
+
+                                // assign collection properties to it
                                 std::list<GenPropertyBase*>::iterator property;
                                 for (property = properties->begin(); property != properties->end(); property++) {
                                     tmpl->AddProperty(*property);
                                 }
+
                                 // assign also all functions
-                                std::map<std::string, GenPropertyBase*>::iterator mapit;
-                                GenPropertyBase* prop;
                                 for (mapit = mProperties.begin(); mapit != mProperties.end(); mapit++) {
                                     prop = mapit->second;
                                     if (prop != NULL && prop->GetTypeN() == GetTypeName<FunctionType>())
@@ -555,6 +546,61 @@ std::list<std::string> SimpleTemplate::GetUnusedCollections(std::string const& r
 {
     return ListHelper::ListCompare(rAvailableColls, this->GetCollectionList(rPath), true);
 }
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+
+/** inject given properties into given Lua context
+ *
+ * @param properties the properties which should be injected
+ * @param context the Lua context which got the fiven properties injected
+ */
+void SimpleTemplate::InjectPropertiesIntoLuaContext(std::map<std::string, GenPropertyBase*> properties, LuaContext* context)
+{
+    std::list<GenPropertyBase*> list;
+
+    std::map<std::string, GenPropertyBase*>::iterator mapit;
+    GenPropertyBase* prop;
+    for (mapit = properties.begin(); mapit != properties.end(); mapit++) {
+        prop = mapit->second;
+        if (prop != NULL)
+        {
+            list.push_back(prop);
+        }
+    }
+
+    InjectPropertiesIntoLuaContext(list, context);
+}
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+
+/** inject given properties into given Lua context
+ *
+ * @param properties the properties which should be injected
+ * @param context the Lua context which got the fiven properties injected
+ */
+void SimpleTemplate::InjectPropertiesIntoLuaContext(std::list<GenPropertyBase*> properties, LuaContext* context)
+{
+    std::list<GenPropertyBase*>::iterator property;
+    for (property = properties.begin(); property != properties.end(); property++) {
+        std::string type = (*property)->GetTypeN();
+        if (type == GetTypeName<int>())
+        {
+            GenProperty<int>* cast_prop = (GenProperty<int>*) (*property);
+            context->AddVariable(cast_prop->GetKey(), cast_prop->GetValue());
+        }
+        if (type == GetTypeName<float>())
+        {
+            GenProperty<float>* cast_prop = (GenProperty<float>*) (*property);
+            context->AddVariable(cast_prop->GetKey(), cast_prop->GetValue());
+        }
+        if (type == GetTypeName<double>())
+        {
+            GenProperty<double>* cast_prop = (GenProperty<double>*) (*property);
+            context->AddVariable(cast_prop->GetKey(), cast_prop->GetValue());
+        }
+    }
+}
+
 /*============================= ACCESS     =================================*/
 /*============================= INQUIRY    =================================*/
 

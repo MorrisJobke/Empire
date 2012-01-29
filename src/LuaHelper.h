@@ -13,6 +13,8 @@
 #include <sstream>
 #include "DefineException.h"
 
+DEFINE_VAR_EXCEPTION(LuaException)
+
 extern "C"
 {
     #include "lua.h"
