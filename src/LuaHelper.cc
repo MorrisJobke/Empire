@@ -139,7 +139,7 @@ void LuaContext::Execute(std::string const& lua, std::string& result)
     // raise exception if something fails
     if (ret != 0)
     {
-        throw LuaException("dostring error");
+        throw LuaException("Error in dostring: " + (mVariables + lua));
         result = "0";
         return;
     }
