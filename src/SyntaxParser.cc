@@ -1004,17 +1004,20 @@ namespace SyntaxParser
         Fs::FileWriteString(path, output);
         bool isTexFile = RegexHelper::MatchesRegex(path,".*\\.tex");
 
-        /*run pdflatex*/
-        bool pdfLatexInstalled = system("which pdflatex >/dev/null") == 0;
-        if(pdfLatexInstalled)
+        if (isTexFile)
         {
-            std::string executeLine = "pdflatex -interaction scrollmode -no-shell-escape " + path
-                                + ">" + path + ".log";
-            std::cout << "pdflatex was found, created pdf from rendered .tex file" << std::endl;
-            system(executeLine.c_str());
+            /*run pdflatex*/
+            bool pdfLatexInstalled = system("which pdflatex &> /dev/null") == 0;
+            if(pdfLatexInstalled)
+            {
+                std::string executeLine = "pdflatex -interaction batchmode -no-shell-escape " + path
+                                    + ">" + path + ".log";
+                std::cout << "pdflatex was found, created pdf from rendered .tex file" << std::endl;
+                system(executeLine.c_str());
+            }
+            else
+                std::cout << "pdflatex was not found, no pdf created..." << std::endl;
         }
-        else
-            std::cout << "pdflatex was not found, no pdf created..." << std::endl;
     }
 
     /** remove command
