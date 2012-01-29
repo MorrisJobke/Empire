@@ -41,6 +41,7 @@ namespace PropertyHelpers
 {
     GenPropertyBase* CreatePropertyFromTypeString(std::string const& rType);
     void SetValueFromString(GenPropertyBase* prop, std::string const& rType);
+    std::string GetPropertyValueAsString(GenPropertyBase* prop);
 }
 
 /* define a template for basic types

@@ -666,42 +666,7 @@ std::string Repository::GetMetaPath()
 std::string Repository::GetPropertyValue(std::string const& rKey)
 {
     GenPropertyBase* prop = this->GetPropertyByKey(rKey);
-
-    std::string type = prop->GetTypeN();
-    if (type == GetTypeName<int>())
-    {
-        GenProperty<int>* cast_prop = (GenProperty<int>*) prop;
-        std::stringstream str;
-        str << (cast_prop->GetValue());
-        return str.str();
-    }
-    else if (type == GetTypeName<float>())
-    {
-        GenProperty<float>* cast_prop = (GenProperty<float>*) prop;
-        std::stringstream str;
-        str << (cast_prop->GetValue());
-        return str.str();
-    }
-    else if (type == GetTypeName<double>())
-    {
-        GenProperty<double>* cast_prop = (GenProperty<double>*) prop;
-        std::stringstream str;
-        str << (cast_prop->GetValue());
-        return str.str();
-    }
-    else if (type == GetTypeName<std::string>())
-    {
-        GenProperty<std::string>* cast_prop = (GenProperty<std::string>*) prop;
-        return cast_prop->GetValue();
-    }
-    else if (type == GetTypeName<FunctionType>())
-    {
-        GenProperty<FunctionType>* cast_prop = (GenProperty<FunctionType>*) prop;
-        std::stringstream str;
-        str << cast_prop->GetValue();
-        return str.str();
-    }
-    return "";
+    return PropertyHelpers::GetPropertyValueAsString(prop);
 }
 
 /** get a list of propertys in the current working dir
