@@ -26,6 +26,7 @@ namespace SyntaxParser
              << "  cadd         adds a collection property to the repository in working directory\n"
              << "  cfill        adds a collection row\n"
              << "  create       adds only the property type to the repository in working directory\n"
+             << "  cshow        shows data rows of a given collection\n"
              << "  find         searchs for keys and containing values\n"
              << "  iadd         interactive adding of all properties in a given template\n"
              << "  remove       removes a given property from repository in working directory\n"
