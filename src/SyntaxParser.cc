@@ -1002,14 +1002,14 @@ namespace SyntaxParser
         Fs::FileWriteString(path, output);
         bool isTexFile = RegexHelper::MatchesRegex(path,".*\\.tex");
 
-
         /*run pdflatex*/
-        std::string executeLine = "pdflatex -interaction scrollmode -no-shell-escape " + path
+        if(Fs::FileExists("/usr/bin/pdflatex"))
+        {
+            std::string executeLine = "pdflatex -interaction scrollmode -no-shell-escape " + path
                                 + ">" + path + ".log";
-        int res = system(executeLine.c_str());
-        std::cout << "returns" << res << std::endl ;
-        if(res == 0)
             std::cout << "pdflatex was found, created pdf from rendered .tex file" << std::endl;
+            system(executeLine.c_str());
+        }
         else
             std::cout << "pdflatex was not found, no pdf created..." << std::endl;
     }
@@ -1209,7 +1209,7 @@ namespace ConsoleHelper{
      * @param mode the mode for printing
      * @param rValues should it print values?
      * @param rTypes should it print types?
-     * @param rDirDiff should it print the count of dirs to value definition?
+     * @param rTypes should it print the count of dirs to value definition?
      * @param working_repo the repository
      * @param rTabSpace count of tab spaces the output should have at begin of the lines
      */
