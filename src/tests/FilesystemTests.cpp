@@ -249,10 +249,10 @@ BOOST_AUTO_TEST_CASE(testRemoveFilesInDirRec)
 
     Fs::RemoveFilesInDirRec("test", ".");
 
-    BOOST_CHECK(Fs::FileExists(dir_name + "/" + "test1"));
-    BOOST_CHECK(!Fs::FileExists(dir_name + "/" + "test"));
-    BOOST_CHECK(Fs::FileExists(dir2_name + "/" + "test1"));
-    BOOST_CHECK(!Fs::FileExists(dir2_name + "/" + "test"));
+    BOOST_CHECK(Fs::FileExists(dir_name + "/" + "test1") == true);
+    BOOST_CHECK(Fs::FileExists(dir_name + "/" + "test") == false);
+    BOOST_CHECK(Fs::FileExists(dir2_name + "/" + "test1") == true);
+    BOOST_CHECK(Fs::FileExists(dir2_name + "/" + "test") == false);
 
     Fs::RemoveDirRec(dir_name);
     Fs::RemoveDirRec(dir2_name);

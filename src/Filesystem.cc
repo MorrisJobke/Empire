@@ -263,8 +263,11 @@ namespace Filesystem
                     //ignore . and ..
                     if(fileName == ".." || fileName == ".")
                         continue;
+                    
+                    //std::cout << "dir type is: " << ep->d_type << "\n";
 
-                    if (ep->d_type == DT_DIR)
+                    if (DirectoryExists(currDir + "/" + fileName))
+                    //if (ep->d_type == DT_DIR)
                     {
                         //std::cout << "Putting dir on list: " << currDir + "/" + fileName << std::endl;
                         dirPathsToDo.push_back(currDir + "/" + fileName);
