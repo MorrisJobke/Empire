@@ -709,42 +709,13 @@ namespace SyntaxParser
             std::cout << "There isn't any repository in this or it's parent directories." << std::endl;
             return;
         }
-        if (argc != 1)
-        {
-            std::cout << "This command needs a collection key as parameter.\n"
-                      << "Synopsis: emp cshow <collection>\n\n";
-            return;
-        }
 
-        std::string collKey = argv[0];
-
-        working_repo.Load();
-        if (!working_repo.ContainsProperty(collKey))
-        {
-            std::cout << "There is no collection with this name." << std::endl;
-            return;
-        }
-
-        GenPropertyBase* prop = working_repo.GetPropertyByKey(collKey);
-        if(prop->GetTypeN() != GetTypeName<Coll>())
-        {
-            std::cout << "Key exists in repository, but is no collection." << std::endl;
-            return;
-        }
-
-        GenProperty<Coll>* collProp = (GenProperty<Coll>*) prop;
-        Coll collection = collProp->GetValue();
-
-        collection.DebugPrint();
-
-        /* OLD VERSION
         if (argc == 0)
         {
             std::cout << "This command needs a collection key as parameter.\n"
-                      << "Optionally you could specify the keys that should be printed.\n"
-                      << "If you specify a value behind this key, then only rows with this value in the\n"
-                      << "specified key will be shown\n"
-                      << "Synopsis: emp cshow <collection> [<key1>[:<value>] <key2>[:<value>] ...]\n\n";
+                      << "Optionally you could specify a key and a value and it only prints\n"
+                      << "collection rows where the specified value matches\n"
+                      << "Synopsis: emp cshow <collection> [<key1>:<value1> [<key2>:<value2>] ...]\n\n";
             return;
         }
 
@@ -787,7 +758,7 @@ namespace SyntaxParser
             }
             else
             {
-                showProp.push_back(keyValueComb.substr(0, found -1));
+                showProp.push_back(keyValueComb.substr(0, found));
                 wanted_val.push_back(keyValueComb.substr(found + 1, keyValueComb.size()));
             }
         }
@@ -796,40 +767,52 @@ namespace SyntaxParser
         std::list< std::list<GenPropertyBase*> >::const_iterator rows;
         std::list<GenPropertyBase*>::const_iterator items;
         std::list<std::string>::const_iterator showPropIt, wanted_valIt;
+        std::list< std::list<GenPropertyBase*> > matches;
 
         for(rows = itemList.begin(); rows != itemList.end(); ++rows)
         {
-            bool printTrig = true;
-            wanted_valIt = wanted_val.begin();
             std::string rowPrint = "";
             std::list<GenPropertyBase*> actRow = *rows;
-            for (showPropIt = showProp.begin(); showPropIt != showProp.end() && printTrig; showPropIt ++)
+            for(items = actRow.begin(); items != actRow.end(); ++items)
             {
-                for(items = actRow.begin(); items != actRow.end(); ++items)
-                {
-                    std::string itemKey = (*items)->GetKey();
-                    std::string itemVal;
-                    if((*items)->HasValue())
-                        itemVal = PropertyHelpers::GetPropertyValueAsString((*items));
+                bool printTrig = true;
+                std::string itemKey = (*items)->GetKey();
+                std::string itemVal;
+                if((*items)->HasValue())
+                    itemVal = PropertyHelpers::GetPropertyValueAsString((*items));
 
-                    if((*showPropIt) != "")
-                        if((*showPropIt) == itemKey)
-                            if(rowPrint != "")
-                                rowPrint +=  "\t" + itemVal;
-                            else
-                                rowPrint += itemVal;
-                    else
-                        rowPrint +=  "\t" + itemVal;
-                    if((*wanted_valIt) != "")
-                        if((*wanted_valIt) != itemVal)
-                            printTrig = false;
+                wanted_valIt = wanted_val.begin();
+                for (showPropIt = showProp.begin(); showPropIt != showProp.end() && printTrig; showPropIt ++)
+                {
+                    if((*showPropIt) == itemKey)
+                    {
+                        if((*wanted_valIt) == itemVal)
+                            matches.push_back(*rows);
+                    }
+                    wanted_valIt++;
                 }
-                wanted_valIt++;
             }
-            if(printTrig)
-                std::cout << rowPrint << std::endl;
         }
-        */
+
+        /* printing: */
+        int row = 0;
+        matches.unique(); //ignore double found
+        for(rows = matches.begin(); rows != matches.end(); rows++)
+        {
+            std::cout << "Result Row " << row << ":" << std::endl;
+
+            std::list<GenPropertyBase*> actRow = *rows;
+            for(items = actRow.begin(); items != actRow.end(); ++items)
+            {
+                std::cout << (*items)->GetKey();
+                std::cout << COLOR_BLUE << "<" << (*items)->GetTypeN() << ">";
+                std::cout << COLOR_CLEAR << " = " << PropertyHelpers::GetPropertyValueAsString(*items)
+                          << std::endl;
+            }
+            row ++;
+            std::cout << std::endl;
+        }
+
     }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
