@@ -9,8 +9,6 @@
 #ifndef REGEXHELPER_H
 #define REGEXHELPER_H
 
-DEFINE_FAST_EXCEPTION(RegexExecuteError, "Regex execution failed")
-
 #define INT_PATTERN "^[+-]?\\d+$"
 #define FLOAT_PATTERN "^[+-]?((\\d+\\.\\d+)|\\.\\d+)$"
 #define FUNCTION_PATTERN "^return.*;$"
@@ -19,6 +17,10 @@ DEFINE_FAST_EXCEPTION(RegexExecuteError, "Regex execution failed")
 #include <fstream>
 #include <pcre.h>
 #include <cstring>
+
+#include "DefineException.h"
+
+DEFINE_FAST_EXCEPTION(RegexExecuteError, "Regex execution failed")
 
 /** some functions for auto recognition of types
  */
