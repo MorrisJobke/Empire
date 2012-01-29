@@ -1005,7 +1005,8 @@ namespace SyntaxParser
         bool isTexFile = RegexHelper::MatchesRegex(path,".*\\.tex");
 
         /*run pdflatex*/
-        if(Fs::FileExists("/usr/bin/pdflatex"))
+        bool pdfLatexInstalled = system("which pdflatex >/dev/null") == 0;
+        if(pdfLatexInstalled)
         {
             std::string executeLine = "pdflatex -interaction scrollmode -no-shell-escape " + path
                                 + ">" + path + ".log";
