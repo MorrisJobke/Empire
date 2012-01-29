@@ -6,7 +6,7 @@ cmake_minimum_required(VERSION 2.8)
 
 # build tests?
 set(ENABLE_TESTING ON)
-set(ONLY_TESTING OFF)
+set(ENABLE_EMPIRE ON)
 
 # where to put executables
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/../bin)
@@ -112,7 +112,7 @@ target_link_libraries(Collection
 #   directory name
 add_subdirectory(tests)
 
-if(NOT ONLY_TESTING)
+if(ENABLE_EMPIRE)
     # specify executable
     # parameter:
     #   output name
