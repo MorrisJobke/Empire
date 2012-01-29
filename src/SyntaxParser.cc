@@ -26,6 +26,7 @@ namespace SyntaxParser
              << "  cadd         adds a collection property to the repository in working directory\n"
              << "  cfill        adds a collection row\n"
              << "  create       adds only the property type to the repository in working directory\n"
+             << "  find         searchs for keys and containing values\n"
              << "  iadd         interactive adding of all properties in a given template\n"
              << "  remove       removes a given property from repository in working directory\n"
              << "  modify       modifies a given property from repository in working directory\n"
@@ -1048,7 +1049,7 @@ namespace SyntaxParser
                 std::cout << "The specified property doesn't exist in this directory.\n";
                 return;
             }
-            catch (PropClassNotExists& e)
+           catch (PropClassNotExists& e)
             {
                 std::cout << "The specified property doesn't exist in this repository.\n";
                 return;
