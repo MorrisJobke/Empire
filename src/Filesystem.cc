@@ -95,6 +95,7 @@ namespace Filesystem
      /**
      * @brief function to create a new directory
      * @param rDirPath path of the new directory
+     * @throws CannotCreateDirError
      */
     void CreateDirectory (std::string const& rDirPath)
     {
@@ -110,6 +111,7 @@ namespace Filesystem
 
         if (ret != 0)
         {
+            /*
             if (errno == EACCES)
                 std::cout << "errno: EACCES" << std::endl;
             if (errno == EEXIST)
@@ -118,6 +120,7 @@ namespace Filesystem
                 std::cout << "errno: ENOSPC" << std::endl;
             if (errno == EROFS)
                 std::cout << "errno: EROFS" << std::endl;
+            */
             throw CannotCreateDirError();
         }
 
@@ -342,6 +345,7 @@ namespace Filesystem
      * @brief function to write a string to file
      * @param rFilePath path where string should be written
      * @param rContent  string that should be written
+     * @throws CannotOpenFileError(" " + rFilePath + " FileWriteString")
      */
     void FileWriteString(std::string const& rFilePath, std::string const& rContent)
     {
@@ -364,6 +368,7 @@ namespace Filesystem
      * @brief function to append a given string to a given file
      * @param rFilePath path of the file that should be appended
      * @param rContent string that will be appended to the given File
+     * @throws CannotOpenFileError(" " + rFilePath + " FileAppendString")
      */
     void FileAppendString(std::string const& rFilePath, std::string const& rContent)
     {
@@ -421,6 +426,7 @@ namespace Filesystem
      * @brief function to read a file into string
      * @param rFilePath path where string should be written
      * @return string from file
+     * @throws CannotOpenFileError(" " + rFilePath + " FileReadString")
      */
     std::string FileReadString(std::string const& rFilePath)
     {

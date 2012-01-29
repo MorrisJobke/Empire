@@ -58,6 +58,7 @@ std::istream& operator>>(std::istream& rIn, Coll rColl)
  *
  * @param rKey key of the collection
  * @param rMetaPath path to .emp folder
+ * @throws ErrorColl("COLL_NO_DEC_FOUND")
  */
 void Coll::Load(std::string const& rKey, std::string const& rMetaPath)
 {
@@ -186,6 +187,8 @@ void Coll::Load(std::string const& rKey, std::string const& rMetaPath)
  *
  * @param pPropList list with property members
  * @param rMetaPath path to .emp folder
+ * @throws CollExists
+ * @throws CollDecExists
  */
 void Coll::Declare(std::list<GenPropertyBase*> const& pPropList, std::string const& rMetaPath)
 {
@@ -227,6 +230,7 @@ void Coll::Declare(std::list<GenPropertyBase*> const& pPropList, std::string con
 /** this creates a new numbered folder wth property data files
  *
  * @param pPropList list with property members
+ * @throws ErrorColl("COLL_TYPE_MISSMATCH_IN_ROW")
  */
 void Coll::AddRow(std::list<GenPropertyBase*> const& pPropList)
 {

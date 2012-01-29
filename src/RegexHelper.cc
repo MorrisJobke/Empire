@@ -16,6 +16,7 @@ namespace RegexHelper
      * @param rTargetString given String to check against the pattern
      * @param rPattern given regex pattern to check
      * @return returns true, if the given string is matching to the given regex-pattern, else false
+     * @throws RegexExecuteError
      */
     bool MatchesRegex(std::string rTargetString, std::string rPattern)
     {
@@ -36,8 +37,7 @@ namespace RegexHelper
         if (! re)
         {
             //fprintf(stderr, "PCRE compilation failed at expression offset %d: %s\n", erroffset, error);
-            return false;
-            //TODO: throw exception
+            throw RegexExecuteError();
         }
 
         rc = pcre_exec(

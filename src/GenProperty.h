@@ -138,6 +138,7 @@ class GenProperty : public GenPropertyBase
         /** getter for the value of the property
          *
          * @return returns the value of the property
+         * @throws ErrorGenProperty("NO_PROP_VALUE ("+this->GetKey()+")")
          */
         typ GetValue()
         {

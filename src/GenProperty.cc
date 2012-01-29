@@ -176,6 +176,7 @@ namespace PropertyHelpers
     /** create a property from type-string
     * @param rType string containing a type
     * @return returns created property
+    * @throws ErrorGenProperty("Not a supported type")
     */
     GenPropertyBase* CreatePropertyFromTypeString(std::string const& rType)
     {
@@ -208,6 +209,7 @@ namespace PropertyHelpers
     /** create a property from type-string
     * @param pProp property where value should be set
     * @param rValue the value, that should be set
+    * @throws ErrorGenProperty("Not a supported type")
     */
     void SetValueFromString(GenPropertyBase* pProp, std::string const& rValue)
     {

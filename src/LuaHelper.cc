@@ -94,6 +94,8 @@ void LuaContext::AddVariable(std::string const& name, double value)
  *
  * @param lua script to execute
  * @param result value for storing the execution result
+ * @throws LuaException("LUA string isn't valid")
+ * @throws LuaException("dostring error")
  */
 void LuaContext::Execute(std::string const& lua, std::string& result)
 {
@@ -125,7 +127,7 @@ void LuaContext::Execute(std::string const& lua, std::string& result)
 
         if (!alnum_found)
         {
-            // throw LuaException("LUA string isn't valid");
+            throw LuaException("LUA string isn't valid");
             result = "0";
             return;
         }
@@ -137,7 +139,7 @@ void LuaContext::Execute(std::string const& lua, std::string& result)
     // raise exception if something fails
     if (ret != 0)
     {
-        // throw LuaException("dostring error");
+        throw LuaException("dostring error");
         result = "0";
         return;
     }

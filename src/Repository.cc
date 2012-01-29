@@ -84,6 +84,9 @@ Repository::~Repository()
  *
  * this creates the .emp folder, it throws exception if a repo exits
  * TODO default properties
+ *
+ * @throws ExcRepository("Err: Repo Exists")
+ * @throws ExcRepository("Err: Cannot Create Repo")
  */
 void Repository::Init()
 {
@@ -115,6 +118,8 @@ void Repository::Init()
 /** load a repository
  *
  * this collects all properties in a list
+ * @throws ExcRepository("ERR_REPO_NOTEXISTS")
+ * @throws ExcRepository("Couldn't open dir.")
  */
 void Repository::Load()
 {
@@ -179,7 +184,7 @@ void Repository::Load()
         (void) closedir (dp);
     }
     else
-        perror ("Couldn't open the directory");
+        throw ExcRepository("Couldn't open dir.");
 
 
     /*
@@ -230,7 +235,7 @@ void Repository::Load()
             (void) closedir (dp);
         }
         else
-            perror ("Couldn't open the directory");
+            throw ExcRepository("Couldn't open dir.");
 
         if (this->mAbsoluteRepoPath == Fs::GetCwd())
             break;
@@ -272,6 +277,8 @@ void Repository::Load()
  *
  * @pre the repo exits and mRepoName is not empty
  * @pre type string is valid
+ * @throws ExcRepository("REPO_NOT_EXISTS")
+ * @throws PropExistentError
  */
 void Repository::CreatePropertyClass(std::string const& key, std::string const& rType)
 {
@@ -350,6 +357,9 @@ void Repository::ReadPropDataFromFile(std::string const& rPath, GenPropertyBase*
  * @param key the key of the property
  * @param type the type of the property
  * @param value the value of the property
+ *
+ * @throws PropClassCreateError
+ * @throws PropClassExistsWithOtherKey
  */
 void Repository::AddProperty(std::string const& key, std::string const& type, std::string const& value)
 {
@@ -405,6 +415,7 @@ void Repository::AddProperty(std::string const& key, std::string const& type, st
 /** delete property from Filesystem
  *
  * @param rKey complete file path
+ * @throws PropNotExists
  */
 void Repository::RemoveProperty(std::string const& rKey)
 {
@@ -436,6 +447,7 @@ void Repository::RemoveProperty(std::string const& rKey)
 /** delete the given property from the list
  *
  * @param rKey key of the property which should deleted
+ * @throws PropNotExists
  */
 
 void Repository::RemovePropertyInList(std::string const& rKey)
@@ -463,6 +475,7 @@ void Repository::RemovePropertyInList(std::string const& rKey)
 /** delete metadata from Filesystem
  *
  * @param rKey key name
+ * @throws PropClassNotExists
  */
 void Repository::RemovePropertyClass(std::string const& rKey)
 {
@@ -488,6 +501,7 @@ void Repository::RemovePropertyClass(std::string const& rKey)
 /** delete metadata & all propertys with the given key from filesystem
  *
  * @param rKey the key of the property to remove
+ * @throws PropClassNotExists
  */
 void Repository::RemovePropertyClassAndInstances(std::string const& rKey)
 {
@@ -605,6 +619,8 @@ bool Repository::IsCollection(std::string const& rKey)
  * @param rKey the key of the property wanted
  *
  * @return GenPropertyBase*
+ *
+ * @throws PropNotExists
  */
 GenPropertyBase* Repository::GetPropertyByKey(std::string const& rKey)
 {
