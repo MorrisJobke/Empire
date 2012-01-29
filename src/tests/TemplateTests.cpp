@@ -23,8 +23,56 @@
 #include "../Repository.h"
 
 using namespace std;
+namespace Fs = Filesystem;
 
-BOOST_AUTO_TEST_SUITE(TemplateTestSuite)
+/* test fixture */
+class Fixture
+{
+    public:
+        std::string mBaseDir;
+        std::string mTestRepoDir;
+
+        Fixture()
+        {
+            BOOST_TEST_MESSAGE("Basedir:" << Fs::GetCwd());
+            this->mBaseDir =  Fs::GetCwd();
+
+            Fs::RemoveDirRec("test_repo_template");
+            /* create test repo dir */
+            this->mTestRepoDir = "test_repo_template";
+
+            try
+            {
+                Fs::CreateDirectory(this->mTestRepoDir);
+            }
+            catch(Fs::CannotCreateDirError &exc)
+            {
+                BOOST_FAIL( "Cannot create testing repo dir!" );
+            }
+
+            /* change the dir path */
+            Fs::ChangeCwd(this->mTestRepoDir);
+        }
+
+        ~Fixture()
+        {
+            BOOST_TEST_MESSAGE("Go back from:" << Fs::GetCwd());
+            Fs::ChangeCwd(this->mBaseDir);
+
+            /* delete repo dir */
+            BOOST_TEST_MESSAGE("deleting test repo");
+            Fs::RemoveDirRec(this->mTestRepoDir);
+
+            BOOST_REQUIRE(Fs::DirectoryExists(this->mTestRepoDir) == false);
+
+            if (Fs::DirectoryExists(this->mTestRepoDir) == false)
+            {
+                BOOST_TEST_MESSAGE("deleting test repo successfull");
+            }
+
+        }
+};
+BOOST_FIXTURE_TEST_SUITE(TemplateTestSuite, Fixture)
 
 /*============================= BASIC TESTS ================================*/
 
