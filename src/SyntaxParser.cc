@@ -671,28 +671,57 @@ namespace SyntaxParser
         GenPropertyBase* prop = working_repo.GetPropertyByKey(key);
         bool isCollection = prop->GetTypeN() == GetTypeName<Coll>();
 
-        std::cout << "Key           = " << prop->GetKey() << std::endl;
-        std::cout << "Type          = " << prop->GetTypeN() << std::endl;
+        std::cout << "Key            = " << prop->GetKey() << std::endl;
+        std::cout << "Type           = " << prop->GetTypeN() << std::endl;
 
         if (prop->HasValue() && !isCollection)
         {
-            std::cout << "Value         = " << working_repo.GetPropertyValue(key) << std::endl;
-            std::cout << "value path    = " << prop->GetPath() << std::endl;
-            std::cout << "Creation time = " << Ch::TimeToString(Fs::GetFileCreationDate(prop->GetPath())) << std::endl;
+            std::cout << "Value          = " << working_repo.GetPropertyValue(key) << std::endl;
+            std::cout << "value path     = " << prop->GetPath() << std::endl;
+            std::cout << "Creation time  = " << Ch::TimeToString(Fs::GetFileCreationDate(prop->GetPath())) << std::endl;
         }
         else if (isCollection)
         {
-            /*
-            GenProperty<Coll> collProp = (GenProperty<Coll>) prop;
-            Coll collection = collProp.getValue();
-            std::cout << "Containin Propertys:" << std::endl;
-            Ch::printTripleList(collection.GetPropertyList(), CREATED, 1);
-            */
+            GenProperty<Coll>* collProp = (GenProperty<Coll>*) prop;
+            Coll collection = collProp->GetValue();
+            std::cout << "Data row count = " << collection.GetRowCount() << std::endl;
+            std::cout << std::endl << "Containing Propertys:" << std::endl;
+            Ch::printTripleList(Lh::PropertyList2KeyList(collection.GetPropertyList()), CREATED, 1);
+            std::cout << "Use the cshow command to get a list of the collection items." << std::endl;
         }
         else
             std::cout << "Value         = " << "NO VALUE SET" << std::endl;
-
     }
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+
+    /** cshow command
+     *
+     * @param argc count of arguments
+     * @param argv arguments
+     */
+    void coll_show(int argc, char* argv[])
+    {
+        Repository working_repo;
+
+        if (!working_repo.IsExistent())
+        {
+            std::cout << "There isn't any repository in this or it's parent directories." << std::endl;
+            return;
+        }
+        if (argc == 0)
+        {
+            std::cout << "This command needs a collection key as parameter.\n"
+                      << "Optionally you could specify the keys that should be printed.\n"
+                      << "If you specify a value behind this key, then only rows with this value in the\n"
+                      << "specified key will be shown\n"
+                      << "Synopsis: emp cshow <collection> [<key1>[:<value>] <key2>[:<value>] ...]\n\n";
+            return;
+        }
+
+        std::cout << "Sry, this function is not implemented yet." << std::endl;
+    }
+
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
 
     /** init command

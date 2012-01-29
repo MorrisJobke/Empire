@@ -124,6 +124,13 @@ int main(int argc, char* argv[])
             Sp::show(argc, argv);
             return 0;
         }
+        else if (strcmp(argv[0], "cshow") == 0)
+        {
+            argc--;
+            argv++;
+            Sp::coll_show(argc, argv);
+            return 0;
+        }
         else if (strcmp(argv[0], "remove") == 0)
         {
             argc--;
