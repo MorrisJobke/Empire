@@ -127,7 +127,7 @@ void LuaContext::Execute(std::string const& lua, std::string& result)
 
         if (!alnum_found)
         {
-            throw LuaException("LUA string isn't valid");
+            //throw LuaException("LUA string isn't valid");
             result = "0";
             return;
         }
@@ -139,7 +139,7 @@ void LuaContext::Execute(std::string const& lua, std::string& result)
     // raise exception if something fails
     if (ret != 0)
     {
-        throw LuaException("Error in dostring: " + (mVariables + lua));
+        //throw LuaException("Error in dostring:\nVariables are: " + mVariables +"\n" + "dostring: " + lua);
         result = "0";
         return;
     }
