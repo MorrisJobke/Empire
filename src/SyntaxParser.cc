@@ -775,25 +775,28 @@ namespace SyntaxParser
         {
             std::string rowPrint = "";
             std::list<GenPropertyBase*> actRow = *rows;
-            for(items = actRow.begin(); items != actRow.end(); ++items)
-            {
-                bool printTrig = true;
-                std::string itemKey = (*items)->GetKey();
-                std::string itemVal;
-                if((*items)->HasValue())
-                    itemVal = PropertyHelpers::GetPropertyValueAsString((*items));
-
-                wanted_valIt = wanted_val.begin();
-                for (showPropIt = showProp.begin(); showPropIt != showProp.end() && printTrig; showPropIt ++)
+            if(showProp.size() > 0)
+                for(items = actRow.begin(); items != actRow.end(); ++items)
                 {
-                    if((*showPropIt) == itemKey)
+                    bool printTrig = true;
+                    std::string itemKey = (*items)->GetKey();
+                    std::string itemVal;
+                    if((*items)->HasValue())
+                        itemVal = PropertyHelpers::GetPropertyValueAsString((*items));
+
+                    wanted_valIt = wanted_val.begin();
+                    for (showPropIt = showProp.begin(); showPropIt != showProp.end() && printTrig; showPropIt ++)
                     {
-                        if((*wanted_valIt) == itemVal)
-                            matches.push_back(*rows);
+                        if((*showPropIt) == itemKey)
+                        {
+                            if((*wanted_valIt) == itemVal)
+                                matches.push_back(*rows);
+                        }
+                        wanted_valIt++;
                     }
-                    wanted_valIt++;
                 }
-            }
+            else
+                matches.push_back(*rows);
         }
 
         /* printing: */
