@@ -1010,9 +1010,9 @@ namespace SyntaxParser
             bool pdfLatexInstalled = system("which pdflatex &> /dev/null") == 0;
             if(pdfLatexInstalled)
             {
-                std::string executeLine = "pdflatex -interaction batchmode -no-shell-escape " + path
+                std::string executeLine = "pdflatex -interaction=nonstopmode -halt-on-error -no-shell-escape " + path
                                     + ">" + path + ".log";
-                std::cout << "pdflatex was found, created pdf from rendered .tex file" << std::endl;
+                std::cout << "pdflatex was found, created pdf from rendered .tex file. Output is located in " <<  path << ".log" << std::endl;
                 system(executeLine.c_str());
             }
             else
