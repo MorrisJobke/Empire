@@ -131,6 +131,13 @@ int main(int argc, char* argv[])
             Sp::remove(argc, argv);
             return 0;
         }
+        else if (strcmp(argv[0], "find") == 0)
+        {
+            argc--;
+            argv++;
+            Sp::find(argc, argv);
+            return 0;
+        }
         else
         {
             Sp::usage();

@@ -930,6 +930,56 @@ namespace SyntaxParser
             }
         }
     }
+
+
+    /** find command
+     *
+     * @param argc count of arguments
+     * @param argv arguments
+     */
+    void find(int argc, char* argv[])
+    {
+        Repository working_repo;
+        if (!working_repo.IsExistent())
+        {
+            std::cout << "There isn't any repository in this or it's parent directories." << std::endl;
+            return;
+        }
+        if (argc < 1 || argc > 2)
+        {
+            std::cout << "You need to specify a key (use ALL if you want to search all keys).\n"
+                      << "Optionally you could specify a part of the\n"
+                      << "value you are searching for.\n"
+                      << "Synopsis: emp find <key> [<part of value>]\n\n";
+            return;
+        }
+        else
+        {
+            std::string exeQuery;
+            std::string key, value;
+
+            key = argv[0];
+
+            if(argc == 2)
+            {
+                value = argv[1];
+                if(key == "ALL")
+                    exeQuery = "find . \\! -path \"*/*.*\" -type f -print0 | xargs -0 grep \"" + value + "\"";
+                else
+                    exeQuery = "find . \\! -path \"*/*.*\" -type f -name \"" + key + "\" -print0 | xargs -0 grep \"" + value + "\"";
+            }
+            else
+            {
+                if(key == "ALL")
+                    exeQuery = "find . \\! -path \"*/*.*\"";
+                else
+                    exeQuery = "find . \\! -path \"*/*.*\" -name \"" + key + "\"";
+            }
+
+            //std::cout << exeQuery << std::endl;
+            system(exeQuery.c_str());
+        }
+    }
 }
 
 namespace ConsoleHelper{

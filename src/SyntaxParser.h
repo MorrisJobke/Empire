@@ -38,6 +38,7 @@ namespace SyntaxParser
     void create(int argc, char* argv[]);
     void coll_add(int argc, char* argv[]);
     void coll_fill(int argc, char* argv[]);
+    void find(int argc, char* argv[]);
     void add(int argc, char* argv[]);
     void interactive_add(int argc, char* argv[]);
     void modify(int argc, char* argv[]);
