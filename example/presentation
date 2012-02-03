@@ -1,0 +1,28 @@
+mkdir Rechnungen
+cd Rechnungen
+
+emp init
+
+emp add name "Hans-Peter Schulze"
+emp add strasse "Waldecke 3"
+emp add ort "Waldenburg"
+emp add summe "return preis * anzahl; return lhs + rhs;"
+emp cadd posten pname preis anzahl
+	string double int
+
+mkdir Kunde1
+cd Kunde1
+
+emp add kName "Rudolf Winkler"
+emp add kStrasse "An der Heide 7"
+emp add kOrt "Falken"
+
+mkdir Auftrag1
+cd Auftrag1
+
+emp cfill posten pname:Kugelschreiber preis:0.36 anzahl:300
+emp cfill posten
+	Jojos 2.00 20
+	Kaffee 3.49 2000
+
+emp render ../../rechnung.txt
