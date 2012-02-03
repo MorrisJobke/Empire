@@ -1,0 +1,17 @@
+Absender:
+	@name, @strasse, @ort
+
+Empfänger:
+	@kName, @kStrasse, @kOrt
+
+Posten
+===================================================
+@posten{
+@pname (@anzahl Stück a @preis€)
+	= @summe
+}
+===================================================
+Gesamtpreis: @summe
+
+Mit freundlichen Grüßen,
+@name
