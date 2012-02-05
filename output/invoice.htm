@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Rechnung 13</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <style>
+      th { border-bottom: 2px solid #000; }
+      td { border-bottom: 1px solid #bbb; font-size: 110%; padding: 7px 0; }
+      tr.total td { border: none; padding-top: 20px; font-weight: bold; }
+    </style>
+  </head>
+  <body style="font-family: Cambria, Georgia, Times, ‘Times New Roman’, serif;">
+    <div style="text-align:right;font-size: 70%;margin-bottom:80px;">
+      <p>
+        Max Mustermann<br />
+        Musterstraße 23<br />
+        01234 Musterstadt<br />
+        Mobil: 01243/123123<br />
+        Email: max@mustermann.org<br />
+        Ust-IdNr.: 2147483647
+      </p>
+    </div>
+    <div style="font-size: 70%;margin-bottom: -10px;">
+      Max Mustermann | Musterstraße 23 | 01234 Musterstadt
+    </div>
+    <div style="line-height: 25px;margin-bottom: 50px;">
+      <p>
+        Elisa Freundlich<br />
+        Straße der Nationen 62<br />
+        34965 Köln
+      </p>
+    </div>
+    <div style="border:2px solid #ddd;border-left:none;border-right:none;">
+      <div style="float:right;">
+        <p>
+          Rechnungsnummer: 13<br />
+          Leistungsdatum: 21.01.2012<br />
+          Datum: 20.12.2012
+        </p>
+      </div>
+      <div style="font-weight: bold;">
+        <p>
+          Rechnung 13
+        </p>
+      </div>
+      <div style="clear:both;">
+      </div>
+    </div>
+    <div style="margin: 60px 0;">
+      <table style="width:100%;text-align:left;" cellspacing="0">
+        <colgroup>
+          <col width="10%"/>
+          <col width="15%"/>
+          <col width="15%"/>
+          <col width="70%"/>
+          <col width="15%"/>
+        </colgroup>
+        <tr>
+          <th>#</th>
+          <th>Preis</th>
+          <th>Einheit</th>
+          <th>Beschreibung</th>
+          <th>Netto</th>
+        </tr>
+        {
+        <tr>
+          <td></td>
+          <td>€</td>
+          <td></td>
+          <td></td>
+          <td>€</td>
+        </tr>
+        }
+        <tr class="total">
+          <td colspan="3">Gesamt:</td>
+          <td colspan="2" style="text-align:right;">1€</td>
+        </tr>
+      </table>
+    </div>
+    <div>
+      <p>Im ausgewiesenen Betrag ist gemäß § 19 UStG keine Umsatzsteuer enthalten.</p>
+      <p>
+        Bitte bezahlen Sie den offenen Betrag innerhalb von 30 Tagen unter Angabe Ihrer Rechnungs-Nr. auf folgendes Konto:<br />
+        Bank: May<br />
+        Kontoinhaber: Max Mustermann<br />
+        Konto: 123<br />
+        BLZ: 123456789
+      </p>
+    </div>
+  </body>
+</html>
